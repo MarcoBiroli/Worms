@@ -8,4 +8,5 @@ Hey lets do speedrunners!!!
 Thomas here
 
 Can we all agree to kick Jean out of the project ?
-ofc we can ~camille
+
+Bonjour je suis Jean
