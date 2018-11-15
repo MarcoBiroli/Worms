@@ -10,3 +10,4 @@ Thomas here
 Can we all agree to kick Jean out of the project ?
 
 Bonjour je suis Jean
+ menlevez pas
