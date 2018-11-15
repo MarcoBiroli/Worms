@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -7,11 +6,8 @@
 
 int main(int argc, char *argv[])
 {
+    //This is the main function of the main file, this is what is run as soon as the program is launched.
     QApplication a(argc, argv);
-    /*
-    MainWindow w;
-    w.show();
-    */
 
     //Initialize the window
     QGraphicsScene *scene = new QGraphicsScene();
