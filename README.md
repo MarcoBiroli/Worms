@@ -9,5 +9,5 @@ Thomas here
 
 Can we all agree to kick Jean out of the project ?
 
-Bonjour je suis Jean
+Bonjour je suis Jean, salut jean, moi c'est Guillaume
  menlevez pas
