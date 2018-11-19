@@ -5,4 +5,4 @@ The goal of this project is to create a replica of the classic WORMS videogame.
 
 Serious talk only.
 
-Jean tiago souleve bcp
+Jean tiago souleve 113kg au benchpress
