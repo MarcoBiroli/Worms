@@ -23,3 +23,7 @@ Projectile::print() {
     cout << "   damage: " << damage << endl;
     cout << "   mass: " << mass << endl << endl;
 }
+
+Projectile::explode() {
+    for (int x = 0; x < window>)
+}

@@ -13,9 +13,11 @@ class Projectile {
         //prints the Projectile's specs
 
         void explode();
-        // if explosion condition is met (collosion or delay timeout), call this function
-        // which generates damage in explosion_radius, with linear decrease of damage from
+        // if explosion condition is met (collosion or delay timeout), call this function.
+        // the function does the following: 
+        // generates damage in explosion_radius, with linear decrease of damage from
         // position of explosion to distance explosion_radius of the center of explosion.
+        // destroys all terrain in radius explosion_radius of center of explosion
 
     private:
         bool is_bouncy;
