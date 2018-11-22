@@ -6,7 +6,7 @@
 
 class Worms: public RigidBody {
     public:
-      Worms(std::string team_name, std::string personal_name, int health, double mass, double x, double y, ...): RigidBody(mass, x, y, ...);
+      Worms(int team_number, std::string personal_name, int health, double mass, double x, double y, ...): RigidBody(mass, x, y, ...);
 
       bool isAlive();
 
@@ -25,7 +25,7 @@ class Worms: public RigidBody {
 
       int* weapons[];
       
-      const std::string team_name;
+      const int team_number; //team number
       const std::string personal_name;
 
 
