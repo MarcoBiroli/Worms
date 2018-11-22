@@ -1,24 +1,14 @@
 #pragma once
 #include "math.h"
+#include "QPixmap"
 
-class Force{
+class Collider{
     private:
-        double magnitude = 0, x = 0, y = 0;
+        int id;
+        double x = 0, y = 0;
+        QPixmap colliding_map;
     public:
-        void computeMagnitude(){
-            this->magnitude = pow(pow(x, 2) + pow(y, 2), 0.5);
-        }
-        void setX(double ix){
-            this->x = ix;
-            this->computeMagnitude();
-        }
-        void setY(double iy){
-            this->y = iy;
-            this->computeMagnitude();
-        }
-        void set
-        Force operator+(const Force& other){
-
-        }
-
+        Collider(double ix, double iy, QPixmap map, int iid);
+        void set_map(QPixmap map);
+        QPair<int, bool> check_collision(QMap<int, Collider> others);
 };

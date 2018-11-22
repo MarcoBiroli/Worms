@@ -7,6 +7,7 @@ class RigidBody{
         double bouciness_f = 0;
         QVector currentForce = QVector(0, 0);
         bool stable = false; 
+        int id;
     public:
         void addForce(Force F);
         double distance(RigidBody other);
@@ -14,7 +15,13 @@ class RigidBody{
 
 
         void setbounciness();
-        void setm(); setx(); sety(); setvx(); setvy(); 
-
-
+        void setm(); 
+        void setx(); 
+        void sety(); 
+        void setvx(); 
+        void setvy(); 
+        void setax();
+        void setay();
+        bool getstable();
+       
 };
