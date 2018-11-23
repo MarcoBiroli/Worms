@@ -3,6 +3,9 @@
 #include "Collider.h"
 #include <QDebug>
 
+
+//me and camillo need to add comments here
+
 class RigidBody:public Collider{
     private:
         double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
