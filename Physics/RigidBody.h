@@ -1,5 +1,8 @@
 #pragma once
-#include "Force.h"
+
+#discard this file
+
+
 
 class RigidBody{
     private:
