@@ -2,6 +2,58 @@
 #include <iostream>
 #include <cmath>
 
+
+
+
+
+RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QPixmap map) : Collider(ix, iy, map, iid){
+    this->mass = imass;
+    this->vx = vx0;
+    this->vy = vy0;
+    this->ax = ax0;
+    this->ay = ay0;
+}
+
+ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy, -1){
+    this->mass = imass;
+    this->vx = 0;
+    this->vy = 0;
+    this->ax = 0;
+    this->ay = 0;
+}
+
+void addForce(QPair<double, double> F)
+{
+    currentForce.first += F.first;
+    currentForce.second += F.second;
+}
+
+
+
+
+
+double RigidBody::distance(RigidBody other){
+	xo=getx(other);
+	yo=gety(other);
+	distance= std::sqrt((x-xo)*(x-xo) + (y-yo) * (y-yo));
+	return distance;
+}
+
+
+void RigidBody::simulate(double dt){
+
+	dt /= 1000;
+        ax = currentForce.first/mass;
+        ay = currentForce.second/mass;
+	vx=vx+ax*dt;
+	vy=vy+ay*dt;
+	x=x+vx*dt;
+	y=y+vy*dt;
+
+}
+
+
+       
 void RigidBody::setBounciness(double b){
 	bounciness=b;
 }
@@ -78,21 +130,4 @@ void RigidBody::addForce(QVector F){
 	currentForce=currentForce+F;
 }
 
-double distance(RigidBody other){
-	xo=getx(other);
-	yo=gety(other);
-	distance= std::sqrt((x-xo)*(x-xo) + (y-yo) * (y-yo));
-	return distance;
-}
 
-
-void RigidBody::simulate(double dt){
-
-	ax=F.value(0)/m;
-	ay=F.value(1)/m;
-	vx=vx+ax*dt;
-	vy=vy+ay*dt;
-	x=x+vx*dt;
-	y=y+vy*dt;
-
-}
