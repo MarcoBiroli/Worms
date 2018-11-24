@@ -26,7 +26,7 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy, -1){
 void RigidBody::bounce(QPair<double, double> normal)
 {
     double k = 2.0*(this->vx* normal.first + this->vy*normal.second);
-    this -> vx = -(this->vx - k* normal.first)*this->bounciness_f*this->bounciness_f;
+    this -> vx = (this->vx - k* normal.first)*this->bounciness_f*this->bounciness_f;
     this -> vy = -(this->vy - k*normal.second)*this->bounciness_f*this->bounciness_f;
 }
 

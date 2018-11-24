@@ -25,10 +25,10 @@ int main(int argc, char *argv[])
         ground->circ_delete(250, 250, 100);
 
         //Add the ground image to the window so it gets displayed
-        QGraphicsPixmapItem *tmp_ground = new QGraphicsPixmapItem(QPixmap::fromImage(ground->colliding_map));
+        QGraphicsPixmapItem *tmp_ground = new QGraphicsPixmapItem(QPixmap::fromImage(ground->get_map()));
         scene-> addItem(tmp_ground);
 
-        QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(body->colliding_map)); //?
+        QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(body->get_map())); //?
 
         tmp->setFlag(QGraphicsItem::ItemIsMovable);
         scene->addItem(tmp);
