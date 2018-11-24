@@ -27,15 +27,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    ground.cpp \
-    collision.cpp \
-    circle.cpp
+    ground.cpp
 
 HEADERS += \
         mainwindow.h \
-    ground.h \
-    collision.h \
-    circle.h
+    ground.h
 
 FORMS += \
         mainwindow.ui
