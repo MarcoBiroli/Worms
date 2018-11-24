@@ -1,9 +1,8 @@
 #include "RigidBody.h"
 #include <iostream>
-#include <Qtmath>
+#include <QtMath>
 
 
-//me and camillo need to add comments here
 
 
 
@@ -26,7 +25,7 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy, -1){
 void RigidBody::bounce(QPair<double, double> normal)
 {
     double k = 2.0*(this->vx* normal.first + this->vy*normal.second);
-    this -> vx = -(this->vx - k* normal.first)*this->bounciness_f*this->bounciness_f;
+    this -> vx = (this->vx - k* normal.first)*this->bounciness_f*this->bounciness_f;
     this -> vy = -(this->vy - k*normal.second)*this->bounciness_f*this->bounciness_f;
 }
 
@@ -41,10 +40,10 @@ void RigidBody::addForce(QPair<double, double> F)
 
 
 double RigidBody::distance(RigidBody other){
-    //double xo=getx(other.x);
-    //double yo=gety(other.y);
-    //distance= std::sqrt((x-xo)*(x-xo) + (y-yo) * (y-yo));
-    //return distance;
+    double xo=other.getX();
+    double yo=other.getY();
+    double distance= std::sqrt((this->x-xo)*(this->x-xo) + (this->y-yo) * (this->y-yo));
+    return distance;
 }
 
 
@@ -56,54 +55,54 @@ void RigidBody::simulate(double dt){
     ay = currentForce.second/mass;
     vx=vx+ax*dt;
     vy=vy+ay*dt;
-    x=x+vx*dt;
-    y=y+vy*dt;
+    cmx=cmx+vx*dt;
+    cmy=cmy+vy*dt;
     currentForce.first = 0;
     currentForce.second = 0;
     //if (qFabs(vx) <= 0.1 && qFabs(vy) <= 0.1){ this->stable = true;}
-    
+    //decide how to handle the fact that the body must be stable on the ground when it has no velocity
+    //problem: if I set that it is stable when the velocity is zero then it will stop on the top
+    //while bouncing.
+    // if I impose also that it has to have no forces applyed than problem on the ground: collision
+    //is not seen as a force.
 }
 
 
 
-/*void RigidBody::setBounciness(double b){
-    bounciness=b;
+
+
+void RigidBody::setbounciness(double b){
+    bounciness_f=b;
 }
 
 void RigidBody::setm(double m){
     mass=m;
 }
 
-void RigidBody::setx(double x0) {
-    x=x0;
+void RigidBody::setvx(double v_x) {
+    vx=v_x;
 }
 
-void RigidBody::sety(double y0) {
-    y=y0;
+void RigidBody::setvy(double v_y) {
+    vy=v_y;
 }
 
-void RigidBody::setvx(double vx0) {
-    vx=vx0;
+void RigidBody::setay(double a_y){
+    ay=a_y;
 }
 
-void RigidBody::setvy(double vy0) {
-    vy=vy0;
+void RigidBody::setax(double a_x){
+    ax=a_x;
 }
 
-void RigidBody::setay(double ay0){
-    ay=ay0;
+void RigidBody::setstable(bool a){
+    stable = a;
+
 }
 
-void RigidBody::setax(double ax0){
-    ax=ax0;
-}
 
-void RigidBody::setstable(bool B){
-    stable=B;
-}
-
-double RigidBody::getBounciness(){
-    return bounciness;
+double RigidBody::getbounciness(){
+    return bounciness_f;
 }
 
 bool RigidBody::getstable(){
@@ -111,15 +110,7 @@ bool RigidBody::getstable(){
 }
 
 double RigidBody::getm(){
-    return m;
-}
-
-double RigidBody::getx(){
-    return x;
-}
-
-double RigidBody::gety(){
-    return y;
+    return mass;
 }
 
 double RigidBody::getvx(){
@@ -137,4 +128,4 @@ double RigidBody::getax(){
 double RigidBody::getay(){
     return ay;
 }
-*/
+
