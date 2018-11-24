@@ -88,5 +88,3 @@ QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
     return QPair<bool, QPair<double, double>> (colliding, QPair<double, double> (cmx-cm_otherx,cmy-cm_othery));
 }
 
-
-
