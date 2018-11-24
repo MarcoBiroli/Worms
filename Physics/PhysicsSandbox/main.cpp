@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
         Ground *ground = new Ground(500, 500);
         //Create a Rigidbody
         RigidBody* body = new RigidBody(1, 250, 0);
+        body->bounciness_f = 1;
+
 
 
         //Delete everything in the ground in radius of 100px aroud (250,250)
@@ -34,6 +36,7 @@ int main(int argc, char *argv[])
 
 
 
+
         QTime lastUpdate= QTime::currentTime();
         int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
         double update_time = 10;
@@ -45,15 +48,15 @@ int main(int argc, char *argv[])
             timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
             if(timeSinceLastUpdate>update_time){
                 body->addForce(QPair<double, double>(0, 9.81));
-                body->simulate(timeSinceLastUpdate);
 
-                //if (body->check_collision.first() == true){
-                // body-> addForce(check_collision.second());
-                //
-                //}
-                body->check_collision(tmp_ground);
+                for(int i = 0; i< 10; i++)
+                {
+                    body->simulate(timeSinceLastUpdate);
 
-
+                    if (body->check_collision(*ground).first == true){
+                        body->bounce(body->check_collision(*ground).second);
+                        }
+                }
                 tmp->setPos(body->getX(), body->getY());
                 lastUpdate = QTime::currentTime();
             }

@@ -9,7 +9,7 @@ class Collider{
         double cmx, cmy;
     public:
         double x = 0, y = 0; //change to private and write their get functions
-        QImage colliding_map = QImage(64,64,QImage::Format_RGB32); //change to black
+        QImage colliding_map = QImage(32,32,QImage::Format_RGB32); //change to black
         Collider();
         Collider(double ix, double iy, QImage map, int iid);
         Collider(double ix, double iy, int iid);
