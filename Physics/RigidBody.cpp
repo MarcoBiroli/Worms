@@ -55,8 +55,8 @@ void RigidBody::simulate(double dt){
     ay = currentForce.second/mass;
     vx=vx+ax*dt;
     vy=vy+ay*dt;
-    x=x+vx*dt;
-    y=y+vy*dt;
+    cmx=cmx+vx*dt;
+    cmy=cmy+vy*dt;
     currentForce.first = 0;
     currentForce.second = 0;
     //if (qFabs(vx) <= 0.1 && qFabs(vy) <= 0.1){ this->stable = true;}
