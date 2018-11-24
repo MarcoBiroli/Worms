@@ -39,4 +39,7 @@ class Collider{
         }
         double getX(){return this->x;}
         double getY(){return this->y;}
+
+        double getId(){return this->id;}
+        void setId(int iid){this->id = iid;}
 };

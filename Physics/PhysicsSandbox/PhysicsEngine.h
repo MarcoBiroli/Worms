@@ -13,9 +13,8 @@ class PhysicsEngine{
         QMap<int, Collider> colliders = QMap<int, Collider>();
         //Ground ground;
     public:
-        void add_RigidBodies(QMap<int, RigidBody> others);
-        void add_indices(QVector<RigidBody> others);
-        void add_Colliders(QMap<int, Collider> others);
+        void add_RigidBody(RigidBody other);
+        void add_Collider(Collider other);
         void update(double dt);
     
 };

@@ -1,26 +1,20 @@
 #include "PhysicsEngine.h"
 
-void PhysicsEngine::add_RigidBodies(QMap<int, RigidBody> others)
+void PhysicsEngine::add_RigidBody(RigidBody other)
 {
-    //this->rigidbodies.append(others);
+    int max_key = this->rigidbodies.end().key();
+    other.set_id(max_key + 1);
+    this->rigidbodies.insert(max_key + 1, other);
 }
 
-void PhysicsEngine::add_Colliders(QMap<int, Collider> others)
+void PhysicsEngine::add_Collider(Collider other)
 {
-    //this->colliders.append(others);
+    int max_key = this->colliders.end().key();
+    other.set_id(max_key + 1);
+    this->rigidbodies.insert(max_key + 1, other);
 }
 
 void PhysicsEngine::update(double dt)
 {
-    //ground.collider.check_collision(this->colliders);
-    QMap<int, Collider>::iterator i = this->colliders.begin();
-    //for(i != this->colliders.end(); i++)
-    //{
-        //i.value().check_collision(this->colliders);
-    //}
-    QMap<int, RigidBody>::iterator j = this->rigidbodies.begin();
-    //for(j != this->rigidbodies.end(); j++)
-    //{
-        //j.simulate(dt);
-    //}
+
 }

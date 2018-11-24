@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         Ground *ground = new Ground(500, 500);
         //Create a Rigidbody
         RigidBody* body = new RigidBody(1, 250, 0);
-        body->bounciness_f = 1;
+        body->bounciness_f = 0.5;
 
 
 
