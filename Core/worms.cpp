@@ -4,16 +4,22 @@ bool worms::isAlive() const{
   return health > 0; 
 }
 
-void worms::move(bool right){               // Is it here that we should link the keys of the keyboards to the features ew want to implement?
+void worms::move(bool right){               
+                                              
+}
+
+ 
+
+-----------------------------------------------------------------------------------------------
+// Is it here that we should link the keys of the keyboards to the features ew want to implement?
                                             // Hence set the right arrow to add say 5 velocity to the right.
                                             // Here are some ascii codes: 37(left arrow)
                                             //                            38(up arrow)
                                             //                            39(right arrow)
                                             //                            40(down arrow)
-                                            
-          
+// Problem: How to make it smooth? If we use the switch method, we should add the break; instruction after each successful 
+// checking. Will it break the entire process? Is it fine like this?
   
-}
 // This is also something that I found as an example of how to handle key inputs. Remark that the ascii is here not the same.
 // We will have to see how it works depending on the keyboard.
 /*
@@ -79,3 +85,12 @@ Right
 
 Up
 */
+-----------------------------------------------------------------------------------------------
+  
+void worms::jump(){ // Should be the same as for the move.
+  
+}
+  
+
+  
+  
