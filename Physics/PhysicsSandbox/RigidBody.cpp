@@ -42,7 +42,7 @@ void RigidBody::addForce(QPair<double, double> F)
 double RigidBody::distance(RigidBody other){
     double xo=other.getX();
     double yo=other.getY();
-    double distance= std::sqrt((this->x-xo)*(this->x-xo) + (this->y-yo) * (this->y-yo));
+    double distance= std::sqrt((this->cmx-xo)*(this->cmx-xo) + (this->cmy-yo) * (this->cmy-yo));
     return distance;
 }
 
@@ -55,8 +55,8 @@ void RigidBody::simulate(double dt){
     ay = currentForce.second/mass;
     vx=vx+ax*dt;
     vy=vy+ay*dt;
-    cmx=cmx+vx*dt;
-    cmy=cmy+vy*dt;
+    this->setX(this->getX() + vx*dt);
+    this->setY(this->getY() + vy*dt);
     currentForce.first = 0;
     currentForce.second = 0;
     //if (qFabs(vx) <= 0.1 && qFabs(vy) <= 0.1){ this->stable = true;}
