@@ -22,6 +22,9 @@ void worms::move(bool right){
   
 // This is also something that I found as an example of how to handle key inputs. Remark that the ascii is here not the same.
 // We will have to see how it works depending on the keyboard.
+  
+// Remark the function getch()
+  
 /*
 https://stackoverflow.com/questions/24708700/c-detect-when-user-presses-arrow-key
 CODE:
