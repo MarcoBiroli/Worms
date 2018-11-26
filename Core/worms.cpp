@@ -88,6 +88,29 @@ Right
 
 Up
 */
+// TO IMPLEMENT USING QT
+/*
+bool QKeyEvent::isAutoRepeat() const
+
+Returns true if this event comes from an auto-repeating key; returns false if it comes from an initial key press.
+
+Note that if the event is a multiple-key compressed event that is partly due to auto-repeat, 
+this function could return either true or false indeterminately.  
+*/
+  
+/*
+int QKeyEvent::key() const
+
+Returns the code of the key that was pressed or released.
+
+See Qt::Key for the list of keyboard codes. These codes are independent of the underlying window system. 
+Note that this function does not distinguish between capital and non-capital letters, use the text() function (returning the Unicode text the key generated) for this purpose.
+
+A value of either 0 or Qt::Key_unknown means that the event is not the result of a known key; for example, 
+it may be the result of a compose sequence, a keyboard macro, or due to key event compression.
+
+See also Qt::WA_KeyCompression.
+*/
 -----------------------------------------------------------------------------------------------
   
 void worms::jump(){ // Should be the same as for the move.
