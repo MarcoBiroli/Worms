@@ -152,7 +152,9 @@ void worms::pickUpWeapon(int weapon_ID, int ammo){
 }
        
        
-int changeAngle(double angle_change){
+int changeAngle(double angle_change){ //  Renvoie un degré
+  
+  
 }
  
        
