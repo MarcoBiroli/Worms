@@ -7,26 +7,26 @@ bool worms::isAlive() const{
 void worms::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED 
   
   // MOVE TO THE RIGHT
-  if(int QKeyEvent::key() const == 0x01000014){           //If the input key is the right arrow which has code 0x01000014, then give speed to the right to the rigid body.
-    vx0 += 5;
-    if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000014){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
-      vx0 += 5;                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
+  if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
+    worms.addForce(QPair<double, double>(5, 0));
+    if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
+      worms.addForce(QPair<double, double>(5, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
       }
   }
   
   // MOVE TO THE LEFT
-  if (int QKeyEvent::key() const == 0x01000012){ // To move to the left just take out 5 velocity.
-    vx0 += -5;
+  if (int QKeyEvent::key() const == 0x41){ // To move to the left just take out 5 velocity.
+    worms.addForce(QPair<double, double>(-5, 0));
     }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000012){
-      vx0 += -5;
+    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x41){
+      worms.addForce(QPair<double, double>(-5, 0));
       }
    
   // JUMP
-  if (int QKeyEvent::key() const == 0x01000013){ // To move to the left just take out 5 velocity.
-    vy0 += 5;
+  if (int QKeyEvent::key() const == 0x57){ // To move jump give a negative force to the y-axis (recall 
+    worms.addForce(QPair<double, double>(0, -5));
     }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000013){
+    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x57){
       vy0 += 5;
       }
 }
@@ -140,9 +140,23 @@ Qt::Key_Right	0x01000014
 Qt::Key_Left	0x01000012
 Qt::Key_Up	0x01000013
 Qt::Key_Down	0x01000015
+
+Qt::Key_A	0x41   Move to the left   
+Qt::Key_D	0x44   Move to the right 
+Qt::Key_W	0x57   jump
 */
 -----------------------------------------------------------------------------------------------
-  
+
+void worms::pickUpWeapon(int weapon_ID, int ammo){
+  // TO DO
+}
+       
+       
+int changeAngle(double angle_change){
+}
+ 
+       
+
   
 
   
