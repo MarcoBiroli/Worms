@@ -27,11 +27,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    ground.cpp
+    ground.cpp \
+    worms.cpp
 
 HEADERS += \
         mainwindow.h \
-    ground.h
+    ground.h \
+    worms.h
 
 FORMS += \
         mainwindow.ui

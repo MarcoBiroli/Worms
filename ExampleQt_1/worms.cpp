@@ -2,5 +2,4 @@
 
 Worms::Worms()
 {
-
 }
