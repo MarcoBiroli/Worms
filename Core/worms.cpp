@@ -4,11 +4,21 @@ bool worms::isAlive() const{
   return health > 0; 
 }
 
-void worms::move(bool right){               
-                                              
+void worms::move(bool right){
+  if(int QKeyEvent::key() const == 0x01000014){           //If the input key is the right arrow which has code 0x01000014, then give speed to the right to the rigid body.
+    vx0 += 5;
+    if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000014){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
+      vx0 += 5;                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
+      }
+  }
+  if (int QKeyEvent::key() const == 0x01000012){ // To move to the left just take out 5 velocity.
+    vx0 += -5;
+    }
+    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000012){
+      vx0 += -5;
+      }
 }
 
- 
 
 -----------------------------------------------------------------------------------------------
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?
@@ -104,12 +114,20 @@ int QKeyEvent::key() const
 Returns the code of the key that was pressed or released.
 
 See Qt::Key for the list of keyboard codes. These codes are independent of the underlying window system. 
-Note that this function does not distinguish between capital and non-capital letters, use the text() function (returning the Unicode text the key generated) for this purpose.
+Note that this function does not distinguish between capital and non-capital letters, use the text() function
+(returning the Unicode text the key generated) for this purpose.
 
 A value of either 0 or Qt::Key_unknown means that the event is not the result of a known key; for example, 
 it may be the result of a compose sequence, a keyboard macro, or due to key event compression.
 
 See also Qt::WA_KeyCompression.
+*/
+  
+/*
+Qt::Key_Right	0x01000014
+Qt::Key_Left	0x01000012
+Qt::Key_Up	0x01000013
+Qt::Key_Down	0x01000015
 */
 -----------------------------------------------------------------------------------------------
   
