@@ -4,18 +4,30 @@ bool worms::isAlive() const{
   return health > 0; 
 }
 
-void worms::move(bool right){
+void worms::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED 
+  
+  // MOVE TO THE RIGHT
   if(int QKeyEvent::key() const == 0x01000014){           //If the input key is the right arrow which has code 0x01000014, then give speed to the right to the rigid body.
     vx0 += 5;
     if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000014){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
       vx0 += 5;                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
       }
   }
+  
+  // MOVE TO THE LEFT
   if (int QKeyEvent::key() const == 0x01000012){ // To move to the left just take out 5 velocity.
     vx0 += -5;
     }
     if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000012){
       vx0 += -5;
+      }
+   
+  // JUMP
+  if (int QKeyEvent::key() const == 0x01000013){ // To move to the left just take out 5 velocity.
+    vy0 += 5;
+    }
+    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x01000013){
+      vy0 += 5;
       }
 }
 
@@ -131,9 +143,6 @@ Qt::Key_Down	0x01000015
 */
 -----------------------------------------------------------------------------------------------
   
-void worms::jump(){ // Should be the same as for the move.
-  
-}
   
 
   
