@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
-    <height>512</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,11 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -25,16 +29,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>680</width>
+     <width>400</width>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuWorms">
-    <property name="title">
-     <string>Worms</string>
-    </property>
-   </widget>
-   <addaction name="menuWorms"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

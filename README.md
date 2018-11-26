@@ -3,7 +3,7 @@ CSE201-Project
 
 The goal of this project is to create a replica of the classic WORMS videogame.
 
-Serious talk only.
-
-Test
-Louis-Mael  was here
+The Project has been split in three teams:
+- Core
+- Gui
+- Physics Engine

@@ -1,16 +1,14 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-10-15T13:14:44
+# Project created by QtCreator 2018-11-23T13:10:28
 #
 #-------------------------------------------------
 
 QT       += core gui
-QT       += widgets
-QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Worms
+TARGET = PhysicsSandbox
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,13 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    ground.cpp \
-    worms.cpp
+        mainwindow.cpp \
+        Collider.cpp \
+        PhysicsEngine.cpp \
+        RigidBody.cpp \
+        ground.cpp
 
 HEADERS += \
         mainwindow.h \
-    ground.h \
-    worms.h
+        Collider.h \
+        PhysicsEngine.h \
+        RigidBody.h \
+        ground.h
 
 FORMS += \
         mainwindow.ui
