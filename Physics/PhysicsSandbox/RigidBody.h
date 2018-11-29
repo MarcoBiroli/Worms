@@ -13,12 +13,9 @@ private:
     bool stable = false;
     
 public:
-    bool is_grounded = false;
-
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map);
     RigidBody(double imass, double ix, double iy);
     
-    void bounce(QPair<double, double> normal);
     void bounce(QPair<double, double> normal, double dt);
 
     void addForce(QPair<double, double> F);
