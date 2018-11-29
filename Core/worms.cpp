@@ -6,9 +6,6 @@ bool Worm::isAlive() const{
   return health > 0; 
 }
 
-void Worm::move(bool right){
-}
-
 void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 }
@@ -127,12 +124,6 @@ Right
 
 Up
 */
------------------------------------------------------------------------------------------------
-  
-void worms::jump(){ // Should be the same as for the move.
-  
-}
-  
 
   
   

@@ -14,7 +14,6 @@ class Worm: public RigidBody {
       bool isAlive();
 
       void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
-      void jump();//adds upwards velocity
       void pickUpWeapon(int weapon_ID, int ammo);
 
       void weaponSelect(int weapon_ID);
