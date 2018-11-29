@@ -9,7 +9,7 @@
 
 class Worm: public RigidBody {
     public:
-      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, ...): RigidBody(mass, x, y, ...);
+      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y);
 
       bool isAlive();
 
@@ -25,7 +25,7 @@ class Worm: public RigidBody {
     private:
       int health;
       int current_weapon;
-      int weapon_angle;
+      int weapon_angle = 0; //intially 0
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
       const std::string personal_name;

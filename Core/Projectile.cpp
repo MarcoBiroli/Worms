@@ -5,7 +5,7 @@ using namespace std;
 #include "Projectile.hpp"
 
 Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, std::string weapon_name, double x, double y) {
-    //: RigidBody(mass, x, y) {
+    : RigidBody(mass, x, y) {
     this->is_bouncy = is_bouncy;
     this->delay = delay;
     this->radius = radius;

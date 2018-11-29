@@ -2,6 +2,17 @@
 
 #define M_PI           3.14159265358979323846  /* pi */
 
+Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y)
+    : RigidBody(mass, x, y,) {
+    this->health = health;
+    this->team_number = team_number;
+    this->personal_name = personal_name;
+}
+
+Worm::~Worm() {
+    delete ammo;
+}
+
 bool Worm::isAlive() const{
   return health > 0; 
 }
