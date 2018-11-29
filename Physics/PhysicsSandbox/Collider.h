@@ -9,6 +9,9 @@ class Collider{
     private:
         int id; //Collider ID
         double x = 0, y = 0; //default position of x and y
+        double skin_depth_percent = 0.1;
+        int skin_depth_pixels = 0;
+
 
     protected:
         double cmx, cmy; //Central of mass x and y
@@ -38,5 +41,7 @@ class Collider{
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)
 
         QPair<bool, QPair<double, double>> check_collision(Collider &other);
+
+        //Destructor function do!!
 
 };

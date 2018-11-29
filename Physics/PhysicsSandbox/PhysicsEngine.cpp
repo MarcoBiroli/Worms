@@ -33,7 +33,7 @@ void PhysicsEngine::update(double dt)
         for(j = this->colliders.begin(); j != this->colliders.end(); j++){
             collision_result = i.value()->check_collision(*j.value());
             if(collision_result.first){
-                i.value()->bounce(collision_result.second);
+                i.value()->bounce(collision_result.second,dt);
             }
         }
         i.value()->simulate(dt);
