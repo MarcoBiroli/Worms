@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RIGIDBODY_H
+#define RIGIDBODY_H
+
 #include "Collider.h"
 
 #include <QPair>
@@ -52,3 +54,5 @@ public:
     double getay();
     
 };
+
+#endif //RIGIDBODY_H
