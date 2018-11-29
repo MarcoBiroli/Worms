@@ -1,6 +1,7 @@
 #pragma once
-#include <QPair>
 #include "Collider.h"
+
+#include <QPair>
 #include <QDebug>
 
 
