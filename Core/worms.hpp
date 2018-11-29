@@ -2,7 +2,8 @@
 
 #include <string>
 
-#include "RigidBody.hpp"
+#include "../Physics/RigidBody.h"
+#include "Projectile.hpp"
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
 
@@ -12,7 +13,8 @@ class Worm: public RigidBody {
 
       bool isAlive();
 
-      void move();//move implemented Qt   ***(how deal with slopes, etc?)
+      void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
+      void jump();//adds upwards velocity
       void pickUpWeapon(int weapon_ID, int ammo);
 
       void weaponSelect(int weapon_ID);
@@ -26,7 +28,7 @@ class Worm: public RigidBody {
       int current_weapon;
       int weapon_angle;
 
-      int ammo [NUMBER_OF_WEAPONS];
+      int ammo[NUMBER_OF_WEAPONS];
       
       const int team_number; //team number
       const std::string personal_name;

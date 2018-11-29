@@ -1,36 +1,25 @@
 #include "worms.hpp"
 
-bool worms::isAlive() const{
+bool Worm::isAlive() const{
   return health > 0; 
 }
 
-void worms::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED 
-  
-  // MOVE TO THE RIGHT
-  if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
-    worms.addForce(QPair<double, double>(5, 0));
-    if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
-      worms.addForce(QPair<double, double>(5, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
-      }
-  }
-  
-  // MOVE TO THE LEFT
-  if (int QKeyEvent::key() const == 0x41){ // To move to the left just take out 5 velocity.
-    worms.addForce(QPair<double, double>(-5, 0));
-    }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x41){
-      worms.addForce(QPair<double, double>(-5, 0));
-      }
-   
-  // JUMP
-  if (int QKeyEvent::key() const == 0x57){ // To move jump give a negative force to the y-axis (recall 
-    worms.addForce(QPair<double, double>(0, -5));
-    }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x57){
-      vy0 += 5;
-      }
+void Worm::move(bool right){               
+                                              
 }
 
+void Worm::weaponSelect(int weapon_ID) {
+    this->current_weapon = weapon_ID;
+}
+
+void Worm::fireWeapon(double power, std::vector* projectile_list) {
+    current_projectile = weapons[weapon_ID]
+    current_projectile.set_inital_position(double this->x, double this->y); //might need to offset initial position to avoid worm shooting himself 
+    current_projectile.addForce(QPair<double, double> )
+    projectile_list->push_back(current_weapon);
+
+
+}
 
 -----------------------------------------------------------------------------------------------
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?
@@ -110,56 +99,11 @@ Right
 
 Up
 */
-// TO IMPLEMENT USING QT
-/*
-bool QKeyEvent::isAutoRepeat() const
-
-Returns true if this event comes from an auto-repeating key; returns false if it comes from an initial key press.
-
-Note that if the event is a multiple-key compressed event that is partly due to auto-repeat, 
-this function could return either true or false indeterminately.  
-*/
-  
-/*
-int QKeyEvent::key() const
-
-Returns the code of the key that was pressed or released.
-
-See Qt::Key for the list of keyboard codes. These codes are independent of the underlying window system. 
-Note that this function does not distinguish between capital and non-capital letters, use the text() function
-(returning the Unicode text the key generated) for this purpose.
-
-A value of either 0 or Qt::Key_unknown means that the event is not the result of a known key; for example, 
-it may be the result of a compose sequence, a keyboard macro, or due to key event compression.
-
-See also Qt::WA_KeyCompression.
-*/
-  
-/*
-Qt::Key_Right	0x01000014
-Qt::Key_Left	0x01000012
-Qt::Key_Up	0x01000013
-Qt::Key_Down	0x01000015
-
-Qt::Key_A	0x41   Move to the left   
-Qt::Key_D	0x44   Move to the right 
-Qt::Key_W	0x57   jump
-*/
 -----------------------------------------------------------------------------------------------
-
-void worms::pickUpWeapon(int weapon_ID, int ammo){
-  // TO DO
-}
-       
-       
-int changeAngle(double angle_change){  
   
+void worms::jump(){ // Should be the same as for the move.
   
 }
-//  Returns an angle. We assume that the angle is set to 0 at the beginning. 
- 
-       
-
   
 
   
