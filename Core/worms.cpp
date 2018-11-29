@@ -10,6 +10,10 @@ void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 }
 
+void Worm::pickUpWeapon(int weapon_ID, int ammo) {
+    
+} 
+
 void Worm::fireWeapon(double power, std::vector* projectile_list) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:

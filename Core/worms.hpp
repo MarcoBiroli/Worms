@@ -26,9 +26,7 @@ class Worm: public RigidBody {
       int health;
       int current_weapon;
       int weapon_angle;
-
-      int ammo[NUMBER_OF_WEAPONS];
-      
+      int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
       const std::string personal_name;
 };
