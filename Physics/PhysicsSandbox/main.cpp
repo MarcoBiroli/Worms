@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include "ground.h"
 #include "Collider.h"
