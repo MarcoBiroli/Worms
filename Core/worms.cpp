@@ -10,20 +10,27 @@ Worm::Worm(int team_number, std::string personal_name, int health, double mass, 
 }
 
 Worm::~Worm() {
-    delete ammo;
+    delete []ammo;
 }
 
 bool Worm::isAlive() const{
   return health > 0; 
 }
 
+void Worm::pickUpWeapon(int weapon_ID, int ammo) {
+    ammo[weapon_ID] += ammo;
+}
+
 void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 }
 
-void Worm::pickUpWeapon(int weapon_ID, int ammo) {
-    ammo[weapon_ID] += ammo;
-} 
+void changeAngle(bool clockwise) {
+    if (clockwise): 
+        weapon_angle -= 2;
+    else:
+        weapon_angle = 2;
+}
 
 void Worm::fireWeapon(double power, std::vector* projectile_list) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
@@ -61,6 +68,10 @@ void Worm::move(){           // Takes care of all movements of the worms based o
       }
 }
 
+void Worm:wormDeath() {
+    //call animation
+    //should we call the destructor?
+}
 -----------------------------------------------------------------------------------------------
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?
                                             // Hence set the right arrow to add say 5 velocity to the right.
