@@ -17,8 +17,8 @@ Collider::Collider(double ix, double iy, QImage map, int iid)
     for (int i = 0; i< this->colliding_map.width(); i++){
         for (int j = 0; j< this-> colliding_map.height(); j++){
             if (this->colliding_map.pixelColor(i,j) == Qt::black) {
-                this->cmx += 1;
-                this->cmy += 1;
+                this->cmx += i;
+                this->cmy += j;
                 countblack += 1;
             }
         }
@@ -39,8 +39,8 @@ Collider::Collider(double ix, double iy, int iid)
     for (int i = 0; i< this->colliding_map.width(); i++){
         for (int j = 0; j< this-> colliding_map.height(); j++){
             if (this->colliding_map.pixelColor(i,j) == Qt::black) {
-                this->cmx += 1;
-                this->cmy += 1;
+                this->cmx += i;
+                this->cmy += j;
                 countblack += 1;
             }
         }
@@ -77,11 +77,17 @@ QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
                 if (other.x <= x+i <= other.x + other.colliding_map.width() && other.y <= y + j <= other.y + other.colliding_map.height()){
                     if (other.colliding_map.pixelColor(x+i-other.x, y+j - other.y) == Qt::black){
                         colliding = true;
-                        cm_otherx ++; cm_othery++; nb_colliding_pixels++;
+                        cm_otherx += i;
+                        cm_othery += j;
+                        nb_colliding_pixels++;
                     }
                 }
             }
         }
+    }
+    if(nb_colliding_pixels < this->colliding_map.size().height() * this->colliding_map.size().width() * this->skin_depth)
+    {
+        return QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));
     }
     cm_otherx = cm_otherx / nb_colliding_pixels;
     cm_othery = cm_othery / nb_colliding_pixels;

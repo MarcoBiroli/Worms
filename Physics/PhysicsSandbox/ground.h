@@ -23,7 +23,7 @@ public:
         this->colliding_map.fill(white); //Fill all by white meaning there is no ground.
         for(int i = 0; i < width; i++){ //By default makes all the pixels that are under (y = 250) ground.
             for(int j = 0; j < height; j++){
-                if(j > 250){
+                if(j > height/2){
                     this->colliding_map.setPixel(i, j, black);
                 }
             }
@@ -45,6 +45,7 @@ public:
             }
         }
     }
+    virtual bool is_ground(){return true;}
 };
 
 #endif // GROUND_H

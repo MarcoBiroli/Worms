@@ -47,10 +47,14 @@ void PhysicsEngine::update(double dt) //Update the simulation, dt is in millisec
     for(i; i != this->rigidbodies.end(); i++) //Iterate over all the rigidbodies
     {
         i.value()->addForce(this->general_force); //Add the general forces
+        i.value()->is_grounded = false;
         for(j = this->colliders.begin(); j != this->colliders.end(); j++){ //Check for every collider if it is colliding.
             collision_result = i.value()->check_collision(*j.value());
             if(collision_result.first){ //If it is colliding then act accordingly.
-                i.value()->bounce(collision_result.second);
+                if(j.value()->is_ground()){
+                    i.value()->is_grounded = true;
+                }
+                i.value()->bounce(collision_result.second, dt);
             }
         }
         i.value()->simulate(dt); //Update the rigidbody

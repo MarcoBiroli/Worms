@@ -22,11 +22,11 @@ int main(int argc, char *argv[])
         Ground ground = Ground(1440, 900);
         Engine.add_Collider(&ground);
         //Create a Rigidbody
-        RigidBody* body = Engine.create_rigidbody(1, 250, 0);
+        RigidBody* body = Engine.create_rigidbody(1, 275, 0);
         body->setbounciness(0.8);
 
         //Delete everything in the ground in radius of 100px aroud (250,250)
-        ground.circ_delete(250, 250, 100);
+        ground.circ_delete(250, 450, 100);
 
         //Add the ground image to the window so it gets displayed
 
