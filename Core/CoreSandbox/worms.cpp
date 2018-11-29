@@ -68,11 +68,10 @@ void Worm::move(){           // Takes care of all movements of the worms based o
       }
 }
 
-void Worm:wormDeath() {
+void Worm::wormDeath() {
     //call animation
     //should we call the destructor?
 }
------------------------------------------------------------------------------------------------
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?
                                             // Hence set the right arrow to add say 5 velocity to the right.
                                             // Here are some ascii codes: 37(left arrow)
