@@ -11,7 +11,7 @@ void Worm::weaponSelect(int weapon_ID) {
 }
 
 void Worm::pickUpWeapon(int weapon_ID, int ammo) {
-    
+    ammo[weapon_ID] += ammo;
 } 
 
 void Worm::fireWeapon(double power, std::vector* projectile_list) {
