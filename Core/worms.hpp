@@ -32,6 +32,4 @@ class Worm: public RigidBody {
       
       const int team_number; //team number
       const std::string personal_name;
-
-
 };

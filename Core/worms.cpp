@@ -1,5 +1,7 @@
 #include "worms.hpp"
 
+#define M_PI           3.14159265358979323846  /* pi */
+
 bool Worm::isAlive() const{
   return health > 0; 
 }
@@ -12,12 +14,12 @@ void Worm::weaponSelect(int weapon_ID) {
 }
 
 void Worm::fireWeapon(double power, std::vector* projectile_list) {
-    current_projectile = weapons[weapon_ID]
-    current_projectile.set_inital_position(double this->x, double this->y); //might need to offset initial position to avoid worm shooting himself 
-    current_projectile.addForce(QPair<double, double> )
-    projectile_list->push_back(current_weapon);
-
-
+    Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
+    // We sets its initial parameters:
+    current_projectile.set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself 
+    double x_force, y_force =  power*cos(weapon_angle*(M_PI/180)), -power*sin(weapon_angle*(M_PI/180));
+    current_projectile.addForce(QPair<double, double> x_force, y_force); //apply force generate by shot
+    projectile_list->push_back(current_projectile); //add projectile to projectile vector to be handle by physics engine
 }
 
 void Worm::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED 

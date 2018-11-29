@@ -18,6 +18,9 @@ class Projectile {
 
         void set_inital_position(double x, double y);
 
+        Projectile* clone();
+        //Allows cloning of a projectile. 
+
     private:
         bool is_bouncy;
         int delay;
