@@ -10,7 +10,7 @@ Worm::Worm(int team_number, std::string personal_name, int health, double mass, 
 }
 
 Worm::~Worm() {
-    delete []ammo;
+    delete []ammo; // why do we need to delete?
 }
 
 bool Worm::isAlive() const{
