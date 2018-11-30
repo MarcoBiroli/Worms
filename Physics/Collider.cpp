@@ -56,14 +56,25 @@ Collider::Collider(double ix, double iy, int iid)
 double Collider::getId() { return this->id;}
 void Collider::setId(int iid) {this->id = iid;}
 
+void Collider::setSkin(double depth_percent) {this->skin_depth_percent = depth_percent;}
+
 double Collider::getX() {return this->x;}
 double Collider::getY() {return this->y;}
 
 void Collider::setX(double x1) {this->x = x1;}
 void Collider::setY(double y1) {this->y = y1;}
 
+
+double Collider::getcmX() {return this->cmx;}
+double Collider::getcmY() {return this->cmy;}
+
+void Collider::setcmX(double cx) {this->cmx = cx;}
+void Collider::setcmY(double cy) {this->cmy = cy;}
+
+
 QImage Collider::get_map() {return this->colliding_map;}
 void Collider::set_map(QImage map) {this->colliding_map = map;}
+
 
 //Collision check method
 
