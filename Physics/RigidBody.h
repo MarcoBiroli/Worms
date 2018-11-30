@@ -13,14 +13,14 @@ private:
     //Parameters of Rigid Body.
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
     
-    // The current force is the total current force applied on the body which is a pair (Fx,Fy).
+    //total force applied, (Fx,Fy).
     QPair<double, double> currentForce = QPair<double, double>(0, 0);
     
-    //Bounciness determines the decrease in velocity after hitting another body. It looses no velocity when bounciness=1.
-    double bounciness_f = 0;
+    //parameter by which the velocity is reduced in a collision.
+    double bounciness_f = 0; //0 means complete loss of linear momentum and 1 no loss of it.
     
-    // A body is considered stable when its velocity is close to zero AND the total force applied on it are close to zero.
-    bool stable = false; //When the body is stable we set stable to true.
+    //by defalut the object is not stable.
+    bool stable = false; 
     
 public:
     //Constructors
