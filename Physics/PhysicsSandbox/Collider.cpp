@@ -62,8 +62,17 @@ double Collider::getY() {return this->y;}
 void Collider::setX(double x1) {this->x = x1;}
 void Collider::setY(double y1) {this->y = y1;}
 
+
+double Collider::getcmX() {return this->cmx;}
+double Collider::getcmY() {return this->cmy;}
+
+void Collider::setcmX(double cx) {this->cmx = cx;}
+void Collider::setcmY(double cy) {this->cmy = cy;}
+
+
 QImage Collider::get_map() {return this->colliding_map;}
 void Collider::set_map(QImage map) {this->colliding_map = map;}
+
 
 //Collision check method
 

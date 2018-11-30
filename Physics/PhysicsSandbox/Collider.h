@@ -8,12 +8,11 @@
 class Collider{
     private:
         int id; //Collider ID
-        double x = 0, y = 0; //default position of x and y
-        double skin_depth_percent = 0.1;
-        int skin_depth_pixels = 0;
-
+        double skin_depth_percent = 0.1; //percentage of the body that is allowed to overlap with another collider
+        int skin_depth_pixels = 0; //same thing as the skin_depth_percent but it is in pixels
 
     protected:
+        double x = 0, y = 0; //default position of x and y
         double cmx, cmy; //Central of mass x and y
         QImage colliding_map = QImage(32,32,QImage::Format_RGB32); //default colliding map
 
@@ -35,6 +34,12 @@ class Collider{
         void setX(double x1);
         void setY(double y1);
 
+        double getcmX();
+        double getcmY();
+
+        void setcmX(double cx);
+        void setcmY(double cy);
+
         QImage get_map();
         void set_map(QImage map);
 
@@ -42,6 +47,7 @@ class Collider{
 
         QPair<bool, QPair<double, double>> check_collision(Collider &other);
 
-        //Destructor function do!!
+        //--------Destructor function do!!---------- Thomas?
+
 
 };
