@@ -56,6 +56,8 @@ Collider::Collider(double ix, double iy, int iid)
 double Collider::getId() { return this->id;}
 void Collider::setId(int iid) {this->id = iid;}
 
+void Collider::setSkin(double depth_percent) {this->skin_depth_percent = depth_percent;}
+
 double Collider::getX() {return this->x;}
 double Collider::getY() {return this->y;}
 
