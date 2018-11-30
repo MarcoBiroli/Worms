@@ -1,4 +1,4 @@
-#include "worms.hpp"
+#include "worms.h"
 
 #define M_PI           3.14159265358979323846  /* pi */
 
@@ -14,7 +14,7 @@ Worm::~Worm() {
 }
 
 bool Worm::isAlive() const{
-  return health > 0; 
+  return health > 0;
 }
 
 void Worm::pickUpWeapon(int weapon_ID, int ammo) {
@@ -26,7 +26,7 @@ void Worm::weaponSelect(int weapon_ID) {
 }
 
 void changeAngle(bool clockwise) {
-    if (clockwise): 
+    if (clockwise):
         weapon_angle -= 2;
     else:
         weapon_angle = 2;
@@ -35,14 +35,14 @@ void changeAngle(bool clockwise) {
 void Worm::fireWeapon(double power, std::vector* projectile_list) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
-    current_projectile.set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself 
+    current_projectile.set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
     double x_force, y_force =  power*cos(weapon_angle*(M_PI/180)), -power*sin(weapon_angle*(M_PI/180));
     current_projectile.addForce(QPair<double, double> x_force, y_force); //apply force generate by shot
     projectile_list->push_back(current_projectile); //add projectile to projectile vector to be handle by physics engine
 }
 
-void Worm::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED 
-  
+void Worm::move(){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
+
   // MOVE TO THE RIGHT
   if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
     worms.addForce(QPair<double, double>(5, 0));
@@ -50,7 +50,7 @@ void Worm::move(){           // Takes care of all movements of the worms based o
       worms.addForce(QPair<double, double>(5, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
       }
   }
-  
+
   // MOVE TO THE LEFT
   if (int QKeyEvent::key() const == 0x41){ // To move to the left just take out 5 velocity.
     worms.addForce(QPair<double, double>(-5, 0));
@@ -58,9 +58,9 @@ void Worm::move(){           // Takes care of all movements of the worms based o
     if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x41){
       worms.addForce(QPair<double, double>(-5, 0));
       }
-   
+
   // JUMP
-  if (int QKeyEvent::key() const == 0x57){ // To move jump give a negative force to the y-axis (recall 
+  if (int QKeyEvent::key() const == 0x57){ // To move jump give a negative force to the y-axis (recall
     worms.addForce(QPair<double, double>(0, -5));
     }
     if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x57){
@@ -68,25 +68,24 @@ void Worm::move(){           // Takes care of all movements of the worms based o
       }
 }
 
-void Worm:wormDeath() {
+void Worm::wormDeath() {
     //call animation
     //should we call the destructor?
 }
------------------------------------------------------------------------------------------------
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?
                                             // Hence set the right arrow to add say 5 velocity to the right.
                                             // Here are some ascii codes: 37(left arrow)
                                             //                            38(up arrow)
                                             //                            39(right arrow)
                                             //                            40(down arrow)
-// Problem: How to make it smooth? If we use the switch method, we should add the break; instruction after each successful 
+// Problem: How to make it smooth? If we use the switch method, we should add the break; instruction after each successful
 // checking. Will it break the entire process? Is it fine like this?
-  
+
 // This is also something that I found as an example of how to handle key inputs. Remark that the ascii is here not the same.
 // We will have to see how it works depending on the keyboard.
-  
+
 // Remark the function getch()
-  
+
 /*
 https://stackoverflow.com/questions/24708700/c-detect-when-user-presses-arrow-key
 CODE:
@@ -150,6 +149,3 @@ Right
 
 Up
 */
-
-  
-  
