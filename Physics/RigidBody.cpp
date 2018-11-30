@@ -3,6 +3,7 @@
 #include <QtMath>
 
 
+//Constructors.
 
 RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map) : Collider(ix, iy, map, iid){
     this->mass = imass;
@@ -19,6 +20,9 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy, -1){
     this->ax = 0;
     this->ay = 0;
 }
+
+//Physics methods.
+
 
 void RigidBody::bounce(QPair<double, double> normal, double dt)
 {
@@ -71,6 +75,7 @@ void RigidBody::simulate(double dt){
 }
 
 
+//Set methods.
 
 void RigidBody::setbounciness(double b){
     bounciness_f=b;
@@ -101,6 +106,7 @@ void RigidBody::setstable(bool a){
 
 }
 
+//Get methods.
 
 double RigidBody::getbounciness(){
     return bounciness_f;
