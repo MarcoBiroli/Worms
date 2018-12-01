@@ -5,19 +5,29 @@
 #include "RigidBody.h"
 #include "Collider.h"
 
-using namespace std;
-
 class PhysicsEngine{
     private:
-        QMap<int, RigidBody*> rigidbodies = QMap<int, RigidBody*>();
-        QMap<int, Collider*> colliders = QMap<int, Collider*>();
-        QPair<double, double> general_force = QPair<double, double>(0, 0);
+
+        QMap<int, RigidBody*> rigidbodies = QMap<int, RigidBody*>(); //map of rigidbodies
+        QMap<int, Collider*> colliders = QMap<int, Collider*>(); //map of colliders that are not rigidbodies
+        QPair<double, double> general_force = QPair<double, double>(0, 0); //force (Fx, Fy)
     public:
+        //Constructors
         PhysicsEngine();
         PhysicsEngine(QPair<double, double> gf);
+
+        //Methods
+
         void add_RigidBody(RigidBody* other);
         void add_Collider(Collider* other);
-        void update(double dt);
-        RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map);
+        void update(double dt); //updates the physics simulation by dt (milliseconds)
+
+        //Creating rigidbodies/ colliders and adding them to the engine with an id and returning them
+        RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
         RigidBody* create_rigidbody(double imass, double ix, double iy);
+        RigidBody* get_rigidbody(int id); //access a rigidbody through id
+
+        Collider* create_collider(double ix, double iy, QImage map);
+        Collider* create_collider(double ix, double iy);
+        Collider* get_collider(int id); //access a collider through id
 };
