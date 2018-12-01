@@ -4,7 +4,7 @@
 
 
 
-RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map) : Collider(ix, iy, map, iid){
+RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map) : Collider(ix, iy, map){
     this->mass = imass;
     this->vx = vx0;
     this->vy = vy0;
@@ -12,7 +12,7 @@ RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0,
     this->ay = ay0;
 }
 
-RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy, -1){
+RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
     this->mass = imass;
     this->vx = 0;
     this->vy = 0;

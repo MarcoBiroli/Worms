@@ -9,22 +9,17 @@
 
 class Ground: public Collider
 {
-private:
-    //QImage* map; //This is the image in which we store the information about the ground
-    QRgb white = qRgb(255, 255, 255);   //I define colors here so later in the code i can just us "black" or "white"
-    QRgb black = qRgb(0, 0, 0);         //insted of having to write the full rgb code each time.
-    //QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
-
 public:
     Ground() : Collider(){ //Creates an undefined Ground
     }
     Ground(const int width, const int height): Collider(){ //Creates a ground of a given size.
-        this->colliding_map = QImage(width, height, QImage::Format_RGB32); //Initialize the variables.
-        this->colliding_map.fill(white); //Fill all by white meaning there is no ground.
+        QImage default_ground = QImage(width, height, QImage::Format_RGB32); //Initialize the variables.
+        default_ground.fill(Qt::white); //Fill all by white meaning there is no ground.
+        this->set_map(default_ground);
         for(int i = 0; i < width; i++){ //By default makes all the pixels that are under (y = 250) ground.
             for(int j = 0; j < height; j++){
                 if(j > 250){
-                    this->colliding_map.setPixel(i, j, black);
+                    this->change_pixel(i, j, Qt::black);
                 }
             }
         }
@@ -32,7 +27,7 @@ public:
 
 
     void delete_ground(int x, int y){ //This deletes the ground at one point of coordinate (x,y).
-        this->colliding_map.setPixel(x, y, this->white);
+        this->change_pixel(x, y, Qt::white);
     }
     void circ_delete(int x, int y, double radius){ //This deletes all points in a circle of center (x,y) and radius "radius".
         double distance;
