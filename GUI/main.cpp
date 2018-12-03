@@ -3,6 +3,9 @@
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
 #include "ground.h"
+#include "customview.h"
+
+
 
 int main(int argc, char *argv[])
 {
@@ -11,8 +14,10 @@ int main(int argc, char *argv[])
 
     //Initialize the window
     QGraphicsScene *scene = new QGraphicsScene();
+
     //Put a graphics view inside of the window
-    QGraphicsView *view = new QGraphicsView(scene);
+    QGraphicsView *view = new CustomView(scene);
+
     //Create a Ground of size (500x500)
     Ground *ground = new Ground(5000, 3000);
 
@@ -23,6 +28,6 @@ int main(int argc, char *argv[])
     scene->addItem(ground->getPixmap());
 
     //Show the window
-    view->showFullScreen();
+    view->showNormal();
     return a.exec();
 }

@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-11-18T22:29:21
+# Project created by QtCreator 2018-12-03T13:59:36
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GUI
+TARGET = WormsWar2
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -22,22 +22,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-    ground.cpp \
-    customview.cpp \
-    wheelevent.cpp
+        ../Physics/Collider.cpp \
+        ../Physics/ground.cpp \
+        ../Physics/PhysicsEngine.cpp \
+        ../Physics/RigidBody.cpp \
+        ../Core/Game.cpp \
+        ../Core/Projectile.cpp \
+        ../Core/worms.cpp \
+        ../GUI/customview.cpp \
+        ../GUI/ground.cpp \
+        ../GUI/wheelevent.cpp
 
 HEADERS += \
-    ground.h \
-    customview.h
+        ../Physics/Collider.h \
+        ../Physics/ground.h \
+        ../Physics/PhysicsEngine.h \
+        ../Physics/RigidBody.h \
+        ../Core/Game.hpp \
+        ../Core/Projectile.hpp \
+        ../Core/worms.hpp \
+        ../GUI/customview.h \
+        ../GUI/ground.h
 
 FORMS += \
         mainwindow.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
