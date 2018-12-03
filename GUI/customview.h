@@ -7,7 +7,7 @@
 
 #ifdef CUSTOMVIEW
 
-#endif
+
 
 class CustomView : public QGraphicsView
 {
@@ -20,7 +20,7 @@ protected:
      void wheelEvent(QWheelEvent *event);
 };
 
-
+#endif
 /*
 class SceneView : public QGraphicsView
 {

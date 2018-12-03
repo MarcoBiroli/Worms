@@ -27,7 +27,7 @@ class Collider{
 
         //get and set private variables
 
-        double getId(); // should not be used by other classes apart from the physics engine
+        int getId(); // can be used
         void setId(int iid); // should not be used by other classes apart from the physics engine
 
         void setSkin(double depth_percent); //sets the skin_depth_percent and recomputes the skin_depth_pixels and countblack

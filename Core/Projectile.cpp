@@ -4,14 +4,18 @@ using namespace std;
 
 #include "Projectile.h"
 
-Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, std::string weapon_name, double x, double y) {
-    : RigidBody(mass, x, y) {
+Projectile::Projectile() : RigidBody ()
+{
+
+}
+
+Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
     this->is_bouncy = is_bouncy;
     this->delay = delay;
-    this->radius = radius;
-    this->explosion_radius = explosion_radius;
+    this->radius = r;
+    this->explosion_radius = explosion_r;
     this->damage = damage;
-    this->mass = mass;
+    this->mass = m;
     this->weapon_name = weapon_name;
 }
 
@@ -24,6 +28,11 @@ void Projectile::print() {
     cout << "   damage: " << damage << endl;
     cout << "   mass: " << mass << endl << endl;
 }
+
+void Projectile::set_inital_position(double x, double y)
+{
+
+}
 /* Uncomment once RigidBody is included
 void Projectile::set_inital_position(double x, double y) {
     this->x = x;
@@ -35,8 +44,3 @@ Projectile* Projectile::clone() {
     return new Projectile(*this);
 } 
 
-int main() {
-    Projectile gre = weapons[0];
-    Projectile* gre_copy = gre.clone();
-    gre_copy->print();
-}

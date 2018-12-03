@@ -1,9 +1,9 @@
-#include <iostream>
-#include <vector>
-
 #include "../Physics/RigidBody.h"
 #include "Projectile.h"
 #include "worms.h"
+
+#include <QVector>
+
 
 class Game{
     public:
@@ -18,9 +18,10 @@ class Game{
 
 
     private:
-      std::vector<*RigidBody> rigid_bodies; //Includes worms, projectiles... Rigid bodies such as projectiles may be created in methods of worms and will thus be created in the heap to be stored.
-      std::vector<Worm> worms; //dynamic array as we don't know before Game initialisation the number of worms. Worms should also still be in the rigid_bodies array, however having them here allows to directly locate them and iterate over them for the game.
-
+      QVector<RigidBody*> rigid_bodies; //Includes worms, projectiles... Rigid bodies such as projectiles may be created in methods of worms and will thus be created in the heap to be stored.
+      //dynamic array as we don't know before Game initialisation the number of worms. Worms should also still be in the rigid_bodies array, however having them here allows to directly locate
+      //them and iterate over them for the game.
+      QVector<Worm> worms;
       //store ground, map size (see with GUI team)
 
 
