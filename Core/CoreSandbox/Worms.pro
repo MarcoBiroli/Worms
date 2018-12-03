@@ -32,7 +32,8 @@ SOURCES += \
     RigidBody.cpp \
     Collider.cpp \
     PhysicsEngine.cpp \
-    Projectile.cpp
+    Projectile.cpp \
+    game.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     RigidBody.h \
     Collider.h \
     PhysicsEngine.h \
-    Projectile.h
+    Projectile.h \
+    game.h
 
 FORMS += \
         mainwindow.ui

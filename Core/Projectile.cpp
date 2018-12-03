@@ -45,7 +45,7 @@ void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVe
             //run explosion animation
             double Fx = (1/dist)*(worm->getX() - this->x);
             double Fy = (1/dist)*(worm->getY() - this->y);
-            QPair<double, double> explosion_force = QPair(Fx, Fy);
+            QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
         }
     }
