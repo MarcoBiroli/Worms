@@ -2,8 +2,8 @@
 #include <vector>
 
 #include "../Physics/RigidBody.h"
-#include "Projectile.hpp"
-#include "worms.hpp"
+#include "Projectile.h"
+#include "worms.h"
 
 class Game{
     public:

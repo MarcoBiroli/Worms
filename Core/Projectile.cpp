@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-#include "Projectile.hpp"
+#include "Projectile.h"
 
 Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, std::string weapon_name, double x, double y) {
     : RigidBody(mass, x, y) {

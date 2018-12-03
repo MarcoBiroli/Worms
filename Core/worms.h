@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "../Physics/RigidBody.h"
-#include "Projectile.hpp"
+#include "Projectile.h"
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
 
@@ -14,9 +14,9 @@ class Worm: public RigidBody {
 
       ~Worm(); //free the weapons array
 
-      bool isAlive():
+      bool isAlive();
       
-      //void pickUpWeapon(int weapon_ID, int ammo);
+      void pickUpWeapon(int weapon_ID, int ammo);
       
       void weaponSelect(int weapon_ID);
 
