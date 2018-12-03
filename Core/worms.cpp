@@ -25,10 +25,14 @@ void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 } 
 
-//Should do this using the arrow inputs given by the player: if the player hits the right arrow, the angle should decrease.
-// If the player hits the left arrow, the angle should increase. We do not care about any other setting. 
+void Worm::changeHealth(int dmg) {
+    this->health -= dmg;
+}
 
 /*
+//Should do this using the arrow inputs given by the player: if the player hits the right arrow, the angle should decrease.
+// If the player hits the left arrow, the angle should increase. We do not care about any other setting.
+*/
 void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-clockwise?
     if (clockwise){
         this->weapon_angle -= 2;
@@ -37,24 +41,16 @@ void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-cl
         this->weapon_angle += 2;
     }
 }
-*/
 
-void Worm::changeAngle(){
-    
-    
-}
-
-void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<int> &projectile_ids) {
-
+void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
     current_projectile->set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
-    double x_force=  power*cos(weapon_angle*(M_PI/180));
-    double y_force= -power*sin(weapon_angle*(M_PI/180));
-    current_projectile->addForce(QPair<double, double>( x_force, y_force)); //apply force generate by shot
-    engine.add_RigidBody(current_projectile);
-    int idd = current_projectile->getId();
-    projectile_ids.append(idd); //add projectile to projectile vector to be handle by physics engine
+    double x_force =  power*cos(weapon_angle*(M_PI/180));
+    double y_force = -power*sin(weapon_angle*(M_PI/180));
+    current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+    engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
+    projectiles.append(current_projectile);
 }
 
 void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED

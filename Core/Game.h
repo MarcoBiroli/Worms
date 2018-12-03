@@ -20,6 +20,15 @@ class Game{
 
 
     private:
+      //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
+      //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
+      QVector<Worm*> worms;
+      QVector<Projectile*> projectiles;
+
+      //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
+      QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
+
+      //store ground, map size (see with GUI team)
       PhysicsEngine physics_engine;
       QVector<int> worms_ids;
 
@@ -31,8 +40,5 @@ class Game{
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
       bool finished; //false
-
-      QVector<Worm*> worms;
-      QVector<Projectile*> projectiles;
 };
 #endif // GAME_H

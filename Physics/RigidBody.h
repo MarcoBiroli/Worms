@@ -5,7 +5,7 @@
 
 
 
-class RigidBody:public Collider{
+class RigidBody: public Collider{
 private:
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
     QPair<double, double> currentForce = QPair<double, double>(0, 0);

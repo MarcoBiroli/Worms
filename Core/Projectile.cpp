@@ -29,30 +29,31 @@ void Projectile::print() {
     cout << "   mass: " << mass << endl << endl;
 }
 
-void Projectile::set_inital_position(double x, double y)
-{
-
-}
-/* Uncomment once RigidBody is included
 void Projectile::set_inital_position(double x, double y) {
     this->x = x;
     this->y = y;
 }
-*/
 
-void explode(Ground &ground, QMap &rigidbodies, int* wormsIDs) {
-    ground.circ_delete(x, y, explosion_radius);
-    for (int i=0; i<wormsIDs.length; i++) {
-        Worm worm = rigidbodies[wormsIDs[i]];
-        double dist = this->distance(worm)
+void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
+    ground.circ_delete(this->x, this->y, explosion_radius);
+    for (int i=0; i<worms.size(); i++) {
+        Worm* worm = worms[i];
+        double dist = this->distance(*worm);
         if (dist <= explosion_radius) {
-            worm.health -= damage - (damage/explosion_radius)*dist;
+            int dmg_dealt = damage - (damage/explosion_radius)*dist;
+            worm->changeHealth(dmg_dealt);
             //run explosion animation
-            QPair<double, double> explosion_force = (1/dist) * (worm.x - this->x, worm.y - this->y);
-            worm.addForce(explosion_force);
+            double Fx = (1/dist)*(worm->getX() - this->x);
+            double Fy = (1/dist)*(worm->getY() - this->y);
+            QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
+            worm->addForce(explosion_force);
         }
-    }    
+    }
+    //destroy projectile
+    rigidbodies.remove(this->getId());
+    projectiles.removeOne(this);
 }
+
 
 Projectile* Projectile::clone() {
     return new Projectile(*this);

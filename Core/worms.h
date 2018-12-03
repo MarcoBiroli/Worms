@@ -10,6 +10,8 @@
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
 
+class Projectile;
+
 class Worm: public RigidBody {
     public:
       Worm();
@@ -23,9 +25,11 @@ class Worm: public RigidBody {
       
       void weaponSelect(int weapon_ID);
 
+      void changeHealth(int dmg); //negative value to increase health
+
       void changeAngle(bool clockwise); //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
       
-      void fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<int> &projectile_ids); //with the power from the user input and the angle stored in the Worms class, create projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
+      void fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles); //with the power from the user input and the angle stored in the Worms class, create projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
       void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
       
