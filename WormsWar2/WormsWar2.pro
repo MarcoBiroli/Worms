@@ -32,9 +32,9 @@ SOURCES += \
         ../Core/Game.cpp \
         ../Core/Projectile.cpp \
         ../Core/worms.cpp \
-        ../GUI/customview.cpp \
         ../GUI/ground.cpp \
-        ../GUI/wheelevent.cpp
+    ../GUI/customview.cpp \
+    ../GUI/dummy.cpp
 
 HEADERS += \
         ../Physics/Collider.h \

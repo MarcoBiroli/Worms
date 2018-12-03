@@ -1,89 +1,49 @@
-
 #include "customview.h"
 
-/*
-CustomView::CustomView(QWidget *parent): QGraphicsView(parent)
-{}
-*/
+CustomView::CustomView(QGraphicsScene *parent): QGraphicsView(parent)
+{
 
+}
 
+void CustomView::wheelEvent(QWheelEvent *event)
+{
+   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+   double scaleFactor = 1.03;
 
-/*
-void SceneView::wheelEvent(QWheelEvent *event)
-    {
-        if (event->modifiers() & Qt::ControlModifier) {
-            // zoom
-            const ViewportAnchor anchor = transformationAnchor();
-            setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-            int angle = event->angleDelta().y();
-            qreal factor;
-            if (angle > 0) {
-                factor = 1.1;
-            } else {
-                factor = 0.9;
-            }
-            scale(factor, factor);
-            setTransformationAnchor(anchor);
-        } else {
-            QGraphicsView::wheelEvent(event);
+   if (event->delta() > 0)
+   {
+       scale(scaleFactor,scaleFactor);
+   }
+   else
+   {
+       scale(1/scaleFactor,1/scaleFactor);
+   }
+}
+
+void CustomView::keyPressEvent(QKeyEvent *k)
+{
+    if(k->key() == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
+      this->active_worm->addForce(QPair<double, double>(50, -10));
+      this->active_worm->setstable(false);
+      if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
+        this->active_worm->addForce(QPair<double, double>(50, -10));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
         }
     }
 
------------------------
-
-#include <QMouseEvent>
-#include <QApplication>
-#include <QScrollBar>
-#include <qmath.h>
-
-Graphics_view_zoom::Graphics_view_zoom(QGraphicsView* view)
-  : QObject(view), _view(view)
-{
-  _view->viewport()->installEventFilter(this);
-  _view->setMouseTracking(true);
-  _modifiers = Qt::ControlModifier;
-  _zoom_factor_base = 1.0015;
-}
-
-void Graphics_view_zoom::gentle_zoom(double factor) {
-  _view->scale(factor, factor);
-  _view->centerOn(target_scene_pos);
-  QPointF delta_viewport_pos = target_viewport_pos - QPointF(_view->viewport()->width() / 2.0,
-                                                             _view->viewport()->height() / 2.0);
-  QPointF viewport_center = _view->mapFromScene(target_scene_pos) - delta_viewport_pos;
-  _view->centerOn(_view->mapToScene(viewport_center.toPoint()));
-  emit zoomed();
-}
-
-void Graphics_view_zoom::set_modifiers(Qt::KeyboardModifiers modifiers) {
-  _modifiers = modifiers;
-
-}
-
-void Graphics_view_zoom::set_zoom_factor_base(double value) {
-  _zoom_factor_base = value;
-}
-
-bool Graphics_view_zoom::eventFilter(QObject *object, QEvent *event) {
-  if (event->type() == QEvent::MouseMove) {
-    QMouseEvent* mouse_event = static_cast<QMouseEvent*>(event);
-    QPointF delta = target_viewport_pos - mouse_event->pos();
-    if (qAbs(delta.x()) > 5 || qAbs(delta.y()) > 5) {
-      target_viewport_pos = mouse_event->pos();
-      target_scene_pos = _view->mapToScene(mouse_event->pos());
-    }
-  } else if (event->type() == QEvent::Wheel) {
-    QWheelEvent* wheel_event = static_cast<QWheelEvent*>(event);
-    if (QApplication::keyboardModifiers() == _modifiers) {
-      if (wheel_event->orientation() == Qt::Vertical) {
-        double angle = wheel_event->angleDelta().y();
-        double factor = qPow(_zoom_factor_base, angle);
-        gentle_zoom(factor);
-        return true;
+    // MOVE TO THE LEFT
+    if (k->key() == 0x41){ // To move to the left just take out 5 velocity.
+      this->active_worm->addForce(QPair<double, double>(-50, 10));
+      this->active_worm->setstable(false);
       }
-    }
-  }
-  Q_UNUSED(object)
-  return false;
+      if(k->isAutoRepeat() == true && k->key() == 0x41){
+        this->active_worm->addForce(QPair<double, double>(-50, 10));
+      }
+    // JUMP
+    if (k->key() == 0x57){ // To move jump give a negative force to the y-axis (recall
+      this->active_worm->addForce(QPair<double, double>(0, -100));
+      this->active_worm->setstable(false);
+      }
+      if( k->isAutoRepeat() == true && k->key() == 0x57){
+        this->active_worm->addForce(QPair<double, double>(0, -100));
+        }
 }
-*/

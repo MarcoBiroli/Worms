@@ -13,9 +13,7 @@
 class CustomView : public QGraphicsView
 {
 public:
-    CustomView(QGraphicsScene *parent): QGraphicsView(parent) {
-
-    }
+    CustomView(QGraphicsScene *parent);
     RigidBody* active_worm;
 
 protected:
