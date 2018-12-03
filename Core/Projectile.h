@@ -4,6 +4,8 @@
 #include "../Physics/RigidBody.h"
 #include "worms.h"
 
+class Worm;
+
 class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
     public:
@@ -36,4 +38,3 @@ class Projectile : public RigidBody {
 };
 
 //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-//QVector<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};

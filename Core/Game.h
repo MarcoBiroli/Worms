@@ -25,6 +25,9 @@ class Game{
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
 
+      //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
+      QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
+
       //store ground, map size (see with GUI team)
       PhysicsEngine physics_engine;
       QVector<int> worms_ids;
