@@ -35,8 +35,6 @@ class Projectile : public RigidBody {
         double mass; 
         std::string weapon_name;
         double fire_time;
-
-        int test;
 };
 
 
