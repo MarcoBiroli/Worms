@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         Ground ground = Ground(1440, 900);
         Engine.add_Collider(&ground);
         //Create a Rigidbody
-        RigidBody* body = Engine.create_rigidbody(1, 325, 0);
+        RigidBody* body = Engine.create_rigidbody(1, 525, 0);
         body->setbounciness(0.8);
 
         //Delete everything in the ground in radius of 100px aroud (250,250)
