@@ -35,6 +35,8 @@ class Projectile : public RigidBody {
         double mass; 
         std::string weapon_name;
         double fire_time;
+
+        int test;
 };
 
-//Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
+
