@@ -31,7 +31,10 @@ SOURCES += \
         ../Physics/RigidBody.cpp \
         ../Core/Game.cpp \
         ../Core/Projectile.cpp \
-        ../Core/worms.cpp
+        ../Core/worms.cpp \
+        ../GUI/customview.cpp \
+        ../GUI/ground.cpp \
+        ../GUI/main.cpp
 
 HEADERS += \
         ../Physics/Collider.h \
@@ -40,7 +43,10 @@ HEADERS += \
         ../Physics/RigidBody.h \
         ../Core/Game.hpp \
         ../Core/Projectile.hpp \
-        ../Core/worms.hpp
+        ../Core/worms.hpp \
+        ../GUI/customview.h \
+        ../GUI/ground.h \
+        ../GUI/main.h
 
 FORMS += \
         mainwindow.ui
