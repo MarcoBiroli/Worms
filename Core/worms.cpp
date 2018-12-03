@@ -5,7 +5,8 @@ Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 
 }
 
-Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn)
+    : RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
     this->health = health;
     this-> isTurn = isTurn; //We added a isTurn parameter, to check whether it's this Worms turn or not.
 }
@@ -26,6 +27,10 @@ void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 }
 
+void Worm::changeHealth(int dmg) {
+    this->health -= dmg;
+}
+
 void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-clockwise?
     if (clockwise){
         this->weapon_angle -= 2;
@@ -36,17 +41,15 @@ void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-cl
 }
 
 
-void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<int> &projectile_ids) {
-
+void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
     current_projectile->set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
-    double x_force=  power*cos(weapon_angle*(M_PI/180));
-    double y_force= -power*sin(weapon_angle*(M_PI/180));
-    current_projectile->addForce(QPair<double, double>( x_force, y_force)); //apply force generate by shot
-    engine.add_RigidBody(current_projectile);
-    int idd = current_projectile->getId();
-    projectile_ids.append(idd); //add projectile to projectile vector to be handle by physics engine
+    double x_force =  power*cos(weapon_angle*(M_PI/180));
+    double y_force = -power*sin(weapon_angle*(M_PI/180));
+    current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+    engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
+    projectiles.append(current_projectile);
 }
 
 void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
