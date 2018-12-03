@@ -24,8 +24,12 @@ void Worm::pickUpWeapon(int weapon_ID, int iammo) {
 
 void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
-}
+} 
 
+//Should do this using the arrow inputs given by the player: if the player hits the right arrow, the angle should decrease.
+// If the player hits the left arrow, the angle should increase. We do not care about any other setting. 
+
+/*
 void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-clockwise?
     if (clockwise){
         this->weapon_angle -= 2;
@@ -34,7 +38,12 @@ void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-cl
         this->weapon_angle += 2;
     }
 }
+*/
 
+void Worm::changeAngle(){
+    
+    
+}
 
 void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<int> &projectile_ids) {
 
