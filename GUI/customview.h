@@ -2,6 +2,7 @@
 #include <QtWidgets>
 #include <QWidget>
 #include <QObject>
+#include "../Physics/RigidBody.h"
 
 #define CUSTOMVIEW
 
@@ -15,9 +16,11 @@ public:
     CustomView(QGraphicsScene *parent): QGraphicsView(parent) {
 
     }
+    RigidBody* active_worm;
 
 protected:
      void wheelEvent(QWheelEvent *event);
+     void keyPressEvent(QKeyEvent *k);
 };
 
 #endif
