@@ -4,15 +4,15 @@
 #include "QVector"
 #include "QMap"
 
-#include "RigidBody.h"
-#include "PhysicsEngine.h"
+#include "../Physics/RigidBody.h"
+#include "../Physics/PhysicsEngine.h"
 
 #include "Projectile.h"
 #include "worms.h"
 
 class Game{
     public:
-      Game(int nb_worms, double max_turn_time=90000);
+      Game(int nb_worms, double max_turn_time=90000, unsigned int nb_teams=2);
 
       void update(double dt); //general update: deal with physics
 
@@ -33,7 +33,7 @@ class Game{
 
       double turn_timer;
 
-      int worm_playing; //index in vector worms
+      QVector<int> worms_playing; //index in vector worms of each team
       bool finished; //false
 };
 #endif // GAME_H
