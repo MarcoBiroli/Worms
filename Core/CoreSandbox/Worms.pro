@@ -28,12 +28,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     ground.cpp \
-    worms.cpp
+    worms.cpp \
+    RigidBody.cpp \
+    Collider.cpp \
+    PhysicsEngine.cpp \
+    Projectile.cpp
 
 HEADERS += \
         mainwindow.h \
     ground.h \
-    worms.h
+    worms.h \
+    RigidBody.h \
+    Collider.h \
+    PhysicsEngine.h \
+    Projectile.h
 
 FORMS += \
         mainwindow.ui

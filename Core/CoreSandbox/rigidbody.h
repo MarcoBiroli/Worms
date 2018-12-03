@@ -13,22 +13,15 @@ private:
     bool stable = false;
     
 public:
-    bool is_colliding = false;
-    
-    //Constructors.
-    
-    RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
+    RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map);
     RigidBody(double imass, double ix, double iy);
     
-    //Physics methods.
-    
     void bounce(QPair<double, double> normal, double dt);
+
     void addForce(QPair<double, double> F);
     double distance(RigidBody other);
     void simulate(double dt);
     
-    
-    //Set methods.
     void setbounciness(double b);
     void setm(double m);
     void setvx(double v_x);
@@ -37,7 +30,6 @@ public:
     void setay(double a_y);
     void setstable(bool a);
 
-    //Get methods.
     bool getstable();
     double getbounciness();
     double getm();
