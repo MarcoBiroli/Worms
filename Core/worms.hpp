@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "../Physics/RigidBody.h"
 #include "Projectile.hpp"
@@ -15,7 +16,7 @@ class Worm: public RigidBody {
 
       bool isAlive():
       
-      void pickUpWeapon(int weapon_ID, int ammo);
+      //void pickUpWeapon(int weapon_ID, int ammo);
       
       void weaponSelect(int weapon_ID);
 

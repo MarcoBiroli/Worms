@@ -33,8 +33,7 @@ SOURCES += \
         ../Core/Projectile.cpp \
         ../Core/worms.cpp \
         ../GUI/customview.cpp \
-        ../GUI/ground.cpp \
-        ../GUI/main.cpp
+        ../GUI/ground.cpp
 
 HEADERS += \
         ../Physics/Collider.h \
@@ -45,8 +44,7 @@ HEADERS += \
         ../Core/Projectile.hpp \
         ../Core/worms.hpp \
         ../GUI/customview.h \
-        ../GUI/ground.h \
-        ../GUI/main.h
+        ../GUI/ground.h
 
 FORMS += \
         mainwindow.ui

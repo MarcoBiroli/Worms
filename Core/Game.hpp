@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "RigidBody.hpp"
-
+#include "../Physics/RigidBody.h"
 #include "Projectile.hpp"
 #include "worms.hpp"
 
