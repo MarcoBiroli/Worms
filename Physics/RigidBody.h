@@ -16,7 +16,7 @@ public:
     bool is_colliding = false;
     
     //Constructors.
-    
+    RigidBody();
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
     RigidBody(double imass, double ix, double iy);
     

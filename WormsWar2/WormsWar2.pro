@@ -41,11 +41,11 @@ HEADERS += \
         ../Physics/ground.h \
         ../Physics/PhysicsEngine.h \
         ../Physics/RigidBody.h \
-        ../Core/Game.hpp \
-        ../Core/Projectile.hpp \
-        ../Core/worms.hpp \
         ../GUI/customview.h \
-        ../GUI/ground.h
+        ../GUI/ground.h \
+    ../Core/Game.h \
+    ../Core/Projectile.h \
+    ../Core/worms.h
 
 FORMS += \
         mainwindow.ui

@@ -4,6 +4,11 @@
 
 
 //Constructors.
+RigidBody::RigidBody()
+{
+
+}
+
 RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map) : Collider(ix, iy, map){
     this->mass = imass;
     this->vx = vx0;

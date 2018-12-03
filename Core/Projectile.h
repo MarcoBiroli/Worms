@@ -1,11 +1,12 @@
 #pragma once
 
-//#include "RigidBody.hpp"
+#include "../Physics/RigidBody.h"
 
-class Projectile {
+class Projectile : public RigidBody{
     // General projectile class from which different projectiles types inherit
     public:
-        Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, std::string weapon_name, double x, double y);
+        Projectile();
+        Projectile(bool is_bouncy, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y);
         void print(); 
         //prints the Projectile's specs
 
@@ -23,14 +24,14 @@ class Projectile {
 
     private:
         bool is_bouncy;
-        int delay;
+        double delay;
         double radius; 
         double explosion_radius; 
-        int damage; 
+        double damage;
         double mass; 
         std::string weapon_name;
         double fire_time;
 };
 
 //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-Projectile weapons[2] = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
+//QVector<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};

@@ -62,7 +62,7 @@ Collider::Collider(double ix, double iy)
 
 //Get and Set private variables
 
-double Collider::getId() { return this->id;}
+int Collider::getId() { return this->id;}
 void Collider::setId(int iid) {this->id = iid;}
 
 
