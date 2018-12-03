@@ -1,6 +1,6 @@
 #include "Projectile.h"
 
-Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, QString weapon_name, double x, double y)
+Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, QString weapon_name, double x, double y, bool explode, double fire_time)
     : RigidBody(mass, x, y) {
     this->is_bouncy = is_bouncy;
     this->delay = delay;
@@ -9,6 +9,8 @@ Projectile::Projectile(bool is_bouncy, int delay, double radius, double explosio
     this->damage = damage;
     this->mass = mass;
     this->weapon_name = weapon_name;
+    this->explode = explode;
+    this->fire_time = fire_time;
 }
 
 /* Uncomment once RigidBody is included
