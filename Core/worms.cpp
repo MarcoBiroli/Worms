@@ -2,11 +2,12 @@
 
 #define M_PI           3.14159265358979323846  /* pi */
 
-Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y)
+Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn)
     : RigidBody(mass, x, y,) {
     this->health = health;
     this->team_number = team_number;
     this->personal_name = personal_name;
+    this-> isTurn = isTurn; //We added a isTurn parameter, to check whether it's this Worms turn or not.
 }
 
 Worm::~Worm() {
@@ -25,7 +26,7 @@ void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
 }
 
-void changeAngle(bool clockwise) {
+void changeAngle(bool clockwise) { //Have we defined clockwise and anti-clockwise?
     if (clockwise): 
         weapon_angle -= 2;
     else:
@@ -151,5 +152,4 @@ Right
 Up
 */
 
-  
   
