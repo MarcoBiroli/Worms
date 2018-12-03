@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "../Physics/RigidBody.h"
 #include "Projectile.hpp"
@@ -9,13 +10,13 @@
 
 class Worm: public RigidBody {
     public:
-      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y);
+      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn);
 
       ~Worm(); //free the weapons array
 
-      bool isAlive();
+      bool isAlive():
       
-      void pickUpWeapon(int weapon_ID, int ammo);
+      //void pickUpWeapon(int weapon_ID, int ammo);
       
       void weaponSelect(int weapon_ID);
 
