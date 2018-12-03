@@ -13,7 +13,7 @@
 class Worm: public RigidBody {
     public:
       Worm();
-      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn);
+      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y);
 
       ~Worm(); //free the weapons array
 

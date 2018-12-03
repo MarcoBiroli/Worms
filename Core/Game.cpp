@@ -1,22 +1,20 @@
 #include "game.h"
 
-Game::Game(int nb_worms, double max_turn_time){
+Game::Game(int nb_worms, double max_turn_time, unsigned int nb_teams){
     physics_engine = PhysicsEngine();
 
     this->max_turn_time = max_turn_time;
     finished = false;
 
 
-    for(int team=1; team<2; team++){
-        worms.append
+    for(int team=0; team<nb_teams; team++){
         for(int i=0; i<nb_worms; i++){
             Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
-            worms.();
+            worms.append(newWorm);
         }
     }
 
-    worm_playing=0;
     turn_timer=0;
 }
 

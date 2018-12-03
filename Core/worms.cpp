@@ -5,9 +5,8 @@ Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 
 }
 
-Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y, bool isTurn): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
     this->health = health;
-    this-> isTurn = isTurn; //We added a isTurn parameter, to check whether it's this Worms turn or not.
 }
 
 Worm::~Worm() {
