@@ -40,6 +40,20 @@ void Projectile::set_inital_position(double x, double y) {
 }
 */
 
+void explode(Ground &ground, QMap &rigidbodies, int* wormsIDs) {
+    ground.circ_delete(x, y, explosion_radius);
+    for (int i=0; i<wormsIDs.length; i++) {
+        Worm worm = rigidbodies[wormsIDs[i]];
+        double dist = this->distance(worm)
+        if (dist <= explosion_radius) {
+            worm.health -= damage - (damage/explosion_radius)*dist;
+            //run explosion animation
+            QPair<double, double> explosion_force = (1/dist) * (worm.x - this->x, worm.y - this->y);
+            worm.addForce(explosion_force);
+        }
+    }    
+}
+
 Projectile* Projectile::clone() {
     return new Projectile(*this);
 } 

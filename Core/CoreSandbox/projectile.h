@@ -8,7 +8,7 @@
 class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
     public:
-        Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, QString weapon_name, double x, double y, bool explode, double fire_time);
+        Projectile(bool is_bouncy, int delay, double radius, double explosion_radius, int damage, double mass, QString weapon_name, double x, double y, double fire_time);
         void print();
         //prints the Projectile's specs
 
@@ -24,10 +24,11 @@ class Projectile : public RigidBody {
         double explosion_radius;
         int damage;
         double mass;
+        double fire_time;
         std::string weapon_name;
 };
 
 //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-Projectile weapons[2] = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0, false, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0, false, 0)};
+Projectile weapons[2] = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0, 0)};
 
 #endif // PROJECTILE_H
