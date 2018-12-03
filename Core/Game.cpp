@@ -1,8 +1,9 @@
 #include "game.h"
 
-Game::Game(int nb_worms, double max_turn_time, unsigned int nb_teams){
+Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     physics_engine = PhysicsEngine();
 
+    this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
     finished = false;
 
@@ -13,6 +14,7 @@ Game::Game(int nb_worms, double max_turn_time, unsigned int nb_teams){
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
         }
+        worms_playing.append(0);
     }
 
     turn_timer=0;
@@ -24,5 +26,8 @@ void Game::update(double dt){
 
     if(turn_timer > max_turn_time){
         turn_timer = 0;
+        team_playing = (team_playing +1)%nb_teams;
+
+
     }
 }
