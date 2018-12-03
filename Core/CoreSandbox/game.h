@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "QVector"
+include "QMap"
 
 #include "RigidBody.h"
 #include "PhysicsEngine.h"
@@ -26,7 +27,10 @@ class Game{
 
       double turn_timer;
 
-      int worm_playing;
+      int worm_playing; //index in vector worms
       bool finished; //false
+
+      QVector< QVector<Worm*> > worms;
+      QVector<Projectile*> projectiles;
 };
 #endif // GAME_H
