@@ -7,39 +7,32 @@
 #include <QGraphicsView>
 #include "Collider.h"
 
-class Ground: public Collider
+class Ground : public Collider
 {
+private:
+    QImage* map; //This is the image in which we store the information about the ground
+    QRgb white = qRgb(255, 255, 255);   //I define colors here so later in the code i can just us "black" or "white"
+    QRgb black = qRgb(0, 0, 0);         //insted of having to write the full rgb code each time.
+    QRgb blue_sky = qRgb(32, 187, 255);  //bright blue for the sky
+    QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
+    QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
+
 public:
-    Ground() : Collider(){ //Creates an undefined Ground
+    Ground() : Collider (){ //Creates an undefined Ground
+        this->map = new QImage();
+        item = new QGraphicsPixmapItem();
+        this->set_map(*this->map);
     }
-    Ground(const int width, const int height): Collider(){ //Creates a ground of a given size.
-        QImage default_ground = QImage(width, height, QImage::Format_RGB32); //Initialize the variables.
-        default_ground.fill(Qt::white); //Fill all by white meaning there is no ground.
-        this->set_map(default_ground);
-        for(int i = 0; i < width; i++){ //By default makes all the pixels that are under (y = 250) ground.
-            for(int j = 0; j < height; j++){
-                if(j > 250){
-                    this->change_pixel(i, j, Qt::black);
-                }
-            }
-        }
-    }
+    Ground(const int width, const int height);
 
+    QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 
-    void delete_ground(int x, int y){ //This deletes the ground at one point of coordinate (x,y).
-        this->change_pixel(x, y, Qt::white);
-    }
-    void circ_delete(int x, int y, double radius){ //This deletes all points in a circle of center (x,y) and radius "radius".
-        double distance;
-        for(int i = (int)(x-radius); i < (int)(x + radius); ++i){
-            for(int j = (int)(y - radius); j < (int)(y + radius); ++j){
-                distance = (double)(i - x)*(double)(i - x) + (double)(j - y)*(double)(j - y);
-                if(distance <= radius*radius){
-                    this->delete_ground(i, j);
-                }
-            }
-        }
-    }
+    QImage* getMap() const; //This returns the ground itself.
+
+    void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
+
+    void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
+
 };
 
 #endif // GROUND_H
