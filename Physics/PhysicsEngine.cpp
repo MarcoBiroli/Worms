@@ -32,10 +32,11 @@ void PhysicsEngine::update(double dt)
     QMap<int, RigidBody*>::iterator i = this->rigidbodies.begin();
     QMap<int, Collider*>::iterator j;
     QPair<bool, QPair<double, double>> collision_result;
-
     //for all rigidbodies
     for(i; i != this->rigidbodies.end(); i++)
     {
+        //Reset collision flag
+        i.value()->is_colliding = false;
         //add the general force to the rigidbody
         i.value()->addForce(this->general_force);
         //for all colliders
@@ -43,6 +44,8 @@ void PhysicsEngine::update(double dt)
             //check the collision of the rigidbody with the collider
             collision_result = i.value()->check_collision(*j.value());
             if(collision_result.first){
+                //Set Collision flag to true
+                i.value()->is_colliding = true;
                 //if it is colliding react accordingly to the bounce method
                 i.value()->bounce(collision_result.second,dt);
             }

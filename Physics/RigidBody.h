@@ -13,6 +13,8 @@ private:
     bool stable = false;
     
 public:
+    bool is_colliding = false;
+    
     //Constructors.
     
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
