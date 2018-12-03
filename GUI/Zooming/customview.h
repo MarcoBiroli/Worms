@@ -1,19 +1,25 @@
-
-#define CUSTOMVIEW_H
-
 #include <QGraphicsView>
 #include <QtWidgets>
 #include <QWidget>
 #include <QObject>
 
+#define CUSTOMVIEW
+
+#ifdef CUSTOMVIEW
+
+#endif
 
 class CustomView : public QGraphicsView
 {
 public:
-    CustomView(QWidget* parent);
+    CustomView(QGraphicsScene *parent): QGraphicsView(parent) {
+
+    }
+
 protected:
-    virtual void wheelEvent(QWheelEvent *event);
+     void wheelEvent(QWheelEvent *event);
 };
+
 
 /*
 class SceneView : public QGraphicsView
