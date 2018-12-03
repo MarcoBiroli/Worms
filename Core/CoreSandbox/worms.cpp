@@ -38,6 +38,7 @@ void Worm::fireWeapon(double power, std::vector* projectile_list) {
     current_projectile.set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
     double x_force, y_force =  power*cos(weapon_angle*(M_PI/180)), -power*sin(weapon_angle*(M_PI/180));
     current_projectile.addForce(QPair<double, double> x_force, y_force); //apply force generate by shot
+    current_projectile.fire_time(QTime<double>);
     projectile_list->push_back(current_projectile); //add projectile to projectile vector to be handle by physics engine
 }
 

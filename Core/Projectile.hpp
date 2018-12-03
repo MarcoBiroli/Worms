@@ -29,6 +29,7 @@ class Projectile {
         int damage; 
         double mass; 
         std::string weapon_name;
+        double fire_time;
 };
 
 //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
