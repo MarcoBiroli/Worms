@@ -27,7 +27,8 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
     ground.cpp \
-    customview.cpp
+    customview.cpp \
+    wheelevent.cpp
 
 HEADERS += \
     ground.h \
