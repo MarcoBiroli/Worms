@@ -7,7 +7,7 @@ Worm::Worm(int team_number, std::string personal_name, int health, double mass, 
     this->health = health;
     this->team_number = team_number;
     this->personal_name = personal_name;
-    this-> isTurn = isTurn;
+    this-> isTurn = isTurn; //We added a isTurn parameter, to check whether it's this Worms turn or not.
 }
 
 Worm::~Worm() {
