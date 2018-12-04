@@ -12,7 +12,7 @@
 
 class Game{
     public:
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
 
       void update(double dt); //general update: deal with physics
 
