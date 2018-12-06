@@ -6,6 +6,7 @@
 #include "../Physics/RigidBody.h"
 #include "../Physics/PhysicsEngine.h"
 #include "Projectile.h"
+#include <QtMath>
 
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
@@ -20,7 +21,8 @@ class Worm: public RigidBody {
       ~Worm(); //free the weapons array
 
       bool isAlive() const;
-      bool getTeam() const;
+
+      int getTeam() const;
       
       bool damage_taken();
 
@@ -49,7 +51,6 @@ class Worm: public RigidBody {
       const std::string personal_name;
       bool isTurn;
       int weapon_ID = 0;
-      bool damagetaken;
-      double previous_vx;
-      double previous_vy;
+      bool damagetaken=false;
+
 };
