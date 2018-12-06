@@ -43,12 +43,12 @@ int main(int argc, char *argv[])
     int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
     double update_time = 10;
 
-    while(!quitGame){
+    while(!view->has_quitted){
         a.processEvents();
         timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
         if(timeSinceLastUpdate>update_time){
-            for(int i = 0; i < 5; i++){
-                Engine.update(timeSinceLastUpdate);
+            for(int i = 0; i < 10; i++){
+                Engine.update(update_time);
             }
             tmp->setPos(body->getX(), body->getY());
             lastUpdate = QTime::currentTime();

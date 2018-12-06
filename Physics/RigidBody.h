@@ -8,13 +8,14 @@
 class RigidBody: public Collider{
 private:
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
+    double bckp_x = -1, bckp_y = 0, bckp_vx = 0, bckp_vy = 0, bckp_ax = 0, bckp_ay = 0;
     QPair<double, double> currentForce = QPair<double, double>(0, 0);
     double bounciness_f = 0;
     bool stable = false;
     
 public:
     bool is_colliding = false;
-    bool is_grounded = false;
+    QPair<bool, QPair<double, double>> is_grounded = QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));
     
     //Constructors.
     RigidBody();
@@ -22,7 +23,7 @@ public:
     RigidBody(double imass, double ix, double iy);
     
     //Physics methods.
-    
+    void revert();
     void bounce(QPair<double, double> normal, double dt);
     void addForce(QPair<double, double> F);
     double distance(RigidBody other);

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QtMath>
 
+#define update_time 10
 
 //Constructors.
 RigidBody::RigidBody()
@@ -31,10 +32,22 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
 //The physical idea is that the force acting on the body in a collision is F=dp/dt with dp the istantaneous 
 //change in the linear momentum of the RigidBody.
 
+void RigidBody::revert(){
+    if(this->bckp_x == -1){return;}
+    this->x = this->bckp_x;
+    this->y = this->bckp_y;
+    this->vx = this->bckp_vx;
+    this->vy = this->bckp_vy;
+    this->ax = this->bckp_ax;
+    this->ay = this->bckp_ay;
+    this->bckp_x = -1;
+}
+
 void RigidBody::bounce(QPair<double, double> normal, double dt) 
     
 {
     dt /= 1000; //dt in milliseconds
+    //this->revert();
     double theta = qAtan2(-normal.first, normal.second); //angle that the normal vector to the ground forms with the y-aixs
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*this->vx + M[1]*this->vy); // component of the velocity parallel to the tangent line at the collision point.
@@ -45,12 +58,12 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     //double Fu = this->mass*(n_vu - vu)/dt;// component  of the impulsive force perpendicular to the tangent at the collision point.
     double SFu = (M[2]*this->currentForce.first + M[3]*this->currentForce.second);
     double Fu = this->mass*(n_vu - vu)/dt - SFu;
+    Fe = 0;
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};//rotational matrix of angle -theta.
     double Fx = M2[0]*Fe + M2[1]*Fu; //x component of the impulsive force.
     double Fy = M2[2]*Fe + M2[3]*Fu; //y component of the impulsive force.
-    Fx *= 1.1;
-    Fy *= 1.1;
     this->addForce(QPair<double, double>(Fx, Fy)); //adding this impulsive force to the current force acting on the RigidBody.
+    //this->currentForce = QPair<double, double>(Fx, Fy);
     return;
 }
 
@@ -76,14 +89,38 @@ double RigidBody::distance(RigidBody other){
 //this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
-
-    if (this->stable){return;}
+    //if (this->stable){return;}
     dt /= 1000;
+    double friction = 0.1;
+    this->bckp_ax = ax;
     ax = currentForce.first/mass;
+    if(this->is_grounded.first){
+        ax -= vx*friction;
+    }
+    if(fabs(ax) < 0.1){
+        ax = 0;
+    }
+    this->bckp_ay = ay;
     ay = currentForce.second/mass;
+    if(this->is_grounded.first){
+        ay -= vy*friction;
+    }
+    if(fabs(ay) < 0.1){
+        ay = 0;
+    }
+    this->bckp_vx = vx;
     vx=vx+ax*dt;
+    if(fabs(vx) < 0.1){
+        vx = 0;
+    }
+    this->bckp_vy = vy;
     vy=vy+ay*dt;
+    if(fabs(vy) < 0.09){
+        vy = 0;
+    }
+    this->bckp_x = x;
     this->x = this->x+vx*dt;
+    this->bckp_y = y;
     this->y = this->y+vy*dt;
     if (qFabs(vx) <= 1 && qFabs(vy) <= 1 && qFabs(currentForce.first) <= 0.4 && qFabs(currentForce.second) <= 0.4){ this->stable = true;}
         //the RigidBody is stable when both the velocity of the rigidBody and the froce acting on it are small enough.

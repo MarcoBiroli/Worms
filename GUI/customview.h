@@ -21,6 +21,7 @@ class CustomView : public QGraphicsView
 public:
     CustomView(QGraphicsScene *parent);
     RigidBody* active_worm;
+    bool has_quitted = false;
 
 protected:
      void wheelEvent(QWheelEvent *event);
