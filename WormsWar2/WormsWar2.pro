@@ -26,7 +26,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         ../Physics/Collider.cpp \
-        ../Physics/ground.cpp \
         ../Physics/PhysicsEngine.cpp \
         ../Physics/RigidBody.cpp \
         ../Core/Game.cpp \
@@ -38,7 +37,6 @@ SOURCES += \
 
 HEADERS += \
         ../Physics/Collider.h \
-        ../Physics/ground.h \
         ../Physics/PhysicsEngine.h \
         ../Physics/RigidBody.h \
         ../GUI/customview.h \
