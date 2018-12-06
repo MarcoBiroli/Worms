@@ -3,6 +3,10 @@
 
 #include "QVector"
 #include "QMap"
+#include <QGraphicsView>
+#include <QtWidgets>
+#include <QWidget>
+#include <QObject>
 
 #include "../Physics/RigidBody.h"
 #include "../Physics/PhysicsEngine.h"
@@ -12,9 +16,13 @@
 
 class Game{
     public:
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
 
-      void update(double dt); //general update: deal with physics
+      bool gameLoop(QKeyEvent *k, double dt);
+
+      void update(double dt); //general update: time and physics
+
+      void handleEvents(QKeyEvent *k); //event handler
 
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
 

@@ -37,6 +37,8 @@ void PhysicsEngine::update(double dt)
     {
         //Reset collision flag
         i.value()->is_colliding = false;
+        //Reset is_grounded flag
+        i.value()->is_grounded = false;
         //add the general force to the rigidbody
         i.value()->addForce(this->general_force);
         //for all colliders
@@ -46,6 +48,10 @@ void PhysicsEngine::update(double dt)
             if(collision_result.first){
                 //Set Collision flag to true
                 i.value()->is_colliding = true;
+                //if there is ground collision then set is_grounded to true
+                if(j.value()->is_ground == true){
+                    i.value()->is_grounded = true;
+                }
                 //if it is colliding react accordingly to the bounce method
                 i.value()->bounce(collision_result.second,dt);
             }

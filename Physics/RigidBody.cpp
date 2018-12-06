@@ -47,6 +47,8 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};//rotational matrix of angle -theta.
     double Fx = M2[0]*Fe + M2[1]*Fu; //x component of the impulsive force.
     double Fy = M2[2]*Fe + M2[3]*Fu; //y component of the impulsive force.
+    Fx *= 1.1;
+    Fy *= 1.1;
     this->addForce(QPair<double, double>(Fx, Fy)); //adding this impulsive force to the current force acting on the RigidBody.
     return;
 }

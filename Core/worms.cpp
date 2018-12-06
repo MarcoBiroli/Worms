@@ -19,6 +19,25 @@ bool Worm::isAlive() const{
   return health > 0; 
 }
 
+int Worm::getTeam() const{
+    return team_number;
+}
+
+bool Worm::damage_taken(){
+    if (this->damagetaken){
+        damagetaken=false;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+/*void Worm::fall_damage(){
+    bckp_V_magnitude=magn
+}*/
+
+
 void Worm::pickUpWeapon(int weapon_ID, int iammo) {
     this->ammo[weapon_ID] += iammo;
 }

@@ -20,7 +20,13 @@ class Worm: public RigidBody {
       ~Worm(); //free the weapons array
 
       bool isAlive() const;
+
+      int getTeam() const;
       
+      bool damage_taken();
+
+      void fall_damage();
+
       void pickUpWeapon(int weapon_ID, int ammo);
       
       void weaponSelect(int weapon_ID);
@@ -44,4 +50,6 @@ class Worm: public RigidBody {
       const std::string personal_name;
       bool isTurn;
       int weapon_ID = 0;
+      bool damagetaken;
+
 };

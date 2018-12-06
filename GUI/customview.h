@@ -1,20 +1,27 @@
+#pragma once
 #include <QGraphicsView>
 #include <QtWidgets>
 #include <QWidget>
 #include <QObject>
 #include "../Physics/RigidBody.h"
 
+#ifndef MY_GLOBALS_H
+#define MY_GLOBALS_H
+
+extern bool quitGame;
+
+#endif
+
 #define CUSTOMVIEW
 
 #ifdef CUSTOMVIEW
-
-
 
 class CustomView : public QGraphicsView
 {
 public:
     CustomView(QGraphicsScene *parent);
     RigidBody* active_worm;
+    bool has_quitted = false;
 
 protected:
      void wheelEvent(QWheelEvent *event);

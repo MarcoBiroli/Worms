@@ -43,9 +43,8 @@ int main(int argc, char *argv[])
     int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
     double update_time = 10;
 
-    while(true){
+    while(!view->has_quitted){
         a.processEvents();
-
         timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
         if(timeSinceLastUpdate>update_time){
             for(int i = 0; i < 5; i++){
@@ -56,6 +55,6 @@ int main(int argc, char *argv[])
         }
         view->showNormal();
     }
-
+    delete view;  // close the window after key 'p' was pressed
     return a.exec();
 }
