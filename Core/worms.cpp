@@ -17,7 +17,7 @@ bool Worm::isAlive() const{
   return health > 0; 
 }
 
-bool Worm::getTeam() const{
+int Worm::getTeam() const{
     return team_number;
 }
 
@@ -31,9 +31,9 @@ bool Worm::damage_taken(){
     }
 }
 
-void Worm::fall_damage(){
-
-}
+/*void Worm::fall_damage(){
+    bckp_V_magnitude=magn
+}*/
 
 
 void Worm::pickUpWeapon(int weapon_ID, int iammo) {
