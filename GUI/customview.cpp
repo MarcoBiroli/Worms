@@ -1,9 +1,12 @@
 #include "customview.h"
+#include <iostream>
 
 CustomView::CustomView(QGraphicsScene *parent): QGraphicsView(parent)
 {
 
 }
+
+bool quitGame = false;
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
@@ -32,6 +35,7 @@ void CustomView::keyPressEvent(QKeyEvent *k)
 
     // MOVE TO THE LEFT
     if (k->key() == 0x41){ // To move to the left just take out 5 velocity.
+      qDebug() << "debug left";
       this->active_worm->addForce(QPair<double, double>(-50, 10));
       this->active_worm->setstable(false);
       }
@@ -47,7 +51,7 @@ void CustomView::keyPressEvent(QKeyEvent *k)
         this->active_worm->addForce(QPair<double, double>(0, -100));
         }
     // QUIT
-    if (k->key == 0x70) { //press key p
-      quitGame = true;
+    if (k->key() == 0x50) { //press key p
+      quitGame = true;        //exit while loop
     }
 }

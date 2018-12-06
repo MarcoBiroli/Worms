@@ -43,10 +43,8 @@ int main(int argc, char *argv[])
     int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
     double update_time = 10;
 
-    bool quitGame = false; 
     while(!quitGame){
         a.processEvents();
-
         timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
         if(timeSinceLastUpdate>update_time){
             for(int i = 0; i < 5; i++){
@@ -56,13 +54,7 @@ int main(int argc, char *argv[])
             lastUpdate = QTime::currentTime();
         }
         view->showNormal();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        if (closeEvent()) break;
->>>>>>> 44af2441ef62ba073ef211e0638a53d1ed886f39
->>>>>>> b12969daf4fd05c7640a064c9d6839fd4923b961
     }
+    delete view;  // close the window after key 'p' was pressed
     return a.exec();
 }
