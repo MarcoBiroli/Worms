@@ -4,6 +4,8 @@ using namespace std;
 
 #include "Projectile.h"
 
+#define update_time 10
+
 Projectile::Projectile() : RigidBody ()
 {
 
@@ -43,8 +45,10 @@ void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVe
             int dmg_dealt = damage - (damage/explosion_radius)*dist;
             worm->changeHealth(dmg_dealt);
             //run explosion animation
-            double Fx = (1/dist)*(worm->getX() - this->x);
-            double Fy = (1/dist)*(worm->getY() - this->y);
+            QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
+            double Fx = (vect_dist.first/dist)*dmg_dealt/update_time;
+            double Fy = (vect_dist.second/dist)*dmg_dealt/update_time;
+            //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
         }

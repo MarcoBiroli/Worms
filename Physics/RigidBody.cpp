@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QtMath>
 
+#define update_time 10
 
 //Constructors.
 RigidBody::RigidBody()

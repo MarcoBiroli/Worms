@@ -22,6 +22,7 @@ void CustomView::wheelEvent(QWheelEvent *event)
 }
 
 void CustomView::keyPressEvent(QKeyEvent *k)
+   // MOVE TO THE RIGHT
 {
     if(!this->active_worm->is_grounded.first){
         return;
@@ -41,10 +42,10 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     }
     /*
     if(k->key() == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
-      this->active_worm->addForce(QPair<double, double>(5000, 0));
-      this->active_worm->setstable(false);
+      this->worms[worms_playing[team_playing]]->addForce(QPair<double, double>(500, 0));
+      this->worms[worms_playing[team_playing]]->setstable(false);
       if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
-        this->active_worm->addForce(QPair<double, double>(5000, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
+        this->worms[worms_playing[team_playing]]->addForce(QPair<double, double>(500, 0));
         }
     }
 
@@ -69,4 +70,8 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     if (k->key() == 0x50) { //press key p
       this->has_quitted = true;        //exit while loop
     }
+
+    // NONE DISPLACEMENT KEY EVENTS:
+        // Pause the game by hitting the space bar.
+
 }
