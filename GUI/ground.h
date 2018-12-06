@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef GROUND_H
 #define GROUND_H
 

@@ -54,8 +54,9 @@ int main(int argc, char *argv[])
             tmp->setPos(body->getX(), body->getY());
             lastUpdate = QTime::currentTime();
         }
-        view->showNormal();
+
     }
 
+    view->showNormal();
     return a.exec();
 }
