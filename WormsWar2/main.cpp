@@ -6,10 +6,6 @@
 #include "../GUI/customview.h"
 #include "../Physics/PhysicsEngine.h"
 
-bool MainWindow::closeEvent (QCloseEvent *event) {
-    return true;
-}
-
 int main(int argc, char *argv[])
 {
     //This is the main function of the main file, this is what is run as soon as the program is launched.
@@ -59,7 +55,6 @@ int main(int argc, char *argv[])
             lastUpdate = QTime::currentTime();
         }
         view->showNormal();
-        if (closeEvent()) break;
     }
     return a.exec();
 }
