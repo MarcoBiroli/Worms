@@ -46,4 +46,8 @@ void CustomView::keyPressEvent(QKeyEvent *k)
       if( k->isAutoRepeat() == true && k->key() == 0x57){
         this->active_worm->addForce(QPair<double, double>(0, -100));
         }
+    // QUIT
+    if (k->key == 0x70) { //press key p
+      quitGame = true;
+    }
 }
