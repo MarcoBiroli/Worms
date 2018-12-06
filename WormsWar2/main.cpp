@@ -56,7 +56,10 @@ int main(int argc, char *argv[])
             lastUpdate = QTime::currentTime();
         }
         view->showNormal();
+<<<<<<< HEAD
+=======
+        if (closeEvent()) break;
+>>>>>>> 44af2441ef62ba073ef211e0638a53d1ed886f39
     }
-
     return a.exec();
 }
