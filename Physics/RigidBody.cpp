@@ -42,7 +42,9 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     double n_ve = (M[0]*this->vx + M[1]*this->vy)*this->bounciness_f;// reduction of v_e  by the bouncing factor.
     double n_vu = -(M[2]*this->vx + M[3]*this->vy)*this->bounciness_f;// reduction of v_u by the bouncing factor.
     double Fe = this->mass*(n_ve - ve)/dt;// component of the impulsive force parallel to the tangent at the collision point.
-    double Fu = this->mass*(n_vu - vu)/dt;// component  of the impulsive force perpendicular to the tangent at the collision point.
+    //double Fu = this->mass*(n_vu - vu)/dt;// component  of the impulsive force perpendicular to the tangent at the collision point.
+    double SFu = (M[2]*this->currentForce.first + M[3]*this->currentForce.second);
+    double Fu = this->mass*(n_vu - vu)/dt - SFu;
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};//rotational matrix of angle -theta.
     double Fx = M2[0]*Fe + M2[1]*Fu; //x component of the impulsive force.
     double Fy = M2[2]*Fe + M2[3]*Fu; //y component of the impulsive force.
