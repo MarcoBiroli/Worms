@@ -1,4 +1,4 @@
-#include "customview.h"
+.#include "customview.h"
 #include <iostream>
 
 CustomView::CustomView(QGraphicsScene *parent): QGraphicsView(parent)

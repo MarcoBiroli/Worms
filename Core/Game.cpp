@@ -20,14 +20,24 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     turn_timer=0;
 }
 
-void Game::update(double dt){
-    physics_engine.update(dt);
-    turn_timer +=dt;
+bool Game::gameLoop(QKeyEvent *k, double dt){
+    handleEvents(k);
+    update(double dt);
 
     if(turn_timer > max_turn_time){
         turn_timer = 0;
         team_playing = (team_playing +1)%nb_teams;
-
-
     }
+
+    return isFinished();
+}
+
+void Game::handleEvents(QKeyEvent *k){
+
+}
+
+void Game::update(double dt){
+    physics_engine.update(dt);
+    turn_timer +=dt;
+
 }
