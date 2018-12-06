@@ -8,7 +8,7 @@
 class Collider{
     private:
         int id; //Collider ID
-        double skin_depth_percent = 0.2; //percentage of the body that is allowed to overlap with another collider
+        double skin_depth_percent = 0; //percentage of the body that is allowed to overlap with another collider
         int skin_depth_pixels = 0; //same thing as the skin_depth_percent but it is in pixels
         int countblack = 0; //counts the number of black pixels in a collider
         QImage colliding_map = QImage(32,32,QImage::Format_RGB32); //default colliding map
@@ -18,6 +18,7 @@ class Collider{
         double cmx, cmy; //Central of mass x and y coordinate
 
     public:
+        bool is_ground = false;
 
         //Constructors
 
