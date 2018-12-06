@@ -33,9 +33,13 @@ bool Worm::damage_taken(){
     }
 }
 
-/*void Worm::fall_damage(){
-    bckp_V_magnitude=magn
-}*/
+void Worm::fall_damage(){
+    double bckp_V_magnitude= std::sqrt(this->bckp_vx*this->bckp_vx+this->bckp_vy*this->bckp_vy);
+    if (this->is_grounded){
+        this->changeHealth(bckp_V_magnitude/10);
+        this->damagetaken=true;
+    }
+}
 
 
 void Worm::pickUpWeapon(int weapon_ID, int iammo) {
@@ -68,7 +72,7 @@ void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &
     // We sets its initial parameters:
     current_projectile->set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
     double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
-    double y_force = -power*sin(weapon_angle*(M_PI/180)):update_time;
+    double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
     current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
     engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
     projectiles.append(current_projectile);
