@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
     double update_time = 10;
 
-    while(!quitGame){
+    while(!view->has_quitted){
         a.processEvents();
         timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
         if(timeSinceLastUpdate>update_time){
