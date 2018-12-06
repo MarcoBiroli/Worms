@@ -20,6 +20,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
             }
         }
     }
+    this->is_ground = true;
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.

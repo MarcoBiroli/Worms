@@ -14,6 +14,7 @@ private:
     
 public:
     bool is_colliding = false;
+    bool is_grounded = false;
     
     //Constructors.
     RigidBody();
