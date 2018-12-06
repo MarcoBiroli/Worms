@@ -5,7 +5,7 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
-    finished = false;
+    paused = false;
 
 
     for(int team=0; team<nb_teams; team++){
@@ -22,14 +22,42 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
 
 bool Game::gameLoop(QKeyEvent *k, double dt){
     handleEvents(k);
-    update(double dt);
+    if(paused){return false;}
+    update(dt);
 
     if(turn_timer > max_turn_time){
-        turn_timer = 0;
         team_playing = (team_playing +1)%nb_teams;
+
+        while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
+            team_playing = (team_playing +1)%nb_teams;
+            //danger if all teams dead infinite loop but should not happen as only called is isFinished false
+        }
+
+        nextWorm();
+        turn_timer = 0;
     }
 
     return isFinished();
+}
+
+void Game::nextWorm(){
+    if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
+    else{worms_playing[team_playing] +=1;}
+
+    int count = 0; //counts all worms checked to check if not all dead in team
+    while(worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive()) || count != worms.length()){
+        if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
+        else{worms_playing[team_playing] +=1;}
+
+        count +=1;
+    }
+
+    if(count == worms.length()){ //if all in such team dead try next
+        worms_playing[team_playing] = -1;
+
+        team_playing = (team_playing +1)%nb_teams;
+        nextWorm(); //careful with infinite loop
+    }
 }
 
 void Game::handleEvents(QKeyEvent *k){
@@ -39,5 +67,15 @@ void Game::handleEvents(QKeyEvent *k){
 void Game::update(double dt){
     physics_engine.update(dt);
     turn_timer +=dt;
+}
 
+bool Game::isFinished(){
+    int teams_alive = 0;
+    for(int i=0; i <worms.length(); i++){
+        if(worms_playing[i] != -1){
+            teams_alive +=1;
+        }
+    }
+    if(teams_alive < 2){return true;}
+    return false;
 }
