@@ -1,9 +1,12 @@
 #include "customview.h"
+#include <iostream>
 
 CustomView::CustomView(QGraphicsScene *parent): QGraphicsView(parent)
 {
 
 }
+
+bool quitGame = false;
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
@@ -48,4 +51,8 @@ void CustomView::keyPressEvent(QKeyEvent *k)
       if( k->isAutoRepeat() == true && k->key() == 0x57){
         this->active_worm->addForce(QPair<double, double>(0, -100));
         }
+    // QUIT
+    if (k->key() == 0x50) { //press key p
+      quitGame = true;        //exit while loop
+    }
 }
