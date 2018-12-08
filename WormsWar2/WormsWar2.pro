@@ -28,9 +28,9 @@ SOURCES += \
         ../Physics/Collider.cpp \
         ../Physics/PhysicsEngine.cpp \
         ../Physics/RigidBody.cpp \
-        ../Core/Game.cpp \
-        ../Core/Projectile.cpp \
-        ../Core/worms.cpp \
+        #../Core/Game.cpp \
+       # ../Core/Projectile.cpp \
+        #../Core/worms.cpp \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/dummy.cpp
@@ -41,9 +41,9 @@ HEADERS += \
         ../Physics/RigidBody.h \
         ../GUI/customview.h \
         ../GUI/ground.h \
-    ../Core/Game.h \
-    ../Core/Projectile.h \
-    ../Core/worms.h
+    #../Core/Game.h \
+   # ../Core/Projectile.h
+   # ../Core/worms.h
 
 FORMS += \
         mainwindow.ui
