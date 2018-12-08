@@ -37,6 +37,11 @@ int main(int argc, char *argv[])
     worm_right = worm_right.scaled(QSize(32,32));
     QImage worm_left("://Images/Clipart_worm_left.png");
     worm_left = worm_left.scaled(QSize(32,32));
+    QMovie moving_worm_right("://Images/Clipart_worm_right.gif");
+    moving_worm_right.setScaledSize(QSize(32,32));
+    QMovie moving_worm_left("://Images/Clipart_worm_left.gif");
+    moving_worm_left.setScaledSize(QSize(32,32));
+
     QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(worm_right));
 
     //Delete everything in the ground in radius of 100px aroud (250,250)
