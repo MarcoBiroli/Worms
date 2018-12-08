@@ -22,15 +22,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+RESOURCES     = res.qrc
 
 SOURCES += \
         main.cpp \
         ../Physics/Collider.cpp \
         ../Physics/PhysicsEngine.cpp \
         ../Physics/RigidBody.cpp \
-        #../Core/Game.cpp \
-       # ../Core/Projectile.cpp \
-        #../Core/worms.cpp \
+        ../Core/Game.cpp \
+        ../Core/Projectile.cpp \
+        ../Core/worms.cpp \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/dummy.cpp
