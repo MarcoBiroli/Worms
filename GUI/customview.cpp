@@ -23,20 +23,21 @@ void CustomView::wheelEvent(QWheelEvent *event)
 
 void CustomView::keyPressEvent(QKeyEvent *k)
 {
+    //GUI --- quitting function
     if (k->key() == 0x50) { //press key p
       this->has_quitted = true;        //exit while loop
     }
     if(!this->active_worm->is_grounded.first){
         return;
     }
-    double speed = 10;
-    if(k->key() == 0x41){
+    double speed = 100;
+    if(k->key() == 0x41){ //D = move right
         this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
         if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
           this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));                                            // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
           }
     }
-    if(k->key() == 0x44){
+    if(k->key() == 0x44){ //A = move left
         this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));
         if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
           this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));                                            // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.

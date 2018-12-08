@@ -32,24 +32,10 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
 //The physical idea is that the force acting on the body in a collision is F=dp/dt with dp the istantaneous 
 //change in the linear momentum of the RigidBody.
 
-void RigidBody::revert(){
-    if(this->bckp_x == -1){return;}
-    this->x = this->bckp_x;
-    this->y = this->bckp_y;
-    /*
-    this->vx = this->bckp_vx;
-    this->vy = this->bckp_vy;
-    this->ax = this->bckp_ax;
-    this->ay = this->bckp_ay;
-    */
-    this->bckp_x = -1;
-}
-
 void RigidBody::bounce(QPair<double, double> normal, double dt) 
     
 {
     dt /= 1000; //dt in milliseconds
-    //this->revert();
     double theta = qAtan2(-normal.first, normal.second); //angle that the normal vector to the ground forms with the y-aixs
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*this->vx + M[1]*this->vy); // component of the velocity parallel to the tangent line at the collision point.

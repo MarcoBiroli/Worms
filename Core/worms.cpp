@@ -16,11 +16,11 @@ Worm::~Worm() {
 }
 
 bool Worm::isAlive() const{
-  return health > 0; 
+  return this->health > 0;
 }
 
 int Worm::getTeam() const{
-    return team_number;
+    return this->team_number;
 }
 
 bool Worm::damage_taken(){
@@ -76,34 +76,6 @@ void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &
     current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
     engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
     projectiles.append(current_projectile);
-}
-
-void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
-  /*
-  // MOVE TO THE RIGHT
-  if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
-    worms.addForce(QPair<double, double>(5, 0));
-    if(bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
-      worms.addForce(QPair<double, double>(5, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
-      }
-  }
-  
-  // MOVE TO THE LEFT
-  if (int QKeyEvent::key() const == 0x41){ // To move to the left just take out 5 velocity.
-    worms.addForce(QPair<double, double>(-5, 0));
-    }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x41){
-      worms.addForce(QPair<double, double>(-5, 0));
-      }
-   
-  // JUMP
-  if (int QKeyEvent::key() const == 0x57){ // To move jump give a negative force to the y-axis (recall 
-    worms.addForce(QPair<double, double>(0, -5));
-    }
-    if((bool QKeyEvent::isAutoRepeat() const == true && int QKeyEvent::key() const == 0x57){
-      vy0 += 5;
-      }
-    */
 }
 
 void Worm::wormDeath() {

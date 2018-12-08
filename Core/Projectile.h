@@ -28,13 +28,13 @@ class Projectile : public RigidBody {
 
     private:
         bool is_bouncy;
-        double delay;
+        double delay; //delay before projectile explodes in ms. -1 if projectile explodes on impact
         double radius; 
         double explosion_radius;
         double damage;
         double mass; 
         std::string weapon_name;
-        double fire_time;
+        double fire_time; //  ms time elapsed since projectile fire. if fire_time >= delay, then call explode()
 };
 
 

@@ -38,8 +38,6 @@ class Worm: public RigidBody {
       
       void fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles); //with the power from the user input and the angle stored in the Worms class, create projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
-      void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
-      
       void wormDeath(); // call destructor and run death animation
 
     private:
