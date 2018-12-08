@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
     //This is the main function of the main file, this is what is run as soon as the program is launched.
     QApplication a(argc, argv);
 
+    Q_INIT_RESOURCE(res);
+
     //Initialize the window
     QGraphicsScene *scene = new QGraphicsScene();
 
@@ -31,7 +33,16 @@ int main(int argc, char *argv[])
     //RigidBody* body = Engine.create_rigidbody(1, 250, 0);
     //body->setbounciness(0.6);
 
-    QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(Gerard->get_map())); //
+    QImage worm_right("://Images/Clipart_worm_right.png");
+    worm_right = worm_right.scaled(QSize(32,32));
+    QImage worm_left("://Images/Clipart_worm_left.png");
+    worm_left = worm_left.scaled(QSize(32,32));
+    QMovie moving_worm_right("://Images/Clipart_worm_right.gif");
+    moving_worm_right.setScaledSize(QSize(32,32));
+    QMovie moving_worm_left("://Images/Clipart_worm_left.gif");
+    moving_worm_left.setScaledSize(QSize(32,32));
+
+    QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(worm_right));
 
     //Delete everything in the ground in radius of 100px aroud (250,250)
     ground->circ_delete(2500, 600, 200);
@@ -54,6 +65,12 @@ int main(int argc, char *argv[])
         if(timeSinceLastUpdate>update_time){
             for(int i = 0; i < 10; i++){
                 Engine.update(update_time);
+            }
+            if(Gerard->getvx() < 0){
+                tmp->setPixmap(QPixmap::fromImage(worm_left));
+            }
+            else{
+                tmp->setPixmap(QPixmap::fromImage(worm_right));
             }
             tmp->setPos(Gerard->getX(), Gerard->getY());
             lastUpdate = QTime::currentTime();

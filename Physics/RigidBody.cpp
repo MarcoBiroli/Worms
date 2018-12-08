@@ -41,12 +41,15 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     double ve = (M[0]*this->vx + M[1]*this->vy); // component of the velocity parallel to the tangent line at the collision point.
     double vu = (M[2]*this->vx + M[3]*this->vy); // component of the velocity perpendicular to the tangent line at the collision point.
 
+    double n_ve, n_vu;
     if(vu > 0){
-        return;
+        n_ve = ve;// reduction of v_e  by the bouncing factor
+        n_vu = vu;
     }
-
-    double n_ve = (M[0]*this->vx + M[1]*this->vy)*this->bounciness_f;// reduction of v_e  by the bouncing factor.
-    double n_vu = -(M[2]*this->vx + M[3]*this->vy)*this->bounciness_f;// reduction of v_u by the bouncing factor.
+    else{
+        n_ve = ve*this->bounciness_f;// reduction of v_e  by the bouncing factor.
+        n_vu = -vu*this->bounciness_f;// reduction of v_u by the bouncing factor.
+    }
     double Fe = this->mass*(n_ve - ve)/dt;// component of the impulsive force parallel to the tangent at the collision point.
     double SFu = (M[2]*this->currentForce.first + M[3]*this->currentForce.second);
     double Fu;
@@ -95,27 +98,15 @@ void RigidBody::simulate(double dt){
     if(this->is_grounded.first){
         ax -= vx*friction;
     }
-    if(fabs(ax) < 0.1){
-        ax = 0;
-    }
     this->bckp_ay = ay;
     ay = currentForce.second/mass;
     if(this->is_grounded.first){
         ay -= vy*friction;
     }
-    if(fabs(ay) < 0.1){
-        ay = 0;
-    }
     this->bckp_vx = vx;
     vx=vx+ax*dt;
-    if(fabs(vx) < 0.1){
-        vx = 0;
-    }
     this->bckp_vy = vy;
     vy=vy+ay*dt;
-    if(fabs(vy) < 0.09){
-        vy = 0;
-    }
     this->bckp_x = x;
     this->x = this->x+vx*dt;
     this->bckp_y = y;
