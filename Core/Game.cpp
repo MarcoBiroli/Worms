@@ -60,6 +60,9 @@ void Game::nextWorm(){
     }
 }
 
+void Game::handleEvents(QKeyEvent *k){}
+
+/*
 void Game::handleEvents(QKeyEvent *k){
     // Find out how to call a certain worm.
 
@@ -105,9 +108,8 @@ void Game::handleEvents(QKeyEvent *k){
      }
  }
 
-
-
 }
+*/
 
 void Game::update(double dt){
     physics_engine.update(dt);

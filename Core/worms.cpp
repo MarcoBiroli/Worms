@@ -35,7 +35,7 @@ bool Worm::damage_taken(){
 
 void Worm::fall_damage(){
     double bckp_V_magnitude= std::sqrt(this->bckp_vx*this->bckp_vx+this->bckp_vy*this->bckp_vy);
-    if (this->is_grounded){
+    if (this->is_grounded.first){
         this->changeHealth(bckp_V_magnitude/10);
         this->damagetaken=true;
     }

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QObject>
 #include "../Physics/RigidBody.h"
+#include "../Core/worms.h"
 
 #ifndef MY_GLOBALS_H
 #define MY_GLOBALS_H
@@ -20,7 +21,7 @@ class CustomView : public QGraphicsView
 {
 public:
     CustomView(QGraphicsScene *parent);
-    RigidBody* active_worm;
+    Worm* active_worm;
     bool has_quitted = false;
 
 protected:

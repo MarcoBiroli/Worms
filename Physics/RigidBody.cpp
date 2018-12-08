@@ -36,10 +36,12 @@ void RigidBody::revert(){
     if(this->bckp_x == -1){return;}
     this->x = this->bckp_x;
     this->y = this->bckp_y;
+    /*
     this->vx = this->bckp_vx;
     this->vy = this->bckp_vy;
     this->ax = this->bckp_ax;
     this->ay = this->bckp_ay;
+    */
     this->bckp_x = -1;
 }
 
@@ -52,11 +54,22 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*this->vx + M[1]*this->vy); // component of the velocity parallel to the tangent line at the collision point.
     double vu = (M[2]*this->vx + M[3]*this->vy); // component of the velocity perpendicular to the tangent line at the collision point.
+
+    if(vu > 0){
+        return;
+    }
+
     double n_ve = (M[0]*this->vx + M[1]*this->vy)*this->bounciness_f;// reduction of v_e  by the bouncing factor.
     double n_vu = -(M[2]*this->vx + M[3]*this->vy)*this->bounciness_f;// reduction of v_u by the bouncing factor.
     double Fe = this->mass*(n_ve - ve)/dt;// component of the impulsive force parallel to the tangent at the collision point.
     double SFu = (M[2]*this->currentForce.first + M[3]*this->currentForce.second);
-    double Fu = this->mass*(n_vu - vu)/dt - SFu;
+    double Fu;
+    if(SFu <= 0){
+        Fu = this->mass*(fabs(n_vu - vu))/dt - SFu;
+    }
+    else{
+        Fu = this->mass*(fabs(n_vu - vu))/dt;
+    }
     Fe = 0;
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};//rotational matrix of angle -theta.
     double Fx = M2[0]*Fe + M2[1]*Fu; //x component of the impulsive force.

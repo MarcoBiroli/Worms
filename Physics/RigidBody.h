@@ -6,9 +6,11 @@
 
 
 class RigidBody: public Collider{
-private:
+protected:
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
     double bckp_x = -1, bckp_y = 0, bckp_vx = 0, bckp_vy = 0, bckp_ax = 0, bckp_ay = 0;
+
+private:
     QPair<double, double> currentForce = QPair<double, double>(0, 0);
     double bounciness_f = 0;
     bool stable = false;
