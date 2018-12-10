@@ -13,6 +13,7 @@
 
 #include "Projectile.h"
 #include "worms.h"
+#include "Barrel.h"
 
 class Game{
     public:
@@ -34,6 +35,7 @@ class Game{
       //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
+      QVector<Barrel*> barrels;
 
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
