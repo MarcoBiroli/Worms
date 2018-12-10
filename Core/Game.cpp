@@ -109,7 +109,7 @@ void Game::handleEvents(QKeyEvent *k){
 
 void Game::update(double dt){
     physics_engine.update(dt);
-    turn_timer +=dt;
+    turn_timer += dt;
 }
 
 bool Game::isFinished(){
@@ -129,6 +129,7 @@ void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid
     QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(QPixmap::fromImage(initial_image));
     scene.addItem(new_pixmap_body);
     new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
+    pixmap_items.append(*new_pixmap_body);
 }
 
 

@@ -46,23 +46,6 @@ class Game{
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
 
-      //maps a class_id to the path of the image to display for objects of that class
-      QMap<int, QMap<QString, QImage>> image_path =
-      {
-          {-1, {
-               {"left", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))},
-               {"right", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))}}
-          },
-          {0, {
-               {"left", QImage()},
-               {"right", QImage()}}
-          },
-          {1, {
-               {"left", QImage()},
-               {"right", QImage()}}
-          }
-       };
-
       //store ground, map size (see with GUI team)
       PhysicsEngine physics_engine;
       QVector<int> worms_ids;
@@ -76,10 +59,32 @@ class Game{
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
 
+      //GRAPHICS
+
+      //maps a class_id to the path of the image to display for objects of that class
+      QMap<int, QMap<QString, QImage>> image_path =
+      {
+          {-1, {
+               {"left", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))},
+               {"right", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))}}
+          },
+          {0, {
+               {"left", QImage("")},
+               {"right", QImage("")}}
+          },
+          {1, {
+               {"left", QImage("")},
+               {"right", QImage("")}}
+          }
+       };
+
       enum {
           class_worm_id=-1,
           class_projectile_grenade_id=0,
           class_projectile_shot_id=1
       };
+
+      QVector<QGraphicsPixmapItem> pixmap_items;
+
 };
 #endif // GAME_H
