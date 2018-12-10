@@ -55,6 +55,5 @@ class Worm: public RigidBody {
       bool isTurn;
       int weapon_ID = 0;
       bool damagetaken=false;
-      bool damagetaken=false;
       bool wormdirection=true; //true is to the right
 };
