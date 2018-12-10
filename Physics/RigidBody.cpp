@@ -73,7 +73,7 @@ void RigidBody::bounce(QPair<double, double> normal, double dt)
     else{
         Fu = this->mass*(fabs(n_vu - vu))/dt;
     }
-    Fe = 0;
+    //Fe = 0;
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};//rotational matrix of angle -theta.
     double Fx = M2[0]*Fe + M2[1]*Fu; //x component of the impulsive force.
     double Fy = M2[2]*Fe + M2[3]*Fu; //y component of the impulsive force.
