@@ -20,12 +20,11 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     turn_timer=0;
 }
 
-bool Game::gameLoop(QKeyEvent *k, double dt){
-    handleEvents(k);
+bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
     update(dt);
 
-    if(turn_timer > max_turn_time){
+    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg
         team_playing = (team_playing +1)%nb_teams;
 
         while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
@@ -65,6 +64,7 @@ void Game::handleEvents(QKeyEvent *k){}
 /*
 void Game::handleEvents(QKeyEvent *k){
     // Find out how to call a certain worm.
+    worms[worms_playing[team_playing]]
 
 
     // MOVE TO THE RIGHT

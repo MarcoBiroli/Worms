@@ -41,7 +41,10 @@ class Worm: public RigidBody {
       void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
       
       void wormDeath(); // call destructor and run death animation
-
+    
+      bool get_direction();
+    
+      void set_direction();
     private:
       int health;
       int current_weapon;
@@ -52,5 +55,6 @@ class Worm: public RigidBody {
       bool isTurn;
       int weapon_ID = 0;
       bool damagetaken=false;
-
+      bool damagetaken=false;
+      bool wormdirection=true; //true is to the right
 };

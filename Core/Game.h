@@ -13,12 +13,13 @@
 
 #include "Projectile.h"
 #include "worms.h"
+#include "Barrel.h"
 
 class Game{
     public:
       Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
 
-      bool gameLoop(QKeyEvent *k, double dt);
+      bool gameIteration(QKeyEvent *k, double dt);
 
       void update(double dt); //general update: time and physics
 
@@ -34,6 +35,7 @@ class Game{
       //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
+      QVector<Barrel*> barrels;
 
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};

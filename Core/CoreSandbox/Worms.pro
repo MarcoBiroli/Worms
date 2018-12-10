@@ -43,7 +43,8 @@ HEADERS += \
     Collider.h \
     PhysicsEngine.h \
     Projectile.h \
-    game.h
+    game.h \
+    barrel.h
 
 FORMS += \
         mainwindow.ui

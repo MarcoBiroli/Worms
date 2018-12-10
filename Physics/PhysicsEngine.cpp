@@ -82,6 +82,12 @@ RigidBody *PhysicsEngine::get_rigidbody(int id)
     return this->rigidbodies.value(id);
 }
 
+void PhysicsEngine::delete_rigidbody(int id)
+{
+    delete rigidbodies.value(id); //freeeee memooooory
+    rigidbodies.remove(id);
+}
+
 //Create a collider
 Collider *PhysicsEngine::create_collider(double ix, double iy, QImage map)
 {
