@@ -3,11 +3,15 @@
 
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
+    QString path = ("/Users/guillaumepayamonet/Downloads/backgroundimcartoon.jpg");
+    QImage img(path);
+    QImage img2 = img.scaled(10000,5000, Qt::KeepAspectRatio);
     this->map = new QImage(width, height, QImage::Format_RGB32); //Initialize the variables.
     this->map->fill(Qt::white);
     this->set_map(*this->map);
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
-    this->map->fill(blue_sky); //Fill all by blue meaning there is no ground.
+    QPainter painter(this->map);
+    painter.drawImage(0,-1500,img2);//Fill all by blue meaning there is no ground.
     for(int i = 0; i < width; i++){ //By default makes all the pixels that are under (y = 500) ground.
         for(int j = 0; j < height; j++){
             if(j > 500){
