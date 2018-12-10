@@ -23,8 +23,11 @@ void CustomView::wheelEvent(QWheelEvent *event)
 
 void CustomView::keyPressEvent(QKeyEvent *k)
 {
-    if (k->key() == 0x50) { //press key p
-      this->has_quitted = true;        //exit while loop
+    if (k->key() == 0x01000023){    //press alt key to stop the loop and then F4 to close the window
+ //       if (k->key() == 0x50) { //press key p
+        // Alt = 0x01000023 and F4 = 0x01000033
+        this->has_quitted = true;        //exit while loop
+
     }
     if(!this->active_worm->is_grounded.first){
         return;
