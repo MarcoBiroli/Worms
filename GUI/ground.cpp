@@ -3,7 +3,7 @@
 
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
-    QString path = ("/Users/guillaumepayamonet/Downloads/backgroundimcartoon.jpg");
+    QString path = ("game_background.jpg");
     QImage img(path);
     QImage img2 = img.scaled(10000,5000, Qt::KeepAspectRatio);
     this->map = new QImage(width, height, QImage::Format_RGB32); //Initialize the variables.
