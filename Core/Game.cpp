@@ -24,7 +24,7 @@ bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
     update(dt);
 
-    if(turn_timer > max_turn_time){
+    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg
         team_playing = (team_playing +1)%nb_teams;
 
         while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
