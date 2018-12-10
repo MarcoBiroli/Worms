@@ -18,7 +18,7 @@ class Game{
     public:
       Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
 
-      bool gameLoop(QKeyEvent *k, double dt);
+      bool gameIteration(QKeyEvent *k, double dt);
 
       void update(double dt); //general update: time and physics
 
