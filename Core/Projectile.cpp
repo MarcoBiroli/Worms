@@ -36,7 +36,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
-void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
+void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
     ground.circ_delete(this->x, this->y, explosion_radius);
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
@@ -54,7 +54,7 @@ void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVe
         }
     }
     //destroy projectile
-    rigidbodies.remove(this->getId());
+    engine.delete_rigidbody(this->getId());
     projectiles.removeOne(this);
 }
 
