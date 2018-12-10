@@ -27,6 +27,8 @@ class PhysicsEngine{
         RigidBody* create_rigidbody(double imass, double ix, double iy);
         RigidBody* get_rigidbody(int id); //access a rigidbody through id
 
+        void delete_rigidbody(int id);
+
         Collider* create_collider(double ix, double iy, QImage map);
         Collider* create_collider(double ix, double iy);
         Collider* get_collider(int id); //access a collider through id

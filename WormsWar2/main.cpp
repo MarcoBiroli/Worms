@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
             tmp->setPos(Gerard->getX(), Gerard->getY());
             lastUpdate = QTime::currentTime();
         }
-        view->showNormal();
+        view->showFullScreen();
     }
     delete view;  // close the window after key 'p' was pressed
     delete scene;
