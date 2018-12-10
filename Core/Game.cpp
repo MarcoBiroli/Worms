@@ -20,8 +20,7 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     turn_timer=0;
 }
 
-bool Game::gameLoop(QKeyEvent *k, double dt){
-    handleEvents(k);
+bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
     update(dt);
 
@@ -65,6 +64,7 @@ void Game::handleEvents(QKeyEvent *k){}
 /*
 void Game::handleEvents(QKeyEvent *k){
     // Find out how to call a certain worm.
+    worms[worms_playing[team_playing]]
 
 
     // MOVE TO THE RIGHT
