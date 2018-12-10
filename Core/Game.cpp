@@ -98,11 +98,6 @@ void Game::handleEvents(QKeyEvent *k){
 
        }
 
-
-
-
-
-
      // QUIT
      if (k->key() == 0x50) { //press key p
        this->has_quitted = true;        //exit while loop

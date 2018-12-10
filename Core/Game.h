@@ -46,7 +46,7 @@ class Game{
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
 
-      //maps a a class_id to the path of the image to display for objects of that class
+      //maps a class_id to the path of the image to display for objects of that class
       QMap<int, QMap<QString, QImage>> image_path =
       {
           {-1, {

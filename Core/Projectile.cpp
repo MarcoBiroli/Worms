@@ -19,6 +19,7 @@ Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_
     this->damage = damage;
     this->mass = m;
     this->weapon_name = weapon_name;
+    this->setbounciness(0.4);
 }
 
 void Projectile::print() {
