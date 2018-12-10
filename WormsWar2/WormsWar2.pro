@@ -35,7 +35,7 @@ SOURCES += \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/dummy.cpp \
-    ../Core/Barrel.cpp
+    #../Core/Barrel.cpp
 
 HEADERS += \
         ../Physics/Collider.h \
@@ -46,7 +46,7 @@ HEADERS += \
         ../Core/Game.h \
         ../Core/Projectile.h \
         ../Core/worms.h \
-    ../Core/Barrel.h
+    #../Core/Barrel.h
 
 FORMS += \
         mainwindow.ui

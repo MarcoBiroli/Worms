@@ -36,7 +36,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
-void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
+void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
     ground.circ_delete(this->x, this->y, explosion_radius);
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
@@ -53,6 +53,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             worm->addForce(explosion_force);
         }
     }
+    /*
     for (int j=0; j<barrels.size(); j++) {
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
@@ -61,6 +62,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
 
     }
+    */
     //destroy projectile
     engine.delete_rigidbody(this->getId());
     projectiles.removeOne(this);

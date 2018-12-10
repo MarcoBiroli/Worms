@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Physics/RigidBody.h"
-#include "Projectile.h"
+//#include "../Physics/RigidBody.h"
+//#include "Projectile.h"
 
 class Barrel : public RigidBody {
     //Class for the exploding oil barrels

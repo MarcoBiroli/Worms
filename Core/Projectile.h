@@ -3,7 +3,7 @@
 #include "../Physics/ground.h"
 #include "../Physics/RigidBody.h"
 #include "worms.h"
-#include "Barrel.h"
+//#include "Barrel.h"
 
 class Worm;
 
@@ -15,7 +15,7 @@ class Projectile : public RigidBody {
         void print();
         //prints the Projectile's specs
 
-        void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels);
+        void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms);
         // if explosion condition is met (collosion or delay timeout), call this function.
         // the function does the following: 
         // generates damage in explosion_radius, with linear decrease of damage from
@@ -35,7 +35,6 @@ class Projectile : public RigidBody {
         double radius; 
         double explosion_radius;
         double damage;
-        double mass; 
         std::string weapon_name;
         double fire_time;
 };
