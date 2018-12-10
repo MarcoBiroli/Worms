@@ -1,9 +1,10 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>Images/Clipart_worm_left.png</file>
-    <file>Images/Clipart_worm_right.png</file>
-    <file>Images/Clipart_worm_left.gif</file>
-    <file>Images/Clipart_worm_right.gif</file>
-    <file>Images/game_background.jpg</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Clipart_worm_left.png</file>
+        <file>Images/Clipart_worm_right.png</file>
+        <file>Images/Clipart_worm_left.gif</file>
+        <file>Images/Clipart_worm_right.gif</file>
+        <file>Images/game_background.jpg</file>
+        <file>../Images/game_background_bw.png</file>
+    </qresource>
 </RCC>
