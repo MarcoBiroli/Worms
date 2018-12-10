@@ -19,6 +19,7 @@ Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_
     this->damage = damage;
     this->mass = m;
     this->weapon_name = weapon_name;
+    this->setbounciness(0.4);
 }
 
 void Projectile::print() {
@@ -36,7 +37,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
-void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
+void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
     ground.circ_delete(this->x, this->y, explosion_radius);
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
@@ -53,8 +54,18 @@ void Projectile::explode(Ground &ground, QMap<int, RigidBody*> &rigidbodies, QVe
             worm->addForce(explosion_force);
         }
     }
+    /*
+    for (int j=0; j<barrels.size(); j++) {
+        Barrel* barrel = barrels[j];
+        double dist = this->distance(*barrel);
+        if (dist <= explosion_radius) {
+            barrel->explode();
+        }
+
+    }
+    */
     //destroy projectile
-    rigidbodies.remove(this->getId());
+    engine.delete_rigidbody(this->getId());
     projectiles.removeOne(this);
 }
 
