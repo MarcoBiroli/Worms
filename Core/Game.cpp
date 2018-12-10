@@ -64,6 +64,7 @@ void Game::handleEvents(QKeyEvent *k){}
 /*
 void Game::handleEvents(QKeyEvent *k){
     // Find out how to call a certain worm.
+    worms[worms_playing[team_playing]]
 
 
     // MOVE TO THE RIGHT
