@@ -5,23 +5,34 @@
 
 
 
-class RigidBody:public Collider{
-private:
+class RigidBody: public Collider{
+protected:
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
+    double bckp_x = -1, bckp_y = 0, bckp_vx = 0, bckp_vy = 0, bckp_ax = 0, bckp_ay = 0;
+
+private:
     QPair<double, double> currentForce = QPair<double, double>(0, 0);
     double bounciness_f = 0;
     bool stable = false;
     
 public:
-    RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, int iid, QImage map);
+    bool is_colliding = false;
+    QPair<bool, QPair<double, double>> is_grounded = QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));
+    
+    //Constructors.
+    RigidBody();
+    RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
     RigidBody(double imass, double ix, double iy);
     
+    //Physics methods.
+    void revert();
     void bounce(QPair<double, double> normal, double dt);
-
     void addForce(QPair<double, double> F);
     double distance(RigidBody other);
     void simulate(double dt);
     
+    
+    //Set methods.
     void setbounciness(double b);
     void setm(double m);
     void setvx(double v_x);
@@ -30,6 +41,7 @@ public:
     void setay(double a_y);
     void setstable(bool a);
 
+    //Get methods.
     bool getstable();
     double getbounciness();
     double getm();
