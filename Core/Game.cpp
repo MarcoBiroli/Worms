@@ -1,4 +1,5 @@
-#include "game.h"
+#include "Game.h"
+#include <QPixmap>
 
 Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     physics_engine = PhysicsEngine();
@@ -126,3 +127,17 @@ bool Game::isFinished(){
     if(teams_alive < 2){return true;}
     return false;
 }
+
+void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid_body)
+{
+    QImage initial_image(image_path.value(class_id).value("right"));
+    QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(QPixmap::fromImage(initial_image));
+    scene.addItem(new_pixmap_body);
+    new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
+}
+
+
+
+
+
+

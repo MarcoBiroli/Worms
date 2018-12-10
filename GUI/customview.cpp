@@ -29,7 +29,7 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     if(!this->active_worm->is_grounded.first){
         return;
     }
-    double speed = 100;
+    double speed = 20;
     if(k->key() == 0x41){
         this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
         if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
