@@ -78,6 +78,21 @@ void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &
     projectiles.append(current_projectile);
 }
 
+bool Worm::get_direction(){
+    return wormdirection;
+}
+
+void Worm::set_direction(){
+    if(this->getstable()==false){
+        if (this->vx>0){
+            wormdirection=true;
+        }
+        else{
+            wormdirection=false;
+        }
+    }
+}
+
 void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
   /*
   // MOVE TO THE RIGHT
