@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include "../Core/Game.h"
 #include "../GUI/ground.h"
 #include "../GUI/customview.h"
 #include "../Physics/PhysicsEngine.h"
@@ -25,10 +26,13 @@ int main(int argc, char *argv[])
     //Create a Ground of size (500x500)
     Ground *ground = new Ground(5000, 3000);
     Engine.add_Collider(ground);
+
     //Create a Rigidbody
     Worm* Gerard = new Worm(0, "Gerard", 100, 1, 250, 0);
-    Gerard->setbounciness(0.6);
+
+    Gerard->setbounciness(0);
     Engine.add_RigidBody(Gerard);
+
 
     //RigidBody* body = Engine.create_rigidbody(1, 250, 0);
     //body->setbounciness(0.6);
@@ -75,9 +79,9 @@ int main(int argc, char *argv[])
             tmp->setPos(Gerard->getX(), Gerard->getY());
             lastUpdate = QTime::currentTime();
         }
-        view->showNormal();
+        view->showMaximized();
     }
-    delete view;  // close the window after key 'p' was pressed
-    delete scene;
+    //delete view;  // //press alt key to stop the loop + F4 to close the window
+    //delete scene;
     return a.exec();
 }

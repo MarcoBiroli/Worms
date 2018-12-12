@@ -39,7 +39,10 @@ class Worm: public RigidBody {
       void fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles); //with the power from the user input and the angle stored in the Worms class, create projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
       void wormDeath(); // call destructor and run death animation
-
+    
+      bool get_direction();
+    
+      void set_direction();
     private:
       int health;
       int current_weapon;
@@ -50,5 +53,5 @@ class Worm: public RigidBody {
       bool isTurn;
       int weapon_ID = 0;
       bool damagetaken=false;
-
+      bool wormdirection=true; //true is to the right
 };

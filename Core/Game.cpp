@@ -1,4 +1,5 @@
-#include "game.h"
+#include "Game.h"
+#include <QPixmap>
 
 Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     physics_engine = PhysicsEngine();
@@ -20,12 +21,11 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     turn_timer=0;
 }
 
-bool Game::gameLoop(QKeyEvent *k, double dt){
-    handleEvents(k);
+bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
     update(dt);
 
-    if(turn_timer > max_turn_time){
+    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg
         team_playing = (team_playing +1)%nb_teams;
 
         while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
@@ -65,6 +65,7 @@ void Game::handleEvents(QKeyEvent *k){}
 /*
 void Game::handleEvents(QKeyEvent *k){
     // Find out how to call a certain worm.
+    worms[worms_playing[team_playing]]
 
 
     // MOVE TO THE RIGHT
@@ -97,11 +98,6 @@ void Game::handleEvents(QKeyEvent *k){
 
        }
 
-
-
-
-
-
      // QUIT
      if (k->key() == 0x50) { //press key p
        this->has_quitted = true;        //exit while loop
@@ -113,7 +109,7 @@ void Game::handleEvents(QKeyEvent *k){
 
 void Game::update(double dt){
     physics_engine.update(dt);
-    turn_timer +=dt;
+    turn_timer += dt;
 }
 
 bool Game::isFinished(){
@@ -126,3 +122,18 @@ bool Game::isFinished(){
     if(teams_alive < 2){return true;}
     return false;
 }
+
+void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid_body)
+{
+    QImage initial_image(image_path.value(class_id).value("right"));
+    QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(QPixmap::fromImage(initial_image));
+    scene.addItem(new_pixmap_body);
+    new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
+    pixmap_items.append(new_pixmap_body);
+}
+
+
+
+
+
+
