@@ -84,7 +84,7 @@ class Game{
           class_projectile_shot_id=1
       };
 
-      QVector<QGraphicsPixmapItem> pixmap_items;
+      QVector<QGraphicsPixmapItem*> pixmap_items;
 
 };
 #endif // GAME_H

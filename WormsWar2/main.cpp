@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
     //Create a Rigidbody
     Worm* Gerard = new Worm(0, "Gerard", 100, 1, 250, 0);
+
     Gerard->setbounciness(0);
     Engine.add_RigidBody(Gerard);
 
