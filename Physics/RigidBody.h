@@ -25,7 +25,6 @@ public:
     RigidBody(double imass, double ix, double iy);
     
     //Physics methods.
-    void revert();
     void bounce(QPair<double, double> normal, double dt);
     void addForce(QPair<double, double> F);
     double distance(RigidBody other);
