@@ -12,7 +12,7 @@ class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
     public:
         Projectile();
-        Projectile( double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y);
+        Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y);
         void print();
         //prints the Projectile's specs
 

@@ -41,7 +41,7 @@ bool Game::gameIteration(QKeyEvent *k, double dt){
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt)){
-            //projectiles[i]->explode(ground)
+            projectiles[i]->explode(ground, physics_engine, projectiles, worms, barrels);
         }
     }
 

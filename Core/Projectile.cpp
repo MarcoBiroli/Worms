@@ -11,7 +11,8 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
-Projectile::Projectile( double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
+Projectile::Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
+    this->explosion_by_delay= explosion_by_delay;
     this->delay = delay;
     this->radius = r;
     this->explosion_radius = explosion_r;
