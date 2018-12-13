@@ -5,6 +5,8 @@
 #include "../Physics/RigidBody.h"
 #include "Projectile.h"
 
+class Projectile;
+
 class Barrel : public RigidBody {
     //Class for the exploding oil barrels
     public :

@@ -6,6 +6,7 @@
 #include "Barrel.h"
 
 class Worm;
+class Barrel;
 
 class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
@@ -15,7 +16,7 @@ class Projectile : public RigidBody {
         void print();
         //prints the Projectile's specs
 
-        void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms);
+        void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels);
         // if explosion condition is met (collosion or delay timeout), call this function.
         // the function does the following: 
         // generates damage in explosion_radius, with linear decrease of damage from
