@@ -24,6 +24,7 @@ public:
     Worm* active_worm;
     bool has_quitted = false;
 
+
 protected:
      void wheelEvent(QWheelEvent *event);
      void keyPressEvent(QKeyEvent *k);
