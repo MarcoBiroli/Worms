@@ -45,6 +45,9 @@ class Worm: public RigidBody {
       bool get_direction();
     
       void set_direction();
+
+      void change_direction(bool t);
+
     private:
       int health;
       int current_weapon;
