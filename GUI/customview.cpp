@@ -80,6 +80,32 @@ void CustomView::keyPressEvent(QKeyEvent *k)
         this->active_worm->addForce(QPair<double, double>(0, -5000));
         }
 
+      if (k->key() == 0x51){
+          if (this->active_worm->getstable()){
+          if (this->active_worm->get_direction()){
+              this->active_worm->addForce(QPair<double, double> (-1000,-4000));
+              this->active_worm->setstable(false);
+          }
+          else{
+              this->active_worm->addForce(QPair<double, double> (-4000,-2000));
+              this->active_worm->setstable(false);
+          }
+      }
+      }
+
+      if (k->key()==0x45){
+          if (this->active_worm->getstable()){
+          if (this->active_worm->get_direction()){
+              this->active_worm->addForce(QPair<double, double> (4000,-2000));
+              this->active_worm->setstable(false);
+          }
+          else{
+              this->active_worm->addForce(QPair<double, double> (1000,-4000));
+              this->active_worm->setstable(false);
+          }
+      }
+      }
+
       /*change direction to the left
       if (k->key()==0x01000012 && active_worm->getstable()){
           this->active_worm->change_direction(false);
