@@ -12,11 +12,15 @@ class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
     public:
         Projectile();
-        Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y);
+
         void print();
         //prints the Projectile's specs
 
+        Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, int weapon_id, double x, double y);
+
         void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels);
+
+        int get_id();
         // if explosion condition is met (collosion or delay timeout), call this function.
         // the function does the following: 
         // generates damage in explosion_radius, with linear decrease of damage from
@@ -39,7 +43,8 @@ class Projectile : public RigidBody {
         double explosion_radius;
         double damage;
         std::string weapon_name;
-        double fire_time; //  ms time elapsed since projectile fire. if fire_time >= delay, then call explode()
+        int weapon_id;
+        double fire_time;
 };
 
 

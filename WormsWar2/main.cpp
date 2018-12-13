@@ -70,7 +70,10 @@ int main(int argc, char *argv[])
             for(int i = 0; i < 10; i++){
                 Engine.update(update_time);
             }
-            if(Gerard->getvx() < 0){
+            double theta = qAtan2(-Gerard->is_grounded.second.first, Gerard->is_grounded.second.second);
+            double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)};
+            double ve = M[0]*Gerard->getvx() + M[1]*Gerard->getvy();
+            if(ve > 0){
                 tmp->setPixmap(QPixmap::fromImage(worm_left));
             }
             else{

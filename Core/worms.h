@@ -57,4 +57,5 @@ class Worm: public RigidBody {
       int weapon_ID = 0;
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right
+      QGraphicsPixmapItem pixmap;
 };

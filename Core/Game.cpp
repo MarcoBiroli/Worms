@@ -25,7 +25,7 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, 
 
 bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
-    update(dt);
+    physics_update(dt);
 
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg
         team_playing = (team_playing +1)%nb_teams;
@@ -72,10 +72,50 @@ void Game::handleEvents(QKeyEvent *k){}
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 
-void Game::update(double dt){
+void Game::physics_update(double dt){
     physics_engine.update(dt);
     turn_timer += dt;
 }
+
+/*
+void Game::graphics_update() {
+    //update all worm pixmaps
+    QVector<QPair<Worm*, QGraphicsPixmapItem*>>::iterator worm = this->worms.begin();
+    for(worm; worm != this->worms.end(); worm++)
+    {
+        Worm* worm_body = worm->first;
+        QGraphicsPixmapItem* worm_pixmap = worm->second;
+        if(worm_body->getvx() < 0){
+            QImage worm_right(pixmap_images.value(class_worm_id).value("right"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_right));
+        }
+        else{
+            QImage worm_left(pixmap_images.value(class_worm_id).value("left"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_left));
+        }
+        worm_pixmap->setPos(worm_body->getX(), worm_body->getY());
+    }
+
+    //update projectile
+    QVector<QPair<Projectile*, QGraphicsPixmapItem*>>::iterator projectile = this->projectiles.begin();
+    for(projectile; projectile != this->projectiles.end(); worm++)
+    {
+        Projectile* projectile_body = projectile->first;
+        QGraphicsPixmapItem* projectile_pixmap = projectile->second;
+        if(projectile_body->getvx() < 0){
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_right(pixmap_images.value(weapon_id).value("right"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_right));
+        }
+        else{
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_left(pixmap_images.value(weapon_id).value("left"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_left));
+        }
+        projectile_pixmap->setPos(projectile_body->getX(), projectile_body->getY());
+    }
+}
+*/
 
 bool Game::isFinished(){
     int teams_alive = 0;
@@ -90,14 +130,12 @@ bool Game::isFinished(){
 
 void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid_body)
 {
-    QImage initial_image(image_path.value(class_id).value("right"));
+    QImage initial_image(pixmap_images.value(class_id).value("right"));
     QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(QPixmap::fromImage(initial_image));
     scene.addItem(new_pixmap_body);
     new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
     pixmap_items.append(new_pixmap_body);
 }
-
-
 
 
 

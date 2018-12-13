@@ -11,24 +11,30 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
-Projectile::Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
+
+Projectile::Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, int weapon_id, double x, double y): RigidBody(m, x, y) {
     this->explosion_by_delay= explosion_by_delay;
     this->delay = delay;
     this->radius = r;
     this->explosion_radius = explosion_r;
     this->damage = damage;
     this->mass = m;
-    this->weapon_name = weapon_name;
+    this->weapon_id = weapon_id;
     this->setbounciness(0.4);
 }
 
 void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_name << " of specs: " << endl;
+    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
     cout << "   delay: " << delay << endl;
     cout << "   radius: " << radius << endl;
     cout << "   explosion_radius: " << explosion_radius << endl;
     cout << "   damage: " << damage << endl;
     cout << "   mass: " << mass << endl << endl;
+}
+
+int Projectile::get_id()
+{
+    return this->weapon_id;
 }
 
 void Projectile::set_inital_position(double x, double y) {

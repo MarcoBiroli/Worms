@@ -29,7 +29,9 @@ class Game{
 
       bool gameIteration(QKeyEvent *k, double dt);
 
-      void update(double dt); //general update: time and physics
+      void physics_update(double dt); //general update: time and physics
+
+      void graphics_update(); //update pixmap positions and their respective images (left or right)
 
       void handleEvents(QKeyEvent *k); //event handler
 
@@ -42,9 +44,13 @@ class Game{
     private:
       //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
       //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
+
+
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
+      //QVector<QPair<Worm*, QGraphicsPixmapItem*>> worms;
+      //QVector<QPair<Projectile*, QGraphicsPixmapItem*>> projectiles;
 
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5000, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
@@ -63,7 +69,7 @@ class Game{
       //GRAPHICS
 
       //maps a class_id to the path of the image to display for objects of that class
-      QMap<int, QMap<QString, QImage>> image_path =
+      QMap<int, QMap<QString, QImage>> pixmap_images =
       {
           {-1, {
                {"left", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))},

@@ -14,6 +14,7 @@ private:
     QPair<double, double> currentForce = QPair<double, double>(0, 0);
     double bounciness_f = 0;
     bool stable = false;
+    double static_coef = 0.5;
     
 public:
     bool is_colliding = false;
