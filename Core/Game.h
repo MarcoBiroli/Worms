@@ -19,10 +19,13 @@
 #include "Projectile.h"
 #include "worms.h"
 #include "Barrel.h"
+#include "../GUI/ground.h"
 
 class Game{
     public:
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
+      Ground ground; //Public to be able to modify it at creation in main
+
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000s);//Constructor
 
       bool gameIteration(QKeyEvent *k, double dt);
 
@@ -52,9 +55,7 @@ class Game{
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
       QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, 0, 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, 1, 0, 0)};
 
-      //store ground, map size (see with GUI team)
       PhysicsEngine physics_engine;
-      QVector<int> worms_ids;
 
       double max_turn_time;
       int nb_teams;

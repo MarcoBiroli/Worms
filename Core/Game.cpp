@@ -1,8 +1,9 @@
 #include "Game.h"
 #include <QPixmap>
 
-Game::Game(int nb_worms, double max_turn_time, int nb_teams){
+Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     physics_engine = PhysicsEngine();
+    ground = Ground(ground_size_x, ground_size_y);
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -12,6 +13,7 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     for(int team=0; team<nb_teams; team++){
         for(int i=0; i<nb_worms; i++){
             Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32);//positions are arbitrary
+            newWorm->setbounciness(0);
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
         }
@@ -35,6 +37,12 @@ bool Game::gameIteration(QKeyEvent *k, double dt){
 
         nextWorm();
         turn_timer = 0;
+    }
+
+    for (int i=0; i<projectiles.size(); i++) {
+        if(projectiles[i]->change_delay(dt)){
+            projectiles[i]->explode(ground, physics_engine, projectiles, worms, barrels);
+        }
     }
 
     return isFinished();
@@ -63,51 +71,8 @@ void Game::nextWorm(){
 
 
 void Game::handleEvents(QKeyEvent *k){}
+//http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
-/*
-void Game::handleEvents(QKeyEvent *k){
-    // Find out how to call a certain worm.
-    worms[worms_playing[team_playing]]
-
-
-    // MOVE TO THE RIGHT
- {
-     if(k->key() == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
-       this->active_worm->addForce(QPair<double, double>(500, 0));
-       this->active_worm->setstable(false);
-       if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
-         this->active_worm->addForce(QPair<double, double>(500, 0));                                             // The way int QKeyEvent::key() const and bool QKeyEvent::isAutoRepeat() const work are explained in the text under.
-         }
-     }
-
-     // MOVE TO THE LEFT
-     if (k->key() == 0x41){ // To move to the left just take out 5 velocity.
-       qDebug() << "debug left";
-       this-> ->addForce(QPair<double, double>(-500, 0));
-       this->active_worm->setstable(false);
-       }
-       if(k->isAutoRepeat() == true && k->key() == 0x41){
-         this->active_worm->addForce(QPair<double, double>(-500, 0));
-       }
-     // JUMP
-     int jump_counter = 0; // Make sure that no more than 2 jumps are made.
-     if (k->key() == 0x57){ // To move jump give a negative force to the y-axis
-             if (jump_counter <= 2){ // If the player did not hit more than twice the jump button
-                 jump_counter += 1;
-                 this->active_worm->addForce(QPair<double, double>(0, -1000));
-                 this->active_worm->setstable(false);
-                 }
-
-       }
-
-     // QUIT
-     if (k->key() == 0x50) { //press key p
-       this->has_quitted = true;        //exit while loop
-     }
- }
-
-}
-*/
 
 void Game::physics_update(double dt){
     physics_engine.update(dt);
