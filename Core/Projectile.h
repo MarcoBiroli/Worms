@@ -3,7 +3,7 @@
 #include "../Physics/ground.h"
 #include "../Physics/RigidBody.h"
 #include "worms.h"
-//#include "Barrel.h"
+#include "Barrel.h"
 
 class Worm;
 

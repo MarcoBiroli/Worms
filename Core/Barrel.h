@@ -1,7 +1,9 @@
 #pragma once
 
-//#include "../Physics/RigidBody.h"
-//#include "Projectile.h"
+#include <QVector>
+
+#include "../Physics/RigidBody.h"
+#include "Projectile.h"
 
 class Barrel : public RigidBody {
     //Class for the exploding oil barrels
@@ -9,7 +11,7 @@ class Barrel : public RigidBody {
         Barrel();
         Barrel(double m, double x, double y);
 
-        void explode();
+        void explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles);
         //Call this function when the barrel is caught in an explosion
         //The function does the following:
         //Remove the barrel from the game
