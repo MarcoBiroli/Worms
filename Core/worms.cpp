@@ -89,9 +89,11 @@ void Worm::set_direction(){
             wormdirection=true;
         }
         else{
+            if (this->vx<0){
             wormdirection=false;
         }
     }
+}
 }
 
 void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
