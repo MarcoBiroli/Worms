@@ -25,7 +25,7 @@ class Game{
     public:
       Ground ground; //Public to be able to modify it at creation in main
 
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000s);//Constructor
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);//Constructor
 
       bool gameIteration(QKeyEvent *k, double dt);
 
