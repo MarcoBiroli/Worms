@@ -11,8 +11,7 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
-Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
-    this->is_bouncy = is_bouncy;
+Projectile::Projectile( double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
     this->delay = delay;
     this->radius = r;
     this->explosion_radius = explosion_r;
@@ -23,8 +22,7 @@ Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_
 }
 
 void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_name << " of specs: " << endl; 
-    cout << "   is_bouncy: " << is_bouncy << endl;
+    cout << "This projectile was shot from the weapon " << weapon_name << " of specs: " << endl;
     cout << "   delay: " << delay << endl;
     cout << "   radius: " << radius << endl;
     cout << "   explosion_radius: " << explosion_radius << endl;
