@@ -47,35 +47,31 @@ void CustomView::keyPressEvent(QKeyEvent *k)
         ve *= -1;
         vx = M2[0]*ve + M2[1]*vu;
         vy = M2[2]*ve + M2[3]*vu;
-        this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
-        //this->active_worm->setvx(vx);
-        //this->active_worm->setvy(vy);
+        //this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
+        this->active_worm->setvx(vx);
+        this->active_worm->setvy(vy);
         if(k->isAutoRepeat() == true && k->key() == 0x41){
-            this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
-            //this->active_worm->setvx(vx);
-            //this->active_worm->setvy(vy);
+            //this->active_worm->addForce(QPair<double, double>(this->active_worm->is_grounded.second.second*speed, -this->active_worm->is_grounded.second.first*speed));
+            this->active_worm->setvx(vx);
+            this->active_worm->setvy(vy);
         }
     }
     if(k->key() == 0x44){
         vx = M2[0]*ve + M2[1]*vu;
         vy = M2[2]*ve + M2[3]*vu;
-        this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));
-        //this->active_worm->setvx(vx);
-        //this->active_worm->setvy(vy);
+        //this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));
+        this->active_worm->setvx(vx);
+        this->active_worm->setvy(vy);
         if(k->isAutoRepeat() == true && k->key() == 0x44){
-            this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));
-            //this->active_worm->setvx(vx);
-            //this->active_worm->setvy(vy);
+            //this->active_worm->addForce(QPair<double, double>(-this->active_worm->is_grounded.second.second*speed, this->active_worm->is_grounded.second.first*speed));
+            this->active_worm->setvx(vx);
+            this->active_worm->setvy(vy);
         }
     }
     if (k->key() == 0x57){ // To move jump give a negative force to the y-axis (recall
       this->active_worm->addForce(QPair<double, double>(0, -5000));
       this->active_worm->setstable(false);
       }
-
-      if( k->isAutoRepeat() == true && k->key() == 0x57){
-        this->active_worm->addForce(QPair<double, double>(0, -5000));
-        }
 
       if (k->key() == 0x51){
           if (this->active_worm->getstable()){
