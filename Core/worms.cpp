@@ -84,18 +84,23 @@ bool Worm::get_direction(){
 }
 
 void Worm::set_direction(){
-    if(this->getstable()==false){
         if (this->vx>0){
             wormdirection=true;
         }
         else{
+            if (this->vx<0){
             wormdirection=false;
         }
     }
 }
 
-/*void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
+void Worm::change_direction(bool t){
+    wormdirection=t;
+    }
 
+
+void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
+  /*
   // MOVE TO THE RIGHT
   if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
     worms.addForce(QPair<double, double>(5, 0));
