@@ -69,6 +69,16 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
     projectiles.removeOne(this);
 }
 
+bool Projectile::change_delay(double dt){
+    if(explosion_by_delay){
+        delay -= dt;
+    }
+    if(explosion_by_delay && delay < 0){
+        return true;
+    }
+    return false;
+}
+
 
 Projectile* Projectile::clone() {
     return new Projectile(*this);

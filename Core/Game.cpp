@@ -39,6 +39,12 @@ bool Game::gameIteration(QKeyEvent *k, double dt){
         turn_timer = 0;
     }
 
+    for (int i=0; i<projectiles.size(); i++) {
+        if(projectiles[i]->change_delay(dt)){
+            //projectiles[i]->explode(ground)
+        }
+    }
+
     return isFinished();
 }
 

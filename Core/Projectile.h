@@ -27,17 +27,18 @@ class Projectile : public RigidBody {
 
         void set_inital_position(double x, double y);
 
+        bool change_delay(double dt);
+
         Projectile* clone();
         //Allows cloning of a projectile. 
 
     private:
-        bool is_bouncy;
+        bool explosion_by_delay; //if has delay functionning
         double delay;
         double radius; 
         double explosion_radius;
         double damage;
         std::string weapon_name;
-        double fire_time;
 };
 
 
