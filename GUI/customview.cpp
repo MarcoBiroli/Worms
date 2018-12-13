@@ -31,7 +31,7 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     if(!this->active_worm->is_grounded.first){
         return;
     }
-    double speed = 50;
+    double speed = 30;
     double theta = qAtan2(-this->active_worm->is_grounded.second.first, this->active_worm->is_grounded.second.second);
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*speed); // component of the velocity parallel to the tangent line at the collision point.

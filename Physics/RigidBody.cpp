@@ -90,9 +90,9 @@ double RigidBody::distance(RigidBody other){
 //this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
-    //if (this->stable){return;}
+    if (this->stable){return;}
     dt /= 1000;
-    double friction = 0.1;
+    double friction = 10;
     this->bckp_ax = ax;
     ax = currentForce.first/mass;
     if(this->is_grounded.first){
