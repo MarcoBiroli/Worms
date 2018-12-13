@@ -142,3 +142,81 @@ void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid
 
 
 
+/*
+void Game::graphics_update() {
+    //update all worm pixmaps
+    QVector<QPair<Worm*, QGraphicsPixmapItem*>>::iterator worm = this->worms.begin();
+    for(worm; worm != this->worms.end(); worm++)
+    {
+        Worm* worm_body = worm->first;
+        QGraphicsPixmapItem* worm_pixmap = worm->second;
+        if(worm_body->getvx() < 0){
+            QImage worm_right(pixmap_images.value(class_worm_id).value("right"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_right));
+        }
+        else{
+            QImage worm_left(pixmap_images.value(class_worm_id).value("left"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_left));
+        }
+        worm_pixmap->setPos(worm_body->getX(), worm_body->getY());
+    }
+
+    //update projectile
+    QVector<QPair<Projectile*, QGraphicsPixmapItem*>>::iterator projectile = this->projectiles.begin();
+    for(projectile; projectile != this->projectiles.end(); worm++)
+    {
+        Projectile* projectile_body = projectile->first;
+        QGraphicsPixmapItem* projectile_pixmap = projectile->second;
+        if(projectile_body->getvx() < 0){
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_right(pixmap_images.value(weapon_id).value("right"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_right));
+        }
+        else{
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_left(pixmap_images.value(weapon_id).value("left"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_left));
+        }
+        projectile_pixmap->setPos(projectile_body->getX(), projectile_body->getY());
+    }
+}
+*/
+/*
+void Game::graphics_update() {
+    //update all worm pixmaps
+    QVector<QPair<Worm*, QGraphicsPixmapItem*>>::iterator worm = this->worms.begin();
+    for(worm; worm != this->worms.end(); worm++)
+    {
+        Worm* worm_body = worm->first;
+        QGraphicsPixmapItem* worm_pixmap = worm->second;
+        if(worm_body->getvx() < 0){
+            QImage worm_right(pixmap_images.value(class_worm_id).value("right"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_right));
+        }
+        else{
+            QImage worm_left(pixmap_images.value(class_worm_id).value("left"));
+            worm_pixmap->setPixmap(QPixmap::fromImage(worm_left));
+        }
+        worm_pixmap->setPos(worm_body->getX(), worm_body->getY());
+    }
+
+    //update projectile
+    QVector<QPair<Projectile*, QGraphicsPixmapItem*>>::iterator projectile = this->projectiles.begin();
+    for(projectile; projectile != this->projectiles.end(); worm++)
+    {
+        Projectile* projectile_body = projectile->first;
+        QGraphicsPixmapItem* projectile_pixmap = projectile->second;
+        if(projectile_body->getvx() < 0){
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_right(pixmap_images.value(weapon_id).value("right"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_right));
+        }
+        else{
+            int weapon_id = projectile_body->get_id();
+            QImage projectile_left(pixmap_images.value(weapon_id).value("left"));
+            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_left));
+        }
+        projectile_pixmap->setPos(projectile_body->getX(), projectile_body->getY());
+    }
+}
+*/
