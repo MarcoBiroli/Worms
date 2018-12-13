@@ -61,6 +61,7 @@ void Game::nextWorm(){
 }
 
 void Game::handleEvents(QKeyEvent *k){}
+//http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 /*
 void Game::handleEvents(QKeyEvent *k){
