@@ -104,19 +104,30 @@ double RigidBody::distance(RigidBody other){
 //this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
-    //if (this->stable){return;}
+    if (this->stable){return;}
     dt /= 1000;
-    double friction = 0.1;
+    double theta = qAtan2(-this->is_grounded.second.first, this->is_grounded.second.second);
+    double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)};
+    double dynamic_fric = this->static_coef;
+    double mag_v = qSqrt(qPow(this->vx, 2) + qPow(this->vy, 2));
+    if(fabs(mag_v) >= 0.1){
+        if (this-> is_grounded.first){
+            double Fd = qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))*dynamic_fric;
+            this->currentForce.first -= Fd*this->vx/mag_v;
+            this->currentForce.second -= Fd*this->vy/mag_v;
+            /*
+            int sign = 1;
+            if (M[0]*this->vx + M[1]*this->vy > 0){ sign = 1;}
+            else {sign = -1;}
+            this->currentForce.first += sign * (-this->is_grounded.second.second)*dynamic_fric;
+            this->currentForce.second += sign *(this->is_grounded.second.first)*dynamic_fric;
+            */
+        }
+    }
     this->bckp_ax = ax;
     ax = currentForce.first/mass;
-    if(this->is_grounded.first){
-        ax -= vx*friction;
-    }
     this->bckp_ay = ay;
     ay = currentForce.second/mass;
-    if(this->is_grounded.first){
-        ay -= vy*friction;
-    }
     this->bckp_vx = vx;
     vx=vx+ax*dt;
     this->bckp_vy = vy;
@@ -125,7 +136,15 @@ void RigidBody::simulate(double dt){
     this->x = this->x+vx*dt;
     this->bckp_y = y;
     this->y = this->y+vy*dt;
-    if (qFabs(vx) <= 1 && qFabs(vy) <= 1 && qFabs(currentForce.first) <= 0.4 && qFabs(currentForce.second) <= 0.4){ this->stable = true;}
+    if(this->is_grounded.first){
+        double Fe = M[0]*this->currentForce.first + M[1]+this->currentForce.second;
+        if(Fe <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2)) && qSqrt(qPow(this->vx, 2) + qPow(this->vy, 2)) <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))){
+            this->vx = 0;
+            this->vy = 0;
+            this->stable = true;
+        }
+    }
+    //if (qFabs(vx) <= 1 && qFabs(vy) <= 1 && qFabs(currentForce.first) <= 0.4 && qFabs(currentForce.second) <= 0.4){ this->stable = true;}
         //the RigidBody is stable when both the velocity of the rigidBody and the froce acting on it are small enough.
     currentForce.first = 0;
     currentForce.second = 0;
