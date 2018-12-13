@@ -1,8 +1,9 @@
 #include "Game.h"
 #include <QPixmap>
 
-Game::Game(int nb_worms, double max_turn_time, int nb_teams){
+Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     physics_engine = PhysicsEngine();
+    ground = Ground(ground_size_x, ground_size_y);
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -12,6 +13,7 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams){
     for(int team=0; team<nb_teams; team++){
         for(int i=0; i<nb_worms; i++){
             Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32);//positions are arbitrary
+            newWorm->setbounciness(0);
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
         }
