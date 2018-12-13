@@ -11,20 +11,20 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
-Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
-    this->is_bouncy = is_bouncy;
+
+Projectile::Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, int weapon_id, double x, double y): RigidBody(m, x, y) {
+    this->explosion_by_delay= explosion_by_delay;
     this->delay = delay;
     this->radius = r;
     this->explosion_radius = explosion_r;
     this->damage = damage;
     this->mass = m;
-    this->weapon_name = weapon_name;
+    this->weapon_id = weapon_id;
     this->setbounciness(0.4);
 }
 
 void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_name << " of specs: " << endl; 
-    cout << "   is_bouncy: " << is_bouncy << endl;
+    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
     cout << "   delay: " << delay << endl;
     cout << "   radius: " << radius << endl;
     cout << "   explosion_radius: " << explosion_radius << endl;
@@ -32,12 +32,17 @@ void Projectile::print() {
     cout << "   mass: " << mass << endl << endl;
 }
 
+int Projectile::get_id()
+{
+    return this->weapon_id;
+}
+
 void Projectile::set_inital_position(double x, double y) {
     this->x = x;
     this->y = y;
 }
 
-void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
+void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
@@ -54,19 +59,29 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             worm->addForce(explosion_force);
         }
     }
-    /*
+
     for (int j=0; j<barrels.size(); j++) {
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
         if (dist <= explosion_radius) {
-            barrel->explode();
+            barrel->explode(engine, projectiles);
         }
 
     }
-    */
+
     //destroy projectile
     engine.delete_rigidbody(this->getId());
     projectiles.removeOne(this);
+}
+
+bool Projectile::change_delay(double dt){
+    if(explosion_by_delay){
+        delay -= dt;
+    }
+    if(explosion_by_delay && delay < 0){
+        return true;
+    }
+    return false;
 }
 
 

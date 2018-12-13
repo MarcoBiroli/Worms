@@ -19,14 +19,19 @@
 #include "Projectile.h"
 #include "worms.h"
 #include "Barrel.h"
+#include "../GUI/ground.h"
 
 class Game{
     public:
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2);//Constructor
+      Ground ground; //Public to be able to modify it at creation in main
+
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);//Constructor
 
       bool gameIteration(QKeyEvent *k, double dt);
 
-      void update(double dt); //general update: time and physics
+      void physics_update(double dt); //general update: time and physics
+
+      void graphics_update(); //update pixmap positions and their respective images (left or right)
 
       void handleEvents(QKeyEvent *k); //event handler
 
@@ -39,16 +44,18 @@ class Game{
     private:
       //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
       //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
+
+
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
+      //QVector<QPair<Worm*, QGraphicsPixmapItem*>> worms;
+      //QVector<QPair<Projectile*, QGraphicsPixmapItem*>> projectiles;
 
       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-      QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
+      QList<Projectile> weapons = {Projectile(true, 5, 5, 50, 60, 10, 0, 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, 1, 0, 0)};
 
-      //store ground, map size (see with GUI team)
       PhysicsEngine physics_engine;
-      QVector<int> worms_ids;
 
       double max_turn_time;
       int nb_teams;
@@ -62,7 +69,7 @@ class Game{
       //GRAPHICS
 
       //maps a class_id to the path of the image to display for objects of that class
-      QMap<int, QMap<QString, QImage>> image_path =
+      QMap<int, QMap<QString, QImage>> pixmap_images =
       {
           {-1, {
                {"left", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))},

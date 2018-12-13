@@ -10,14 +10,17 @@ void CustomView::wheelEvent(QWheelEvent *event)
 {
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
-
-   if (event->delta() > 0)
+   static double currentScale = 1.0;  // stores the current scale value.
+   static const double scaleMin = .25; // defines the min scale limit. if you want limit to increase, - scaleMin,
+   static const double scaleMax = 1.45; //defines the max scale limit. if you want limit to increase, + scaleMin,
+   if (event->delta() > 0 && currentScale < scaleMax)
    {
        scale(scaleFactor,scaleFactor);
+       currentScale *= scaleFactor;
    }
-   else
-   {
-       scale(1/scaleFactor,1/scaleFactor);
+   else if (currentScale > scaleMin) {
+           scale(1/scaleFactor,1/scaleFactor);
+           currentScale /= scaleFactor;
    }
 }
 
@@ -69,6 +72,47 @@ void CustomView::keyPressEvent(QKeyEvent *k)
       this->active_worm->addForce(QPair<double, double>(0, -5000));
       this->active_worm->setstable(false);
       }
+
+      if( k->isAutoRepeat() == true && k->key() == 0x57){
+        this->active_worm->addForce(QPair<double, double>(0, -5000));
+        }
+
+      if (k->key() == 0x51){
+          if (this->active_worm->getstable()){
+          if (this->active_worm->get_direction()){
+              this->active_worm->addForce(QPair<double, double> (-1000,-4000));
+              this->active_worm->setstable(false);
+          }
+          else{
+              this->active_worm->addForce(QPair<double, double> (-4000,-2000));
+              this->active_worm->setstable(false);
+          }
+      }
+      }
+
+      if (k->key()==0x45){
+          if (this->active_worm->getstable()){
+          if (this->active_worm->get_direction()){
+              this->active_worm->addForce(QPair<double, double> (4000,-2000));
+              this->active_worm->setstable(false);
+          }
+          else{
+              this->active_worm->addForce(QPair<double, double> (1000,-4000));
+              this->active_worm->setstable(false);
+          }
+      }
+      }
+
+      /*change direction to the left
+      if (k->key()==0x01000012 && active_worm->getstable()){
+          this->active_worm->change_direction(false);
+      }
+
+      //change direction to the right
+      if (k->key()==0x01000014 && active_worm->getstable()){
+          this->active_worm->change_direction(true);
+      }*/
+
     /*
     if(k->key() == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
       this->worms[worms_playing[team_playing]]->addForce(QPair<double, double>(500, 0));

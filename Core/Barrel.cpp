@@ -17,7 +17,7 @@ Barrel::Barrel(double m, double x, double y): RigidBody(m, x, y){
 
 void Barrel::explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles) {
 
-    Projectile* current_projectile = new Projectile(false, 0.01, 1, 50, 60, 1, "Barrel projectile", this->x, this->y);
+    Projectile* current_projectile = new Projectile(false, 0.01, 1, 50, 60, 1, 2, this->x, this->y);
 
     engine.delete_rigidbody(this->getId());
 
