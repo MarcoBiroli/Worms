@@ -10,14 +10,17 @@ void CustomView::wheelEvent(QWheelEvent *event)
 {
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
-
-   if (event->delta() > 0)
+   static double currentScale = 1.0;  // stores the current scale value.
+   static const double scaleMin = .25; // defines the min scale limit. if you want limit to increase, - scaleMin,
+   static const double scaleMax = 1.45; //defines the max scale limit. if you want limit to increase, + scaleMin,
+   if (event->delta() > 0 && currentScale < scaleMax)
    {
        scale(scaleFactor,scaleFactor);
+       currentScale *= scaleFactor;
    }
-   else
-   {
-       scale(1/scaleFactor,1/scaleFactor);
+   else if (currentScale > scaleMin) {
+           scale(1/scaleFactor,1/scaleFactor);
+           currentScale /= scaleFactor;
    }
 }
 
