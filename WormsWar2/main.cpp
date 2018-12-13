@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
         }
         view->showMaximized();
     }
-    //delete view;  // //press alt key to stop the loop + F4 to close the window
+    //delete view;  // //press alt key to stop the loop + F4 (cmd + 'Q' on mac) to close the window
     //delete scene;
     return a.exec();
 
