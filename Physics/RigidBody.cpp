@@ -104,7 +104,7 @@ double RigidBody::distance(RigidBody other){
 //this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
-    if (this->stable){
+    if (this->stable && this->is_grounded.first){
         currentForce.first = 0;
         currentForce.second = 0;
         return;
@@ -119,13 +119,6 @@ void RigidBody::simulate(double dt){
             double Fd = qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))*dynamic_fric;
             this->currentForce.first -= Fd*this->vx/mag_v;
             this->currentForce.second -= Fd*this->vy/mag_v;
-            /*
-            int sign = 1;
-            if (M[0]*this->vx + M[1]*this->vy > 0){ sign = 1;}
-            else {sign = -1;}
-            this->currentForce.first += sign * (-this->is_grounded.second.second)*dynamic_fric;
-            this->currentForce.second += sign *(this->is_grounded.second.first)*dynamic_fric;
-            */
         }
     }
     this->bckp_ax = ax;
@@ -148,8 +141,6 @@ void RigidBody::simulate(double dt){
             this->stable = true;
         }
     }
-    //if (qFabs(vx) <= 1 && qFabs(vy) <= 1 && qFabs(currentForce.first) <= 0.4 && qFabs(currentForce.second) <= 0.4){ this->stable = true;}
-        //the RigidBody is stable when both the velocity of the rigidBody and the froce acting on it are small enough.
     currentForce.first = 0;
     currentForce.second = 0;
 }
