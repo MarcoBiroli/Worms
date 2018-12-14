@@ -72,10 +72,6 @@ void CustomView::keyPressEvent(QKeyEvent *k)
       this->active_worm->setstable(false);
       }
 
-      if( k->isAutoRepeat() == true && k->key() == 0x57){
-        this->active_worm->addForce(QPair<double, double>(0, -5000));
-        }
-
       if (k->key() == 0x51){
           if (this->active_worm->getstable()){
           if (this->active_worm->get_direction()){

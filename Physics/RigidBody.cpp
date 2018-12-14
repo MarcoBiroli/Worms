@@ -90,11 +90,15 @@ double RigidBody::distance(RigidBody other){
 //this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
-    if (this->stable){return;}
+    if (this->stable){
+        currentForce.first = 0;
+        currentForce.second = 0;
+        return;
+    }
     dt /= 1000;
     double theta = qAtan2(-this->is_grounded.second.first, this->is_grounded.second.second);
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)};
-    double dynamic_fric = this->static_coef;
+    double dynamic_fric = 2;
     double mag_v = qSqrt(qPow(this->vx, 2) + qPow(this->vy, 2));
     if(fabs(mag_v) >= 0.1){
         if (this-> is_grounded.first){
