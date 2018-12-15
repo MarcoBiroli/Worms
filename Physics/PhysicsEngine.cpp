@@ -13,7 +13,13 @@ PhysicsEngine::PhysicsEngine(QPair<double, double> gf){
 
 void PhysicsEngine::add_RigidBody(RigidBody* other)
 {
-    int max_key = this->rigidbodies.end().key(); //find whats the biggest key in the map of rigidbodies
+    int max_key;
+    if(this->rigidbodies.isEmpty()){
+        max_key = 0;
+    }
+    else{
+        max_key = (this->rigidbodies.end()-1).key(); //find whats the biggest key in the map of rigidbodies
+    }
     other->setId(max_key + 1); //setting the id to the rigidbody (+1 is to make sure that the key is unique)
     this->rigidbodies.insert(max_key + 1, other); //inserting the rigidbody into the map of rigidbodies
 }
@@ -21,7 +27,13 @@ void PhysicsEngine::add_RigidBody(RigidBody* other)
 void PhysicsEngine::add_Collider(Collider* other)
 {
     //Same as above but for colliders
-    int max_key = this->colliders.end().key();
+    int max_key;
+    if(this->colliders.isEmpty()){
+        max_key = 0;
+    }
+    else{
+        max_key = (this->colliders.end()-1).key(); //find whats the biggest key in the map of rigidbodies
+    }
     other->setId(max_key + 1);
     this->colliders.insert(max_key + 1, other);
 }
@@ -33,8 +45,10 @@ void PhysicsEngine::update(double dt)
     QMap<int, Collider*>::iterator j;
     QPair<bool, QPair<double, double>> collision_result;
     //for all rigidbodies
+    bool deletion_flag = false;
     for(i; i != this->rigidbodies.end(); i++)
     {
+        deletion_flag = false;
         //Reset collision flag
         i.value()->is_colliding = false;
         //Reset is_grounded flag
@@ -47,6 +61,12 @@ void PhysicsEngine::update(double dt)
             collision_result = i.value()->check_collision(*j.value());
             if(collision_result.first){
                 //Set Collision flag to true
+                if(i.value()->on_collision_do(*j.value())){
+                    i.value()->sprite->hide();
+                    this->delete_rigidbody(i.key());
+                    deletion_flag = true;
+                    break;
+                }
                 i.value()->is_colliding = true;
                 //if there is ground collision then set is_grounded to true
                 if(j.value()->is_ground == true){
@@ -56,8 +76,11 @@ void PhysicsEngine::update(double dt)
                 i.value()->bounce(collision_result.second,dt);
             }
         }
-        //simulate the rigidbody's physics
-        i.value()->simulate(dt);
+        if(!deletion_flag){
+            //simulate the rigidbody's physics
+            i.value()->simulate(dt);
+            i.value()->sprite->setPos(i.value()->getX(), i.value()->getY());
+        }
     }
 }
 

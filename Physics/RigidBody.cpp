@@ -10,12 +10,23 @@ RigidBody::RigidBody()
 
 }
 
+RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap isprite): Collider(ix,iy,map)
+{
+    this->mass = imass;
+    this->sprite = new QGraphicsPixmapItem(isprite);
+    this->vx = vx0;
+    this->vy = vy0;
+    this->ax = ax0;
+    this->ay = ay0;
+}
+
 RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map) : Collider(ix, iy, map){
     this->mass = imass;
     this->vx = vx0;
     this->vy = vy0;
     this->ax = ax0;
     this->ay = ay0;
+    this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(map));
 }
 
 RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
@@ -24,6 +35,7 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
     this->vy = 0;
     this->ax = 0;
     this->ay = 0;
+    this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(this->get_map()));
 }
 
 //Physics methods.

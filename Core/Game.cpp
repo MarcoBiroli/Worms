@@ -1,21 +1,24 @@
 #include "Game.h"
 #include <QPixmap>
 
-Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    physics_engine = PhysicsEngine();
-    ground = Ground(ground_size_x, ground_size_y);
+Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y, QGraphicsScene* iscene){
+    scene = iscene;
+    physics_engine = PhysicsEngine(QPair<double,double> (0,9.81));
+    ground = new Ground(ground_size_x, ground_size_y);
+    scene->addItem(ground->getPixmap());
+    physics_engine.add_Collider(ground);
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
     paused = false;
 
-
     for(int team=0; team<nb_teams; team++){
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32, pixmap_images[-1]["right"]);//positions are arbitrary
             newWorm->setbounciness(0);
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
+            scene->addItem(newWorm->sprite);
         }
         worms_playing.append(0);
     }
@@ -25,9 +28,9 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, 
 
 bool Game::gameIteration(QKeyEvent *k, double dt){
     if(paused){return false;}
-    physics_update(dt);
+    physics_update(dt); //updates the turn timer as well as the physics engine
 
-    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg
+    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         team_playing = (team_playing +1)%nb_teams;
 
         while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
@@ -41,7 +44,7 @@ bool Game::gameIteration(QKeyEvent *k, double dt){
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt)){
-            projectiles[i]->explode(ground, physics_engine, projectiles, worms, barrels);
+            projectiles[i]->explode(*ground, physics_engine, projectiles, worms, barrels);
         }
     }
 
@@ -68,7 +71,74 @@ void Game::nextWorm(){
     }
 }
 
-void Game::handleEvents(QKeyEvent *k){}
+void Game::handleEvents(QKeyEvent *k){
+    Worm* active_worm = worms[worms_playing[team_playing]];
+    if(!active_worm->is_grounded.first){return;}
+
+    active_worm->setstable(false);
+    double speed = 50;
+    double theta = qAtan2(-active_worm->is_grounded.second.first, active_worm->is_grounded.second.second);
+    double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
+    double ve = (M[0]*speed); // component of the velocity parallel to the tangent line at the collision point.
+    double vu = 0; // component of the velocity perpendicular to the tangent line at the collision point.
+    double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};
+    double vx, vy;
+
+    if(k->key() == 0x41){ // key == A move left
+        ve *= -1;
+        vx = M2[0]*ve + M2[1]*vu;
+        vy = M2[2]*ve + M2[3]*vu;
+        active_worm->setvx(vx);
+        active_worm->setvy(vy);
+        if(k->isAutoRepeat() == true && k->key() == 0x41){
+            active_worm->setvx(vx);
+            active_worm->setvy(vy);
+        }
+    }
+
+    if(k->key() == 0x44){ //key == D move right
+        vx = M2[0]*ve + M2[1]*vu;
+        vy = M2[2]*ve + M2[3]*vu;
+        active_worm->setvx(vx);
+        active_worm->setvy(vy);
+        if(k->isAutoRepeat() == true && k->key() == 0x44){
+            active_worm->setvx(vx);
+            active_worm->setvy(vy);
+        }
+    }
+    if (k->key() == 0x57){ // key == W  jumping
+        active_worm->addForce(QPair<double, double>(0, -5000)); //TO DO: decrease the force
+        active_worm->setstable(false);
+        }
+
+    if(k->key() == ) {//shift right to select weapons
+        if(k->MouseButtonPress){ // if you have clicked on a weapon then u can increase decrease angle
+            //active_worm->weaponSelect(weapon_ID) //weapon_id will be the pressed image
+            if (k-> key() == 0x49){// key == I increases the angle 0- 90
+                if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
+                    active_worm->weapon_angle += 10;
+                }
+            }
+            if (k-> key() == 0x4B){// key == K decreases the angle }
+                if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
+                    active_worm->weapon_angle -= 10;
+                }
+            }
+
+            if (k-> key() == 0x20){//key == Space shoots the projectile
+                //Create a projectile box attached to the worm
+                //Projectile* Bomb = new Projectile(false, 0, 5, 200, 1, 1, 1, 0,0);
+                //Bomb->setbounciness(0);
+                //create weapons array
+                QVector<Projectile> weapons = QVector<Projectile> projectiles;
+                Projectile* current_projectile = active_worm->fireWeapon(100, weapons);
+                Engine->add_RigidBody(current_projectile);
+                scene->addItem(current_projectile->sprite);
+                //turn time = max turn - 5 sec
+            }
+
+
+}
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 
@@ -128,11 +198,11 @@ bool Game::isFinished(){
     return false;
 }
 
-void Game::add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_rigid_body)
+void Game::add_to_scene(int class_id, RigidBody new_rigid_body)
 {
-    QImage initial_image(pixmap_images.value(class_id).value("right"));
-    QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(QPixmap::fromImage(initial_image));
-    scene.addItem(new_pixmap_body);
+    QPixmap initial_image(pixmap_images[class_id]["right"]);
+    QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(initial_image);
+    scene->addItem(new_pixmap_body);
     new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
     pixmap_items.append(new_pixmap_body);
 }

@@ -1,6 +1,16 @@
 #include "Collider.h"
 
 //Constructors
+bool Collider::on_collision_do(Collider &other)
+{
+    return false; // not deleted by default
+}
+
+void Collider::circ_delete(int x, int y, double radius)
+{
+
+}
+
 Collider::Collider()
 {
 }
@@ -85,7 +95,7 @@ double Collider::getcmY() {return this->cmy;}
 void Collider::setcmX(double cx) {this->cmx = cx;}
 void Collider::setcmY(double cy) {this->cmy = cy;}
 
-QImage Collider::get_map() {return this->colliding_map;}
+QImage Collider::get_map() const {return this->colliding_map;}
 
 void Collider::set_map(QImage map) {
     this->colliding_map = map;

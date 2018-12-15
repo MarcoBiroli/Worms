@@ -12,15 +12,34 @@ Projectile::Projectile() : RigidBody ()
 }
 
 
-Projectile::Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, int weapon_id, double x, double y): RigidBody(m, x, y) {
+Projectile::Projectile(std::string name, int weapon_id, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
+    this->name = name;
     this->explosion_by_delay= explosion_by_delay;
     this->delay = delay;
-    this->radius = r;
     this->explosion_radius = explosion_r;
     this->damage = damage;
-    this->mass = m;
     this->weapon_id = weapon_id;
-    this->setbounciness(0.4);
+    this->setbounciness(bounciness);
+    this->sprite->setPixmap(isprite);
+}
+
+Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, other.y, other.vx, other.vy, other.ax, other.ay, other.get_map(), other.sprite->pixmap())
+{
+    this->name = other.name;
+    this->explosion_by_delay= other.explosion_by_delay;
+    this->delay = other.delay;
+    this->explosion_radius = other.explosion_radius;
+    this->damage = other.damage;
+    this->weapon_id = other.weapon_id;
+    this->setbounciness(other.getbounciness());
+}
+
+bool Projectile::on_collision_do(Collider &other)
+{
+    other.circ_delete(this->x,this->y,this->explosion_radius);
+
+    return true;
+    //"??"
 }
 
 void Projectile::print() {
@@ -41,6 +60,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->x = x;
     this->y = y;
 }
+
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
@@ -87,5 +107,5 @@ bool Projectile::change_delay(double dt){
 
 Projectile* Projectile::clone() {
     return new Projectile(*this);
-} 
+}
 

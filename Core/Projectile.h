@@ -16,8 +16,13 @@ class Projectile : public RigidBody {
         void print();
         //prints the Projectile's specs
 
-        Projectile(bool explosion_by_delay, double delay, double r, double explosion_r, double damage, double m, int weapon_id, double x, double y);
+        Projectile(std::string name, int weapon_id, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
 
+        Projectile(const Projectile &other);
+        Projectile* clone();
+        //Allows cloning of a projectile.
+
+        virtual bool on_collision_do(Collider &other);
         void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels);
 
         int get_id();
@@ -33,16 +38,15 @@ class Projectile : public RigidBody {
 
         bool change_delay(double dt);
 
-        Projectile* clone();
-        //Allows cloning of a projectile. 
+
 
     private:
+        std::string name;
         bool explosion_by_delay; //if has delay functionning
         double delay;
-        double radius; 
         double explosion_radius;
         double damage;
-        std::string weapon_name;
+        std::string weapon_name; //? Whats the weapon name for
         int weapon_id;
         double fire_time;
 };

@@ -34,8 +34,7 @@ SOURCES += \
         ../Core/worms.cpp \
         ../Core/barrel.cpp \
         ../GUI/ground.cpp \
-    ../GUI/customview.cpp \
-    ../GUI/dummy.cpp \
+    ../GUI/customview.cpp
 
 HEADERS += \
         ../Physics/Collider.h \

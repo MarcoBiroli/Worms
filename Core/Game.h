@@ -12,7 +12,6 @@
 #include <QObject>
 
 #include "../GUI/ground.h"
-#include "../GUI/customview.h"
 #include "../Physics/RigidBody.h"
 #include "../Physics/PhysicsEngine.h"
 
@@ -22,40 +21,7 @@
 #include "../GUI/ground.h"
 
 class Game{
-    public:
-      Ground ground; //Public to be able to modify it at creation in main
-
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);//Constructor
-
-      bool gameIteration(QKeyEvent *k, double dt);
-
-      void physics_update(double dt); //general update: time and physics
-
-      void graphics_update(); //update pixmap positions and their respective images (left or right)
-
-      void handleEvents(QKeyEvent *k); //event handler
-
-      void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
-
-      bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
-
-      void add_to_scene(QGraphicsScene &scene, int class_id, RigidBody new_body); //add a new body to the graphical scene
-
     private:
-      //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
-      //This is done so that we are able to access Worms and Projectile objects as instances of their respective class. Notbaly necessary for Projectile::explode function.
-
-
-      QVector<Worm*> worms;
-      QVector<Projectile*> projectiles;
-      QVector<Barrel*> barrels;
-      //QVector<QPair<Worm*, QGraphicsPixmapItem*>> worms;
-      //QVector<QPair<Projectile*, QGraphicsPixmapItem*>> projectiles;
-
-      //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-      QList<Projectile> weapons = {Projectile(true, 5000, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
-
-      PhysicsEngine physics_engine;
 
       double max_turn_time;
       int nb_teams;
@@ -69,19 +35,19 @@ class Game{
       //GRAPHICS
 
       //maps a class_id to the path of the image to display for objects of that class
-      QMap<int, QMap<QString, QImage>> pixmap_images =
+      QMap<int, QMap<QString, QPixmap>> pixmap_images =
       {
           {-1, {
-               {"left", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))},
-               {"right", QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32))}}
+               {"left", QPixmap::fromImage(QImage("://Images/Clipart_worm_left.png").scaled(QSize(32,32)))},
+               {"right", QPixmap::fromImage(QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32)))}}
           },
           {0, {
-               {"left", QImage("")},
-               {"right", QImage("")}}
+               {"left", QPixmap::fromImage(QImage(""))},
+               {"right", QPixmap::fromImage(QImage(""))}}
           },
           {1, {
-               {"left", QImage("")},
-               {"right", QImage("")}}
+               {"left", QPixmap::fromImage(QImage(("")))},
+               {"right", QPixmap::fromImage(QImage(("")))}}
           }
        };
 
@@ -92,6 +58,49 @@ class Game{
       };
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
+
+    public:
+
+      //Initializing "GOD"!!!!
+      Ground* ground;
+      QGraphicsScene *scene;
+      PhysicsEngine physics_engine;
+
+      //Initializing the important arrays.
+      //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
+      //This is done so that we are able to access Worms and Projectile objects as instances of their respective class.
+      //Notbaly necessary for Projectile::explode function.
+      QVector<Worm*> worms;
+      QVector<Projectile*> projectiles;
+      QVector<Barrel*> barrels;
+      QVector<Projectile*> weapons = {Projectile("Grenade", 1, 0.6, true, 3000, 100, 10, 5, 0, 0, )}
+
+       //QVector<QPair<Worm*, QGraphicsPixmapItem*>> worms;
+       //QVector<QPair<Projectile*, QGraphicsPixmapItem*>> projectiles;
+
+       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
+       //QList<Projectile> weapons = {Projectile(true, 5000, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
+
+
+      //Constructors
+      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000, QGraphicsScene *iscene);
+
+      //Methods
+      bool gameIteration(QKeyEvent *k, double dt);
+
+      void physics_update(double dt); //general update: time and physics
+
+      void graphics_update(); //update pixmap positions and their respective images (left or right)
+
+      void handleEvents(QKeyEvent *k); //event handler
+
+      void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
+
+      bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
+
+      void add_to_scene(int class_id, RigidBody new_body); //add a new body to the graphical scene
+
+
 
 };
 #endif // GAME_H

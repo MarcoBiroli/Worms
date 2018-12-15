@@ -24,6 +24,7 @@ class PhysicsEngine{
 
         //Creating rigidbodies/ colliders and adding them to the engine with an id and returning them
         RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
+        RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QGraphicsItem sprite);
         RigidBody* create_rigidbody(double imass, double ix, double iy);
         RigidBody* get_rigidbody(int id); //access a rigidbody through id
 

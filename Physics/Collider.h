@@ -18,6 +18,8 @@ class Collider{
         double cmx, cmy; //Central of mass x and y coordinate
 
     public:
+        virtual bool on_collision_do(Collider &other);
+        virtual void circ_delete(int x, int y, double radius);
         bool is_ground = false;
 
         //Constructors
@@ -45,7 +47,7 @@ class Collider{
         void setcmX(double cx);
         void setcmY(double cy);
 
-        QImage get_map();
+        QImage get_map() const;
         void set_map(QImage map);
 
         void change_pixel(int i, int j, QColor color); //changes the pixel color of the map

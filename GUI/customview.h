@@ -3,8 +3,7 @@
 #include <QtWidgets>
 #include <QWidget>
 #include <QObject>
-#include "../Physics/RigidBody.h"
-#include "../Core/worms.h"
+#include "../Core/Game.h"
 
 #ifndef MY_GLOBALS_H
 #define MY_GLOBALS_H
@@ -21,8 +20,12 @@ class CustomView : public QGraphicsView
 {
 public:
     CustomView(QGraphicsScene *parent);
-    Worm* active_worm;
+    Game *Game;
+    //Worm* active_worm;
     bool has_quitted = false;
+    //PhysicsEngine* Engine;
+    //QGraphicsScene* scene;
+
 
 
 protected:
