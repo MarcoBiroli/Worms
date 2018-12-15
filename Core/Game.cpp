@@ -148,7 +148,7 @@ void Game::handleEvents(QKeyEvent *k){
         }
 
         if (k-> key() == 0x20){//key == Space shoots the projectile
-            int power = 100;
+            int power = 200;
             /*if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
                 power += 10;
             }*/
