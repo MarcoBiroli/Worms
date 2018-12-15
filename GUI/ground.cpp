@@ -2,6 +2,7 @@
 
 Ground::Ground(const QImage background): Collider(){
     this -> set_map(background);
+    this -> is_ground = true;
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
