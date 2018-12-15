@@ -25,7 +25,7 @@ class Projectile : public RigidBody {
         virtual bool on_collision_do(Collider &other);
         void explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels);
 
-        int get_id();
+        int get_weapon_id() const;
         // if explosion condition is met (collosion or delay timeout), call this function.
         // the function does the following: 
         // generates damage in explosion_radius, with linear decrease of damage from

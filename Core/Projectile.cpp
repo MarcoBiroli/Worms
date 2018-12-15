@@ -11,6 +11,13 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
+void Projectile::print() {
+    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
+    cout << "   delay: " << delay << endl;
+    cout << "   explosion_radius: " << explosion_radius << endl;
+    cout << "   damage: " << damage << endl;
+    cout << "   mass: " << mass << endl << endl;
+}
 
 Projectile::Projectile(std::string name, int weapon_id, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
     this->name = name;
@@ -32,35 +39,19 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
     this->damage = other.damage;
     this->weapon_id = other.weapon_id;
     this->setbounciness(other.getbounciness());
+    this->sprite->setPixmap(other.sprite->pixmap());
+}
+
+Projectile* Projectile::clone() {
+    return new Projectile(*this);
 }
 
 bool Projectile::on_collision_do(Collider &other)
 {
     other.circ_delete(this->x,this->y,this->explosion_radius);
-
     return true;
     //"??"
 }
-
-void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
-    cout << "   delay: " << delay << endl;
-    cout << "   radius: " << radius << endl;
-    cout << "   explosion_radius: " << explosion_radius << endl;
-    cout << "   damage: " << damage << endl;
-    cout << "   mass: " << mass << endl << endl;
-}
-
-int Projectile::get_id()
-{
-    return this->weapon_id;
-}
-
-void Projectile::set_inital_position(double x, double y) {
-    this->x = x;
-    this->y = y;
-}
-
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
@@ -94,6 +85,16 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
     projectiles.removeOne(this);
 }
 
+int Projectile::get_weapon_id() const
+{
+    return this->weapon_id;
+}
+
+void Projectile::set_inital_position(double x, double y) {
+    this->x = x;
+    this->y = y;
+}
+
 bool Projectile::change_delay(double dt){
     if(explosion_by_delay){
         delay -= dt;
@@ -105,7 +106,4 @@ bool Projectile::change_delay(double dt){
 }
 
 
-Projectile* Projectile::clone() {
-    return new Projectile(*this);
-}
 

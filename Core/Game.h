@@ -42,7 +42,7 @@ class Game{
                {"right", QPixmap::fromImage(QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32)))}}
           },
           {0, {
-               {"left", QPixmap::fromImage(QImage(""))},
+               {"left", QPixmap::fromImage(QImage("://Images/Grenade.png"))},
                {"right", QPixmap::fromImage(QImage(""))}}
           },
           {1, {
@@ -53,7 +53,7 @@ class Game{
 
       enum {
           class_worm_id=-1,
-          class_projectile_grenade_id=0,
+          class_projectile_grenade_id=0, //weapon_id for grenade = 0
           class_projectile_shot_id=1
       };
 
@@ -63,30 +63,24 @@ class Game{
 
       //Initializing "GOD"!!!!
       Ground* ground;
-      QGraphicsScene *scene;
+      QGraphicsScene *scene = new QGraphicsScene();
       PhysicsEngine physics_engine;
 
       //Initializing the important arrays.
       //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
       //This is done so that we are able to access Worms and Projectile objects as instances of their respective class.
       //Notbaly necessary for Projectile::explode function.
+      //The weapons class stores prebuilt projectiles corresponding to a given weapon. Its Pixmap image is at pixmap_images[weapon_id]
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
-      QVector<Projectile*> weapons = {Projectile("Grenade", 1, 0.6, true, 3000, 100, 10, 5, 0, 0, )}
-
-       //QVector<QPair<Worm*, QGraphicsPixmapItem*>> worms;
-       //QVector<QPair<Projectile*, QGraphicsPixmapItem*>> projectiles;
-
-       //Stores prebuilt projectiles corresponding to a given weapon. Copy, set position and force when shooting.
-       //QList<Projectile> weapons = {Projectile(true, 5000, 5, 50, 60, 10, "Grenade", 0, 0), Projectile(false, -1, 0.1, 5, 30, 0.001, "Shot", 0, 0)};
-
+      QVector<Projectile> weapons = QVector<Projectile>({Projectile("Grenade", 0, 0.6, true, 3000, 100, 10, 5, 0, 0, pixmap_images[0]["left"])});
 
       //Constructors
-      Game(int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000, QGraphicsScene *iscene);
+      Game(QGraphicsScene *iscene, int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
 
       //Methods
-      bool gameIteration(QKeyEvent *k, double dt);
+      bool gameIteration(double dt);
 
       void physics_update(double dt); //general update: time and physics
 

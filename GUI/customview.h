@@ -20,13 +20,8 @@ class CustomView : public QGraphicsView
 {
 public:
     CustomView(QGraphicsScene *parent);
-    Game *Game;
-    //Worm* active_worm;
+    Game* game;
     bool has_quitted = false;
-    //PhysicsEngine* Engine;
-    //QGraphicsScene* scene;
-
-
 
 protected:
      void wheelEvent(QWheelEvent *event);
@@ -34,6 +29,10 @@ protected:
 };
 
 #endif
+
+
+
+
 /*
 class SceneView : public QGraphicsView
 {

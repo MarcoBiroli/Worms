@@ -55,6 +55,7 @@ void PhysicsEngine::update(double dt)
         i.value()->is_grounded.first = false;
         //add the general force to the rigidbody
         i.value()->addForce(this->general_force);
+        i.value()->addForce(QPair<double,double> (0,9.81*i.value()->getm()));
         //for all colliders
         for(j = this->colliders.begin(); j != this->colliders.end(); j++){
             //check the collision of the rigidbody with the collider
@@ -100,7 +101,7 @@ RigidBody* PhysicsEngine::create_rigidbody(double imass, double ix, double iy)
 }
 
 //Getting the rigidbody through the id
-RigidBody *PhysicsEngine::get_rigidbody(int id)
+RigidBody *PhysicsEngine::get_rigidbody (int id) const
 {
     return this->rigidbodies.value(id);
 }
@@ -127,7 +128,7 @@ Collider *PhysicsEngine::create_collider(double ix, double iy)
 }
 
 //Getting the rigidbody through id
-Collider *PhysicsEngine::get_collider(int id)
+Collider *PhysicsEngine::get_collider (int id) const
 {
     return this->colliders.value(id);
 }

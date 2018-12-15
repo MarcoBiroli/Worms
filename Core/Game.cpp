@@ -1,9 +1,9 @@
 #include "Game.h"
 #include <QPixmap>
 
-Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y, QGraphicsScene* iscene){
+Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     scene = iscene;
-    physics_engine = PhysicsEngine(QPair<double,double> (0,9.81));
+    physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
@@ -13,25 +13,26 @@ Game::Game(int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, 
     paused = false;
 
     for(int team=0; team<nb_teams; team++){
+        worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 100, 50, 32*i, team*32, pixmap_images[-1]["right"]);//positions are arbitrary
-            newWorm->setbounciness(0);
+            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 100 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
         }
-        worms_playing.append(0);
     }
+
+    team_playing=0;
 
     turn_timer=0;
 }
 
-bool Game::gameIteration(QKeyEvent *k, double dt){
+bool Game::gameIteration(double dt){
     if(paused){return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
 
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
-        team_playing = (team_playing +1)%nb_teams;
+        team_playing = (team_playing+1)%nb_teams;
 
         while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
             team_playing = (team_playing +1)%nb_teams;
@@ -56,7 +57,7 @@ void Game::nextWorm(){
     else{worms_playing[team_playing] +=1;}
 
     int count = 0; //counts all worms checked to check if not all dead in team
-    while(worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive()) || count != worms.length()){
+    while(worms[worms_playing[team_playing]]->getTeam() != team_playing && !(worms[worms_playing[team_playing]]->isAlive()) && count != worms.length()){
         if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
         else{worms_playing[team_playing] +=1;}
 
@@ -73,6 +74,7 @@ void Game::nextWorm(){
 
 void Game::handleEvents(QKeyEvent *k){
     Worm* active_worm = worms[worms_playing[team_playing]];
+
     if(!active_worm->is_grounded.first){return;}
 
     active_worm->setstable(false);
@@ -111,9 +113,14 @@ void Game::handleEvents(QKeyEvent *k){
         active_worm->setstable(false);
         }
 
-    if(k->key() == ) {//shift right to select weapons
-        if(k->MouseButtonPress){ // if you have clicked on a weapon then u can increase decrease angle
+    if(k->key() == 0xA1) {//shift right to select weapons
+        //weapons appear
+        QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
+        menu->ItemIsSelectable;
+        scene->addItem(menu);
+        if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
             //active_worm->weaponSelect(weapon_ID) //weapon_id will be the pressed image
+            scene->removeItem(menu);
             if (k-> key() == 0x49){// key == I increases the angle 0- 90
                 if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
                     active_worm->weapon_angle += 10;
@@ -126,24 +133,26 @@ void Game::handleEvents(QKeyEvent *k){
             }
 
             if (k-> key() == 0x20){//key == Space shoots the projectile
-                //Create a projectile box attached to the worm
-                //Projectile* Bomb = new Projectile(false, 0, 5, 200, 1, 1, 1, 0,0);
-                //Bomb->setbounciness(0);
-                //create weapons array
-                QVector<Projectile> weapons = QVector<Projectile> projectiles;
-                Projectile* current_projectile = active_worm->fireWeapon(100, weapons);
-                Engine->add_RigidBody(current_projectile);
+                int power = 30;
+                if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
+                    power += 10;
+                }
+                Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
+                physics_engine.add_RigidBody(current_projectile);
                 scene->addItem(current_projectile->sprite);
-                //turn time = max turn - 5 sec
+                this->turn_timer = this->max_turn_time - 5000;
             }
-
+        }
+    }
 
 }
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 
 void Game::physics_update(double dt){
-    physics_engine.update(dt);
+    for (int i = 0; i < 10; i++){
+        physics_engine.update(dt);
+    }
     turn_timer += dt;
 }
 
@@ -189,11 +198,11 @@ void Game::graphics_update() {
 
 bool Game::isFinished(){
     int teams_alive = 0;
-    for(int i=0; i <worms.length(); i++){
+    /*for(int i=0; i <worms.length(); i++){
         if(worms_playing[i] != -1){
             teams_alive +=1;
         }
-    }
+    }*/
     if(teams_alive < 2){return true;}
     return false;
 }

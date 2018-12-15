@@ -45,12 +45,12 @@ public:
     void setstable(bool a);
 
     //Get methods.
-    bool getstable();
+    bool getstable() const;
     double getbounciness() const;
-    double getm();
-    double getvx();
-    double getvy();
-    double getax();
-    double getay();
+    double getm() const;
+    double getvx() const;
+    double getvy() const;
+    double getax() const;
+    double getay() const;
     
 };

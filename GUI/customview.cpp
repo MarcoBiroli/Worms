@@ -31,8 +31,10 @@ void CustomView::keyPressEvent(QKeyEvent *k)
         // Alt = 0x01000023 and F4 = 0x01000033
         this->has_quitted = true;//exit while loop
     }
-    Game->handleEvents(k);
+    game->handleEvents(k);
 }
+
+
 
 
     //Do not yet work
@@ -79,22 +81,4 @@ void CustomView::keyPressEvent(QKeyEvent *k)
       if(k->isAutoRepeat() == true && k->key() == 0x44){      // If the user stays on the right arrow, repeatedly give 5 speed to the right.
         this->worms[worms_playing[team_playing]]->addForce(QPair<double, double>(500, 0));
         }
-    }
-
-    // MOVE TO THE LEFT
-    if (k->key() == 0x41){
-      this->active_worm->addForce(QPair<double, double>(-5000, 0));
-      this->active_worm->setstable(false);
-      }
-      if(k->isAutoRepeat() == true && k->key() == 0x41){
-        this->active_worm->addForce(QPair<double, double>(-5000, 0));
-      }
-    // JUMP
-    if (k->key() == 0x57){ // To move jump give a negative force to the y-axis (recall
-      this->active_worm->addForce(QPair<double, double>(0, -100000));
-      this->active_worm->setstable(false);
-      }
-      if( k->isAutoRepeat() == true && k->key() == 0x57){
-        this->active_worm->addForce(QPair<double, double>(0, -100000));
-        }
-    */
+    }*/

@@ -11,7 +11,7 @@ class Barrel : public RigidBody {
     //Class for the exploding oil barrels
     public :
         Barrel();
-        Barrel(double m, double x, double y);
+        Barrel(double m, double x, double y, QPixmap isprite);
 
         void explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles);
         //Call this function when the barrel is caught in an explosion

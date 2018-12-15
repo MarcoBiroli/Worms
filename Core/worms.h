@@ -44,7 +44,7 @@ class Worm: public RigidBody {
 
       void wormDeath(); // call destructor and run death animation
     
-      bool get_direction();
+      bool get_direction() const;
     
       void set_direction();
 

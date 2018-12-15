@@ -115,8 +115,8 @@ void RigidBody::simulate(double dt){
     if(fabs(mag_v) >= 0.1){
         if (this-> is_grounded.first){
             double Fd = qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))*dynamic_fric;
-            this->currentForce.first -= Fd*this->vx/mag_v;
-            this->currentForce.second -= Fd*this->vy/mag_v;
+            this->currentForce.first -= this->mass*Fd*this->vx/mag_v;
+            this->currentForce.second -= this->mass*Fd*this->vy/mag_v;
         }
     }
     this->bckp_ax = ax;
@@ -178,31 +178,31 @@ void RigidBody::setstable(bool a){
 
 //Get methods.
 
-double RigidBody::getbounciness(){
+double RigidBody::getbounciness() const{
     return bounciness_f;
 }
 
-bool RigidBody::getstable(){
+bool RigidBody::getstable() const{
     return stable;
 }
 
-double RigidBody::getm(){
+double RigidBody::getm() const{
     return mass;
 }
 
-double RigidBody::getvx(){
+double RigidBody::getvx() const{
     return vx;
 }
 
-double RigidBody::getvy(){
+double RigidBody::getvy() const{
     return vy;
 }
 
-double RigidBody::getax(){
+double RigidBody::getax() const{
     return ax;
 }
 
-double RigidBody::getay(){
+double RigidBody::getay() const{
     return ay;
 }
 

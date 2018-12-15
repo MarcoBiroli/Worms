@@ -22,7 +22,27 @@ int main(int argc, char *argv[])
     CustomView *view = new CustomView(scene);
 
     //Initialize a game
-    Game game = Game(2, 60, 2, 5000, 3000, scene);
+    Game game = Game(scene, 2, 5000, 2, 5000, 3000);
+
+    view->game = &game;
+    game.ground->circ_delete(200, 500, 150);
+
+    QTime lastUpdate= QTime::currentTime();
+        int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
+        double update_time = 10;
+
+        while(!view->has_quitted){
+            a.processEvents();
+            timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
+            if(timeSinceLastUpdate>update_time){
+                game.gameIteration(update_time);
+                lastUpdate = QTime::currentTime();
+            }
+            view->showMaximized();
+        }
+        //delete view;  // //press alt key to stop the loop + F4 (cmd + 'Q' on mac) to close the window
+        //delete scene;
+        return a.exec();
 
 
     //PhysicsEngine Engine(QPair<double, double>(0, 9.81));
@@ -59,7 +79,7 @@ int main(int argc, char *argv[])
 
     //view->active_worm = Gerard;
 
-    QTime lastUpdate= QTime::currentTime();
+    /*QTime lastUpdate= QTime::currentTime();
     int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
     double update_time = 10;
 
@@ -84,7 +104,8 @@ int main(int argc, char *argv[])
         view->showMaximized();
     }
     //delete view;  // //press alt key to stop the loop + F4 (cmd + 'Q' on mac) to close the window
-    //delete scene;
+    //delete scene;*/
+
     return a.exec();
 
 
