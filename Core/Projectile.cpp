@@ -19,7 +19,9 @@ void Projectile::print() {
     cout << "   mass: " << mass << endl << endl;
 }
 
-Projectile::Projectile(std::string name, int weapon_id, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
+Projectile::Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
+
+    this->repulsion_power = ipower;
     this->name = name;
     this->explosion_by_delay= explosion_by_delay;
     this->delay = delay;
@@ -32,6 +34,7 @@ Projectile::Projectile(std::string name, int weapon_id, double bounciness, bool 
 
 Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, other.y, other.vx, other.vy, other.ax, other.ay, other.get_map(), other.sprite->pixmap())
 {
+    this->repulsion_power = other.repulsion_power;
     this->name = other.name;
     this->explosion_by_delay= other.explosion_by_delay;
     this->delay = other.delay;
@@ -48,8 +51,10 @@ Projectile* Projectile::clone() {
 
 bool Projectile::on_collision_do(Collider &other)
 {
+    if(!this->explosion_by_delay) {
     other.circ_delete(this->x,this->y,this->explosion_radius);
-    return true;
+    return true;}
+    return false;
     //"??"
 }
 
@@ -63,8 +68,8 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             worm->changeHealth(dmg_dealt);
             //run explosion animation
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
-            double Fx = (vect_dist.first/dist)*dmg_dealt/update_time;
-            double Fy = (vect_dist.second/dist)*dmg_dealt/update_time;
+            double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
+            double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
@@ -79,6 +84,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
 
     }
+    this->sprite->hide();
 
     //destroy projectile
     engine.delete_rigidbody(this->getId());

@@ -42,7 +42,7 @@ class Game{
                {"right", QPixmap::fromImage(QImage("://Images/Clipart_worm_right.png").scaled(QSize(32,32)))}}
           },
           {0, {
-               {"left", QPixmap::fromImage(QImage("://Images/Grenade.png"))},
+               {"left", QPixmap::fromImage(QImage("://Images/Grenade.png").scaled(QSize(20,20)))},
                {"right", QPixmap::fromImage(QImage(""))}}
           },
           {1, {
@@ -59,6 +59,9 @@ class Game{
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
 
+      //weapons menu for now it has a worm in it
+      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
+
     public:
 
       //Initializing "GOD"!!!!
@@ -74,12 +77,14 @@ class Game{
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
-      QVector<Projectile> weapons = QVector<Projectile>({Projectile("Grenade", 0, 0.6, true, 3000, 100, 10, 5, 0, 0, pixmap_images[0]["left"])});
+      QVector<Projectile> weapons;
 
       //Constructors
       Game(QGraphicsScene *iscene, int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
 
       //Methods
+      void weapon_list();
+
       bool gameIteration(double dt);
 
       void physics_update(double dt); //general update: time and physics
