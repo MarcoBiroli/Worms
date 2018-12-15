@@ -16,7 +16,7 @@ class Projectile : public RigidBody {
         void print();
         //prints the Projectile's specs
 
-        Projectile(std::string name, int weapon_id, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
+        Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
 
         Projectile(const Projectile &other);
         Projectile* clone();
@@ -41,6 +41,7 @@ class Projectile : public RigidBody {
 
 
     private:
+        double repulsion_power;
         std::string name;
         bool explosion_by_delay; //if has delay functionning
         double delay;

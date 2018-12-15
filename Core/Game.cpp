@@ -1,12 +1,27 @@
 #include "Game.h"
 #include <QPixmap>
 
+//Initialize all weapons
+void Game::weapon_list()
+{
+    Projectile grenade = Projectile("Grenade", 0, 5000, 0.6, true, 3000, 100, 60, 5, 0, 0, pixmap_images[0]["left"]);
+    grenade.set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
+    weapons.append(grenade);
+}
+
+
 Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     scene = iscene;
     physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
+
+    this->weapon_list();
+
+    this->menu->setFlag(QGraphicsItem::ItemIsSelectable);
+    this->menu->hide();
+    scene->addItem(menu);
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -26,6 +41,8 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
 
     turn_timer=0;
 }
+
+
 
 bool Game::gameIteration(double dt){
     if(paused){return false;}
@@ -108,44 +125,42 @@ void Game::handleEvents(QKeyEvent *k){
             active_worm->setvy(vy);
         }
     }
+
     if (k->key() == 0x57){ // key == W  jumping
-        active_worm->addForce(QPair<double, double>(0, -5000)); //TO DO: decrease the force
+        active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm())); //TO DO: decrease the force
         active_worm->setstable(false);
         }
 
-    if(k->key() == 0xA1) {//shift right to select weapons
-        //weapons appear
-        QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
-        menu->ItemIsSelectable;
-        scene->addItem(menu);
-        if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
-            //active_worm->weaponSelect(weapon_ID) //weapon_id will be the pressed image
-            scene->removeItem(menu);
-            if (k-> key() == 0x49){// key == I increases the angle 0- 90
-                if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
-                    active_worm->weapon_angle += 10;
-                }
-            }
-            if (k-> key() == 0x4B){// key == K decreases the angle }
-                if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
-                    active_worm->weapon_angle -= 10;
-                }
-            }
-
-            if (k-> key() == 0x20){//key == Space shoots the projectile
-                int power = 30;
-                if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
-                    power += 10;
-                }
-                Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
-                physics_engine.add_RigidBody(current_projectile);
-                scene->addItem(current_projectile->sprite);
-                this->turn_timer = this->max_turn_time - 5000;
-            }
-        }
+    if(k->key() == Qt::Key_0) {//0 to select weapons
+        this->menu->show();
     }
 
+    if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
+        if (k-> key() == 0x49){// key == I increases the angle 0- 90
+            if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
+                active_worm->weapon_angle += 10;
+            }
+        }
+        if (k-> key() == 0x4B){// key == K decreases the angle }
+            if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
+                active_worm->weapon_angle -= 10;
+            }
+        }
+
+        if (k-> key() == 0x20){//key == Space shoots the projectile
+            int power = 100;
+            /*if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
+                power += 10;
+            }*/
+            Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
+            physics_engine.add_RigidBody(current_projectile);
+            projectiles.append(current_projectile);
+            scene->addItem(current_projectile->sprite);
+            this->turn_timer = this->max_turn_time - 5000;
+        }
+    }
 }
+
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 
