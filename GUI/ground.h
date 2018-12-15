@@ -27,6 +27,8 @@ public:
     }
     Ground(const int width, const int height);
 
+    Ground(const QImage background);
+
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 
     QImage* getMap() const; //This returns the ground itself.

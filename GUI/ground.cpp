@@ -1,6 +1,8 @@
 #include "ground.h"
 
-
+Ground::Ground(const QImage background): Collider(){
+    this -> set_map(background);
+}
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
     QString path = ("://Images/game_background.jpg");
