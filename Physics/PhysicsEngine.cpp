@@ -93,6 +93,13 @@ RigidBody* PhysicsEngine::create_rigidbody(double imass, double ix, double iy, d
     return newBody;
 }
 
+RigidBody *PhysicsEngine::create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap sprite)
+{
+    RigidBody* newBody = new RigidBody( imass,  ix,  iy,  vx0,  vy0,  ax0,  ay0,  map, sprite);
+    this->add_RigidBody(newBody);
+    return newBody;
+}
+
 RigidBody* PhysicsEngine::create_rigidbody(double imass, double ix, double iy)
 {
     RigidBody* newBody = new RigidBody( imass,  ix,  iy);
