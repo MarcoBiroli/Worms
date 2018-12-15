@@ -8,5 +8,9 @@
     <file>Images/Grenade.png</file>
     <file>Images/grenade_collider.png</file>
     <file>Images/barrel.png</file>
+    <file>Images/bw_ground.jpg</file>
+    <file>Images/bw_ground_map.jpg</file>
+    <file>Images/ground_map.png</file>
+    <file>Images/ground.png</file>
 </qresource>
 </RCC>
