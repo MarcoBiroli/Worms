@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
             a.processEvents();
             timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
             if(timeSinceLastUpdate>update_time){
-                game.gameIteration(update_time);
+                qDebug() << timeSinceLastUpdate;
+                game.gameIteration(timeSinceLastUpdate);
                 lastUpdate = QTime::currentTime();
             }
             view->showMaximized();
