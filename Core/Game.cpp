@@ -24,22 +24,23 @@ void Game::weapon_list()
     weapons.append(rocket);
 }
 
-Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    QImage bw_ground("://Images/bw_ground_map_(3).jpg");
+Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
+    //QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
+    view = iview;
     physics_engine = PhysicsEngine();
-    //ground = new Ground(ground_size_x, ground_size_y);
+    ground = new Ground(ground_size_x, ground_size_y);
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
-    scene -> addItem(background);
-    ground = new Ground(bw_ground);
+    //scene -> addItem(background);
+    //ground = new Ground(bw_ground);
 
     QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
-    //ground->randomize();
+    ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
-
+    view->centerOn(ground->getPixmap());
     this->weapon_list();
 
     this->menu->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -53,10 +54,14 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 100 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 1000 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
+        }
+
+        if(team != 0){
+            worms_playing[team] -=1;
         }
     }
 
@@ -97,7 +102,7 @@ void Game::nextWorm(){
     else{worms_playing[team_playing] +=1;}
 
     int count = 0; //counts all worms checked to check if not all dead in team
-    while(worms[worms_playing[team_playing]]->getTeam() != team_playing && !(worms[worms_playing[team_playing]]->isAlive()) && count != worms.length()){
+    while((worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive())) && count < worms.length()){
         if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
         else{worms_playing[team_playing] +=1;}
 
@@ -132,6 +137,7 @@ void Game::handleEvents(QKeyEvent *k){
         vy = M2[2]*ve + M2[3]*vu;
         active_worm->setvx(vx);
         active_worm->setvy(vy);
+        active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
         if(k->isAutoRepeat() == true && k->key() == 0x41){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
@@ -143,6 +149,7 @@ void Game::handleEvents(QKeyEvent *k){
         vy = M2[2]*ve + M2[3]*vu;
         active_worm->setvx(vx);
         active_worm->setvy(vy);
+        active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
         if(k->isAutoRepeat() == true && k->key() == 0x44){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
