@@ -76,8 +76,8 @@ void Ground::randomize(){
     for (int i=0;i<this->map->width();i++){
         for (int j=0;j<this->map->height();j++){
             // I can put any function here...
-            //double terrain_height=2000 + 200*qCos(i/period1+phase1)+50*qCos(i/period2+phase2)+200*qCos(i/((period1+period2)/2));
-            double terrain_height=2000 + 200*qCos(i/period1+phase1);
+            double terrain_height=1500 + 300*qCos(i/period1+phase1)+100*qCos(i/period2+phase2);
+            //double terrain_height=2000 + 200*qCos(i/period1+phase1);
             if (j<terrain_height){
                 this->map->setPixel(i, j, this->blue_sky);
                 this->change_pixel(i, j, Qt::white);
