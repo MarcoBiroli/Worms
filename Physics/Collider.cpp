@@ -1,4 +1,5 @@
 #include "Collider.h"
+#include "qdebug.h"
 
 //Constructors
 bool Collider::on_collision_do(Collider &other)
@@ -112,6 +113,15 @@ void Collider::set_map(QImage map) {
     this->skin_depth_pixels = this->skin_depth_percent * this->countblack;
 }
 
+int Collider::getWidth() const
+{
+    return this->colliding_map.width();
+}
+
+int Collider::getHeight() const
+{
+    return this->colliding_map.height();
+}
 
 void Collider::change_pixel(int i, int j, QColor color) {
     //if the color we give is black and the current color of pixel(i,j) is not black we increment the parameter countblack
@@ -139,17 +149,27 @@ void Collider::change_pixel(int i, int j, QColor color) {
 
 QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
 {
+    //Broadband phase AABB collision
+    if(!(this->getX() < other.getX() + other.getWidth() &&
+          this->getX() + this->getWidth() > other.getX() &&
+          this->getY() < other.getY() + other.getHeight() &&
+          this->getY() + this->getHeight() > other.getY()))
+      {
+          return QPair<bool, QPair<double, double>>(false, QPair<double, double>());
+      }
+
+    //Specific Phase
     //Initializing the parameters
     bool colliding = false;
     double cm_otherx = 0, cm_othery = 0;
     int nb_colliding_pixels = 0;
 
     //It loops over the width and height of the colliding map checking where the black pixels overlap
-    for (int i = 0; i < this->colliding_map.width(); i++) {
-        for (int j = 0; j < this->colliding_map.height(); j++){
+    for (int i = 0; i < this->getWidth(); i++) {
+        for (int j = 0; j < this->getHeight(); j++){
             if (this->colliding_map.pixelColor(i,j) == Qt::black){
                 //If the pixel (i,j) is part of the others collider map, taking care of the x,y change of coordinates (top-left corner)
-                if (other.x <= x+i <= other.x + other.colliding_map.width() && other.y <= y + j <= other.y + other.colliding_map.height()){
+                if (other.x <= x+i && x + i< other.x + other.getWidth() && other.y <= y + j && y + j < other.y + other.getHeight()){
                     //check if this pixel is black
                     if (other.colliding_map.pixelColor(x+i-other.x, y+j - other.y) == Qt::black){
                         //update the parameters

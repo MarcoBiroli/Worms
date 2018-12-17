@@ -1,5 +1,6 @@
 #include "ground.h"
 
+
 Ground::Ground(const QImage background): Collider(){
     this -> map = new QImage(background);
     this -> set_map(*this->map);
@@ -61,20 +62,14 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
 
 //WORK IN PROGRESS
 void Ground::randomize(){
-    //this first function creates a random terrain made of a superpositon of cosines
-    
-    //this->set_map(QImage map);
-    //this->change_pixel(int i, int j, Qt::black or Qt::white);
-    //QImage new_image = QImage(int width, int height, QImage::Format_RGB32)
-    //new_image.fill(Qt::white);
-    //new_image.setPixel(int i, int j, Qt::white or Qt::black)
+    //this first function creates a random terrain made of a superpositon of cosine
 
+    
     //create random phase and random period for two cosine functions within a range that is reasonable to obtain
     //a good mountain-like terrain
-    
     double period1,period2;
     period1=rand()%1000+400;
-    period2=rand()%100+20;
+    period2=rand()%500+200;
     double phase1=rand()%1000+200;
     double phase2=rand()%1000+200;
 

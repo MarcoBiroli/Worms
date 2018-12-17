@@ -12,7 +12,14 @@
     <file>Images/bw_ground_map.jpg</file>
     <file>Images/ground_map.png</file>
     <file>Images/ground.png</file>
+    <file>Images/Gun_right.png</file>
     <file>Images/Gun_left.png</file>
+    <file>Images/Bat_right.png</file>
+    <file>Images/Bat_left.png</file>
+    <file>Images/Boxing_right.png</file>
+    <file>Images/Boxing_left.png</file>
+    <file>Images/Bazooka_right.png</file>
+    <file>Images/Bazooka_left.png</file>
     <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
     <file>SoundEffect/Explosion+7.mp3</file>
 
