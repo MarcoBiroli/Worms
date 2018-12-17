@@ -46,40 +46,63 @@ class Game{
                {"right", QPixmap::fromImage(QImage(""))}}
           },
           {1, {
-               {"left", QPixmap::fromImage(QImage(("://Images/Bazooka_left.png")))},
-               {"right", QPixmap::fromImage(QImage(("://Images/Bazooka_right.png")))}}
-          },
-          {2, {
-               {"left", QPixmap::fromImage(QImage(("://Images/Bat_left.png")))},
-               {"right", QPixmap::fromImage(QImage(("://Images/Bat_right.png")))}}
-          },
-          {3, {
-               {"left", QPixmap::fromImage(QImage(("://Images/Boxing_left.png")))},
-               {"right", QPixmap::fromImage(QImage(("://Images/Boxing_right.png")))}}
+               {"left", QPixmap::fromImage(QImage(("")))},
+               {"right", QPixmap::fromImage(QImage(("")))}}
           }
-
        };
 
       enum {
           class_worm_id=-1,
           class_projectile_grenade_id=0, //weapon_id for grenade = 0
-          class_projectile_bazooka_id=1,
-          class_projectile_bat_id = 2,
-          class_projectile_boxing_id = 3,
+          class_projectile_shot_id=1
+      };
 
+      //maps the name of each spritesheet to the set of corresponding frames
+      //1 maps to the set of frames showing the worm dying in an explosion
+      //2 maps to the set of frames showing an explosion
+      QMap<int, QVector<QPixmap>> spritesheets =
+      {
+      {1, {QPixmap::fromImage(QImage("://Images/Dying worm version 6-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-2 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-3 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-4 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-5 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-6 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-7 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-8 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-9 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-10 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-11 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-12 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-13 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6-14 (glissées).tiff").scaled(QSize(32,32)))}
+
+       },
+       {2, {QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-2 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-3 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-4 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-5 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-6 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-7 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-8 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-9 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-10 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-11 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-12 (glissées).tiff").scaled(QSize(32,32)))}
+       }
       };
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
 
       //weapons menu for now it has a worm in it
-      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"].scaled(128,128));
+      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
 
     public:
 
       //Initializing "GOD"!!!!
       Ground* ground;
-      QGraphicsScene *scene;
-      QGraphicsView *view;
+      QGraphicsScene *scene = new QGraphicsScene();
       PhysicsEngine physics_engine;
 
       //Initializing the important arrays.
@@ -93,7 +116,7 @@ class Game{
       QVector<Projectile> weapons;
 
       //Constructors
-      Game(QGraphicsScene *iscene, QGraphicsView* iview, int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
+      Game(QGraphicsScene *iscene, int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
 
       //Methods
       void weapon_list();

@@ -89,6 +89,7 @@ void Ground::randomize(){
             }
         }
     }
+    item->setPixmap(QPixmap::fromImage(*this->map));
 }
 
 
