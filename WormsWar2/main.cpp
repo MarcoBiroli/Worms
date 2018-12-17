@@ -21,9 +21,14 @@ int main(int argc, char *argv[])
 
     //Put a graphics view inside of the window
     CustomView *view = new CustomView(scene);
+    //view->setSceneRect(-10000, -10000, 20000, 20000);
 
     //Initialize a game
+<<<<<<< HEAD
     Game game = Game(scene, 2, 1000, 2, 5000, 3000);
+=======
+    Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
+>>>>>>> 7be6c5a87c5c1ed2d1d17cd910a9803d92fb2cc9
 
     view->game = &game;
 
@@ -96,7 +101,7 @@ int main(int argc, char *argv[])
             double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)};
             double ve = M[0]*Gerard->getvx() + M[1]*Gerard->getvy();
             if(ve > 0){
-                Gerard->sprite->setPixmap(QPixmap::fromImage(worm_left));
+                +++++
             }
             else{
                 Gerard->sprite->setPixmap(QPixmap::fromImage(worm_right));
