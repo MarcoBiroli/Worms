@@ -46,21 +46,33 @@ class Game{
                {"right", QPixmap::fromImage(QImage(""))}}
           },
           {1, {
-               {"left", QPixmap::fromImage(QImage(("")))},
-               {"right", QPixmap::fromImage(QImage(("")))}}
+               {"left", QPixmap::fromImage(QImage(("://Images/Bazooka_left.png")))},
+               {"right", QPixmap::fromImage(QImage(("://Images/Bazooka_right.png")))}}
+          },
+          {2, {
+               {"left", QPixmap::fromImage(QImage(("://Images/Bat_left.png")))},
+               {"right", QPixmap::fromImage(QImage(("://Images/Bat_right.png")))}}
+          },
+          {3, {
+               {"left", QPixmap::fromImage(QImage(("://Images/Boxing_left.png")))},
+               {"right", QPixmap::fromImage(QImage(("://Images/Boxing_right.png")))}}
           }
+
        };
 
       enum {
           class_worm_id=-1,
           class_projectile_grenade_id=0, //weapon_id for grenade = 0
-          class_projectile_shot_id=1
+          class_projectile_bazooka_id=1,
+          class_projectile_bat_id = 2,
+          class_projectile_boxing_id = 3,
+
       };
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
 
       //weapons menu for now it has a worm in it
-      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
+      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"].scaled(128,128));
 
     public:
 

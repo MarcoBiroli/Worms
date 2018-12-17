@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <QPixmap>
+#include <QSound>
 
 //Initialize all weapons
 void Game::weapon_list()
@@ -17,6 +18,11 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
     scene -> addItem(background);
     ground = new Ground(bw_ground);
+
+    QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    scene = iscene;
+
+    //ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
 
