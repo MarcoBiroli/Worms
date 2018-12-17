@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WormsWar2
@@ -46,6 +48,7 @@ HEADERS += \
         ../Core/Projectile.h \
         ../Core/worms.h \
         ../Core/barrel.h \
+    ../GUI/music.h
 
 FORMS += \
         mainwindow.ui

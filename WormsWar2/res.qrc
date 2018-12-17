@@ -12,5 +12,8 @@
     <file>Images/bw_ground_map.jpg</file>
     <file>Images/ground_map.png</file>
     <file>Images/ground.png</file>
+    <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
+    <file>SoundEffect/Explosion+7.mp3</file>
+
 </qresource>
 </RCC>
