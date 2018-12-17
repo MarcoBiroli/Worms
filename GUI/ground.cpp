@@ -2,8 +2,8 @@
 
 
 Ground::Ground(const QImage background): Collider(){
-    this -> map = new QImage(background);
-    this -> set_map(*this->map);
+    this -> set_map(background.scaled(2100,730));
+    this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
     this -> is_ground = true;
 }
 
@@ -33,7 +33,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
-    item->setPixmap(QPixmap::fromImage(*this->map));
+    //item->setPixmap(QPixmap::fromImage(*this->map));
     //QImage color_ground("://Images/ground_map.png");
     //item -> setPixmap(QPixmap::fromImage(color_ground));
     return item;
