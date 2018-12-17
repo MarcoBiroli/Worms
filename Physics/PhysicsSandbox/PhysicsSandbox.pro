@@ -25,14 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
         Collider.cpp \
         PhysicsEngine.cpp \
         RigidBody.cpp \
         ground.cpp
 
 HEADERS += \
-        mainwindow.h \
         Collider.h \
         PhysicsEngine.h \
         RigidBody.h \
