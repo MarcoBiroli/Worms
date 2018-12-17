@@ -9,7 +9,6 @@ void Game::weapon_list()
     weapons.append(grenade);
 }
 
-
 Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
