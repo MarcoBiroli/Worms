@@ -75,8 +75,6 @@ bool Game::gameIteration(double dt){
         }
 
         nextWorm();
-
-        qDebug()<<team_playing <<" : "<< worms[worms_playing[team_playing]]->getTeam() <<" : "<< worms_playing[team_playing];
         turn_timer = 0;
     }
 
