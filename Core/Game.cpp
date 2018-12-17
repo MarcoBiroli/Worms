@@ -111,6 +111,7 @@ void Game::handleEvents(QKeyEvent *k){
         vy = M2[2]*ve + M2[3]*vu;
         active_worm->setvx(vx);
         active_worm->setvy(vy);
+        active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
         if(k->isAutoRepeat() == true && k->key() == 0x41){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
@@ -122,6 +123,7 @@ void Game::handleEvents(QKeyEvent *k){
         vy = M2[2]*ve + M2[3]*vu;
         active_worm->setvx(vx);
         active_worm->setvy(vy);
+        active_worm->sprite->setPixmap(pixmap_images[-1]["rigt"]);
         if(k->isAutoRepeat() == true && k->key() == 0x44){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
