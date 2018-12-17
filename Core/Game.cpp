@@ -31,10 +31,14 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 100 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 300 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
+        }
+
+        if(team != 0){
+            worms_playing[team] -=1;
         }
     }
 
@@ -58,6 +62,8 @@ bool Game::gameIteration(double dt){
         }
 
         nextWorm();
+
+        qDebug()<<team_playing <<" : "<< worms[worms_playing[team_playing]]->getTeam() <<" : "<< worms_playing[team_playing];
         turn_timer = 0;
     }
 
@@ -75,7 +81,7 @@ void Game::nextWorm(){
     else{worms_playing[team_playing] +=1;}
 
     int count = 0; //counts all worms checked to check if not all dead in team
-    while(worms[worms_playing[team_playing]]->getTeam() != team_playing && !(worms[worms_playing[team_playing]]->isAlive()) && count != worms.length()){
+    while((worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive())) && count < worms.length()){
         if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
         else{worms_playing[team_playing] +=1;}
 
