@@ -11,19 +11,19 @@ void Game::weapon_list()
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    QImage bw_ground("://Images/bw_ground_map.jpg");
+    //QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
-    //ground = new Ground(ground_size_x, ground_size_y);
+    ground = new Ground(ground_size_x, ground_size_y);
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
-    scene -> addItem(background);
-    ground = new Ground(bw_ground);
+    //scene -> addItem(background);
+    //ground = new Ground(bw_ground);
 
     QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
-    //ground->randomize();
+    ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
@@ -40,6 +40,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
+
             Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 300 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
 
             physics_engine.add_RigidBody(newWorm);
