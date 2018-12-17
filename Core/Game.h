@@ -83,6 +83,9 @@ class Game{
       //2 maps to the set of frames showing an explosion
       //3 maps to the set of frames showing the worm moving right
       //4 maps to the set of frames showing the worm moving left
+      //5 maps to the set of frames showing the blue grenade exploding
+      //6 maps to the set of frames showing the green grenade exploding
+      //7 maps to the set of frames showing the red grenade exploding
       QMap<int, QVector<QPixmap>> spritesheets =
       {
       {1, {QPixmap::fromImage(QImage("://Images/Dying worm version 6-1 (glissées).tiff").scaled(QSize(32,32))),
@@ -128,6 +131,24 @@ class Game{
            QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32)))}
+       },
+
+       {5, {QPixmap::fromImage(QImage("://Images/Grenades exploding/Blue Grenade exploding frames/Blue 1.png").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Grenades exploding/Blue Grenade exploding frames/Blue 2.png").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Grenades exploding/Blue Grenade exploding frames/Blue 3.png").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Grenades exploding/Blue Grenade exploding frames/Blue 4.png").scaled(QSize(32,32)))}
+       },
+
+       {6, {QPixmap::fromImage(QImage("://Images/Grenades exploding/Green Grenade exploding frames/Green 1.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Green Grenade exploding frames/Green 2.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Green Grenade exploding frames/Green 3.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Green Grenade exploding frames/Green 4.png").scaled(QSize(32,32)))}
+       },
+
+       {7, {QPixmap::fromImage(QImage("://Images/Grenades exploding/Red Grenade exploding frames/Red 1.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Red Grenade exploding frames/Red 2.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Red Grenade exploding frames/Red 3.png").scaled(QSize(32,32))),
+            QPixmap::fromImage(QImage("://Images/Grenades exploding/Red Grenade exploding frames/Red 4.png").scaled(QSize(32,32)))}
        }
 
       };
