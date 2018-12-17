@@ -37,3 +37,9 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES += \
+    ../Images/Clipart_worm_left.png \
+    ../Images/Clipart_worm_right.png \
+    ../Images/Clipart_worm_left.png \
+    ../Images/Clipart_worm_right.png
