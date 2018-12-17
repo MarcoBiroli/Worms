@@ -60,7 +60,7 @@ class Game{
       QVector<QGraphicsPixmapItem*> pixmap_items;
 
       //weapons menu for now it has a worm in it
-      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"]);
+      QGraphicsPixmapItem* menu = new QGraphicsPixmapItem(pixmap_images[0]["left"].scaled(128,128));
 
     public:
 
