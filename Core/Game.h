@@ -48,12 +48,11 @@ class Game{
           {1, {
                {"left", QPixmap::fromImage(QImage(("://Images/Bazooka_left.png")))},
                {"right", QPixmap::fromImage(QImage(("://Images/Bazooka_right.png")))}}
-          }
+          },
           {2, {
                {"left", QPixmap::fromImage(QImage(("://Images/Bat_left.png")))},
                {"right", QPixmap::fromImage(QImage(("://Images/Bat_right.png")))}}
-          }
-
+          },
           {3, {
                {"left", QPixmap::fromImage(QImage(("://Images/Boxing_left.png")))},
                {"right", QPixmap::fromImage(QImage(("://Images/Boxing_right.png")))}}
