@@ -11,7 +11,7 @@ void Game::weapon_list()
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    QImage bw_ground("://Images/bw_ground_map.jpg");
+    //QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
@@ -23,7 +23,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
-    //ground->randomize();
+    ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
@@ -41,7 +41,6 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
             Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 300 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
-
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
@@ -72,8 +71,6 @@ bool Game::gameIteration(double dt){
         }
 
         nextWorm();
-
-        qDebug()<<team_playing <<" : "<< worms[worms_playing[team_playing]]->getTeam() <<" : "<< worms_playing[team_playing];
         turn_timer = 0;
     }
 
