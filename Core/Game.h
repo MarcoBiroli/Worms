@@ -79,44 +79,44 @@ class Game{
       };
 
       //maps the name of each spritesheet to the set of corresponding frames
-      //1 maps to the set of frames showing the worm dying in an explosion
-      //2 maps to the set of frames showing an explosion
-      //3 maps to the set of frames showing the worm moving right
-      //4 maps to the set of frames showing the worm moving left
-      //5 maps to the set of frames showing the blue grenade exploding
-      //6 maps to the set of frames showing the green grenade exploding
-      //7 maps to the set of frames showing the red grenade exploding
+      //1 maps to the set of frames (QPixmap) showing the worm dying in an explosion
+      //2 maps to the set of frames (QPixmap) showing an explosion
+      //3 maps to the set of frames (QPixmap) showing the worm moving right
+      //4 maps to the set of frames (QPixmap) showing the worm moving left
+      //5 maps to the set of frames (QPixmap) showing the explosion of the blue grenade
+      //6 maps to the set of frames (QPixmap) showing the explosion of the green grenade
+      //7 maps to the set of frames (QPixmap) showing the explosion of the red grenade
       QMap<int, QVector<QPixmap>> spritesheets =
       {
-      {1, {QPixmap::fromImage(QImage("://Images/Dying worm version 6-1 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-2 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-3 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-4 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-5 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-6 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-7 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-8 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-9 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-10 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-11 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-12 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-13 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Dying worm version 6-14 (glissées).tiff").scaled(QSize(32,32)))}
+      {1, {QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-2 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-3 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-4 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-5 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-6 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-7 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-8 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-9 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-10 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-11 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-12 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-13 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Dying worm version 6/Frames right/Dying worm version 6-14 (glissées).tiff").scaled(QSize(32,32)))}
 
        },
 
-       {2, {QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-1 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-2 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-3 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-4 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-5 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-6 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-7 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-8 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-9 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-10 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-11 (glissées).tiff").scaled(QSize(32,32))),
-           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-12 (glissées).tiff").scaled(QSize(32,32)))}
+       {2, {QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-2 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-3 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-4 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-5 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-6 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-7 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-8 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-9 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-10 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-11 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Explosions/Explosion 1 frames/Explosion 1-12 (glissées).tiff").scaled(QSize(32,32)))}
 
        },
 
