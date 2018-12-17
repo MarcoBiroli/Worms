@@ -10,12 +10,23 @@ RigidBody::RigidBody()
 
 }
 
+RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap isprite): Collider(ix,iy,map)
+{
+    this->mass = imass;
+    this->sprite = new QGraphicsPixmapItem(isprite);
+    this->vx = vx0;
+    this->vy = vy0;
+    this->ax = ax0;
+    this->ay = ay0;
+}
+
 RigidBody::RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map) : Collider(ix, iy, map){
     this->mass = imass;
     this->vx = vx0;
     this->vy = vy0;
     this->ax = ax0;
     this->ay = ay0;
+    this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(map));
 }
 
 RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
@@ -24,6 +35,7 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
     this->vy = 0;
     this->ax = 0;
     this->ay = 0;
+    this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(this->get_map()));
 }
 
 //Physics methods.
@@ -32,24 +44,10 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
 //The physical idea is that the force acting on the body in a collision is F=dp/dt with dp the istantaneous 
 //change in the linear momentum of the RigidBody.
 
-void RigidBody::revert(){
-    if(this->bckp_x == -1){return;}
-    this->x = this->bckp_x;
-    this->y = this->bckp_y;
-    /*
-    this->vx = this->bckp_vx;
-    this->vy = this->bckp_vy;
-    this->ax = this->bckp_ax;
-    this->ay = this->bckp_ay;
-    */
-    this->bckp_x = -1;
-}
-
 void RigidBody::bounce(QPair<double, double> normal, double dt) 
     
 {
     dt /= 1000; //dt in milliseconds
-    //this->revert();
     double theta = qAtan2(-normal.first, normal.second); //angle that the normal vector to the ground forms with the y-aixs
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*this->vx + M[1]*this->vy); // component of the velocity parallel to the tangent line at the collision point.
@@ -117,8 +115,8 @@ void RigidBody::simulate(double dt){
     if(fabs(mag_v) >= 0.1){
         if (this-> is_grounded.first){
             double Fd = qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))*dynamic_fric;
-            this->currentForce.first -= Fd*this->vx/mag_v;
-            this->currentForce.second -= Fd*this->vy/mag_v;
+            this->currentForce.first -= this->mass*Fd*this->vx/mag_v;
+            this->currentForce.second -= this->mass*Fd*this->vy/mag_v;
         }
     }
     this->bckp_ax = ax;
@@ -180,31 +178,31 @@ void RigidBody::setstable(bool a){
 
 //Get methods.
 
-double RigidBody::getbounciness(){
+double RigidBody::getbounciness() const{
     return bounciness_f;
 }
 
-bool RigidBody::getstable(){
+bool RigidBody::getstable() const{
     return stable;
 }
 
-double RigidBody::getm(){
+double RigidBody::getm() const{
     return mass;
 }
 
-double RigidBody::getvx(){
+double RigidBody::getvx() const{
     return vx;
 }
 
-double RigidBody::getvy(){
+double RigidBody::getvy() const{
     return vy;
 }
 
-double RigidBody::getax(){
+double RigidBody::getax() const{
     return ax;
 }
 
-double RigidBody::getay(){
+double RigidBody::getay() const{
     return ay;
 }
 

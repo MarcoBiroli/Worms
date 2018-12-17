@@ -16,7 +16,7 @@ class Projectile;
 class Worm: public RigidBody {
     public:
       Worm();
-      Worm(int team_number, std::string personal_name, int health, double mass, double x, double y);
+      Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
 
       ~Worm(); //free the weapons array
 
@@ -34,24 +34,27 @@ class Worm: public RigidBody {
 
       void changeHealth(int dmg); //negative value to increase health
 
-      void changeAngle(bool clockwise); //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
+      //change angle clockwise parameter doesnt make that much sense? change angle += 1
+      //void changeAngle(bool clockwise);
+      //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
       
-      void fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles); //with the power from the user input and the angle stored in the Worms class, create projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
+      Projectile* fireWeapon(double power, QVector<Projectile> weapons);
+      //with the power from the user input and the angle stored in the Worms class, create
+      //projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
-      void move(bool right);//move right (if right=True, left if right=false) by modyfying x-velocity  ***(how deal with slopes, etc?)
-      
       void wormDeath(); // call destructor and run death animation
     
-      bool get_direction();
+      bool get_direction() const;
     
       void set_direction();
 
       void change_direction(bool t);
 
+      double weapon_angle = 0; //intially 0
+
     private:
       int health;
       int current_weapon;
-      double weapon_angle = 0; //intially 0
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
       const std::string personal_name;

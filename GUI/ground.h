@@ -30,6 +30,7 @@ public:
     Ground(const int width, const int height);
 
     void randomize();
+    Ground(const QImage background);
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 
@@ -37,8 +38,7 @@ public:
 
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
 
-    void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
-
+    virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
 };
 
 #endif // GROUND_H

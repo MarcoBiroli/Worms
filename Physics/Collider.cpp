@@ -1,6 +1,16 @@
 #include "Collider.h"
 
 //Constructors
+bool Collider::on_collision_do(Collider &other)
+{
+    return false; // not deleted by default
+}
+
+void Collider::circ_delete(int x, int y, double radius)
+{
+
+}
+
 Collider::Collider()
 {
 }
@@ -62,7 +72,7 @@ Collider::Collider(double ix, double iy)
 
 //Get and Set private variables
 
-int Collider::getId() { return this->id;}
+int Collider::getId() const { return this->id;}
 void Collider::setId(int iid) {this->id = iid;}
 
 
@@ -72,20 +82,20 @@ void Collider::setSkin(double depth_percent) {
     this->skin_depth_pixels = this->skin_depth_percent * this->countblack;
 }
 
-double Collider::getX() {return this->x;}
-double Collider::getY() {return this->y;}
+double Collider::getX() const {return this->x;}
+double Collider::getY() const {return this->y;}
 
 void Collider::setX(double x1) {this->x = x1;}
 void Collider::setY(double y1) {this->y = y1;}
 
 
-double Collider::getcmX() {return this->cmx;}
-double Collider::getcmY() {return this->cmy;}
+double Collider::getcmX() const {return this->cmx;}
+double Collider::getcmY() const {return this->cmy;}
 
 void Collider::setcmX(double cx) {this->cmx = cx;}
 void Collider::setcmY(double cy) {this->cmy = cy;}
 
-QImage Collider::get_map() {return this->colliding_map;}
+QImage Collider::get_map() const {return this->colliding_map;}
 
 void Collider::set_map(QImage map) {
     this->colliding_map = map;

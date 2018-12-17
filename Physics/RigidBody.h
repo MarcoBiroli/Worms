@@ -6,6 +6,7 @@
 
 
 class RigidBody: public Collider{
+
 protected:
     double mass = 0, vx = 0, vy = 0, ax = 0, ay = 0;
     double bckp_x = -1, bckp_y = 0, bckp_vx = 0, bckp_vy = 0, bckp_ax = 0, bckp_ay = 0;
@@ -19,14 +20,15 @@ private:
 public:
     bool is_colliding = false;
     QPair<bool, QPair<double, double>> is_grounded = QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));
-    
+    QGraphicsPixmapItem* sprite;
+
     //Constructors.
     RigidBody();
+    RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap isprite);
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
     RigidBody(double imass, double ix, double iy);
     
     //Physics methods.
-    void revert();
     void bounce(QPair<double, double> normal, double dt);
     void addForce(QPair<double, double> F);
     double distance(RigidBody other);
@@ -43,12 +45,12 @@ public:
     void setstable(bool a);
 
     //Get methods.
-    bool getstable();
-    double getbounciness();
-    double getm();
-    double getvx();
-    double getvy();
-    double getax();
-    double getay();
+    bool getstable() const;
+    double getbounciness() const;
+    double getm() const;
+    double getvx() const;
+    double getvy() const;
+    double getax() const;
+    double getay() const;
     
 };
