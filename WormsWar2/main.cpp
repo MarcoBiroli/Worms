@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
 
     view->game = &game;
-    game.ground->circ_delete(200, 500, 150);
+    //game.ground->circ_delete(200, 500, 150);
 
     QTime lastUpdate= QTime::currentTime();
         int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
