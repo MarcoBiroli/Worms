@@ -24,11 +24,8 @@ int main(int argc, char *argv[])
     //view->setSceneRect(-10000, -10000, 20000, 20000);
 
     //Initialize a game
-<<<<<<< HEAD
-    Game game = Game(scene, 2, 1000, 2, 5000, 3000);
-=======
+
     Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
->>>>>>> 7be6c5a87c5c1ed2d1d17cd910a9803d92fb2cc9
 
     view->game = &game;
 

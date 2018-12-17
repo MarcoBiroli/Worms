@@ -15,10 +15,10 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
-    //ground = new Ground(ground_size_x, ground_size_y);
-    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
-    scene -> addItem(background);
-    ground = new Ground(bw_ground);
+    ground = new Ground(ground_size_x, ground_size_y);
+    //QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
+    //scene -> addItem(background);
+    //ground = new Ground(bw_ground);
 
     QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
@@ -40,11 +40,8 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-<<<<<<< HEAD
             Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 300 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
-=======
-            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 1000 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
->>>>>>> 7be6c5a87c5c1ed2d1d17cd910a9803d92fb2cc9
+
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
