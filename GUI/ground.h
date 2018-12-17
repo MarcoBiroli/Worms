@@ -8,6 +8,8 @@
 #include <QCursor>
 #include <QGraphicsPixmapItem>
 #include "../Physics/Collider.h"
+#include <qmath.h>
+#include "QDebug"
 
 class Ground : public Collider
 {
@@ -27,6 +29,7 @@ public:
     }
     Ground(const int width, const int height);
 
+    void randomize();
     Ground(const QImage background);
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
@@ -36,7 +39,6 @@ public:
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
 
     virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
-
 };
 
 #endif // GROUND_H

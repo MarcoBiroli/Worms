@@ -14,6 +14,7 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
     scene = iscene;
     physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
+    ground->randomize();
     //ground = new Ground(bw_ground);
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
