@@ -21,9 +21,10 @@ int main(int argc, char *argv[])
 
     //Put a graphics view inside of the window
     CustomView *view = new CustomView(scene);
+    view->setSceneRect(-10000, -10000, 20000, 20000);
 
     //Initialize a game
-    Game game = Game(scene, 2, 5000, 2, 5000, 3000);
+    Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
 
     view->game = &game;
     game.ground->circ_delete(200, 500, 150);

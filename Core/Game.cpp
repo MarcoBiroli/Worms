@@ -9,16 +9,17 @@ void Game::weapon_list()
     weapons.append(grenade);
 }
 
-Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
+Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
+    view = iview;
     physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
     ground->randomize();
     //ground = new Ground(bw_ground);
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
-
+    view->centerOn(ground->getPixmap());
     this->weapon_list();
 
     this->menu->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -32,7 +33,7 @@ Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_te
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 100 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger",0 , 100, 50, 1000 + 100*i, 100+team*100, pixmap_images[-1]["right"]);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
