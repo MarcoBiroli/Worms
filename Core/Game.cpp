@@ -90,7 +90,7 @@ void Game::nextWorm(){
     else{worms_playing[team_playing] +=1;}
 
     int count = 0; //counts all worms checked to check if not all dead in team
-    while((worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive())) && count < worms.length()){
+    while((worms[worms_playing[team_playing]]->getTeam() != team_playing || !(worms[worms_playing[team_playing]]->isAlive())) && count < worms.length()){ //condition and break if count too big
         if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
         else{worms_playing[team_playing] +=1;}
 
