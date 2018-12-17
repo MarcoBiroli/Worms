@@ -7,6 +7,20 @@ void Game::weapon_list()
     Projectile grenade = Projectile("Grenade", 0, 5000, 0.6, true, 3000, 100, 60, 5, 0, 0, pixmap_images[0]["left"]);
     grenade.set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
     weapons.append(grenade);
+
+    /*
+    Projectile shot = Projectile("Shot", 1, 1000, 0.1, false, 0, 1, 35, 0.001, 0, 0, pixmap_images );
+    shot.set_map(QImage("").scaled(2,2));
+    weapons.append(shot);
+    */
+
+    Projectile dynamite = Projectile("Dynamite", 7, 7000, 0.1, true, 3000, 120, 70, 5, 0, 0, pixmap_images[7]["left"]);
+    dynamite.set_map(QImage("://Images/Clipart_weapon_7_left.png").scaled(20,20));
+    weapons.append(dynamite);
+
+    Projectile rocket = Projectile("Rocket", 13, 3000, 0, false, 0, 60, 50, 1, 0, 0, pixmap_images[13]["left"]);
+    rocket.set_map(QImage("://Images/Clipart_weapon_13_left.png").scaled(20,20));
+    weapons.append(rocket);
 }
 
 Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){

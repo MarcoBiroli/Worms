@@ -14,6 +14,8 @@
     <file>Images/ground.png</file>
     <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
     <file>SoundEffect/Explosion+7.mp3</file>
+    <file>Images/Clipart_weapon_7_left.png</file>
+    <file>Images/Clipart_weapon_13_left.png</file>
 
 </qresource>
 </RCC>
