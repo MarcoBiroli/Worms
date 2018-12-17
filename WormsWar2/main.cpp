@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
 
     //Create a Ground of size (500x500)
     Ground *ground = new Ground(5000, 3000);
+    ground->randomize();
+
     Engine.add_Collider(ground);
 
     //Create a Rigidbody
@@ -49,8 +51,8 @@ int main(int argc, char *argv[])
     QGraphicsPixmapItem *tmp = new QGraphicsPixmapItem(QPixmap::fromImage(worm_right));
 
     //Delete everything in the ground in radius of 100px aroud (250,250)
-    ground->circ_delete(2500, 600, 200);
-    ground->circ_delete(2900,600, 400);
+    //ground->circ_delete(2500, 600, 200);
+    //ground->circ_delete(2900,600, 400);
 
     //Add the ground image to the window so it gets displayed
     scene->addItem(ground->getPixmap());

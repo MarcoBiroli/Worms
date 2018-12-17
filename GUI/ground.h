@@ -8,6 +8,8 @@
 #include <QCursor>
 #include <QGraphicsPixmapItem>
 #include "../Physics/Collider.h"
+#include <qmath.h>
+#include "QDebug"
 
 class Ground : public Collider
 {
@@ -26,6 +28,8 @@ public:
         this->set_map(*this->map);
     }
     Ground(const int width, const int height);
+
+    void randomize();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 
