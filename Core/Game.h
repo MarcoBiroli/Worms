@@ -81,6 +81,8 @@ class Game{
       //maps the name of each spritesheet to the set of corresponding frames
       //1 maps to the set of frames showing the worm dying in an explosion
       //2 maps to the set of frames showing an explosion
+      //3 maps to the set of frames showing the worm moving right
+      //4 maps to the set of frames showing the worm moving left
       QMap<int, QVector<QPixmap>> spritesheets =
       {
       {1, {QPixmap::fromImage(QImage("://Images/Dying worm version 6-1 (glissées).tiff").scaled(QSize(32,32))),
@@ -99,6 +101,7 @@ class Game{
            QPixmap::fromImage(QImage("://Images/Dying worm version 6-14 (glissées).tiff").scaled(QSize(32,32)))}
 
        },
+
        {2, {QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-1 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-2 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-3 (glissées).tiff").scaled(QSize(32,32))),
@@ -111,7 +114,22 @@ class Game{
            QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-10 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-11 (glissées).tiff").scaled(QSize(32,32))),
            QPixmap::fromImage(QImage("://Images/Explosions/Explosion 2 frames/Explosion 2-12 (glissées).tiff").scaled(QSize(32,32)))}
+
+       },
+
+       {3, {QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving right/Worm moving version 5 right-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving right/Worm moving version 5 right-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving right/Worm moving version 5 right-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving right/Worm moving version 5 right-1 (glissées).tiff").scaled(QSize(32,32)))}
+
+       },
+
+       {4, {QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32))),
+           QPixmap::fromImage(QImage("://Images/Worm moving version 5 three frames 0.15 sec/Frames worm moving left/Worm moving version 5 left-1 (glissées).tiff").scaled(QSize(32,32)))}
        }
+
       };
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
