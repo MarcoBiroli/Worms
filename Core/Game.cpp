@@ -10,11 +10,11 @@ void Game::weapon_list()
 }
 
 Game::Game(QGraphicsScene* iscene, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    QImage color_ground("://Images/ground.png");
+    QImage bw_ground("://Images/bw_ground_map.jpg");
     scene = iscene;
     physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
-    //ground = new Ground(color_ground);
+    //ground = new Ground(bw_ground);
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
 

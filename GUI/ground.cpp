@@ -1,7 +1,8 @@
 #include "ground.h"
 
 Ground::Ground(const QImage background): Collider(){
-    this -> set_map(background);
+    this -> map = new QImage(background);
+    this -> set_map(*this->map);
     this -> is_ground = true;
 }
 
@@ -32,6 +33,8 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
     item->setPixmap(QPixmap::fromImage(*this->map));
+    //QImage color_ground("://Images/ground_map.png");
+    //item -> setPixmap(QPixmap::fromImage(color_ground));
     return item;
 }
 QImage* Ground::getMap() const{ //This returns the ground itself.
