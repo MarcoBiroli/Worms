@@ -1,6 +1,10 @@
 #include "ground.h"
 
-
+Ground::Ground(const QImage background): Collider(){
+    this -> map = new QImage(background);
+    this -> set_map(*this->map);
+    this -> is_ground = true;
+}
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
     QString path = ("://Images/game_background.jpg");
@@ -29,14 +33,18 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
     item->setPixmap(QPixmap::fromImage(*this->map));
+    //QImage color_ground("://Images/ground_map.png");
+    //item -> setPixmap(QPixmap::fromImage(color_ground));
     return item;
 }
 QImage* Ground::getMap() const{ //This returns the ground itself.
     return this->map;
 }
 void Ground::delete_ground(int x, int y){ //This deletes the ground at one point of coordinate (x,y).
-    this->map->setPixel(x, y, this->blue_sky);
-    this->change_pixel(x, y, Qt::white);
+    if(this->get_map().pixelColor(x,y) == Qt::black){
+        this->map->setPixel(x, y, this->blue_sky);
+        this->change_pixel(x, y, Qt::white);
+    }
 }
 void Ground::circ_delete(int x, int y, double radius){ //This deletes all points in a circle of center (x,y) and radius "radius".
     double distance;
@@ -48,4 +56,5 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
             }
         }
     }
+    item->setPixmap(QPixmap::fromImage(*this->map));
 }

@@ -11,33 +11,54 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
-Projectile::Projectile(bool is_bouncy, double delay, double r, double explosion_r, double damage, double m, std::string weapon_name, double x, double y): RigidBody(m, x, y) {
-    this->is_bouncy = is_bouncy;
-    this->delay = delay;
-    this->radius = r;
-    this->explosion_radius = explosion_r;
-    this->damage = damage;
-    this->mass = m;
-    this->weapon_name = weapon_name;
-    this->setbounciness(0.4);
-}
-
 void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_name << " of specs: " << endl; 
-    cout << "   is_bouncy: " << is_bouncy << endl;
+    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
     cout << "   delay: " << delay << endl;
-    cout << "   radius: " << radius << endl;
     cout << "   explosion_radius: " << explosion_radius << endl;
     cout << "   damage: " << damage << endl;
     cout << "   mass: " << mass << endl << endl;
 }
 
-void Projectile::set_inital_position(double x, double y) {
-    this->x = x;
-    this->y = y;
+Projectile::Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
+
+    this->repulsion_power = ipower;
+    this->name = name;
+    this->explosion_by_delay= explosion_by_delay;
+    this->delay = delay;
+    this->explosion_radius = explosion_r;
+    this->damage = damage;
+    this->weapon_id = weapon_id;
+    this->setbounciness(bounciness);
+    this->sprite->setPixmap(isprite);
 }
 
-void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms) {
+Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, other.y, other.vx, other.vy, other.ax, other.ay, other.get_map(), other.sprite->pixmap())
+{
+    this->repulsion_power = other.repulsion_power;
+    this->name = other.name;
+    this->explosion_by_delay= other.explosion_by_delay;
+    this->delay = other.delay;
+    this->explosion_radius = other.explosion_radius;
+    this->damage = other.damage;
+    this->weapon_id = other.weapon_id;
+    this->setbounciness(other.getbounciness());
+    this->sprite->setPixmap(other.sprite->pixmap());
+}
+
+Projectile* Projectile::clone() {
+    return new Projectile(*this);
+}
+
+bool Projectile::on_collision_do(Collider &other)
+{
+    if(!this->explosion_by_delay) {
+    other.circ_delete(this->x,this->y,this->explosion_radius);
+    return true;}
+    return false;
+    //"??"
+}
+
+void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
@@ -47,30 +68,48 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             worm->changeHealth(dmg_dealt);
             //run explosion animation
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
-            double Fx = (vect_dist.first/dist)*dmg_dealt/update_time;
-            double Fy = (vect_dist.second/dist)*dmg_dealt/update_time;
+            double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
+            double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
         }
     }
-    /*
+
     for (int j=0; j<barrels.size(); j++) {
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
         if (dist <= explosion_radius) {
-            barrel->explode();
+            barrel->explode(engine, projectiles);
         }
 
     }
-    */
+    this->sprite->hide();
+
     //destroy projectile
     engine.delete_rigidbody(this->getId());
     projectiles.removeOne(this);
 }
 
+int Projectile::get_weapon_id() const
+{
+    return this->weapon_id;
+}
 
-Projectile* Projectile::clone() {
-    return new Projectile(*this);
-} 
+void Projectile::set_inital_position(double x, double y) {
+    this->x = x;
+    this->y = y;
+}
+
+bool Projectile::change_delay(double dt){
+    if(explosion_by_delay){
+        delay -= dt;
+    }
+    if(explosion_by_delay && delay < 0){
+        return true;
+    }
+    return false;
+}
+
+
 

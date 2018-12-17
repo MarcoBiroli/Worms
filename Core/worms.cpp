@@ -1,15 +1,16 @@
 #include "worms.h"
 
-#define update_time 10
+#define update_time 0.01
 
 Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 {
 
 }
 
-Worm::Worm(int team_number, std::string personal_name, int health, double mass, double x, double y): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+Worm::Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
     this->health = health;
-    this->setbounciness(0.1);
+    this->setbounciness(bounciness);
+    this->sprite->setPixmap(isprite);
 }
 
 Worm::~Worm() {
@@ -17,11 +18,11 @@ Worm::~Worm() {
 }
 
 bool Worm::isAlive() const{
-  return health > 0; 
+  return this->health > 0;
 }
 
 int Worm::getTeam() const{
-    return team_number;
+    return this->team_number;
 }
 
 bool Worm::damage_taken(){
@@ -58,7 +59,7 @@ void Worm::changeHealth(int dmg) {
 /*
 //Should do this using the arrow inputs given by the player: if the player hits the right arrow, the angle should decrease.
 // If the player hits the left arrow, the angle should increase. We do not care about any other setting.
-*/
+
 void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-clockwise?
     if (clockwise){
         this->weapon_angle -= 2;
@@ -67,24 +68,27 @@ void Worm::changeAngle(bool clockwise) { //Have we defined clockwise and anti-cl
         this->weapon_angle += 2;
     }
 }
+*/
 
-void Worm::fireWeapon(double power, QVector<Projectile> weapons, PhysicsEngine &engine, QVector<Projectile*> &projectiles) {
+Projectile* Worm::fireWeapon(double power, QVector<Projectile> weapons) {
     Projectile* current_projectile = weapons[weapon_ID].clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
-    current_projectile->set_inital_position(this->x, this->y); //might need to offset initial position to avoid worm shooting himself
+    current_projectile->set_inital_position(this->x, this->y-10); //might need to offset initial position to avoid worm shooting himself
     double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
     double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
     current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
-    engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
-    projectiles.append(current_projectile);
+    return current_projectile;
 }
 
-bool Worm::get_direction(){
+/* To be done in the gameloop when adding a projectile.
+    engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
+    projectiles.append(current_projectile);
+*/
+bool Worm::get_direction() const{
     return wormdirection;
 }
 
 void Worm::set_direction(){
-    if(this->getstable()==false){
         if (this->vx>0){
             wormdirection=true;
         }
@@ -94,10 +98,13 @@ void Worm::set_direction(){
         }
     }
 }
-}
 
-void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
-  /*
+void Worm::change_direction(bool t){
+    wormdirection=t;
+    }
+
+
+/*void Worm::move(bool right){           // Takes care of all movements of the worms based on the keyboard inputs. NOT TESTED
   // MOVE TO THE RIGHT
   if(int QKeyEvent::key() const == 0x44){           //If the input key is the right arrow which has code 0x01000014, then give force to the right to the rigid body.
     worms.addForce(QPair<double, double>(5, 0));
@@ -122,7 +129,6 @@ void Worm::move(bool right){           // Takes care of all movements of the wor
       vy0 += 5;
       }
     */
-}
 
 void Worm::wormDeath() {
     //call animation

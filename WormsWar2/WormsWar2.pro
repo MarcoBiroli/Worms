@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WormsWar2
@@ -32,10 +34,9 @@ SOURCES += \
         ../Core/Game.cpp \
         ../Core/Projectile.cpp \
         ../Core/worms.cpp \
+        ../Core/barrel.cpp \
         ../GUI/ground.cpp \
-    ../GUI/customview.cpp \
-    ../GUI/dummy.cpp \
-    #../Core/Barrel.cpp
+    ../GUI/customview.cpp
 
 HEADERS += \
         ../Physics/Collider.h \
@@ -46,7 +47,8 @@ HEADERS += \
         ../Core/Game.h \
         ../Core/Projectile.h \
         ../Core/worms.h \
-    #../Core/Barrel.h
+        ../Core/barrel.h \
+    ../GUI/music.h
 
 FORMS += \
         mainwindow.ui
