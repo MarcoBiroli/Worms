@@ -50,6 +50,9 @@ class Collider{
         QImage get_map() const;
         void set_map(QImage map);
 
+        int getWidth() const;
+        int getHeight() const;
+
         void change_pixel(int i, int j, QColor color); //changes the pixel color of the map
 
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)

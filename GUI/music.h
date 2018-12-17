@@ -6,20 +6,13 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
-#include <QSoundEffect>
+#include <QSound>
 
 
 
-void backgroundmusic(QString path){
-    QSoundEffect music;
-    music.setSource(path);
-    music.setLoopCount(QSoundEffect::Infinite);
-    music.play();
+void backgroundmusic(){
+    QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 }
 
 void playsound(QString path){
-    QSoundEffect effect;
-    effect.setSource(path);
-    effect.setLoopCount(1);
-    effect.play();
 }

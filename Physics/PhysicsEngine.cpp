@@ -41,12 +41,13 @@ void PhysicsEngine::add_Collider(Collider* other)
 void PhysicsEngine::update(double dt)
 {
     //initializing the iterators and parameters
-    QMap<int, RigidBody*>::iterator i = this->rigidbodies.begin();
+    QMap<int, RigidBody*>::iterator i;
     QMap<int, Collider*>::iterator j;
+    QMap<int, RigidBody*>::iterator k;
     QPair<bool, QPair<double, double>> collision_result;
     //for all rigidbodies
     bool deletion_flag = false;
-    for(i; i != this->rigidbodies.end(); i++)
+    for(i = this->rigidbodies.begin(); i != this->rigidbodies.end(); i++)
     {
         deletion_flag = false;
         //Reset collision flag
@@ -57,6 +58,23 @@ void PhysicsEngine::update(double dt)
         i.value()->addForce(this->general_force);
         i.value()->addForce(QPair<double,double> (0,9.81*i.value()->getm()));
         //for all colliders
+        for(k = this->rigidbodies.begin(); k != this->rigidbodies.end(); k++){
+            if(k == i){
+                continue;
+            }
+            collision_result = i.value()->check_collision(*k.value());
+            if(collision_result.first){
+                //Set Collision flag to true
+                if(i.value()->on_collision_do(*k.value())){
+                    i.value()->sprite->hide();
+                    this->delete_rigidbody(i.key());
+                    deletion_flag = true;
+                    break;
+                }
+                i.value()->is_colliding = true;
+                i.value()->bounce(collision_result.second,dt);
+            }
+        }
         for(j = this->colliders.begin(); j != this->colliders.end(); j++){
             //check the collision of the rigidbody with the collider
             collision_result = i.value()->check_collision(*j.value());

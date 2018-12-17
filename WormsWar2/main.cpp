@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
 
     view->game = &game;
 
+    //game.ground->circ_delete(200, 500, 150);
+
     QTime lastUpdate= QTime::currentTime();
         int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
         double update_time = 10;
@@ -35,7 +37,7 @@ int main(int argc, char *argv[])
             a.processEvents();
             timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
             if(timeSinceLastUpdate>update_time){
-                game.gameIteration(update_time);
+                game.gameIteration(timeSinceLastUpdate);
                 lastUpdate = QTime::currentTime();
             }
             view->showMaximized();

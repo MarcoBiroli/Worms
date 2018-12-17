@@ -38,3 +38,4 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
         }
     }
 }
+
