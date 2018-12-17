@@ -18,7 +18,7 @@ Worm::~Worm() {
 }
 
 bool Worm::isAlive() const{
-  return this->health > 0;
+  return (this->health > 0);
 }
 
 int Worm::getTeam() const{
