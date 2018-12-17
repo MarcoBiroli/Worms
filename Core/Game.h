@@ -102,7 +102,8 @@ class Game{
 
       //Initializing "GOD"!!!!
       Ground* ground;
-      QGraphicsScene *scene = new QGraphicsScene();
+      QGraphicsScene *scene;
+      QGraphicsView *view;
       PhysicsEngine physics_engine;
 
       //Initializing the important arrays.
@@ -116,7 +117,7 @@ class Game{
       QVector<Projectile> weapons;
 
       //Constructors
-      Game(QGraphicsScene *iscene, int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
+      Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
 
       //Methods
       void weapon_list();
