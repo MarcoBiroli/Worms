@@ -132,7 +132,6 @@ void Worm::change_direction(bool t){
 
 void Worm::wormDeath() {
     //call animation
-    //should we call the destructor?
 }
 
 // Is it here that we should link the keys of the keyboards to the features ew want to implement?

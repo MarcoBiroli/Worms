@@ -131,62 +131,78 @@ void Game::handleEvents(QKeyEvent *k){
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};
     double vx, vy;
 
-    if(k->key() == 0x41){ // key == A move left
-        ve *= -1;
-        vx = M2[0]*ve + M2[1]*vu;
-        vy = M2[2]*ve + M2[3]*vu;
-        active_worm->setvx(vx);
-        active_worm->setvy(vy);
-        active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
-        if(k->isAutoRepeat() == true && k->key() == 0x41){
+    QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/circled-pause.png").scaled(500,500)));
+
+    if(k->key() == 0x01000000){ // key = Escape for pausing
+       if(not paused){
+           this->paused = true;
+           scene->addItem(pause_image);
+       }
+       else {
+           this->paused = false;
+           pause_image->hide();
+           scene->removeItem(pause_image);
+       }
+    }
+
+    if(not paused){
+        if(k->key() == 0x41){ // key == A move left
+            ve *= -1;
+            vx = M2[0]*ve + M2[1]*vu;
+            vy = M2[2]*ve + M2[3]*vu;
             active_worm->setvx(vx);
             active_worm->setvy(vy);
-        }
-    }
-
-    if(k->key() == 0x44){ //key == D move right
-        vx = M2[0]*ve + M2[1]*vu;
-        vy = M2[2]*ve + M2[3]*vu;
-        active_worm->setvx(vx);
-        active_worm->setvy(vy);
-        active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
-        if(k->isAutoRepeat() == true && k->key() == 0x44){
-            active_worm->setvx(vx);
-            active_worm->setvy(vy);
-        }
-    }
-
-    if (k->key() == 0x57){ // key == W  jumping
-        active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm())); //TO DO: decrease the force
-        active_worm->setstable(false);
-        }
-
-    if(k->key() == Qt::Key_0) {//0 to select weapons
-        this->menu->show();
-    }
-
-    if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
-        if (k-> key() == 0x49){// key == I increases the angle 0- 90
-            if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
-                active_worm->weapon_angle += 10;
-            }
-        }
-        if (k-> key() == 0x4B){// key == K decreases the angle }
-            if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
-                active_worm->weapon_angle -= 10;
+            active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+            if(k->isAutoRepeat() == true && k->key() == 0x41){
+                active_worm->setvx(vx);
+                active_worm->setvy(vy);
             }
         }
 
-        if (k-> key() == 0x20){//key == Space shoots the projectile
-            int power = 200;
-            /*if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
-                power += 10;
-            }*/
-            Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
-            physics_engine.add_RigidBody(current_projectile);
-            projectiles.append(current_projectile);
-            scene->addItem(current_projectile->sprite);
-            this->turn_timer = this->max_turn_time - 5000;
+        if(k->key() == 0x44){ //key == D move right
+            vx = M2[0]*ve + M2[1]*vu;
+            vy = M2[2]*ve + M2[3]*vu;
+            active_worm->setvx(vx);
+            active_worm->setvy(vy);
+            active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+            if(k->isAutoRepeat() == true && k->key() == 0x44){
+                active_worm->setvx(vx);
+                active_worm->setvy(vy);
+            }
+        }
+
+        if (k->key() == 0x57){ // key == W  jumping
+            active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm())); //TO DO: decrease the force
+            active_worm->setstable(false);
+            }
+
+        if(k->key() == Qt::Key_0) {//0 to select weapons
+            this->menu->show();
+        }
+
+        if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
+            if (k-> key() == 0x49){// key == I increases the angle 0- 90
+                if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
+                    active_worm->weapon_angle += 10;
+                }
+            }
+            if (k-> key() == 0x4B){// key == K decreases the angle }
+                if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
+                    active_worm->weapon_angle -= 10;
+                }
+            }
+
+            if (k-> key() == 0x20){//key == Space shoots the projectile
+                int power = 200;
+                /*if(k->isAutoRepeat() == true && k->key() == 0x20){ //if you press space for a long time the power increases
+                    power += 10;
+                }*/
+                Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
+                physics_engine.add_RigidBody(current_projectile);
+                projectiles.append(current_projectile);
+                scene->addItem(current_projectile->sprite);
+                this->turn_timer = this->max_turn_time - 5000;
+            }
         }
     }
 }

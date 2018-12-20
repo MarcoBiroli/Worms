@@ -27,6 +27,7 @@
     <file>SoundEffect/Explosion+7.mp3</file>
     <file>Images/Clipart_weapon_7_left.png</file>
     <file>Images/Clipart_weapon_13_left.png</file>
+    <file>Images/circled-pause.png</file>
 
 </qresource>
 </RCC>
