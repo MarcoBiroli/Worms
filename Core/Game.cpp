@@ -25,7 +25,7 @@ void Game::weapon_list()
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    //QImage bw_ground("://Images/bw_ground_map.jpg");
+    QImage bw_ground("://Images/bw_ground_map_(3).jpg");
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
