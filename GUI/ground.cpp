@@ -81,24 +81,22 @@ void Ground::randomize(){
     //color in black every pixel under the superposition of the two functions
     for (int i=0;i<this->map->width();i++){
         for (int j=0;j<this->map->height();j++){
-
-            if(500 < i && i < 4500){
+            if(0 < i && i < 8400){
                 terrain_height=1600 + 250*qCos(i/period1+phase1)+200*qCos(i/period2+phase2);
             }
             else{
                 terrain_height = 2500;
             }
-            //double terrain_height=2000 + 200*qCos(i/period1+phase1);
-
             if (j<terrain_height){
-                //Image = Image.convertToFormat(QImage::Format_ARGB32); // or maybe other format
-
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
                 this->change_pixel(i, j, Qt::white);
             }
-            else {
+            if (j >= terrain_height && j < 2600){
                 this->map->setPixel(i, j, this -> brown);
                 this->change_pixel(i, j, Qt::black);
+            }
+            if (j >= 2600) {
+                this -> map -> setPixel(i,j,this -> blue_sea);
             }
         }
     }
