@@ -148,27 +148,46 @@ void Game::handleEvents(QKeyEvent *k){
         }
     }
 
-    if (k->key() == 0x51){
+    if (k->key() == 0x51){// key == Q jump to the left
               if (active_worm->get_direction()){
-                  active_worm->addForce(QPair<double, double> (-50000,-200000));
+                  active_worm->addForce(QPair<double, double> (-25000,-100000));
                   active_worm->setstable(false);
               }
               else{
-                  active_worm->addForce(QPair<double, double> (-200000,-100000));
+                  active_worm->addForce(QPair<double, double> (-100000,-50000));
                   active_worm->setstable(false);
               }
+              active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+              active_worm->change_direction(false);
 
      }
 
-     if (k->key()==0x45){
+     if (k->key()==0x45){ // key == E jump to the right
               if (active_worm->get_direction()){
-                  active_worm->addForce(QPair<double, double> (200000,-100000));
+                  active_worm->addForce(QPair<double, double> (100000,-50000));
                   active_worm->setstable(false);
               }
               else{
-                  active_worm->addForce(QPair<double, double> (50000,-200000));
+                  active_worm->addForce(QPair<double, double> (25000,-100000));
                   active_worm->setstable(false);
               }
+              active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+              active_worm->change_direction(true);
+     }
+
+     if (k->key()==0x01000012){
+         if(active_worm->getstable()){
+         active_worm->change_direction(false);
+         active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+
+     }
+     }
+
+     if (k->key()==0x01000014){
+         if(active_worm->getstable()){
+         active_worm->change_direction(true);
+         active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+     }
      }
 
 
