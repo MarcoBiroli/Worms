@@ -3,7 +3,6 @@
 #include <QSound>
 #include <QMediaPlayer>
 #include "../GUI/music.h"
-#include <QUrl>
 
 //Initialize all weapons
 void Game::weapon_list()
