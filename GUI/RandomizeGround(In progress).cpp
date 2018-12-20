@@ -161,40 +161,14 @@ void Ground::randomize2(){
 }
 
 
-void Ground::randomize3(){
-    //this first function creates a random terrain made of a superpositon of cosine
+//void Ground::randomize3()
+    
+//this function should either implement random grounds imagining the screen
+//as a matrix or perlin noise in 1D if i manage.
 
 
-    //create random phase and random period for two cosine functions within a range that is reasonable to obtain
-    //a good mountain-like terrain
-    double period1,period2;
-    period1=rand()%800+400;
-    period2=rand()%400+200;
-    double phase1=rand()%1000+200;
-    double phase2=rand()%1000+200;
-    double terrain_height;
-    //color in black every pixel under the superposition of the two functions
-    for (int i=0;i<this->map->width();i++){
-        for (int j=0;j<this->map->height();j++){
-
-            if(500 < i && i < 4500){
-                terrain_height=4000;
-            }
-            else{
-                terrain_height = 2500;
-            }
-            //double terrain_height=2000 + 200*qCos(i/period1+phase1);
-
-            if (j<terrain_height){
-                this->map->setPixel(i, j, this->blue_sky);
-                this->change_pixel(i, j, Qt::white);
-            }
-            else {
-                this->map->setPixel(i, j, Qt::black);
-                this->change_pixel(i, j, Qt::black);
-            }
-        }
-    }
-    item->setPixmap(QPixmap::fromImage(*this->map));
-}
-
+    
+    
+    
+    
+    
