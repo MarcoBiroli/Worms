@@ -22,7 +22,6 @@
 
 class Game{
     private:
-
       double max_turn_time;
       int nb_teams;
 
