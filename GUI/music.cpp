@@ -13,6 +13,16 @@ void backgroundmusic(QString path){
     music->setMedia(url);
     music->setVolume(25);
     music->play();
+
+    /*
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sounds/backgroundmusic.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    QMediaPlayer *music = new QMediaPlayer();
+    music->setPlaylist(playlist);
+    music->play();
+    */
 }
 
 void playsound(QString path){
