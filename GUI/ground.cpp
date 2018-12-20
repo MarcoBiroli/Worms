@@ -33,7 +33,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
-    //item->setPixmap(QPixmap::fromImage(*this->map));
+    item->setPixmap(QPixmap::fromImage(*this->map));
     //QImage color_ground("://Images/ground_map.png");
     //item -> setPixmap(QPixmap::fromImage(color_ground));
     return item;
@@ -72,12 +72,16 @@ void Ground::randomize(){
     period2=rand()%500+200;
     double phase1=rand()%1000+200;
     double phase2=rand()%1000+200;
-
+    double terrain_height;
     //color in black every pixel under the superposition of the two functions
     for (int i=0;i<this->map->width();i++){
         for (int j=0;j<this->map->height();j++){
-            
-            double terrain_height=1600 + 400*qCos(i/period1+phase1)+150*qCos(i/period2+phase2);
+            if(500 < i && i < 4500){
+                terrain_height=1600 + 400*qCos(i/period1+phase1)+150*qCos(i/period2+phase2);
+            }
+            else{
+                terrain_height = 2500;
+            }
             //double terrain_height=2000 + 200*qCos(i/period1+phase1);
             if (j<terrain_height){
                 this->map->setPixel(i, j, this->blue_sky);
