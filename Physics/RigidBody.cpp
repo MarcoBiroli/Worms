@@ -1,6 +1,7 @@
 #include "RigidBody.h"
 #include <iostream>
 #include <QtMath>
+#include "../GUI/music.h"
 
 #define update_time 10
 

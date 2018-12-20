@@ -5,7 +5,6 @@
 #include "../Core/Game.h"
 #include "../GUI/ground.h"
 #include "../GUI/customview.h"
-#include "../GUI/music.h"
 #include "../Physics/PhysicsEngine.h"
 #include "../Core/worms.h"
 
@@ -25,11 +24,11 @@ int main(int argc, char *argv[])
 
     //Initialize a game
 
-    Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
+    Game game = Game(scene, view, 2, 1000, 2, 8400, 2920);
 
     view->game = &game;
 
-    game.ground->circ_delete(200, 500, 150);
+    //game.ground->circ_delete(200, 500, 150);
 
     QTime lastUpdate= QTime::currentTime();
         int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);

@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <QPixmap>
 #include <QSound>
+#include <QMediaPlayer>
+#include "../GUI/music.h"
 
 //Initialize all weapons
 void Game::weapon_list()
@@ -25,16 +27,17 @@ void Game::weapon_list()
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    //QImage bw_ground("://Images/bw_ground_map.jpg");
+    QImage bw_ground("://Images/bw_ground_map_(3).jpg");
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
     ground = new Ground(ground_size_x, ground_size_y);
-    //QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(2100,730)));
-    //scene -> addItem(background);
+    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(ground_size_x,ground_size_y)));
+    scene -> addItem(background);
     //ground = new Ground(bw_ground);
 
-    QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+
     scene = iscene;
 
     ground->randomize();
@@ -122,7 +125,6 @@ void Game::handleEvents(QKeyEvent *k){
 
     if(!active_worm->is_grounded.first){return;}
 
-    active_worm->setstable(false);
     double speed = 50;
     double theta = qAtan2(-active_worm->is_grounded.second.first, active_worm->is_grounded.second.second);
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
@@ -131,17 +133,17 @@ void Game::handleEvents(QKeyEvent *k){
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};
     double vx, vy;
 
-    QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/circled-pause.png").scaled(500,500)));
+    //QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/circled-pause.png").scaled(500,500)));
 
     if(k->key() == 0x01000000){ // key = Escape for pausing
        if(not paused){
            this->paused = true;
-           scene->addItem(pause_image);
+           //scene->addItem(pause_image);
        }
        else {
            this->paused = false;
-           pause_image->hide();
-           scene->removeItem(pause_image);
+           //pause_image->hide();
+           //scene->removeItem(pause_image);
        }
     }
 
@@ -152,22 +154,67 @@ void Game::handleEvents(QKeyEvent *k){
             vy = M2[2]*ve + M2[3]*vu;
             active_worm->setvx(vx);
             active_worm->setvy(vy);
+            active_worm->set_direction();
             active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
             if(k->isAutoRepeat() == true && k->key() == 0x41){
                 active_worm->setvx(vx);
                 active_worm->setvy(vy);
+                active_worm->set_direction();
             }
         }
+
+        if (k->key() == 0x51){// key == Q jump to the left
+                  if (active_worm->get_direction()){
+                      active_worm->addForce(QPair<double, double> (-25000,-100000));
+                      active_worm->setstable(false);
+                  }
+                  else{
+                      active_worm->addForce(QPair<double, double> (-100000,-50000));
+                      active_worm->setstable(false);
+                  }
+                  active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+                  active_worm->change_direction(false);
+        }
+
+        if (k->key()==0x45){ // key == E jump to the right
+                 if (active_worm->get_direction()){
+                     active_worm->addForce(QPair<double, double> (100000,-50000));
+                     active_worm->setstable(false);
+                 }
+                 else{
+                     active_worm->addForce(QPair<double, double> (25000,-100000));
+                     active_worm->setstable(false);
+                 }
+                 active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+                 active_worm->change_direction(true);
+        }
+
+        if (k->key()==0x01000012){
+            if(active_worm->getstable()){
+            active_worm->change_direction(false);
+            active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+            }
+        }
+
+        if (k->key()==0x01000014){
+            if(active_worm->getstable()){
+            active_worm->change_direction(true);
+            active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+            }
+        }
+
 
         if(k->key() == 0x44){ //key == D move right
             vx = M2[0]*ve + M2[1]*vu;
             vy = M2[2]*ve + M2[3]*vu;
             active_worm->setvx(vx);
             active_worm->setvy(vy);
+            active_worm->set_direction();
             active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
             if(k->isAutoRepeat() == true && k->key() == 0x44){
                 active_worm->setvx(vx);
                 active_worm->setvy(vy);
+                active_worm->set_direction();
             }
         }
 
@@ -205,6 +252,7 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
     }
+    active_worm->setstable(false);
 }
 
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
