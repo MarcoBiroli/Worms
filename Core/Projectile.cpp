@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
+#include "../GUI/music.h"
 #include "Projectile.h"
 
 #define update_time 10
@@ -60,6 +60,7 @@ bool Projectile::on_collision_do(Collider &other)
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
+    playsound("qrc:/SoundEffect/Explosion+7.mp3");
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
