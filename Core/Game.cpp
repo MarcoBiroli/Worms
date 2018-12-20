@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <QPixmap>
 #include <QSound>
+#include "../GUI/music.h"
 
 //Initialize all weapons
 void Game::weapon_list()
@@ -34,7 +35,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene -> addItem(background);
     //ground = new Ground(bw_ground);
 
-    QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    backgroundmusic("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
     ground->randomize();
