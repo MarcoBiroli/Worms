@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QSound>
+#include <QMediaPlayer>
 
 
 
