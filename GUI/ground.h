@@ -20,6 +20,7 @@ private:
     QRgb blue_sky = qRgb(32, 187, 255);  //bright blue for the sky
     QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
     QColor transparent = qRgba(255,255,255,0);
+    QRgb brown = qRgb(125,65,6);
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
 
 public:

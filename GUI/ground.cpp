@@ -94,11 +94,10 @@ void Ground::randomize(){
                 //Image = Image.convertToFormat(QImage::Format_ARGB32); // or maybe other format
 
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
-                //this->map->setPixel(i, j, this->blue_sky);
                 this->change_pixel(i, j, Qt::white);
             }
             else {
-                this->map->setPixel(i, j, this -> black);
+                this->map->setPixel(i, j, this -> brown);
                 this->change_pixel(i, j, Qt::black);
             }
         }

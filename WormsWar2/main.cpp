@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     //Initialize a game
 
-    Game game = Game(scene, view, 2, 5000, 2, 5000, 3000);
+    Game game = Game(scene, view, 2, 1000, 2, 8400, 2920);
 
     view->game = &game;
 
