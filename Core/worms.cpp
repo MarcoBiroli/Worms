@@ -84,7 +84,7 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile> weapons) {
     engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
     projectiles.append(current_projectile);
 */
-bool Worm::get_direction() const{
+bool Worm::get_direction(){
     return wormdirection;
 }
 
