@@ -52,8 +52,10 @@ Projectile* Projectile::clone() {
 bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
-    other.circ_delete(this->x,this->y,this->explosion_radius);
-    return true;}
+        this->should_explode = true;
+        //other.circ_delete(this->x,this->y,this->explosion_radius);
+    //return true;
+    };
     return false;
     //"??"
 }

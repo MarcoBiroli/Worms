@@ -93,9 +93,9 @@ void RigidBody::addForce(QPair<double, double> F) //(fx , fy)
 //this method computes the distance between the centers of masses of two RigidBodies.
 
 double RigidBody::distance(RigidBody other){
-    double xo=other.cmx;
-    double yo=other.cmy;
-    double distance= std::sqrt((this->cmx-xo)*(this->cmx-xo) + (this->cmy-yo) * (this->cmy-yo));
+    double xo=other.getX();
+    double yo=other.getY();
+    double distance= qSqrt(qPow(this->x - xo, 2) + qPow(this->y-yo,2));
     return distance;
 }
 
@@ -174,6 +174,12 @@ void RigidBody::setax(double a_x){
 void RigidBody::setstable(bool a){
     stable = a;
 
+}
+
+void RigidBody::setforce(QPair<double, double> forces)
+{
+    this->currentForce.first = forces.first;
+    this->currentForce.second = forces.second;
 }
 
 

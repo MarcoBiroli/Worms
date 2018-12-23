@@ -43,6 +43,7 @@ public:
     void setax(double a_x);
     void setay(double a_y);
     void setstable(bool a);
+    void setforce(QPair<double, double>forces);
 
     //Get methods.
     bool getstable() const;

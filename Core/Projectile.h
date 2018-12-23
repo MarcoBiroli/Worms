@@ -41,6 +41,7 @@ class Projectile : public RigidBody {
 
         bool change_delay(double dt);
         // changes delay
+        bool should_explode = false;
 
 
 

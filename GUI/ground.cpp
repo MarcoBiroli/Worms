@@ -1,6 +1,10 @@
 #include "ground.h"
 
-
+Ground::Ground() : Collider (){ //Creates an undefined Ground
+    this->map = new QImage();
+    item = new QGraphicsPixmapItem();
+    //this->set_map(*this->map);
+}
 Ground::Ground(const QImage bw_ground): Collider(){
     //this -> set_map(bw_ground);
     //this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
@@ -14,22 +18,22 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     //create random phase and random period for two cosine functions within a range that is reasonable to obtain
     //a good mountain-like terrain
     double period1,period2;
-    period1=rand()%800+400;
-    period2=rand()%400+200;
-    double phase1=rand()%1000+200;
-    double phase2=rand()%1000+200;
+    period1=rand()%(int)(0.16*width)+(int)(0.08*width);
+    period2=rand()%(int)(0.08*width)+(int)(0.04*width);
+    double phase1=rand()%(int)(0.2*width)+(int)(0.04*width);
+    double phase2=rand()%(int)(0.2*width)+(int)(0.04*width);
     double terrain_height;
-    double sea_level = 2600;
+    double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
-    for (int i=0;i<width;i++){
-        for (int j=0;j<height;j++){
-            if(0 < i && i < 8400){
-                terrain_height=1600 + 250*qCos(i/period1+phase1)+200*qCos(i/period2+phase2);
-            }
-            else{
-                terrain_height = 2500;
-            }
-            if (j<terrain_height){
+    for (int i = 0; i < width; i++){
+        if(0.05*width < i && i < 0.95*width){
+            terrain_height = 0.53*height + 0.083*height*qCos(i/period1+phase1)+0.067*height*qCos(i/period2+phase2);
+        }
+        else{
+            terrain_height = height+1;
+        }
+        for (int j = 0; j < height ; j++){
+            if (j < terrain_height){
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }

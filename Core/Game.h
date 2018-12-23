@@ -19,6 +19,7 @@
 #include "worms.h"
 #include "Barrel.h"
 #include "../GUI/ground.h"
+#include "weapon_menu.h"
 
 class Game{
     private:
@@ -170,8 +171,7 @@ class Game{
 
       QVector<QGraphicsPixmapItem*> pixmap_items;
 
-      //weapons menu for now it has a worm in it
-      QGraphicsPixmapItem* menu;// = new QGraphicsPixmapItem(pixmap_images[0]["left"].scaled(70,70));
+      weapon_menu* menu;
 
     public:
 
@@ -210,8 +210,6 @@ class Game{
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
 
       void add_to_scene(int class_id, RigidBody new_body); //add a new body to the graphical scene
-
-
 
 };
 #endif // GAME_H

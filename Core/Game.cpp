@@ -9,12 +9,12 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/bazooka_projectile.png").scaled(20,20));
-    Projectile bazooka = Projectile("Bazooka", 0, 20, 0, true, 3000, 20, 0,5, 0, 0, img);
+    Projectile bazooka = Projectile("Bazooka", 0, 20, 0, false, 0, 100, 100, 5, 0, 0, img);
     bazooka.set_map(QImage("://Images/collider_bazooka_projectile.png").scaled(20,20));
     weapons.append(bazooka);
     //Grenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage(":/Images/Grenade.png").scaled(20,20));
-    Projectile grenade = Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 0, 5, 0, 0, img);
+    Projectile grenade = Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
     grenade.set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
     weapons.append(grenade);
 
@@ -51,6 +51,11 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
     this->weapon_list();
+    this->menu = new weapon_menu();
+    QGraphicsProxyWidget *item = scene->addWidget(menu);
+    item->setPos(0,0);
+    item->setZValue(100);
+    item->hide();
 
     /*this->menu->setFlag(QGraphicsItem::ItemIsSelectable);
     this->menu->hide();
@@ -63,7 +68,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 300 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 1000 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
@@ -98,8 +103,9 @@ bool Game::gameIteration(double dt){
     }
 
     for (int i=0; i<projectiles.size(); i++) {
-        if(projectiles[i]->change_delay(dt)){
+        if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, physics_engine, projectiles, worms, barrels);
+            nextWorm();
         }
     }
 
@@ -122,8 +128,12 @@ void Game::nextWorm(){
         worms_playing[team_playing] = -1;
 
         team_playing = (team_playing +1)%nb_teams;
+        if(this->isFinished()){
+            return;
+        }
         nextWorm(); //careful with infinite loop
     }
+    menu->active_worm = worms[worms_playing[team_playing]];
 }
 
 void Game::handleEvents(QKeyEvent *k){
@@ -169,26 +179,30 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
 
-        if (k->key() == Qt::Key_Q){// key == Q jump to the left
-                  if (active_worm->get_direction()){
-                      active_worm->addForce(QPair<double, double> (-2500*active_worm->getm(),-1000*active_worm->getm()));
+        if (k->isAutoRepeat() == false && k->key() == Qt::Key_Q){// key == Q jump to the left
+            //get_direction == True means you are facing right
+                  if (active_worm->get_direction()){ //backflips have greater forces of jumping
+
+                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*active_worm->getm()));
                       active_worm->setstable(false);
                   }
-                  else{
-                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*active_worm->getm()));
+                  else{ //normal jumping to the left
+                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*active_worm->getm()));
                       active_worm->setstable(false);
                   }
                   active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
                   active_worm->change_direction(false);
         }
 
-        if (k->key()== Qt::Key_E){ // key == E jump to the right
-                 if (active_worm->get_direction()){
-                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
+        if (k->isAutoRepeat() == false && k->key()== Qt::Key_E){ // key == E jump to the right
+                 if (active_worm->get_direction()){ //normal jumping to the right
+                     active_worm->setforce(QPair<double,double>(0,0));
+                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-2500*active_worm->getm()));
                      active_worm->setstable(false);
                  }
-                 else{
-                     active_worm->addForce(QPair<double, double> (2500*active_worm->getm(),-1000*active_worm->getm()));
+                 else{ //backflips have greater forces of jumping
+                     active_worm->setforce(QPair<double,double>(0,0));
+                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
                      active_worm->setstable(false);
                  }
                  active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
@@ -224,13 +238,14 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
 
-        if (k->key() == Qt::Key_W){ // key == W  jumping
-            active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm())); //TO DO: decrease the force
+        if (k->isAutoRepeat() == false && k->key() == Qt::Key_W){ // key == W  jumping
+            active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm()));
             active_worm->setstable(false);
             }
 
         if(k->key() == Qt::Key_0) {//0 to select weapons
-            this->menu->show();
+            menu->active_worm = active_worm;
+            menu->show();
         }
 
         //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
@@ -309,11 +324,11 @@ void Game::graphics_update() {
 
 bool Game::isFinished(){
     int teams_alive = 0;
-    /*for(int i=0; i <worms.length(); i++){
+    for(int i=0; i < this->nb_teams; i++){
         if(worms_playing[i] != -1){
             teams_alive +=1;
         }
-    }*/
+    }
     if(teams_alive < 2){return true;}
     return false;
 }

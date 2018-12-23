@@ -24,11 +24,8 @@ private:
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
 
 public:
-    Ground() : Collider (){ //Creates an undefined Ground
-        this->map = new QImage();
-        item = new QGraphicsPixmapItem();
-        //this->set_map(*this->map);
-    }
+    //Constructors
+    Ground();
     Ground(const int width, const int height); //const QImage background);
     Ground(const QImage background);
 

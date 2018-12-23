@@ -54,12 +54,12 @@ class Worm: public RigidBody {
 
     private:
       int health;
-      int current_weapon;
+      int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
       const std::string personal_name;
       bool isTurn;
-      int weapon_ID = 0;
+      //int weapon_ID = 0;
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right
       QGraphicsPixmapItem pixmap;
