@@ -2,33 +2,52 @@
 
 
 Ground::Ground(const QImage bw_ground): Collider(){
-    this -> set_map(bw_ground);
-    this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
-    this -> is_ground = true;
+    //this -> set_map(bw_ground);
+    //this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
+    //this -> is_ground = true;
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
     QString path = ("://Images/game_background.jpg");
     QImage img(path);
-    QImage img2 = img.scaled(9000,7000, Qt::KeepAspectRatio);
-    this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
-    this->map->fill(Qt::white);
-    this->set_map(*this->map);
+    QImage img2 = img.scaled(width,height, Qt::KeepAspectRatio);
+
+    //this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
+    //this->map->fill(Qt::white);
+    this->map = new QImage("://Images/game_background.jpg");
+    *this->map = this->map->scaled(width, height);
+
+    QImage collider = QImage("://Images/bw_ground.jpg");
+    collider = collider.scaled(width, height);
+    this->set_map(collider);
+
+    for(int i = 0; i <width; i++){
+        for(int j = 0; j < height; j++){
+            if(this->get_map().pixelColor(i,j) == Qt::white){
+                this->map->setPixel(i, j, qRgba(255,255,255,0));
+            }
+        }
+    }
+
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
-    QPainter painter(this->map);
-    painter.drawImage(0,-1500,img2);    //Fill all by blue meaning there is no ground.
+
+    /*
+    //QPainter painter(this->map);
+    //painter.drawImage(0, -1500,img2);    //Fill all by blue meaning there is no ground.
     for(int i = 0; i < width; i++){     //By default makes all the pixels that are under (y = 500) ground.
         for(int j = 0; j < height; j++){
             if(j > 500){
-                this->map->setPixel(i, j, Qt::red);
+                this->map->setPixel(i, j, qRgba(125, 65, 6, 255));
                 this->change_pixel(i,j, Qt::black);
             }
+            /*
             if(j > 2000){
                 this->map->setPixel(i,j,blue_sea);
                 this->change_pixel(i,j, Qt::white);
             }
         }
     }
+    */
 
     this->is_ground = true;
 }

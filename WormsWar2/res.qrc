@@ -1,36 +1,36 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>Images/Clipart_worm_left.png</file>
-    <file>Images/Clipart_worm_right.png</file>
-    <file>Images/Clipart_worm_left.gif</file>
-    <file>Images/Clipart_worm_right.gif</file>
-    <file>Images/game_background.jpg</file>
-    <file>Images/background2.jpg</file>
-    <file>Images/Grenade.png</file>
-    <file>Images/grenade_collider.png</file>
-    <file>Images/barrel.png</file>
-    <file>Images/bw_ground.jpg</file>
-    <file>Images/bw_ground_map.jpg</file>
-    <file>Images/bw_ground_map_(3).jpg</file>
-    <file>Images/ground_map.png</file>
-    <file>Images/ground_map_(3).png</file> 
-    <file>Images/ground.png</file>
-    <file>Images/Gun_right.png</file>
-    <file>Images/Gun_left.png</file>
-    <file>Images/Bat_right.png</file>
-    <file>Images/Bat_left.png</file>
-    <file>Images/Boxing_right.png</file>
-    <file>Images/Boxing_left.png</file>
-    <file>Images/Bazooka_right.png</file>
-    <file>Images/Bazooka_left.png</file>
-    <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
-    <file>SoundEffect/Explosion+7.mp3</file>
-    <file>SoundEffect/VikingAxeRelease.wav</file>
-    <file>SoundEffect/GRENADEIMPACT.WAV</file>
-    <file>Images/Clipart_weapon_7_left.png</file>
-    <file>Images/Clipart_weapon_13_left.png</file>
-    <file>Images/circled-pause.png</file>
-
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Clipart_worm_left.png</file>
+        <file>Images/Clipart_worm_right.png</file>
+        <file>Images/Clipart_worm_left.gif</file>
+        <file>Images/Clipart_worm_right.gif</file>
+        <file>Images/game_background.jpg</file>
+        <file>Images/background2.jpg</file>
+        <file>Images/Grenade.png</file>
+        <file>Images/grenade_collider.png</file>
+        <file>Images/barrel.png</file>
+        <file>Images/bw_ground.jpg</file>
+        <file>Images/bw_ground_map.jpg</file>
+        <file>Images/bw_ground_map_(3).jpg</file>
+        <file>Images/ground_map.png</file>
+        <file>Images/ground_map_(3).png</file>
+        <file>Images/ground.png</file>
+        <file>Images/Gun_right.png</file>
+        <file>Images/Gun_left.png</file>
+        <file>Images/Bat_right.png</file>
+        <file>Images/Bat_left.png</file>
+        <file>Images/Boxing_right.png</file>
+        <file>Images/Boxing_left.png</file>
+        <file>Images/Bazooka_right.png</file>
+        <file>Images/Bazooka_left.png</file>
+        <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
+        <file>SoundEffect/Explosion+7.mp3</file>
+        <file>SoundEffect/VikingAxeRelease.wav</file>
+        <file>SoundEffect/GRENADEIMPACT.WAV</file>
+        <file>Images/Clipart_weapon_7_left.png</file>
+        <file>Images/Clipart_weapon_13_left.png</file>
+        <file>Images/circled-pause.png</file>
+        <file>Images/collider_bazooka_projectile.png</file>
+        <file>Images/bazooka_projectile.png</file>
+    </qresource>
 </RCC>
-
