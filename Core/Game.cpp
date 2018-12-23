@@ -31,7 +31,6 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
-    ground = new Ground(ground_size_x, ground_size_y);
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
     //ground = new Ground(bw_ground);
@@ -39,8 +38,8 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
-
-    ground->randomize();
+    ground = new Ground(ground_size_x, ground_size_y);
+    //ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
