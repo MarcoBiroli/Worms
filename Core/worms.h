@@ -7,6 +7,7 @@
 #include "../Physics/PhysicsEngine.h"
 #include "Projectile.h"
 #include <QtMath>
+#include <QGraphicsSimpleTextItem>
 
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
@@ -16,7 +17,7 @@ class Projectile;
 class Worm: public RigidBody {
     public:
       Worm();
-      Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
+      Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
 
       ~Worm(); //free the weapons array
 
@@ -52,12 +53,14 @@ class Worm: public RigidBody {
 
       double weapon_angle = 0; //intially 0
 
+      QGraphicsSimpleTextItem* label;
+
     private:
       int health;
       int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
-      const std::string personal_name;
+      const QString personal_name;
       bool isTurn;
       //int weapon_ID = 0;
       bool damagetaken=false;

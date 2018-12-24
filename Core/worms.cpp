@@ -7,10 +7,18 @@ Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 
 }
 
-Worm::Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+Worm::Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
     this->health = health;
     this->setbounciness(bounciness);
     this->sprite->setPixmap(isprite);
+    this->label = new QGraphicsSimpleTextItem(this->sprite);
+    QString msg = personal_name;
+    msg.append(QString::number(this->team_number));
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setPos(0, -25);
+    this->label->setText(msg);
 }
 
 Worm::~Worm() {
@@ -58,6 +66,12 @@ void Worm::changeHealth(int dmg) {
         this->set_map(QImage("://Images/grenade_collider.png"));
         this->sprite->setPixmap(QPixmap::fromImage(QImage(":/Images/Grenade.png")));
     }
+    QString msg = this->personal_name;
+    msg.append(QString::number(this->team_number));
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setText(msg);
 }
 
 
