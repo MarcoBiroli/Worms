@@ -42,11 +42,10 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
 
-    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
-    //ground->randomize();
     scene->addItem(ground->getPixmap());
     physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
