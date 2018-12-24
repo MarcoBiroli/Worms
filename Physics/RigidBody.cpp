@@ -39,6 +39,11 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
     this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(this->get_map()));
 }
 
+RigidBody::~RigidBody()
+{
+      //delete this->sprite;
+}
+
 //Physics methods.
 
 //This method computes the impulsive force that makes the RigidBody bounce when a collision is detected.
@@ -92,7 +97,7 @@ void RigidBody::addForce(QPair<double, double> F) //(fx , fy)
 
 //this method computes the distance between the centers of masses of two RigidBodies.
 
-double RigidBody::distance(RigidBody other){
+double RigidBody::distance(RigidBody &other){
     double xo=other.getX();
     double yo=other.getY();
     double distance= qSqrt(qPow(this->x - xo, 2) + qPow(this->y-yo,2));

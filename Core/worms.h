@@ -19,7 +19,7 @@ class Worm: public RigidBody {
       Worm();
       Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
 
-      ~Worm(); //free the weapons array
+      virtual ~Worm(); //free the weapons array
 
       bool isAlive() const;
 
@@ -39,7 +39,7 @@ class Worm: public RigidBody {
       //void changeAngle(bool clockwise);
       //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
       
-      Projectile* fireWeapon(double power, QVector<Projectile> weapons);
+      Projectile* fireWeapon(double power, QVector<Projectile*> &weapons);
       //with the power from the user input and the angle stored in the Worms class, create
       //projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
@@ -61,7 +61,6 @@ class Worm: public RigidBody {
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
       const QString personal_name;
-      bool isTurn;
       //int weapon_ID = 0;
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right

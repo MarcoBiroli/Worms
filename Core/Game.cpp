@@ -9,13 +9,13 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/bazooka_projectile.png").scaled(20,20));
-    Projectile bazooka = Projectile("Bazooka", 0, 20, 0, false, 0, 100, 100, 5, 0, 0, img);
-    bazooka.set_map(QImage("://Images/collider_bazooka_projectile.png").scaled(20,20));
+    Projectile* bazooka = new Projectile("Bazooka", 0, 20, 0, false, 0, 100, 100, 5, 0, 0, img);
+    bazooka->set_map(QImage("://Images/collider_bazooka_projectile.png").scaled(20,20));
     weapons.append(bazooka);
     //Grenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage(":/Images/Grenade.png").scaled(20,20));
-    Projectile grenade = Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
-    grenade.set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
+    Projectile* grenade = new Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    grenade->set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
     weapons.append(grenade);
 
     /*
@@ -37,7 +37,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     //QImage bw_ground("://Images/bw_ground_map_(3).jpg");
     scene = iscene;
     view = iview;
-    physics_engine = PhysicsEngine();
+    physics_engine = new PhysicsEngine();
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
     //ground = new Ground(bw_ground);
@@ -48,7 +48,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     ground = new Ground(ground_size_x, ground_size_y);
     //ground->randomize();
     scene->addItem(ground->getPixmap());
-    physics_engine.add_Collider(ground);
+    physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
     this->weapon_list();
     this->menu = new weapon_menu();
@@ -68,8 +68,8 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 1000 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
-            physics_engine.add_RigidBody(newWorm);
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, ground_size_x/2 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
+            physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
         }
@@ -84,6 +84,15 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     turn_timer=0;
 }
 
+Game::~Game()
+{
+    //qDeleteAll(pixmap_items);
+    delete ground;
+    qDeleteAll(projectiles);
+    qDeleteAll(barrels);
+}
+
+
 
 
 bool Game::gameIteration(double dt){
@@ -91,21 +100,18 @@ bool Game::gameIteration(double dt){
     physics_update(dt); //updates the turn timer as well as the physics engine
 
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
-        team_playing = (team_playing+1)%nb_teams;
-
-        while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
-            team_playing = (team_playing +1)%nb_teams;
-            //danger if all teams dead infinite loop but should not happen as only called is isFinished false
-        }
-
         nextWorm();
         turn_timer = 0;
     }
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
-            projectiles[i]->explode(*ground, physics_engine, projectiles, worms, barrels);
+            projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
+            physics_engine->delete_rigidbody(projectiles[i]->getId());
+            delete projectiles[i];
+            projectiles.remove(i);
             nextWorm();
+            turn_timer = 0;
         }
     }
 
@@ -113,6 +119,7 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
 
@@ -262,8 +269,8 @@ void Game::handleEvents(QKeyEvent *k){
 
         if (k-> key() == Qt::Key_Space){//key == Space shoots the projectile
             int power = 200;
-            Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
-            physics_engine.add_RigidBody(current_projectile);
+            Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+            physics_engine->add_RigidBody(current_projectile);
             projectiles.append(current_projectile);
             scene->addItem(current_projectile->sprite);
             this->turn_timer = this->max_turn_time - 5000;
@@ -277,7 +284,7 @@ void Game::handleEvents(QKeyEvent *k){
 
 void Game::physics_update(double dt){
     for (int i = 0; i < 10; i++){
-        physics_engine.update(dt);
+        physics_engine->update(dt);
     }
     turn_timer += dt;
 }
@@ -323,14 +330,18 @@ void Game::graphics_update() {
 */
 
 bool Game::isFinished(){
-    int teams_alive = 0;
-    for(int i=0; i < this->nb_teams; i++){
-        if(worms_playing[i] != -1){
-            teams_alive +=1;
+    int seen_team = -1;
+    for(int i=0; i < this->worms.length(); i++){
+        if(worms[i]->getTeam() != seen_team && worms[i]->isAlive()){
+            if(seen_team == -1){
+                seen_team = worms[i]->getTeam();
+            }
+            else{
+                return false;
+            }
         }
     }
-    if(teams_alive < 2){return true;}
-    return false;
+    return true;
 }
 
 void Game::add_to_scene(int class_id, RigidBody new_rigid_body)

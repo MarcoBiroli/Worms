@@ -23,6 +23,8 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
 
 Worm::~Worm() {
     //delete []ammo; // why do we need to delete?
+    delete label;
+    //delete this->sprite;
 }
 
 bool Worm::isAlive() const{
@@ -75,8 +77,8 @@ void Worm::changeHealth(int dmg) {
 }
 
 
-Projectile* Worm::fireWeapon(double power, QVector<Projectile> weapons) {
-    Projectile* current_projectile = weapons[current_weapon].clone(); //currently shot projectile is just a clone of a previously initialized one.
+Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
+    Projectile* current_projectile = weapons[current_weapon]->clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
     current_projectile->set_inital_position(this->x, this->y-25); //might need to offset initial position to avoid worm shooting himself
     double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;

@@ -71,6 +71,11 @@ Collider::Collider(double ix, double iy)
     this->skin_depth_pixels = this->skin_depth_percent*this->countblack;
 }
 
+Collider::~Collider()
+{
+
+}
+
 //Get and Set private variables
 
 int Collider::getId() const { return this->id;}

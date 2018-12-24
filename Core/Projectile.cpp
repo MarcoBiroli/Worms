@@ -11,6 +11,11 @@ Projectile::Projectile() : RigidBody ()
 
 }
 
+Projectile::~Projectile()
+{
+    //delete this->sprite;
+}
+
 void Projectile::print() {
     cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
     cout << "   delay: " << delay << endl;
@@ -53,11 +58,8 @@ bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
         this->should_explode = true;
-        //other.circ_delete(this->x,this->y,this->explosion_radius);
-    //return true;
     };
     return false;
-    //"??"
 }
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
@@ -88,10 +90,6 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
     }
     this->sprite->hide();
-
-    //destroy projectile
-    engine.delete_rigidbody(this->getId());
-    projectiles.removeOne(this);
 }
 
 int Projectile::get_weapon_id() const

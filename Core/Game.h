@@ -12,13 +12,13 @@
 #include <QObject>
 
 #include "../GUI/ground.h"
+
 #include "../Physics/RigidBody.h"
 #include "../Physics/PhysicsEngine.h"
 
 #include "Projectile.h"
 #include "worms.h"
 #include "Barrel.h"
-#include "../GUI/ground.h"
 #include "weapon_menu.h"
 
 class Game{
@@ -179,7 +179,7 @@ class Game{
       Ground* ground;
       QGraphicsScene *scene;
       QGraphicsView *view;
-      PhysicsEngine physics_engine;
+      PhysicsEngine* physics_engine;
 
       //Initializing the important arrays.
       //Worms and projectiles vectors will contain pointers to the same worms and projectiles pointed in the rigid_bodies vector
@@ -189,10 +189,12 @@ class Game{
       QVector<Worm*> worms;
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
-      QVector<Projectile> weapons;
+      QVector<Projectile*> weapons;
 
       //Constructors
       Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
+
+      ~Game();
 
       //Methods
       void weapon_list();

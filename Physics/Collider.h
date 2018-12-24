@@ -28,7 +28,7 @@ class Collider{
         Collider();
         Collider(double ix, double iy, QImage map);
         Collider(double ix, double iy); //map is the default black square 32x32 pixels
-
+        virtual ~Collider();
         //get and set private variables
 
         int getId() const; // can be used
