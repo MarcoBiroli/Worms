@@ -37,8 +37,6 @@ int main(int argc, char *argv[])
             view->game = game;
             view->currentScale = 1;
 
-            //game.ground->circ_delete(200, 500, 150);
-
             QTime lastUpdate= QTime::currentTime();
             int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
             double update_time = 10;

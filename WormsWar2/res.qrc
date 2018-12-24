@@ -1,115 +1,76 @@
 <RCC>
     <qresource prefix="/">
-
-	<file>Images/weapons/Airstrike_collider_right.png</file>
-	<file>Images/weapons/Airstrike_collider_left.png</file>
-	<file>Images/weapons/Airstrike_right.png</file>
-	<file>Images/weapons/Airstrike_left.png</file>
-
-	<file>Images/weapons/Banana_collider_right.png</file>
-	<file>Images/weapons/Banana_collider_left.png</file>
-	<file>Images/weapons/Banana_right.png</file>
-	<file>Images/weapons/Banana_left.png</file>
-
-	<file>Images/weapons/Bat_right.png</file>
-	<file>Images/weapons/Bat_left.png</file>
-
-	<file>Images/weapons/Bazooka_right.png</file>
-	<file>Images/weapons/Bazooka_left.png</file>
-
-	<file>Images/weapons/Bazooka_projectile_collider_right.png</file>
-	<file>Images/weapons/Bazooka_projectile_collider_left.png</file>
-	<file>Images/weapons/Bazooka_projectile_right.png</file>
-	<file>Images/weapons/Bazooka_projectile_left.png</file>
-
-	<file>Images/weapons/Dynamite_collider_right.png</file>
-	<file>Images/weapons/Dynamite_collider_left.png</file>
-	<file>Images/weapons/Dynamite_right.png</file>
-	<file>Images/weapons/Dynamite_left.png</file>
-
-	<file>Images/weapons/Firepunch_right.png</file>
-	<file>Images/weapons/Firepunch_left.png</file>
-
-	<file>Images/weapons/Grenades_collider_right.png</file>
-	<file>Images/weapons/Grenades_collider_left.png</file>
-	<file>Images/weapons/Grenade_right.png</file>
-	<file>Images/weapons/Grenade_left.png</file>
-	<file>Images/weapons/BlueGrenade_right.png</file>
-	<file>Images/weapons/BlueGrenade_left.png</file>
-
-	<file>Images/weapons/Gun_right.png</file>
-	<file>Images/weapons/Gun_left.png</file>
-
-	<file>Images/weapons/Jetpack_right.png</file>
-	<file>Images/weapons/Jetpack_left.png</file>
-
-	<file>Images/weapons/Magnet_collider_right.png</file>
-	<file>Images/weapons/Magnet_collider_left.png</file>
-	<file>Images/weapons/Magnet_right.png</file>
-	<file>Images/weapons/Magnet_left.png</file>
-
-	<file>Images/weapons/Meteor_collider_right.png</file>
-	<file>Images/weapons/Meteor_collider_left.png</file>
-	<file>Images/weapons/Meteor_right.png</file>
-	<file>Images/weapons/Meteor_left.png</file>
-
-	<file>Images/weapons/Mine_collider_right.png</file>
-	<file>Images/weapons/Mine_collider_left.png</file>
-	<file>Images/weapons/Mine_right.png</file>
-	<file>Images/weapons/Mine_left.png</file>
-
-	<file>Images/weapons/Missile_collider_right.png</file>
-	<file>Images/weapons/Missile_collider_left.png</file>
-	<file>Images/weapons/Missile_right.png</file>
-	<file>Images/weapons/Missile_left.png</file>
-
-	<file>Images/weapons/MonsterBomb_collider_right.png</file>
-	<file>Images/weapons/MonsterBomb_collider_left.png</file>
-	<file>Images/weapons/MonsterBomb_right.png</file>
-	<file>Images/weapons/MonsterBomb_left.png</file>
-
-
-
-
-
-	<file>Images/grounds/sunset_mountains.png</file>
-	<file>Images/grounds/morning_mountains.png</file>
-
-
-
-
-
-
-	<file>Images/rigidbodies/Worm_collider.png</file>
-	<file>Images/rigidbodies/Worm_right.png</file>
-	<file>Images/rigidbodies/Worm_left.png</file>
-
-	<file>Images/rigidbodies/grave.png</file>
-	<file>Images/rigidbodies/grave_collider.png</file>
-
-	<file>Images/rigidbodies/barrel_collider.png</file>
-	<file>Images/rigidbodies/barrel.png</file>
-
-	<file>Images/rigidbodies/aid_collider.png</file>
-	<file>Images/rigidbodies/aid.png</file>
-
-
-
-
-
-
-	<file>Images/menu/circled_pause.png</file>
-	<file>Images/menu/wood.png</file>
-	<file>Images/menu/ww2.png</file>
-
-
-
-
-
-
+        <file>Images/weapons/Airstrike_collider_right.png</file>
+        <file>Images/weapons/Airstrike_collider_left.png</file>
+        <file>Images/weapons/Airstrike_right.png</file>
+        <file>Images/weapons/Airstrike_left.png</file>
+        <file>Images/weapons/Banana_collider_right.png</file>
+        <file>Images/weapons/Banana_collider_left.png</file>
+        <file>Images/weapons/Banana_right.png</file>
+        <file>Images/weapons/Banana_left.png</file>
+        <file>Images/weapons/Bat_right.png</file>
+        <file>Images/weapons/Bat_left.png</file>
+        <file>Images/weapons/Bazooka_right.png</file>
+        <file>Images/weapons/Bazooka_left.png</file>
+        <file>Images/weapons/Bazooka_projectile_collider_right.png</file>
+        <file>Images/weapons/Bazooka_projectile_collider_left.png</file>
+        <file>Images/weapons/Bazooka_projectile_right.png</file>
+        <file>Images/weapons/Bazooka_projectile_left.png</file>
+        <file>Images/weapons/Dynamite_collider_right.png</file>
+        <file>Images/weapons/Dynamite_collider_left.png</file>
+        <file>Images/weapons/Dynamite_right.png</file>
+        <file>Images/weapons/Dynamite_left.png</file>
+        <file>Images/weapons/Firepunch_right.png</file>
+        <file>Images/weapons/Firepunch_left.png</file>
+        <file>Images/weapons/Grenades_collider_right.png</file>
+        <file>Images/weapons/Grenades_collider_left.png</file>
+        <file>Images/weapons/Grenade_right.png</file>
+        <file>Images/weapons/Grenade_left.png</file>
+        <file>Images/weapons/BlueGrenade_right.png</file>
+        <file>Images/weapons/BlueGrenade_left.png</file>
+        <file>Images/weapons/Gun_right.png</file>
+        <file>Images/weapons/Gun_left.png</file>
+        <file>Images/weapons/Gun_projectile_right.png</file>
+        <file>Images/weapons/Gun_projectile_left.png</file>
+        <file>Images/weapons/Gun_projectile_collider_right.png</file>
+        <file>Images/weapons/Gun_projectile_collider_left.png</file>
+        <file>Images/weapons/Jetpack_right.png</file>
+        <file>Images/weapons/Jetpack_left.png</file>
+        <file>Images/weapons/Magnet_collider_right.png</file>
+        <file>Images/weapons/Magnet_collider_left.png</file>
+        <file>Images/weapons/Magnet_right.png</file>
+        <file>Images/weapons/Magnet_left.png</file>
+        <file>Images/weapons/Meteor_collider_right.png</file>
+        <file>Images/weapons/Meteor_collider_left.png</file>
+        <file>Images/weapons/Meteor_right.png</file>
+        <file>Images/weapons/Meteor_left.png</file>
+        <file>Images/weapons/Mine_collider_right.png</file>
+        <file>Images/weapons/Mine_collider_left.png</file>
+        <file>Images/weapons/Mine_right.png</file>
+        <file>Images/weapons/Mine_left.png</file>
+        <file>Images/weapons/Missile_collider_right.png</file>
+        <file>Images/weapons/Missile_collider_left.png</file>
+        <file>Images/weapons/Missile_right.png</file>
+        <file>Images/weapons/Missile_left.png</file>
+        <file>Images/weapons/MonsterBomb_collider_right.png</file>
+        <file>Images/weapons/MonsterBomb_collider_left.png</file>
+        <file>Images/weapons/MonsterBomb_right.png</file>
+        <file>Images/weapons/MonsterBomb_left.png</file>
+        <file>Images/grounds/sunset_mountains.png</file>
+        <file>Images/grounds/morning_mountains.png</file>
+        <file>Images/rigidbodies/Worm_collider.png</file>
+        <file>Images/rigidbodies/Worm_right.png</file>
+        <file>Images/rigidbodies/Worm_left.png</file>
+        <file>Images/rigidbodies/grave.png</file>
+        <file>Images/rigidbodies/grave_collider.png</file>
+        <file>Images/rigidbodies/barrel_collider.png</file>
+        <file>Images/rigidbodies/barrel.png</file>
+        <file>Images/rigidbodies/aid_collider.png</file>
+        <file>Images/rigidbodies/aid.png</file>
+        <file>Images/menu/circled_pause.png</file>
+        <file>Images/menu/wood.png</file>
+        <file>Images/menu/ww2.png</file>
         <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
-
-
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
