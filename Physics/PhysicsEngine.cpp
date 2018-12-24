@@ -133,7 +133,7 @@ RigidBody *PhysicsEngine::get_rigidbody (int id) const
 
 void PhysicsEngine::delete_rigidbody(int id)
 {
-    delete rigidbodies.value(id); //freeeee memooooory
+    //delete rigidbodies.value(id); //freeeee memooooory
     rigidbodies.remove(id);
 }
 

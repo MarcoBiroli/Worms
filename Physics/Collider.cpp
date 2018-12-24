@@ -31,7 +31,7 @@ Collider::Collider(double ix, double iy, QImage map)
 
     for (int i = 0; i< this->colliding_map.width(); i++){
         for (int j = 0; j< this-> colliding_map.height(); j++){
-            if (this->colliding_map.pixelColor(i,j) == Qt::black) {
+            if (this->colliding_map.pixelColor(i,j) == Qt::black || this->colliding_map.pixelColor(i,j) == Qt::blue) { //temporary solution to avoid the objects (worms, weapons) to fall for ever
                 this->cmx += i;
                 this->cmy += j;
                 this->countblack += 1;
@@ -59,7 +59,7 @@ Collider::Collider(double ix, double iy)
     this->countblack = 0;
     for (int i = 0; i< this->colliding_map.width(); i++){
         for (int j = 0; j< this-> colliding_map.height(); j++){
-            if (this->colliding_map.pixelColor(i,j) == Qt::black) {
+            if (this->colliding_map.pixelColor(i,j) == Qt::black || this->colliding_map.pixelColor(i,j) == Qt::blue) {
                 this->cmx += i;
                 this->cmy += j;
                 this->countblack += 1;
@@ -104,7 +104,7 @@ void Collider::set_map(QImage map) {
     this->countblack = 0;
     for (int i = 0; i< this->colliding_map.width(); i++){
         for (int j = 0; j< this-> colliding_map.height(); j++){
-            if (this->colliding_map.pixelColor(i,j) == Qt::black) {
+            if (this->colliding_map.pixelColor(i,j) == Qt::black || this->colliding_map.pixelColor(i,j) == Qt::blue) {
                 this->countblack += 1;
             }
         }
@@ -126,8 +126,8 @@ int Collider::getHeight() const
 void Collider::change_pixel(int i, int j, QColor color) {
     //if the color we give is black and the current color of pixel(i,j) is not black we increment the parameter countblack
     //otherwise we do not change anything
-    if (color == Qt::black){
-        if (this->colliding_map.pixelColor(i,j) != Qt::black){
+    if (color == Qt::black  || color == Qt::blue){
+        if (this->colliding_map.pixelColor(i,j) != Qt::black && this->colliding_map.pixelColor(i,j) != Qt::blue){
             this->countblack += 1;
             this->colliding_map.setPixelColor(i,j,color);
         }
@@ -135,7 +135,7 @@ void Collider::change_pixel(int i, int j, QColor color) {
     //if the color is not black and the current color of pixel(i,j) is black we decrease the parameter countblack
     //otherwise we do not change anything
     else {
-        if (this->colliding_map.pixelColor(i,j) == Qt::black){
+        if (this->colliding_map.pixelColor(i,j) == Qt::black || this->colliding_map.pixelColor(i,j) == Qt::blue){
             this->countblack -= 1;
             this->colliding_map.setPixelColor(i,j,color);
         }
@@ -167,11 +167,11 @@ QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
     //It loops over the width and height of the colliding map checking where the black pixels overlap
     for (int i = 0; i < this->getWidth(); i++) {
         for (int j = 0; j < this->getHeight(); j++){
-            if (this->colliding_map.pixelColor(i,j) == Qt::black){
+            if (this->colliding_map.pixelColor(i,j) == Qt::black || this->colliding_map.pixelColor(i,j) == Qt::blue){
                 //If the pixel (i,j) is part of the others collider map, taking care of the x,y change of coordinates (top-left corner)
                 if (other.x <= x+i && x + i< other.x + other.getWidth() && other.y <= y + j && y + j < other.y + other.getHeight()){
                     //check if this pixel is black
-                    if (other.colliding_map.pixelColor(x+i-other.x, y+j - other.y) == Qt::black){
+                    if (other.colliding_map.pixelColor(x+i-other.x, y+j - other.y) == Qt::black || other.colliding_map.pixelColor(x+i-other.x, y+j - other.y) == Qt::blue){
                         //update the parameters
                         colliding = true;
                         cm_otherx += i; cm_othery += j; nb_colliding_pixels++;

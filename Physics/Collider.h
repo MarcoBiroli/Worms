@@ -2,6 +2,7 @@
 #include "math.h"
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include "qmath.h"
 
 /*The collider class which takes care of the collision of two or more rigid bodies*/
 
@@ -58,8 +59,5 @@ class Collider{
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)
 
         QPair<bool, QPair<double, double>> check_collision(Collider &other);
-
-        //--------Destructor function do!!---------- Thomas?
-
 
 };
