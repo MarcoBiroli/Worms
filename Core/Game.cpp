@@ -8,39 +8,38 @@
 void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
-    QPixmap img = QPixmap::fromImage(QImage("://Images/bazooka_projectile.png").scaled(20,20));
+    QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
     Projectile bazooka = Projectile("Bazooka", 0, 20, 0, false, 0, 100, 100, 5, 0, 0, img);
-    bazooka.set_map(QImage("://Images/collider_bazooka_projectile.png").scaled(20,20));
+    bazooka.set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
     weapons.append(bazooka);
-    //Grenade weapon id = 1
-    QPixmap img1 = QPixmap::fromImage(QImage(":/Images/Grenade.png").scaled(20,20));
-    Projectile grenade = Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
-    grenade.set_map(QImage("://Images/grenade_collider.png").scaled(20,20));
+    //BlueGrenade weapon id = 1
+    QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(20,20));
+    Projectile bluegrenade = Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    bluegrenade.set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
+    weapons.append(bluegrenade);
+    //green Grenade weapon id = 2
+    QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(20,20));
+    Projectile grenade = Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
+    grenade.set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(grenade);
-
-    /*
-    Projectile shot = Projectile("Shot", 1, 1000, 0.1, false, 0, 1, 35, 0.001, 0, 0, pixmap_images );
-    shot.set_map(QImage("").scaled(2,2));
-    weapons.append(shot);
-
-    Projectile dynamite = Projectile("Dynamite", 7, 7000, 0.1, true, 3000, 120, 70, 5, 0, 0, pixmap_images[7]["left"]);
-    dynamite.set_map(QImage("://Images/Clipart_weapon_7_left.png").scaled(20,20));
+    //Dynamite weapon id = 3
+    QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(20,20));
+    Projectile dynamite = Projectile("Dynamite", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img3);
+    dynamite.set_map(QImage("://Images/weapons/Dynamite_collider_left.png").scaled(20,20));
     weapons.append(dynamite);
-
-    Projectile rocket = Projectile("Rocket", 13, 3000, 0, false, 0, 60, 50, 1, 0, 0, pixmap_images[13]["left"]);
-    rocket.set_map(QImage("://Images/Clipart_weapon_13_left.png").scaled(20,20));
-    weapons.append(rocket);
-    */
+    //Gun weapon id = 4
+    QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
+    Projectile gun = Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 5, 0, 0, img4);
+    gun.set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
+    weapons.append(gun);
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
-    //QImage bw_ground("://Images/bw_ground_map_(3).jpg");
     scene = iscene;
     view = iview;
     physics_engine = PhysicsEngine();
-    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/background2.jpg").scaled(ground_size_x,ground_size_y)));
+    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
-    //ground = new Ground(bw_ground);
 
     backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
@@ -50,16 +49,13 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene->addItem(ground->getPixmap());
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
+
     this->weapon_list();
     this->menu = new weapon_menu();
     QGraphicsProxyWidget *item = scene->addWidget(menu);
     item->setPos(0,0);
     item->setZValue(100);
     item->hide();
-
-    /*this->menu->setFlag(QGraphicsItem::ItemIsSelectable);
-    this->menu->hide();
-    scene->addItem(menu);*/
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -68,7 +64,8 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 1000 + 500*team, 100, pixmap_images[-1]["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 1000 + 500*team, 100, worm_image["right"]);//positions are arbitrary
+            newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
             physics_engine.add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
@@ -149,7 +146,7 @@ void Game::handleEvents(QKeyEvent *k){
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};
     double vx, vy;
 
-    //QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/circled-pause.png").scaled(500,500)));
+    //QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/menu/circled_pause.png").scaled(500,500)));
 
     if(k->key() == Qt::Key_Escape){ // key = Escape for pausing
        if(not paused){
@@ -171,7 +168,7 @@ void Game::handleEvents(QKeyEvent *k){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
             active_worm->set_direction();
-            active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+            active_worm->sprite->setPixmap(worm_image["left"]);
             if(k->isAutoRepeat() == true && k->key() == 0x41){
                 active_worm->setvx(vx);
                 active_worm->setvy(vy);
@@ -190,7 +187,7 @@ void Game::handleEvents(QKeyEvent *k){
                       active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*active_worm->getm()));
                       active_worm->setstable(false);
                   }
-                  active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+                  active_worm->sprite->setPixmap(worm_image["left"]);
                   active_worm->change_direction(false);
         }
 
@@ -205,21 +202,21 @@ void Game::handleEvents(QKeyEvent *k){
                      active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
                      active_worm->setstable(false);
                  }
-                 active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+                 active_worm->sprite->setPixmap(worm_image["right"]);
                  active_worm->change_direction(true);
         }
 
         if (k->key()== 0x01000012){ //left arrow == change facing to left
             if(active_worm->getstable()){
             active_worm->change_direction(false);
-            active_worm->sprite->setPixmap(pixmap_images[-1]["left"]);
+            active_worm->sprite->setPixmap(worm_image["left"]);
             }
         }
 
         if (k->key()== 0x01000014){ //right arrow === change facing to right
             if(active_worm->getstable()){
             active_worm->change_direction(true);
-            active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+            active_worm->sprite->setPixmap(worm_image["right"]);
             }
         }
 
@@ -230,7 +227,7 @@ void Game::handleEvents(QKeyEvent *k){
             active_worm->setvx(vx);
             active_worm->setvy(vy);
             active_worm->set_direction();
-            active_worm->sprite->setPixmap(pixmap_images[-1]["right"]);
+            active_worm->sprite->setPixmap(worm_image["right"]);
             if(k->isAutoRepeat() == true && k->key() == 0x44){
                 active_worm->setvx(vx);
                 active_worm->setvy(vy);
@@ -333,14 +330,6 @@ bool Game::isFinished(){
     return false;
 }
 
-void Game::add_to_scene(int class_id, RigidBody new_rigid_body)
-{
-    QPixmap initial_image(pixmap_images[class_id]["right"]);
-    QGraphicsPixmapItem *new_pixmap_body = new QGraphicsPixmapItem(initial_image);
-    scene->addItem(new_pixmap_body);
-    new_pixmap_body->setPos(new_rigid_body.getX(), new_rigid_body.getY());
-    pixmap_items.append(new_pixmap_body);
-}
 
 
 

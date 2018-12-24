@@ -55,8 +55,8 @@ void Worm::weaponSelect(int weapon_ID) {
 void Worm::changeHealth(int dmg) {
     this->health -= dmg;
     if(!this->isAlive()){
-        this->set_map(QImage("://Images/grenade_collider.png"));
-        this->sprite->setPixmap(QPixmap::fromImage(QImage(":/Images/Grenade.png")));
+        this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
+        this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }
 }
 
