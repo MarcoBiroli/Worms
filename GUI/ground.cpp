@@ -6,9 +6,9 @@ Ground::Ground() : Collider (){ //Creates an undefined Ground
     //this->set_map(*this->map);
 }
 Ground::Ground(const QImage bw_ground): Collider(){
-    //this -> set_map(bw_ground);
-    //this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
-    //this -> is_ground = true;
+    this -> set_map(bw_ground);
+    this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
+    this -> is_ground = true;
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
@@ -18,10 +18,10 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     //create random phase and random period for two cosine functions within a range that is reasonable to obtain
     //a good mountain-like terrain
     double period1,period2;
-    period1=rand()%(int)(0.16*width)+(int)(0.08*width);
-    period2=rand()%(int)(0.08*width)+(int)(0.04*width);
-    double phase1=rand()%(int)(0.2*width)+(int)(0.04*width);
-    double phase2=rand()%(int)(0.2*width)+(int)(0.04*width);
+    period1=rand()%int(0.16*width)+int(0.08*width);
+    period2=rand()%int(0.08*width)+int(0.04*width);
+    double phase1=rand()%int(0.2*width)+int(0.04*width);
+    double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
     double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
@@ -43,6 +43,15 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
             }
             if (j >= sea_level) {
                 this -> map -> setPixel(i,j,this -> blue_sea);
+            }
+            if (j > height-10){
+                this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
+            }  //blue pixels are rigid body but can't be delete
+            if (i < 10){
+                this -> change_pixel(i,j,Qt::blue);
+            }
+            if (i > width-10){
+                this -> change_pixel(i,j,Qt::blue);
             }
         }
     }

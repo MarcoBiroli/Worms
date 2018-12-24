@@ -42,7 +42,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene -> addItem(background);
     //ground = new Ground(bw_ground);
 
-    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
