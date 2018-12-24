@@ -28,32 +28,35 @@ int main(int argc, char *argv[])
 
             //Put a graphics view inside of the window
             CustomView *view = new CustomView(scene);
-            //view->setSceneRect(-10000, -10000, 20000, 20000);
+            //view->setSceneRect(0, 0, 20000, 20000);
 
             //Initialize a game
 
-            Game game = Game(scene, view, 2, 10000, 2, 5000, 3000);
+            Game *game = new Game(scene, view, 2, 10000, 2, 5000, 3000);
 
-            view->game = &game;
+            view->game = game;
+            view->currentScale = 1;
 
             //game.ground->circ_delete(200, 500, 150);
 
             QTime lastUpdate= QTime::currentTime();
-                int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
-                double update_time = 10;
+            int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
+            double update_time = 10;
+            bool is_done = false;
 
-                while(!view->has_quitted && !game.isFinished()){
-                    a.processEvents();
-                    timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
-                    if(timeSinceLastUpdate>update_time){
-                        game.gameIteration(timeSinceLastUpdate);
-                        lastUpdate = QTime::currentTime();
-                    }
-                    view->showMaximized();
+            while(!view->has_quitted && !is_done){
+                a.processEvents();
+                timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
+                if(timeSinceLastUpdate>update_time){
+                    is_done = game->gameIteration(timeSinceLastUpdate);
+                    lastUpdate = QTime::currentTime();
                 }
-                delete view;
-                delete scene;
-                MainMenu->show();
+                view->showMaximized();
+            }
+            delete view;
+            delete scene;
+            delete game;
+            MainMenu->show();
         }
     }
     return 0;

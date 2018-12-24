@@ -27,11 +27,12 @@ public:
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap isprite);
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
     RigidBody(double imass, double ix, double iy);
+    virtual ~RigidBody();
     
     //Physics methods.
     void bounce(QPair<double, double> normal, double dt);
     void addForce(QPair<double, double> F);
-    double distance(RigidBody other);
+    double distance(RigidBody &other);
     void simulate(double dt);
     
     

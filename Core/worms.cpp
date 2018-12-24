@@ -7,14 +7,24 @@ Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 
 }
 
-Worm::Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+Worm::Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
     this->health = health;
     this->setbounciness(bounciness);
     this->sprite->setPixmap(isprite);
+    this->label = new QGraphicsSimpleTextItem(this->sprite);
+    QString msg = personal_name;
+    msg.append(QString::number(this->team_number));
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setPos(0, -25);
+    this->label->setText(msg);
 }
 
 Worm::~Worm() {
     //delete []ammo; // why do we need to delete?
+    delete label;
+    //delete this->sprite;
 }
 
 bool Worm::isAlive() const{
@@ -58,11 +68,17 @@ void Worm::changeHealth(int dmg) {
         this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
         this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }
+    QString msg = this->personal_name;
+    msg.append(QString::number(this->team_number));
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setText(msg);
 }
 
 
-Projectile* Worm::fireWeapon(double power, QVector<Projectile> weapons) {
-    Projectile* current_projectile = weapons[current_weapon].clone(); //currently shot projectile is just a clone of a previously initialized one.
+Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
+    Projectile* current_projectile = weapons[current_weapon]->clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
     current_projectile->set_inital_position(this->x, this->y-25); //might need to offset initial position to avoid worm shooting himself
     double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;

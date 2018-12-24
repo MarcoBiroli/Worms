@@ -37,17 +37,18 @@ void Game::weapon_list()
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
     scene = iscene;
     view = iview;
-    physics_engine = PhysicsEngine();
+
+    physics_engine = new PhysicsEngine();
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
 
-    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
     //ground->randomize();
     scene->addItem(ground->getPixmap());
-    physics_engine.add_Collider(ground);
+    physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
 
     this->weapon_list();
@@ -64,9 +65,9 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
         for(int i=0; i<nb_worms; i++){
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, 1000 + 500*team, 100, worm_image["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, ground_size_x/2 + 500*team, 100, worm_image["right"]);//positions are arbitrary
             newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
-            physics_engine.add_RigidBody(newWorm);
+            physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
         }
@@ -81,6 +82,15 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     turn_timer=0;
 }
 
+Game::~Game()
+{
+    //qDeleteAll(pixmap_items);
+    delete ground;
+    qDeleteAll(projectiles);
+    qDeleteAll(barrels);
+}
+
+
 
 
 bool Game::gameIteration(double dt){
@@ -88,21 +98,18 @@ bool Game::gameIteration(double dt){
     physics_update(dt); //updates the turn timer as well as the physics engine
 
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
-        team_playing = (team_playing+1)%nb_teams;
-
-        while (worms_playing[team_playing] == -1){ // -1 represents the team is dead
-            team_playing = (team_playing +1)%nb_teams;
-            //danger if all teams dead infinite loop but should not happen as only called is isFinished false
-        }
-
         nextWorm();
         turn_timer = 0;
     }
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
-            projectiles[i]->explode(*ground, physics_engine, projectiles, worms, barrels);
+            projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
+            physics_engine->delete_rigidbody(projectiles[i]->getId());
+            delete projectiles[i];
+            projectiles.remove(i);
             nextWorm();
+            turn_timer = 0;
         }
     }
 
@@ -110,6 +117,7 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
 
@@ -259,8 +267,8 @@ void Game::handleEvents(QKeyEvent *k){
 
         if (k-> key() == Qt::Key_Space){//key == Space shoots the projectile
             int power = 200;
-            Projectile* current_projectile = active_worm->fireWeapon(power, weapons);
-            physics_engine.add_RigidBody(current_projectile);
+            Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+            physics_engine->add_RigidBody(current_projectile);
             projectiles.append(current_projectile);
             scene->addItem(current_projectile->sprite);
             this->turn_timer = this->max_turn_time - 5000;
@@ -274,60 +282,24 @@ void Game::handleEvents(QKeyEvent *k){
 
 void Game::physics_update(double dt){
     for (int i = 0; i < 10; i++){
-        physics_engine.update(dt);
+        physics_engine->update(dt);
     }
     turn_timer += dt;
 }
 
-/*
-void Game::graphics_update() {
-    //update all worm pixmaps
-    QVector<QPair<Worm*, QGraphicsPixmapItem*>>::iterator worm = this->worms.begin();
-    for(worm; worm != this->worms.end(); worm++)
-    {
-        Worm* worm_body = worm->first;
-        QGraphicsPixmapItem* worm_pixmap = worm->second;
-        if(worm_body->getvx() < 0){
-            QImage worm_right(pixmap_images.value(class_worm_id).value("right"));
-            worm_pixmap->setPixmap(QPixmap::fromImage(worm_right));
-        }
-        else{
-            QImage worm_left(pixmap_images.value(class_worm_id).value("left"));
-            worm_pixmap->setPixmap(QPixmap::fromImage(worm_left));
-        }
-        worm_pixmap->setPos(worm_body->getX(), worm_body->getY());
-    }
-
-    //update projectile
-    QVector<QPair<Projectile*, QGraphicsPixmapItem*>>::iterator projectile = this->projectiles.begin();
-    for(projectile; projectile != this->projectiles.end(); worm++)
-    {
-        Projectile* projectile_body = projectile->first;
-        QGraphicsPixmapItem* projectile_pixmap = projectile->second;
-        if(projectile_body->getvx() < 0){
-            int weapon_id = projectile_body->get_id();
-            QImage projectile_right(pixmap_images.value(weapon_id).value("right"));
-            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_right));
-        }
-        else{
-            int weapon_id = projectile_body->get_id();
-            QImage projectile_left(pixmap_images.value(weapon_id).value("left"));
-            projectile_pixmap->setPixmap(QPixmap::fromImage(projectile_left));
-        }
-        projectile_pixmap->setPos(projectile_body->getX(), projectile_body->getY());
-    }
-}
-*/
-
 bool Game::isFinished(){
-    int teams_alive = 0;
-    for(int i=0; i < this->nb_teams; i++){
-        if(worms_playing[i] != -1){
-            teams_alive +=1;
+    int seen_team = -1;
+    for(int i=0; i < this->worms.length(); i++){
+        if(worms[i]->getTeam() != seen_team && worms[i]->isAlive()){
+            if(seen_team == -1){
+                seen_team = worms[i]->getTeam();
+            }
+            else{
+                return false;
+            }
         }
     }
-    if(teams_alive < 2){return true;}
-    return false;
+    return true;
 }
 
 
