@@ -23,7 +23,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     double phase1=rand()%int(0.2*width)+int(0.04*width);
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
-    double sea_level = 0.87*height;
+    //double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
     for (int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
@@ -37,12 +37,9 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height && j < sea_level){
+            if (j >= terrain_height){
                 this->map->setPixel(i, j, this -> brown);  //ground in brown
                 this->change_pixel(i, j, Qt::black);
-            }
-            if (j >= sea_level) {
-                this -> map -> setPixel(i,j,this -> blue_sea);
             }
             if (j > height-10){
                 this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
@@ -64,6 +61,24 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
             }
         }*/
     this->is_ground = true;
+}
+
+
+int Ground::WaterHeight(const int height, const int counter){
+    if (counter < 2){
+        return int(0.87*height);
+    }
+    if (counter >= 2 && counter < 20){
+        return int(0.87*height - (counter+50));
+    }
+}
+
+void Ground::Water(const int width, const int height, const int water_height){
+    for (int i = 0; i < width; i++){
+        for (int j = water_height; j < height ; j++){
+            this -> map -> setPixel(i,j,blue_sea);
+        }
+    }
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
@@ -124,13 +139,11 @@ void Ground::randomize(){
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height && j < 2600){
+            if (j >= terrain_height){
                 this->map->setPixel(i, j, this -> brown);
                 this->change_pixel(i, j, Qt::black);
             }
-            if (j >= 2600) {
-                this -> map -> setPixel(i,j,this -> blue_sea);
-            }
+
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
