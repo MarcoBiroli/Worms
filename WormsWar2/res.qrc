@@ -74,5 +74,8 @@
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
+	<file>SoundEffect/Button_Push-Mike_Koenig-1659525069.wav</file>
+
+
     </qresource>
 </RCC>
