@@ -7,9 +7,11 @@
 #include <QGraphicsView>
 #include <QCursor>
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 #include "../Physics/Collider.h"
 #include <qmath.h>
 #include "QDebug"
+#include <QtGui>
 
 class Ground : public Collider
 {
@@ -21,6 +23,7 @@ private:
     QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
     QColor transparent = qRgba(255,255,255,0);
     QRgb brown = qRgb(125,65,6);
+    QRgb green = qRgb(121,178,51);
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
 
 public:
@@ -30,6 +33,7 @@ public:
     Ground(const QImage background);
 
     void randomize();
+    void randomize2();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 

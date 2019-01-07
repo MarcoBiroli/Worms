@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>help_menu</class>
+ <widget class="QDialog" name="help_menu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>431</width>
+    <height>570</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>491</width>
+     <height>571</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Commands:</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Move Left</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_A.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Move Right</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_D.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jump Vertically</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_W.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jump to the Left</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_Q.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jump to the Right</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_E.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Display/Hide Weapons Menu</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_Shift.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Increase shooting angle</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_I.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Decrease shooting angle</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_K.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Shoot</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_Space_bar.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Set worm's facing direction to right</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_Arrow_Right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Set worm's facing direction to left</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/menu/computer_key_Arrow_Left.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Weapons:</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bazooka, the good old classic</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Bazooka_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Grenade, give your enemy a warm explosion</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Grenade_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pistol, short range but high accuracy!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Gun_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Land mine, the perfect trap</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Mine_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Air strike, its a bird, its a plane, no it's an aerial attack!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Airstrike_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Banana bomb, watch out its bouncy!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Banana_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bat, useful for nearby enemy worms</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Bat_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cluster bomb, bomb incoming! Oh wait there's more...</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/BlueGrenade_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dynamite, perfect gift to drop off</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Dynamite_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Fire punch, give your enemy a juicy punch!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Firepunch_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Jet Pack, need a lift?</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Jetpack_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Magnet</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Magnet_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Armageddon, feeling desperate? Summon the end of the worm world!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Meteor_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Homing missile, It missed! Oh no...</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/Missile_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Monster bomb, nothing better than a big KABOOM!</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>180</green>
+       <blue>180</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="icon">
+     <iconset>
+      <disabledon>:/Images/weapons/MonsterBomb_right.png</disabledon>
+     </iconset>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
