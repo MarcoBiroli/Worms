@@ -78,6 +78,8 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
+
+            randomsound();
         }
     }
 

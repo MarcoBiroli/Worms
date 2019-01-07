@@ -15,4 +15,6 @@ void backgroundmusic(QString path);
 
 void playsound(QString path);
 
+void randomsound();
+
 #endif
