@@ -39,9 +39,13 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->change_pixel(i, j, Qt::white);
             }
             if (j >= terrain_height  && j <= terrain_height+5){
-                    this->map->setPixel(i,j,this -> green);
-                }
-
+                this->map->setPixel(i,j,this -> green);
+                this -> change_pixel(i,j, Qt::black);
+            }
+            if (j > terrain_height+5 && j < height){
+                this -> map -> setPixel(i,j,this->brown);
+                this -> change_pixel(i,j, Qt::black);
+            }
             if (j > height-10){
                 this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
             }  //blue pixels are rigid body but can't be delete
@@ -66,6 +70,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 
 
 int Ground::WaterHeight(const int height, const int counter){
+    return int(0.87*height);
     if (counter < 2){
         return int(0.87*height);
     }
@@ -77,6 +82,7 @@ int Ground::WaterHeight(const int height, const int counter){
 void Ground::Water(const int width, const int height, const int water_height){
     for (int i = 0; i < width; i++){
         for (int j = water_height; j < height ; j++){
+            //qDebug() << 'lol';
             this -> map -> setPixel(i,j,blue_sea);
         }
     }

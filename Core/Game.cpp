@@ -51,7 +51,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
 
-    double water_height = ground -> WaterHeight(ground_size_y,turn_counter);
+    int water_height = ground -> WaterHeight(ground_size_y,number_of_turns);
     ground -> Water(ground_size_x,ground_size_y,water_height);
 
     this->weapon_list();
