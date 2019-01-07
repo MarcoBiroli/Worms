@@ -114,9 +114,9 @@ void Ground::randomize2(){
     points[0]=2000;
     points[1]=1400;
     points[2]=1800;
-    //for (int t=0;t<3;t++){
-      //  points[t]=rand()%(1000) + 1000;
-    //}
+    for (int t=0;t<3;t++){
+        points[t]=rand()%(1000) + 1200;
+    }
 
 
 
@@ -134,29 +134,29 @@ void Ground::randomize2(){
                 //int y=((i-i%10)-500)/10;
                 //int h=y+1;
                 //terrain_height=points[y]+((points[y]-points[h])/(10))*(i-j);
-                int y;
-                int c;
+                int p_0=500;
+                int p_1=2000;
+                int p_2=4500;
                 if (i<=2000){
-                  //  terrain_height=2000;
-                   y=500;
-                   c=2000;
+
+
                    // terrain_height=2000+((700-2000)/(15))*(i-500);
-                    terrain_height=points[1]+(points[1]-points[0])/(c-y)*(i-y);
-                    // terrain_height=points[1]-points[0]*(i-y);
+                    terrain_height=points[0]+(points[1]-points[0])/(p_1-p_0)*(i-p_0);
+                   // terrain_height=1400-0.4*(i-500);
 
                 }
                 else{
-                    //terrain_height=1500;
-                    y=2000;
-                    c=4500;
-                    terrain_height=points[2]+(points[2]-points[1])/(c-y)*(i-y);
+
+
+                    //terrain_height=points[2]+(points[2]-points[1])/(c-y)*(i-y);
+                     terrain_height=points[1]+(points[2]-points[1])/(p_2-p_1)*(i-p_1);
                 }
-
-
 
 
 
                             }
+
+
             else{
                 terrain_height = 2500;
             }
@@ -173,6 +173,8 @@ void Ground::randomize2(){
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
 }
+
+
 
 
 void Ground::randomize3(){
