@@ -74,5 +74,17 @@
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
+        <file>Images/menu/computer_key_A.png</file>
+        <file>Images/menu/computer_key_Arrow_Right.png</file>
+        <file>Images/menu/computer_key_D.png</file>
+        <file>Images/menu/computer_key_E.png</file>
+        <file>Images/menu/computer_key_Q.png</file>
+        <file>Images/menu/computer_key_S.png</file>
+        <file>Images/menu/computer_key_Shift.png</file>
+        <file>Images/menu/computer_key_Space_bar.png</file>
+        <file>Images/menu/computer_key_W.png</file>
+        <file>Images/menu/computer_key_I.png</file>
+        <file>Images/menu/computer_key_K.png</file>
+        <file>Images/menu/computer_key_Arrow_Left.png</file>
     </qresource>
 </RCC>

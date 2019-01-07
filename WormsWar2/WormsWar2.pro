@@ -39,7 +39,8 @@ SOURCES += \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
-    weapon_menu.cpp
+    weapon_menu.cpp \
+    help_menu.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -53,8 +54,13 @@ HEADERS += \
         ../Core/worms.h \
         ../Core/barrel.h \
     ../GUI/music.h \
-    weapon_menu.h
+    weapon_menu.h \
+    help_menu.h
 
 FORMS += \
         mainwindow.ui \
-    weapon_menu.ui
+    weapon_menu.ui \
+    help_menu.ui \
+    dialogwindow.ui
+
+DISTFILES +=
