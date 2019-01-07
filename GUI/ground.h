@@ -33,6 +33,7 @@ public:
     Ground(const QImage background);
 
     void randomize();
+    void randomize2();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 
