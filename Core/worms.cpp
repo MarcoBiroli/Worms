@@ -115,4 +115,17 @@ void Worm::wormDeath() {
     //call animation
 }
 
+bool Worm::isWorm(){
+    return true;
+}
+
+void Worm::addAmmo(int weaponID, int amountAmmo){
+    if (weaponID == 0){
+        this->health += amountAmmo;
+    }
+    else {
+        this->ammo[weaponID] += amountAmmo;
+    }
+}
+
   

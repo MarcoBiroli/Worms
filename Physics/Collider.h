@@ -23,6 +23,8 @@ class Collider{
         virtual void circ_delete(int x, int y, double radius);
         bool is_ground = false;
 
+        virtual bool isWorm();
+        virtual void addAmmo(int weaponID, int amountAmmo);
         //Constructors
 
         Collider();
