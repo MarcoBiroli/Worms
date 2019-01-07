@@ -40,6 +40,7 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp
+    game_settings.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -54,7 +55,9 @@ HEADERS += \
         ../Core/barrel.h \
     ../GUI/music.h \
     weapon_menu.h
+    game_settings.h
 
 FORMS += \
         mainwindow.ui \
-    weapon_menu.ui
+    weapon_menu.ui \
+    game_settings.ui
