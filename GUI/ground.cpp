@@ -120,6 +120,53 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
 
 
 
+void Ground::randomize2(){
+    //final version of randomize2. It creates random points in a chosen interval and it creates a ground by interpolating these
+    //points with straight lines. It is not weel suited for the game of worms but it was a good starting to make random grounds.
+    
+    srand(time(NULL));
+    int a=500;//width of the ground i.e. b-a
+    int b=4500;//a,b are multiples of 10;
+    int c=500;//c must divide (b-a); this to make it easy.
+    int numb_points=(b-a)/c+1;
+    double terrain_height;
+    double points [numb_points];
+    double x[numb_points]; //x coordinates
+
+    for (int t=0;t<=numb_points-1;t++){
+        points[t]=rand()%(400) + 1300;//choose a reasonable range
+    }
+    for (int t=0;t<=numb_points-1;t++){
+        x[t]=a+t*c;
+    }
+    int cn=0;
+    //color in black every pixel under the superposition of the two functions
+    for (int i=0;i<this->map->width();i++){
+
+        for (int j=0;j<this->map->height();j++){
+                if(a <= i && i <= b){
+                terrain_height=points[cn]+(points[cn+1]-points[cn])/(x[cn+1]-x[cn])*(i-x[cn]);
+                            }
+            else{
+                terrain_height = 2500;
+            }
+            if (j<terrain_height){
+                this->map->setPixel(i, j, this->blue_sky);
+                this->change_pixel(i, j, Qt::white);
+            }
+            else {
+                this->map->setPixel(i, j, Qt::black);
+                this->change_pixel(i, j, Qt::black);
+            }
+        }
+        cn=((i-i%c)-a)/c;
+    }
+    item->setPixmap(QPixmap::fromImage(*this->map));
+}
+
+
+
+
 //WORK IN PROGRESS
 void Ground::randomize(){
     //this first function creates a random terrain made of a superpositon of cosine

@@ -34,6 +34,7 @@ public:
     int WaterHeight(const int height, const int counter);
     void Water(const int width, const int height, const int water_height);
     void randomize();
+    void randomize2();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
 

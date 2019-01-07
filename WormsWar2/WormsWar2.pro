@@ -41,9 +41,8 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
-    game_settings.cpp \
-
-
+    help_menu.cpp\
+    game_settings.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -59,9 +58,14 @@ HEADERS += \
         ../Core/crates.h \
     ../GUI/music.h \
     weapon_menu.h \
-    game_settings.h \
+    help_menu.h\
+    game_settings.h
 
 FORMS += \
         mainwindow.ui \
     weapon_menu.ui \
+    help_menu.ui \
+    dialogwindow.ui
+
+DISTFILES += \
     game_settings.ui
