@@ -12,6 +12,7 @@ Ground::Ground(const QImage bw_ground): Collider(){
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
+    srand(time(NULL));//make random 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
@@ -37,10 +38,10 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height){
-                this->map->setPixel(i, j, this -> brown);  //ground in brown
-                this->change_pixel(i, j, Qt::black);
-            }
+            if (j >= terrain_height  && j <= terrain_height+5){
+                    this->map->setPixel(i,j,this -> green);
+                }
+
             if (j > height-10){
                 this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
             }  //blue pixels are rigid body but can't be delete
@@ -147,8 +148,7 @@ void Ground::randomize(){
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
+
 }
-
-
 
 

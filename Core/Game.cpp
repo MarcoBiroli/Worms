@@ -51,6 +51,9 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
 
+    double water_height = ground -> WaterHeight(ground_size_y,turn_counter);
+    ground -> Water(ground_size_x,ground_size_y,water_height);
+
     this->weapon_list();
     this->menu = new weapon_menu();
     QGraphicsProxyWidget *item = scene->addWidget(menu);

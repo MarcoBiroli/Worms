@@ -41,13 +41,16 @@ int main(int argc, char *argv[])
             int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
             double update_time = 10;
             bool is_done = false;
-
+            //QTime starttime = QTime::currentTime();
             while(!view->has_quitted && !is_done){
                 a.processEvents();
                 timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
                 if(timeSinceLastUpdate>update_time){
                     is_done = game->gameIteration(timeSinceLastUpdate);
-                    lastUpdate = QTime::currentTime();
+                    //lastUpdate = QTime::currentTime();
+                    //double turn_timer = starttime.msecsTo(QTime::currentTime());
+                    //double water_height = ground -> WaterHeight(ground_size_y,turn_timer);
+                    //ground -> Water(ground_size_x,ground_size_y,water_height);
                 }
                 view->showMaximized();
             }
