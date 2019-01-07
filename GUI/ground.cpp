@@ -70,20 +70,20 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 
 
 int Ground::WaterHeight(const int height, const int counter){
+    qInfo() << "counter: " << counter;
     return int(0.87*height);
-    if (counter < 2){
+    if (counter < 33){
         return int(0.87*height);
     }
-    if (counter >= 2 && counter < 20){
-        return int(0.87*height - (counter+50));
+    if (counter >= 33 && counter < 2000){
+        return int(0.87*height - (counter));
     }
 }
 
 void Ground::Water(const int width, const int height, const int water_height){
     for (int i = 0; i < width; i++){
         for (int j = water_height; j < height ; j++){
-            //qDebug() << 'lol';
-            this -> map -> setPixel(i,j,blue_sea);
+            this->map->setPixel(i,j,blue_sea);
         }
     }
 }

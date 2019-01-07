@@ -47,12 +47,13 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
-    scene->addItem(ground->getPixmap());
-    physics_engine->add_Collider(ground);
-    view->centerOn(ground->getPixmap());
 
     int water_height = ground -> WaterHeight(ground_size_y,number_of_turns);
     ground -> Water(ground_size_x,ground_size_y,water_height);
+
+    scene->addItem(ground->getPixmap());
+    physics_engine->add_Collider(ground);
+    view->centerOn(ground->getPixmap());
 
     this->weapon_list();
     this->menu = new weapon_menu();
