@@ -15,6 +15,7 @@ class PhysicsEngine{
         //Constructors
         PhysicsEngine();
         PhysicsEngine(QPair<double, double> gf);
+        ~PhysicsEngine();
 
         //Methods
 

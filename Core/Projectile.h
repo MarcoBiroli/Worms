@@ -12,6 +12,7 @@ class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit
     public:
         Projectile();
+        virtual ~Projectile();
 
         void print();
         //prints the Projectile's specs
@@ -41,6 +42,7 @@ class Projectile : public RigidBody {
 
         bool change_delay(double dt);
         // changes delay
+        bool should_explode = false;
 
 
 
@@ -53,7 +55,6 @@ class Projectile : public RigidBody {
         double damage;
         std::string weapon_name; //? Whats the weapon name for
         int weapon_id;
-        double fire_time;
 };
 
 

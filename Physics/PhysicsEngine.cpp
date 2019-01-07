@@ -9,6 +9,12 @@ PhysicsEngine::PhysicsEngine(QPair<double, double> gf){
     this->general_force = gf;
 }
 
+PhysicsEngine::~PhysicsEngine()
+{
+    qDeleteAll(rigidbodies);
+    qDeleteAll(colliders);
+}
+
 //Methods
 
 void PhysicsEngine::add_RigidBody(RigidBody* other)
@@ -133,7 +139,7 @@ RigidBody *PhysicsEngine::get_rigidbody (int id) const
 
 void PhysicsEngine::delete_rigidbody(int id)
 {
-    delete rigidbodies.value(id); //freeeee memooooory
+    //delete rigidbodies.value(id); //freeeee memooooory
     rigidbodies.remove(id);
 }
 

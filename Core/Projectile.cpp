@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
+#include "../GUI/music.h"
 #include "Projectile.h"
 
 #define update_time 10
@@ -9,6 +9,11 @@ using namespace std;
 Projectile::Projectile() : RigidBody ()
 {
 
+}
+
+Projectile::~Projectile()
+{
+    //delete this->sprite;
 }
 
 void Projectile::print() {
@@ -52,14 +57,14 @@ Projectile* Projectile::clone() {
 bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
-    other.circ_delete(this->x,this->y,this->explosion_radius);
-    return true;}
+        this->should_explode = true;
+    };
     return false;
-    //"??"
 }
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
+    playsound("qrc:/SoundEffect/Explosion+7.mp3");
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
@@ -85,10 +90,6 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
     }
     this->sprite->hide();
-
-    //destroy projectile
-    engine.delete_rigidbody(this->getId());
-    projectiles.removeOne(this);
 }
 
 int Projectile::get_weapon_id() const

@@ -1,6 +1,7 @@
 #include "RigidBody.h"
 #include <iostream>
 #include <QtMath>
+#include "../GUI/music.h"
 
 #define update_time 10
 
@@ -36,6 +37,11 @@ RigidBody::RigidBody(double imass, double ix, double iy) : Collider(ix, iy){
     this->ax = 0;
     this->ay = 0;
     this->sprite = new QGraphicsPixmapItem(QPixmap::fromImage(this->get_map()));
+}
+
+RigidBody::~RigidBody()
+{
+      //delete this->sprite;
 }
 
 //Physics methods.
@@ -91,10 +97,10 @@ void RigidBody::addForce(QPair<double, double> F) //(fx , fy)
 
 //this method computes the distance between the centers of masses of two RigidBodies.
 
-double RigidBody::distance(RigidBody other){
-    double xo=other.cmx;
-    double yo=other.cmy;
-    double distance= std::sqrt((this->cmx-xo)*(this->cmx-xo) + (this->cmy-yo) * (this->cmy-yo));
+double RigidBody::distance(RigidBody &other){
+    double xo=other.getX();
+    double yo=other.getY();
+    double distance= qSqrt(qPow(this->x - xo, 2) + qPow(this->y-yo,2));
     return distance;
 }
 
@@ -173,6 +179,12 @@ void RigidBody::setax(double a_x){
 void RigidBody::setstable(bool a){
     stable = a;
 
+}
+
+void RigidBody::setforce(QPair<double, double> forces)
+{
+    this->currentForce.first = forces.first;
+    this->currentForce.second = forces.second;
 }
 
 
