@@ -107,6 +107,10 @@ bool Game::gameIteration(double dt){
             projectiles.remove(i);
             nextWorm();
             turn_timer = 0;
+            //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
+            //explosion_image->setX(projectiles[i]->getX());
+            //explosion_image->setY(projectiles[i]->getY());
+            //scene->addItem(explosion_image);
         }
     }
 
@@ -303,8 +307,3 @@ bool Game::isFinished(){
     }
     return true;
 }
-
-
-
-
-

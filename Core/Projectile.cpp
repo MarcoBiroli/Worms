@@ -90,6 +90,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
     }
     this->sprite->hide();
+
 }
 
 int Projectile::get_weapon_id() const
