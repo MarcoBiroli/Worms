@@ -25,13 +25,14 @@ void Game::weapon_list()
     //Dynamite weapon id = 3
     QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(20,20));
     Projectile * dynamite = new Projectile("Dynamite", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img3);
-    dynamite->set_map(QImage("://Images/weapons/Dynamite_collider_left.png").scaled(20,20));
+    dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
     Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 5, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
+
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){

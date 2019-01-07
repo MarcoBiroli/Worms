@@ -1,4 +1,5 @@
 #include "worms.h"
+#include "../GUI/music.h"
 
 #define update_time 0.01
 
