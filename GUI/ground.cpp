@@ -61,10 +61,14 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
 }
 
 //WORK IN PROGRESS
-void Ground::randomize(){
-    //this first function creates a random terrain made of a superpositon of cosine
+QGraphicsPixmapItem* Ground::randomize(){
+     //this first function creates a random terrain made of a superpositon of cosine
+    //it changes simultaneously the color of the image that will be displayed
 
-    
+    QImage display_image = QImage(5000,3000,QImage::Format_ARGB32);
+    display_image.fill(QColor(Qt::white).rgb());
+     // before you start drawing pixels.
+
     //create random phase and random period for two cosine functions within a range that is reasonable to obtain
     //a good mountain-like terrain
     double period1,period2;
@@ -86,16 +90,25 @@ void Ground::randomize(){
             if (j<terrain_height){
                 this->map->setPixel(i, j, this->blue_sky);
                 this->change_pixel(i, j, Qt::white);
+                display_image.setPixel(i,j,qRgba(0,0,0,0));
             }
             else {
                 this->map->setPixel(i, j, Qt::black);
                 this->change_pixel(i, j, Qt::black);
+                display_image.setPixel(i,j,qRgb(76,153,0));
             }
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
+    QGraphicsPixmapItem *pxmp_display_image = new QGraphicsPixmapItem(QPixmap::fromImage(display_image));
+    return pxmp_display_image;
+
 }
 
+
+
+
+//QGraphicsPixmapItem display_image = new QGraphicsPixmapItem(QPixmap::fromImage("://Images/white.jpg");
 
 
 

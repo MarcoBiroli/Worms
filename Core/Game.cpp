@@ -37,8 +37,9 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     QSound::play("://Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
-    ground->randomize();
-    scene->addItem(ground->getPixmap());
+
+    //scene->addItem(ground->getPixmap());
+    scene->addItem(ground->randomize());
     physics_engine.add_Collider(ground);
     view->centerOn(ground->getPixmap());
     this->weapon_list();

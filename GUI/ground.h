@@ -7,9 +7,11 @@
 #include <QGraphicsView>
 #include <QCursor>
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 #include "../Physics/Collider.h"
 #include <qmath.h>
 #include "QDebug"
+#include <QtGui>
 
 class Ground : public Collider
 {
@@ -29,7 +31,7 @@ public:
     }
     Ground(const int width, const int height);
 
-    void randomize();
+    QGraphicsPixmapItem* randomize();
     Ground(const QImage background);
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
