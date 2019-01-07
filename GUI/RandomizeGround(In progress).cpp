@@ -1,5 +1,5 @@
 #include "ground.h"
-
+#include <stdio.h>
 
 Ground::Ground(const QImage background): Collider(){
     this -> set_map(background.scaled(2100,730));
@@ -62,6 +62,7 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
 
 //WORK IN PROGRESS
 void Ground::randomize(){
+    srand(time(NULL));
     //this first function creates a random terrain made of a superpositon of cosine
 
     
@@ -104,13 +105,18 @@ void Ground::randomize(){
 
 
 void Ground::randomize2(){
-
+    //simple perlin noise like function. For now i interpolate only 3 points, then they will be replaced by a hundred or more random point in a given 
+    //interval.
+    srand(time(NULL));
     int a=500;
     int b=4500;
-    int points [2];
-    for (int t=0;t<3;t++){
-        points[t]=rand()%(100) + 3000;
-    }
+    double points [3];
+    points[0]=2000;
+    points[1]=1400;
+    points[2]=1800;
+    //for (int t=0;t<3;t++){
+      //  points[t]=rand()%(1000) + 1000;
+    //}
 
 
 
@@ -131,18 +137,26 @@ void Ground::randomize2(){
                 int y;
                 int c;
                 if (i<=2000){
-                    y=500;
-                    c=2000;
-                    terrain_height=points[0]+((points[0]-points[1])/(c-y))*(i-y);
+                  //  terrain_height=2000;
+                   y=500;
+                   c=2000;
+                   // terrain_height=2000+((700-2000)/(15))*(i-500);
+                    terrain_height=points[1]+(points[1]-points[0])/(c-y)*(i-y);
+                    // terrain_height=points[1]-points[0]*(i-y);
+
                 }
                 else{
+                    //terrain_height=1500;
                     y=2000;
                     c=4500;
-                    terrain_height=points[1]+((points[1]-points[2])/(c-y))*(i-y);
+                    terrain_height=points[2]+(points[2]-points[1])/(c-y)*(i-y);
                 }
 
 
-            }
+
+
+
+                            }
             else{
                 terrain_height = 2500;
             }
@@ -161,12 +175,8 @@ void Ground::randomize2(){
 }
 
 
-//void Ground::randomize3()
-    
-//this function should either implement random grounds imagining the screen
-//as a matrix or perlin noise in 1D if i manage.
-
-
+void Ground::randomize3(){
+  //perlin noise to try to make...
     
     
     

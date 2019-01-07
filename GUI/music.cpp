@@ -32,3 +32,14 @@ void playsound(QString path){
     music->setVolume(100);
     music->play();
 }
+
+void randomsound(){
+    int val;
+
+    val = rand() % 4 + 1;
+
+    if (val == 1){playsound("qrc:/SoundEffect/Pain-SoundBible.com-1883168362.wav");}
+    if (val == 2){playsound("qrc:/SoundEffect/Cry+2.wav");}
+    if (val == 3){playsound("qrc:/SoundEffect/Yawn+1.wav");}
+    if (val == 4){playsound("qrc:/SoundEffect/Cough2.wav");}
+}

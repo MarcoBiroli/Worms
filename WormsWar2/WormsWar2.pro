@@ -36,10 +36,14 @@ SOURCES += \
         ../Core/Projectile.cpp \
         ../Core/worms.cpp \
         ../Core/barrel.cpp \
+        ../Core/crates.cpp \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
-    weapon_menu.cpp
+    weapon_menu.cpp \
+    game_settings.cpp \
+
+
 
 HEADERS += \
         mainwindow.h\
@@ -52,9 +56,12 @@ HEADERS += \
         ../Core/Projectile.h \
         ../Core/worms.h \
         ../Core/barrel.h \
+        ../Core/crates.h \
     ../GUI/music.h \
-    weapon_menu.h
+    weapon_menu.h \
+    game_settings.h \
 
 FORMS += \
         mainwindow.ui \
-    weapon_menu.ui
+    weapon_menu.ui \
+    game_settings.ui
