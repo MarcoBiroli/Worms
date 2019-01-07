@@ -7,6 +7,7 @@
 
 class Worm;
 class Barrel;
+class RigidBody;
 
 class Projectile : public RigidBody {
     // General projectile class from which different projectiles types inherit

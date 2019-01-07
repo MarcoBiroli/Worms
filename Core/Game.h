@@ -20,14 +20,18 @@
 #include "worms.h"
 #include "Barrel.h"
 #include "weapon_menu.h"
+#include "crates.h"
 
 class Game{
     private:
       double max_turn_time;
       int nb_teams;
 
+      int number_of_turns;
+
       double turn_timer;
       bool paused;
+      bool has_shot;
 
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
@@ -59,6 +63,7 @@ class Game{
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
       QVector<Projectile*> weapons;
+      QVector<Crate*> crates;
 
       //Constructors
       Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
@@ -79,6 +84,5 @@ class Game{
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
 
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
-
 };
 #endif // GAME_H
