@@ -28,6 +28,7 @@ RESOURCES     = res.qrc
 
 SOURCES += \
         main.cpp \
+        mainwindow.cpp\
         ../Physics/Collider.cpp \
         ../Physics/PhysicsEngine.cpp \
         ../Physics/RigidBody.cpp \
@@ -36,9 +37,12 @@ SOURCES += \
         ../Core/worms.cpp \
         ../Core/barrel.cpp \
         ../GUI/ground.cpp \
-    ../GUI/customview.cpp
+    ../GUI/customview.cpp \
+    ../GUI/music.cpp \
+    weapon_menu.cpp
 
 HEADERS += \
+        mainwindow.h\
         ../Physics/Collider.h \
         ../Physics/PhysicsEngine.h \
         ../Physics/RigidBody.h \
@@ -48,7 +52,9 @@ HEADERS += \
         ../Core/Projectile.h \
         ../Core/worms.h \
         ../Core/barrel.h \
-    ../GUI/music.h
+    ../GUI/music.h \
+    weapon_menu.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    weapon_menu.ui

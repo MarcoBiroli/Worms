@@ -2,6 +2,7 @@
 #include "math.h"
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include "qmath.h"
 
 /*The collider class which takes care of the collision of two or more rigid bodies*/
 
@@ -27,7 +28,7 @@ class Collider{
         Collider();
         Collider(double ix, double iy, QImage map);
         Collider(double ix, double iy); //map is the default black square 32x32 pixels
-
+        virtual ~Collider();
         //get and set private variables
 
         int getId() const; // can be used
@@ -58,8 +59,5 @@ class Collider{
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)
 
         QPair<bool, QPair<double, double>> check_collision(Collider &other);
-
-        //--------Destructor function do!!---------- Thomas?
-
 
 };

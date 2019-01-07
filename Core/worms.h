@@ -7,6 +7,7 @@
 #include "../Physics/PhysicsEngine.h"
 #include "Projectile.h"
 #include <QtMath>
+#include <QGraphicsSimpleTextItem>
 
 
 #define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
@@ -16,9 +17,9 @@ class Projectile;
 class Worm: public RigidBody {
     public:
       Worm();
-      Worm(int team_number, std::string personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
+      Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
 
-      ~Worm(); //free the weapons array
+      virtual ~Worm(); //free the weapons array
 
       bool isAlive() const;
 
@@ -38,13 +39,13 @@ class Worm: public RigidBody {
       //void changeAngle(bool clockwise);
       //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
       
-      Projectile* fireWeapon(double power, QVector<Projectile> weapons);
+      Projectile* fireWeapon(double power, QVector<Projectile*> &weapons);
       //with the power from the user input and the angle stored in the Worms class, create
       //projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
 
       void wormDeath(); // call destructor and run death animation
     
-      bool get_direction() const;
+      bool get_direction();
     
       void set_direction();
 
@@ -52,14 +53,15 @@ class Worm: public RigidBody {
 
       double weapon_angle = 0; //intially 0
 
+      QGraphicsSimpleTextItem* label;
+
     private:
       int health;
-      int current_weapon;
+      int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
-      const std::string personal_name;
-      bool isTurn;
-      int weapon_ID = 0;
+      const QString personal_name;
+      //int weapon_ID = 0;
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right
       QGraphicsPixmapItem pixmap;
