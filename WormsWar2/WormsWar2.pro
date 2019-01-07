@@ -43,7 +43,7 @@ SOURCES += \
     weapon_menu.cpp \
     game_settings.cpp \
 
->>>>>>> f8c69d203ab3426a3dd820e6e9ad1162ae3d4c86
+
 
 HEADERS += \
         mainwindow.h\
