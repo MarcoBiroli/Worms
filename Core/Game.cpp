@@ -106,6 +106,9 @@ bool Game::gameIteration(double dt){
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
 
+        //int water_height = ground -> WaterHeight(ground_size_y,number_of_turns);
+        //ground -> Water(ground_size_x,ground_size_y,water_height);
+
         nextWorm();
         turn_timer = 0;
         has_shot = false;
