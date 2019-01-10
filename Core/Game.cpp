@@ -106,13 +106,12 @@ bool Game::gameIteration(double dt){
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
 
-
         int water_height = ground -> WaterHeight(number_of_turns);
         ground -> Water(water_height);
 
         nextWorm();
         turn_timer = 0;
-        has_shot = false;
+
         /*Crate* newCrate = new Crate(30,  2500, 100, 0, 20,  worm_image["right"]);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
@@ -141,6 +140,8 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    has_shot = false;
+
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
