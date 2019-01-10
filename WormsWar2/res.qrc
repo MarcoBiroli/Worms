@@ -56,6 +56,7 @@
         <file>Images/weapons/MonsterBomb_collider_left.png</file>
         <file>Images/weapons/MonsterBomb_right.png</file>
         <file>Images/weapons/MonsterBomb_left.png</file>
+	<file>Images/weapons/Explosion.png</file>
         <file>Images/grounds/sunset_mountains.png</file>
         <file>Images/grounds/morning_mountains.png</file>
         <file>Images/rigidbodies/Worm_collider.png</file>
@@ -77,10 +78,22 @@
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
+        <file>Images/menu/computer_key_A.png</file>
+        <file>Images/menu/computer_key_Arrow_Right.png</file>
+        <file>Images/menu/computer_key_D.png</file>
+        <file>Images/menu/computer_key_E.png</file>
+        <file>Images/menu/computer_key_Q.png</file>
+        <file>Images/menu/computer_key_S.png</file>
+        <file>Images/menu/computer_key_Shift.png</file>
+        <file>Images/menu/computer_key_Space_bar.png</file>
+        <file>Images/menu/computer_key_W.png</file>
+        <file>Images/menu/computer_key_I.png</file>
+        <file>Images/menu/computer_key_K.png</file>
+        <file>Images/menu/computer_key_Arrow_Left.png</file>
 	<file>SoundEffect/Button_Push-Mike_Koenig-1659525069.wav</file>
 	<file>SoundEffect/Pain-SoundBible.com-1883168362.wav</file>
-
-
-
+	<file>SoundEffect/Cry+2.wav</file>
+	<file>SoundEffect/Yawn+1.wav</file>
+	<file>SoundEffect/Cough2.wav</file>
     </qresource>
 </RCC>

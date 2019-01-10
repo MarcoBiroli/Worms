@@ -78,7 +78,23 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
+
+            randomsound();
         }
+    for (int i=0; i<projectiles.size(); i++) {
+        Projectile* projectile = projectiles[i];
+        double dist = this->distance(*worm);
+        if (dist <= explosion_radius) {
+            int dmg_dealt = damage - (damage/explosion_radius)*dist;
+            //run explosion animation
+            QPair<double, double> vect_dist =  QPair<double, double> (projectile->getX() - this->x, projectile->getY() - this->y);
+            double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
+            double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
+            //Force applied depends on the damage dealt and the distance to the explosion
+            QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
+            projectile->addForce(explosion_force);
+        }
+    }
     }
 
     for (int j=0; j<barrels.size(); j++) {
@@ -90,6 +106,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
     }
     this->sprite->hide();
+
 }
 
 int Projectile::get_weapon_id() const

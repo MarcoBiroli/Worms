@@ -12,7 +12,6 @@ Ground::Ground(const QImage bw_ground): Collider(){
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
-    
     srand(time(NULL));//make random 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
@@ -25,26 +24,30 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     double phase1=rand()%int(0.2*width)+int(0.04*width);
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
-    double sea_level = 0.87*height;
+    double grass_height;
+    //double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
     for (int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
             terrain_height = 0.53*height + 0.083*height*qCos(i/period1+phase1)+0.067*height*qCos(i/period2+phase2);
+            grass_height = terrain_height + 0.03*(0.53*height + 0.083*height*qCos(100*i/period1+phase1)+0.067*height*qCos(100*i/period2+phase2));
         }
         else{
             terrain_height = height+1;
+            grass_height = height + 2;// Comment this line to get ground up to the edges of the screen.
         }
         for (int j = 0; j < height ; j++){
             if (j < terrain_height){
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height && j < sea_level){
-                this->map->setPixel(i, j, this -> brown);  //ground in brown
-                this->change_pixel(i, j, Qt::black);
+            if (j >= terrain_height && j <= grass_height){
+                this->map->setPixel(i,j,this -> green);
+                this -> change_pixel(i,j, Qt::black);
             }
-            if (j >= sea_level) {
-                this -> map -> setPixel(i,j,this -> blue_sea);
+            if (j > grass_height && j < height){
+                this -> map -> setPixel(i,j,this->brown);
+                this -> change_pixel(i,j, Qt::black);
             }
             if (j > height-10){
                 this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
@@ -66,6 +69,26 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
             }
         }*/
     this->is_ground = true;
+}
+
+
+int Ground::WaterHeight(const int height, const int counter){
+    qInfo() << "counter: " << counter;
+    return int(0.87*height);
+    if (counter < 33){
+        return int(0.87*height);
+    }
+    if (counter >= 33 && counter < 2000){
+        return int(0.87*height - (counter));
+    }
+}
+
+void Ground::Water(const int width, const int height, const int water_height){
+    for (int i = 0; i < width; i++){
+        for (int j = water_height; j < height ; j++){
+            this->map->setPixel(i,j,blue_sea);
+        }
+    }
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
@@ -100,6 +123,53 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
 
 
 
+void Ground::randomize2(){
+    //final version of randomize2. It creates random points in a chosen interval and it creates a ground by interpolating these
+    //points with straight lines. It is not weel suited for the game of worms but it was a good starting to make random grounds.
+    
+    srand(time(NULL));
+    int a=500;//width of the ground i.e. b-a
+    int b=4500;//a,b are multiples of 10;
+    int c=500;//c must divide (b-a); this to make it easy.
+    int numb_points=(b-a)/c+1;
+    double terrain_height;
+    double points [numb_points];
+    double x[numb_points]; //x coordinates
+
+    for (int t=0;t<=numb_points-1;t++){
+        points[t]=rand()%(400) + 1300;//choose a reasonable range
+    }
+    for (int t=0;t<=numb_points-1;t++){
+        x[t]=a+t*c;
+    }
+    int cn=0;
+    //color in black every pixel under the superposition of the two functions
+    for (int i=0;i<this->map->width();i++){
+
+        for (int j=0;j<this->map->height();j++){
+                if(a <= i && i <= b){
+                terrain_height=points[cn]+(points[cn+1]-points[cn])/(x[cn+1]-x[cn])*(i-x[cn]);
+                            }
+            else{
+                terrain_height = 2500;
+            }
+            if (j<terrain_height){
+                this->map->setPixel(i, j, this->blue_sky);
+                this->change_pixel(i, j, Qt::white);
+            }
+            else {
+                this->map->setPixel(i, j, Qt::black);
+                this->change_pixel(i, j, Qt::black);
+            }
+        }
+        cn=((i-i%c)-a)/c;
+    }
+    item->setPixmap(QPixmap::fromImage(*this->map));
+}
+
+
+
+
 //WORK IN PROGRESS
 void Ground::randomize(){
     //this first function creates a random terrain made of a superpositon of cosine
@@ -126,18 +196,15 @@ void Ground::randomize(){
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height && j < 2600){
+            if (j >= terrain_height){
                 this->map->setPixel(i, j, this -> brown);
                 this->change_pixel(i, j, Qt::black);
             }
-            if (j >= 2600) {
-                this -> map -> setPixel(i,j,this -> blue_sea);
-            }
+
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
+
 }
-
-
 
 

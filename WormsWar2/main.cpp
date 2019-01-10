@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
             int timeSinceLastUpdate = QTime::currentTime().msecsTo(lastUpdate);
             double update_time = 10;
             bool is_done = false;
-
+            //QTime starttime = QTime::currentTime();
             while(!view->has_quitted && !is_done){
                 a.processEvents();
                 timeSinceLastUpdate = lastUpdate.msecsTo(QTime::currentTime());
