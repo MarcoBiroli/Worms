@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
                     is_done = game->gameIteration(timeSinceLastUpdate);
                     lastUpdate = QTime::currentTime();
                 }
-                view->showMaximized();
+                view->showFullScreen();
             }
             delete view;
             delete scene;
