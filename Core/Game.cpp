@@ -111,12 +111,14 @@ bool Game::gameIteration(double dt){
 
         nextWorm();
         turn_timer = 0;
-        has_shot = false;
-        /*Crate* newCrate = new Crate(30,  2500, 100, 0, 20,  worm_image["right"]);//positions are arbitrary and should depend on size of window
 
-        physics_engine->add_RigidBody(newCrate);
-        crates.append(newCrate);
-        scene->addItem(newCrate->sprite);*/
+        /*if(number_of_turns>4){
+            Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
+
+            physics_engine->add_RigidBody(newCrate);
+            crates.append(newCrate);
+            scene->addItem(newCrate->sprite);
+        }*/
 
 
     }
@@ -140,6 +142,8 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    has_shot = false;
+
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
