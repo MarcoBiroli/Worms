@@ -23,6 +23,9 @@ void CustomView::wheelEvent(QWheelEvent *event)
            scale(1/scaleFactor,1/scaleFactor);
            currentScale /= scaleFactor;
    }
+   QPointF pointf = mapToScene(0.0,0.0);
+   QPoint point = QPoint(pointf.rx(), pointf.ry());
+   this->game->changemenupos(point);
 }
 
 

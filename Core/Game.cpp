@@ -57,10 +57,10 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
 
     this->weapon_list();
     this->menu = new weapon_menu();
-    QGraphicsProxyWidget *item = scene->addWidget(menu);
-    item->setPos(0,0);
-    item->setZValue(100);
-    item->hide();
+    this->proxymenu = scene->addWidget(menu);
+
+    proxymenu->setZValue(100);
+    proxymenu->hide();
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -334,4 +334,8 @@ bool Game::isFinished(){
         }
     }
     return true;
+}
+
+void Game::changemenupos(QPoint point){
+    proxymenu->setPos(point);
 }

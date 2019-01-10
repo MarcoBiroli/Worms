@@ -49,6 +49,8 @@ class Game{
       //GRAPHICS
       QMap<QString, QVector<QPixmap>> spritesheets;
 
+      QGraphicsProxyWidget *proxymenu;
+
     public:
 
       //Initializing "GOD"!!!!
@@ -87,5 +89,7 @@ class Game{
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
 
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
+
+      void changemenupos(QPoint point);
 };
 #endif // GAME_H
