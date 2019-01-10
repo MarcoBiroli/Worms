@@ -339,3 +339,7 @@ bool Game::isFinished(){
 void Game::changemenupos(QPoint point){
     proxymenu->setPos(point);
 }
+
+void Game::changemenusize(int dx,int dy){
+    proxymenu->resize(0,0);
+}

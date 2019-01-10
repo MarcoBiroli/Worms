@@ -91,5 +91,7 @@ class Game{
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
 
       void changemenupos(QPoint point);
+
+      void changemenusize(int dx,int dy);
 };
 #endif // GAME_H
