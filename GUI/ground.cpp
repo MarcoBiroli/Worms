@@ -12,6 +12,8 @@ Ground::Ground(const QImage bw_ground): Collider(){
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
+    this->width = width;
+    this->height = height;
     srand(time(NULL));//make random 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
@@ -72,18 +74,17 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
 }
 
 
-int Ground::WaterHeight(const int height, const int counter){
+int Ground::WaterHeight(const int counter){
     qInfo() << "counter: " << counter;
-    return int(0.87*height);
-    if (counter < 33){
+    if (counter < 2){
         return int(0.87*height);
     }
-    if (counter >= 33 && counter < 2000){
-        return int(0.87*height - (counter));
+    if (counter >= 2 && counter < 2000){
+        return int(0.87*height - 100*(counter));
     }
 }
 
-void Ground::Water(const int width, const int height, const int water_height){
+void Ground::Water(const int water_height){
     for (int i = 0; i < width; i++){
         for (int j = water_height; j < height ; j++){
             this->map->setPixel(i,j,blue_sea);
@@ -102,8 +103,10 @@ QImage* Ground::getMap() const{ //This returns the ground itself.
 }
 void Ground::delete_ground(int x, int y){ //This deletes the ground at one point of coordinate (x,y).
     if(this->get_map().pixelColor(x,y) == Qt::black){
-        this->map->setPixel(x, y, qRgba(255,255,255,0));
         this->change_pixel(x, y, Qt::white);
+        if (this->map->pixelColor(x,y) != blue_sea){
+            this->map->setPixel(x, y, qRgba(255,255,255,0));
+        }
     }
 }
 void Ground::circ_delete(int x, int y, double radius){ //This deletes all points in a circle of center (x,y) and radius "radius".
