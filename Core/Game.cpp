@@ -112,6 +112,7 @@ bool Game::gameIteration(double dt){
         nextWorm();
         turn_timer = 0;
         has_shot = false;
+
         /*Crate* newCrate = new Crate(30,  2500, 100, 0, 20,  worm_image["right"]);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
@@ -127,8 +128,7 @@ bool Game::gameIteration(double dt){
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
-            nextWorm();
-            turn_timer = 0;
+
             //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
             //explosion_image->setX(projectiles[i]->getX());
             //explosion_image->setY(projectiles[i]->getY());
