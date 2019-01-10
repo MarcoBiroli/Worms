@@ -25,14 +25,16 @@ private:
     QRgb brown = qRgb(125,65,6);
     QRgb green = qRgb(121,178,51);
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
+    double height;
+    double width;
 
 public:
     //Constructors
     Ground();
     Ground(const int width, const int height); //const QImage background);
     Ground(const QImage background);
-    int WaterHeight(const int height, const int counter);
-    void Water(const int width, const int height, const int water_height);
+    int WaterHeight(const int counter);
+    void Water(const int water_height);
     void randomize();
     void randomize2();
 
