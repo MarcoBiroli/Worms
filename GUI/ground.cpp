@@ -24,25 +24,28 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     double phase1=rand()%int(0.2*width)+int(0.04*width);
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
+    double grass_height;
     //double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
     for (int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
             terrain_height = 0.53*height + 0.083*height*qCos(i/period1+phase1)+0.067*height*qCos(i/period2+phase2);
+            grass_height = terrain_height + 0.03*(0.53*height + 0.083*height*qCos(100*i/period1+phase1)+0.067*height*qCos(100*i/period2+phase2));
         }
         else{
             terrain_height = height+1;
+            grass_height = height + 2;// Comment this line to get ground up to the edges of the screen.
         }
         for (int j = 0; j < height ; j++){
             if (j < terrain_height){
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-            if (j >= terrain_height  && j <= terrain_height+5){
+            if (j >= terrain_height && j <= grass_height){
                 this->map->setPixel(i,j,this -> green);
                 this -> change_pixel(i,j, Qt::black);
             }
-            if (j > terrain_height+5 && j < height){
+            if (j > grass_height && j < height){
                 this -> map -> setPixel(i,j,this->brown);
                 this -> change_pixel(i,j, Qt::black);
             }
