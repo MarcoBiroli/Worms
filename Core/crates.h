@@ -30,10 +30,4 @@ class Crate : public RigidBody {
         //Remove the crate from the game
         //Generate a projectile with delay 0.01 at the position of the crate
         //The explosion of the crate is in fact the explosion of this new projectile
-
-        void pickup(PhysicsEngine &engine);
-        //Call this function when a worm collides with the crate
-        //The function does the following:
-        //Remove the crate from the game
-        //Give health/ammos to the worm that picked it up
 };

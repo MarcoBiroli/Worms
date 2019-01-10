@@ -39,6 +39,9 @@ class Game{
         {"right", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_right.png").scaled(32,32))}
       };
 
+      QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+
+
       //GRAPHICS
       QMap<QString, QVector<QPixmap>> spritesheets;
 
