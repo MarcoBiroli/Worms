@@ -55,6 +55,7 @@ class Collider{
         int getHeight() const;
 
         void change_pixel(int i, int j, QColor color); //changes the pixel color of the map
+        QRgb get_color(int i, int j) const;
 
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)
 

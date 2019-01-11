@@ -39,7 +39,8 @@ SOURCES += \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
-    weapon_menu.cpp
+    weapon_menu.cpp \
+    perlinnoise.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -53,7 +54,8 @@ HEADERS += \
         ../Core/worms.h \
         ../Core/barrel.h \
     ../GUI/music.h \
-    weapon_menu.h
+    weapon_menu.h \
+    perlinnoise.h
 
 FORMS += \
         mainwindow.ui \
