@@ -203,3 +203,10 @@ QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
     return QPair<bool, QPair<double, double>> (colliding, QPair<double, double> (cmx-cm_otherx,cmy-cm_othery));
 }
 
+bool Collider::isWorm(){
+    return false;
+}
+
+void Collider::addAmmo(int weaponID, int amountAmmo){
+    return; //set by default, used only for Worms and Crates
+}

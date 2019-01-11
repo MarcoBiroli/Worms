@@ -16,6 +16,9 @@ class Projectile;
 
 class Worm: public RigidBody {
     public:
+      virtual bool isWorm();
+      virtual void addAmmo(int weaponID, int amountAmmo);
+
       Worm();
       Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite);
 

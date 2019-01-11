@@ -20,14 +20,18 @@
 #include "worms.h"
 #include "Barrel.h"
 #include "weapon_menu.h"
+#include "crates.h"
 
 class Game{
     private:
       double max_turn_time;
       int nb_teams;
 
+      int number_of_turns;
+
       double turn_timer;
       bool paused;
+      bool has_shot;
 
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
@@ -39,8 +43,13 @@ class Game{
         {"right", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_right.png").scaled(32,32))}
       };
 
+      QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+
+
       //GRAPHICS
       QMap<QString, QVector<QPixmap>> spritesheets;
+
+      QGraphicsProxyWidget *proxymenu;
 
     public:
 
@@ -59,6 +68,7 @@ class Game{
       QVector<Projectile*> projectiles;
       QVector<Barrel*> barrels;
       QVector<Projectile*> weapons;
+      QVector<Crate*> crates;
 
       //Constructors
       Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
@@ -80,5 +90,8 @@ class Game{
 
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
 
+      void changemenupos(QPoint point);
+
+      void changemenusize(int dx,int dy);
 };
 #endif // GAME_H

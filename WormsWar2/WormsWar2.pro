@@ -36,11 +36,17 @@ SOURCES += \
         ../Core/Projectile.cpp \
         ../Core/worms.cpp \
         ../Core/barrel.cpp \
+        ../Core/crates.cpp \
         ../GUI/ground.cpp \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
+<<<<<<< HEAD
     perlinnoise.cpp
+=======
+    help_menu.cpp\
+    game_settings.cpp
+>>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 
 HEADERS += \
         mainwindow.h\
@@ -53,10 +59,21 @@ HEADERS += \
         ../Core/Projectile.h \
         ../Core/worms.h \
         ../Core/barrel.h \
+        ../Core/crates.h \
     ../GUI/music.h \
     weapon_menu.h \
+<<<<<<< HEAD
     perlinnoise.h
+=======
+    help_menu.h\
+    game_settings.h
+>>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 
 FORMS += \
         mainwindow.ui \
-    weapon_menu.ui
+    weapon_menu.ui \
+    help_menu.ui \
+    dialogwindow.ui
+
+DISTFILES += \
+    game_settings.ui

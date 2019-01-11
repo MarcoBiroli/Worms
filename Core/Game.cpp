@@ -25,13 +25,14 @@ void Game::weapon_list()
     //Dynamite weapon id = 3
     QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(20,20));
     Projectile * dynamite = new Projectile("Dynamite", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img3);
-    dynamite->set_map(QImage("://Images/weapons/Dynamite_collider_left.png").scaled(20,20));
+    dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
     Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 5, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
+
 }
 
 Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
@@ -46,16 +47,20 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
+
+    int water_height = ground -> WaterHeight(0);
+    ground -> Water(water_height);
+
     scene->addItem(ground->getPixmap());
     physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
 
     this->weapon_list();
     this->menu = new weapon_menu();
-    QGraphicsProxyWidget *item = scene->addWidget(menu);
-    item->setPos(0,0);
-    item->setZValue(100);
-    item->hide();
+    this->proxymenu = scene->addWidget(menu);
+
+    proxymenu->setZValue(100);
+    proxymenu->hide();
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -76,9 +81,13 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
         }
     }
 
+    number_of_turns = 0;
+
     team_playing=0;
 
     turn_timer=0;
+
+    has_shot = false;
 }
 
 Game::~Game()
@@ -95,8 +104,24 @@ bool Game::gameIteration(double dt){
     physics_update(dt); //updates the turn timer as well as the physics engine
 
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
+        number_of_turns +=1;
+
+        int water_height = ground -> WaterHeight(number_of_turns);
+        ground -> Water(water_height);
+
         nextWorm();
         turn_timer = 0;
+        has_shot = false;
+
+        /*if(number_of_turns>4){
+            Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
+
+            physics_engine->add_RigidBody(newCrate);
+            crates.append(newCrate);
+            scene->addItem(newCrate->sprite);
+        }*/
+
+
     }
 
     for (int i=0; i<projectiles.size(); i++) {
@@ -105,8 +130,11 @@ bool Game::gameIteration(double dt){
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
-            nextWorm();
-            turn_timer = 0;
+
+            //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
+            //explosion_image->setX(projectiles[i]->getX());
+            //explosion_image->setY(projectiles[i]->getY());
+            //scene->addItem(explosion_image);
         }
     }
 
@@ -114,6 +142,8 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    has_shot = false;
+
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
@@ -267,13 +297,15 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
 
-        if (k-> key() == Qt::Key_Space){//key == Space shoots the projectile
+        if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
             int power = 200;
             Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
             physics_engine->add_RigidBody(current_projectile);
             projectiles.append(current_projectile);
             scene->addItem(current_projectile->sprite);
+
             this->turn_timer = this->max_turn_time - 5000;
+            has_shot = true;
         }
     }
     active_worm->setstable(false);
@@ -304,7 +336,10 @@ bool Game::isFinished(){
     return true;
 }
 
+void Game::changemenupos(QPoint point){
+    proxymenu->setPos(point);
+}
 
-
-
-
+void Game::changemenusize(int dx,int dy){
+    proxymenu->resize(0,0);
+}
