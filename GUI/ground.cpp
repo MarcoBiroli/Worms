@@ -43,18 +43,12 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-<<<<<<< HEAD
-            if (j >= terrain_height && j < sea_level){
-                this->map->setPixelColor(i, j, this -> brown);  //ground in brown
-                this->change_pixel(i, j, Qt::black);
-=======
             if (j >= terrain_height && j <= grass_height){
                 this->map->setPixel(i,j,this -> green);
                 this -> change_pixel(i,j, Qt::black);
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
             }
             if (j > grass_height && j < height){
-                this -> map -> setPixel(i,j,this->brown);
+                this -> map -> setPixelColor(i,j,this->brown);
                 this -> change_pixel(i,j, Qt::black);
             }
             if (j > height-10){
@@ -160,12 +154,7 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
 }
-
-<<<<<<< HEAD
-=======
-
-
-
+/*
 void Ground::randomize2(){
     //final version of randomize2. It creates random points in a chosen interval and it creates a ground by interpolating these
     //points with straight lines. It is not weel suited for the game of worms but it was a good starting to make random grounds.
@@ -208,12 +197,8 @@ void Ground::randomize2(){
         cn=((i-i%c)-a)/c;
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
-}
+}*/
 
-
-
-
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 //WORK IN PROGRESS
 void Ground::randomize(){
     //this first function creates a random terrain made of a superpositon of cosine
@@ -240,20 +225,14 @@ void Ground::randomize(){
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
                 this->change_pixel(i, j, Qt::white);
             }
-<<<<<<< HEAD
             if (j >= terrain_height && j < 2600){
                 this->map->setPixelColor(i, j, this -> brown);
-=======
-            if (j >= terrain_height){
-                this->map->setPixel(i, j, this -> brown);
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
                 this->change_pixel(i, j, Qt::black);
             }
 
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
-<<<<<<< HEAD
 }
 
 void Ground::dilate2() {
@@ -385,9 +364,6 @@ void Ground::randomize2()
     }
 
 }
-=======
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 
-}
 
 
