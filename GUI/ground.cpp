@@ -220,9 +220,9 @@ void Ground::randomize2(){
         cn=((i-i%c)-a)/c;
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
+<<<<<<< HEAD
 }
 */
-
 
 //WORK IN PROGRESS
 void Ground::randomize(){

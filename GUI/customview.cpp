@@ -1,4 +1,5 @@
 #include "customview.h"
+#include "../Core/Game.h"
 #include <iostream>
 
 CustomView::CustomView(QGraphicsScene *parent): QGraphicsView(parent)
@@ -14,14 +15,19 @@ void CustomView::wheelEvent(QWheelEvent *event)
 {
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
+   double increasescale = 1.05;
    if (event->delta() > 0 && currentScale < scaleMax)
    {
        scale(scaleFactor,scaleFactor);
        currentScale *= scaleFactor;
+
+       this->game->changemenusize(1/increasescale,1/increasescale);
    }
    else if (currentScale > scaleMin) {
-           scale(1/scaleFactor,1/scaleFactor);
-           currentScale /= scaleFactor;
+       scale(1/scaleFactor,1/scaleFactor);
+       currentScale /= scaleFactor;
+
+       this->game->changemenusize(increasescale,increasescale);
    }
    QPointF pointf = mapToScene(0.0,0.0);
    QPoint point = QPoint(pointf.rx(), pointf.ry());

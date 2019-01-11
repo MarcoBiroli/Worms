@@ -340,6 +340,10 @@ void Game::changemenupos(QPoint point){
     proxymenu->setPos(point);
 }
 
-void Game::changemenusize(int dx,int dy){
-    proxymenu->resize(0,0);
+void Game::changemenusize(double dx,double dy){
+    heightmenu *= dx;
+    widthmenu *= dy;
+    proxymenu->resize(heightmenu,widthmenu);
+    qInfo() << heightmenu;
+    qInfo() << widthmenu;
 }
