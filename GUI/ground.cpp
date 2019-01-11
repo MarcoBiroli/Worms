@@ -12,13 +12,9 @@ Ground::Ground(const QImage bw_ground): Collider(){
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
-<<<<<<< HEAD
-    srand(time(NULL));//make random
-=======
     this->width = width;
     this->height = height;
-    srand(time(NULL));//make random 
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
+    srand(time(NULL));//make random
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
