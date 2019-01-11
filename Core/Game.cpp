@@ -43,7 +43,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
     scene -> addItem(background);
 
-    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
@@ -102,7 +102,7 @@ Game::~Game()
 bool Game::gameIteration(double dt){
     if(paused){return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
-
+    //ground->AnimateWater(dt);
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
 

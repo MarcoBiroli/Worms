@@ -22,21 +22,22 @@ private:
     QRgb black = qRgb(0, 0, 0);         //insted of having to write the full rgb code each time.
     QRgb blue_sky = qRgb(32, 187, 255);  //bright blue for the sky
     QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
-    QColor transparent = qRgba(255,255,255,0);
-<<<<<<< HEAD
+    QColor transparent = qRgba(0,0,0,0);
     QColor brown = qRgba(125,65,6, 255);
+    QColor green = qRgba(121,178,51, 255);
+
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
     QVector<QPair<int, int> > getNeighbors(QPair<int, int> source);
     void dilate(QImage kernel);
-    void dilate2();
-=======
-    QRgb brown = qRgb(125,65,6);
-    QRgb green = qRgb(121,178,51);
-    QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
-    double height;
-    double width;
-
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
+    void dilate2(QColor color);
+    int height;
+    int width;
+    void dilate3(QColor color, int depth);
+    int **manhattan();
+    void dilate4(QColor color, int depth);
+    //int water_height;
+    //double T = 0;
+    //PerlinNoise* pn;
 public:
     //Constructors
     Ground();
@@ -54,6 +55,7 @@ public:
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
 
     virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
+    void AnimateWater(double dt);
 };
 
 #endif // GROUND_H

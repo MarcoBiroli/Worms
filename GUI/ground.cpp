@@ -14,10 +14,12 @@ Ground::Ground(const QImage bw_ground): Collider(){
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
     this->width = width;
     this->height = height;
+    //this->pn = new PerlinNoise(width/500, 180/10);
     srand(time(NULL));//make random 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
+    /*
     //create random phase and random period for two cosine functions within a range that is reasonable to obtain
     //a good mountain-like terrain
     double period1,period2;
@@ -43,18 +45,15 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->map->setPixel(i,j,qRgba(255,255,255,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-<<<<<<< HEAD
-            if (j >= terrain_height && j < sea_level){
+           /*if (j >= terrain_height && j < sea_level){
                 this->map->setPixelColor(i, j, this -> brown);  //ground in brown
                 this->change_pixel(i, j, Qt::black);
-=======
             if (j >= terrain_height && j <= grass_height){
-                this->map->setPixel(i,j,this -> green);
+                this->map->setPixelColor(i,j,this -> green);
                 this -> change_pixel(i,j, Qt::black);
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
             }
             if (j > grass_height && j < height){
-                this -> map -> setPixel(i,j,this->brown);
+                this -> map -> setPixelColor(i,j,this->brown);
                 this -> change_pixel(i,j, Qt::black);
             }
             if (j > height-10){
@@ -75,7 +74,8 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
             this->map->setPixel(i, j, Qt::white);
             this->change_pixel(i,j, Qt::black);
             }
-        }*/
+        }
+    */
     this->is_ground = true;
     this->randomize2();
 }
@@ -87,7 +87,7 @@ int Ground::WaterHeight(const int counter){
         return int(0.87*height);
     }
     if (counter >= 2 && counter < 2000){
-        return int(0.87*height - 100*(counter));
+        return int(0.87*height - 5*(counter));
     }
 }
 
@@ -98,6 +98,22 @@ void Ground::Water(const int water_height){
         }
     }
 }
+
+/*
+void Ground::AnimateWater(double dt){
+    double freq = 500;
+    T += dt;
+    int delta = 0;
+    int j;
+    for (int i = 0; i < width; i++){
+        delta = pn->noise(i/freq, T/10000, 0)*500;
+        //qDebug()<<delta;
+        for (j = water_height + delta; j < height ; j++){
+            this->map->setPixel(i,j,blue_sea);
+        }
+    }
+}
+*/
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
     item->setPixmap(QPixmap::fromImage(*this->map));
@@ -161,11 +177,7 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
     item->setPixmap(QPixmap::fromImage(*this->map));
 }
 
-<<<<<<< HEAD
-=======
-
-
-
+/*
 void Ground::randomize2(){
     //final version of randomize2. It creates random points in a chosen interval and it creates a ground by interpolating these
     //points with straight lines. It is not weel suited for the game of worms but it was a good starting to make random grounds.
@@ -209,11 +221,9 @@ void Ground::randomize2(){
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
 }
+*/
 
 
-
-
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 //WORK IN PROGRESS
 void Ground::randomize(){
     //this first function creates a random terrain made of a superpositon of cosine
@@ -240,23 +250,91 @@ void Ground::randomize(){
                 this->map->setPixel(i,j,qRgba(255,255,255,0));
                 this->change_pixel(i, j, Qt::white);
             }
-<<<<<<< HEAD
             if (j >= terrain_height && j < 2600){
                 this->map->setPixelColor(i, j, this -> brown);
-=======
-            if (j >= terrain_height){
-                this->map->setPixel(i, j, this -> brown);
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
                 this->change_pixel(i, j, Qt::black);
             }
 
         }
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
-<<<<<<< HEAD
 }
 
-void Ground::dilate2() {
+// O(n^2) solution to find the Manhattan distance to "on" pixels in a two dimension array
+int** Ground::manhattan(){
+    int ** out = new int*[this->width];
+    for(int i = 0; i < this->width; i++){
+        out[i] = new int[this->height];
+    }
+    // traverse from top left to bottom right
+    for (int i=0; i<this->map->width(); i++){
+        for (int j=0; j< this->map->height(); j++){
+            if (this->map->pixelColor(i,j) == this->brown){
+                // first pass and pixel was on, it gets a zero
+                out[i][j] = 0;
+            } else {
+                // pixel was off
+                // It is at most the sum of the lengths of the array
+                // away from a pixel that is on
+                out[i][j] = this->width + this->height;
+                // or one more than the pixel to the north
+                if (i>0) out[i][j] = std::min(out[i][j], out[i-1][j]+1);
+                // or one more than the pixel to the west
+                if (j>0) out[i][j] = std::min(out[i][j], out[i][j-1]+1);
+            }
+        }
+    }
+    // traverse from bottom right to top left
+    for (int i=this->width-1; i>=0; i--){
+        for (int j=this->height-1; j>=0; j--){
+            // either what we had on the first pass
+            // or one more than the pixel to the south
+            if (i+1<this->width) out[i][j] = std::min(out[i][j], out[i+1][j]+1);
+            // or one more than the pixel to the east
+            if (j+1<this->height) out[i][j] = std::min(out[i][j], out[i][j+1]+1);
+        }
+    }
+    return out;
+}
+
+void Ground::dilate4(QColor color, int depth){
+    int** distances = this->manhattan();
+    for (int i=0; i<this->width; i++){
+        for (int j=0; j<this->height; j++){
+            if(distances[i][j] <= depth){
+                this->map->setPixelColor(i, j, color);
+                this->change_pixel(i, j, Qt::black);
+            }
+        }
+    }
+}
+
+void Ground::dilate3(QColor color, int depth){
+    for(int i = 0; i < this->map->width(); i++){
+        for(int j = 0; j < this->map->height(); j++){
+            if(this->map->pixelColor(i, j) == this->brown){
+                for(int k = -(depth-1)/2; k <= (depth-1)/2; k++){
+                    for(int l = -(depth-1)/2; l <= (depth-1)/2; l++){
+                        if(i+k > 0 && i + k < this->map->width() && j+l > 0 && j+l < this->map->height() && abs(k)+abs(l) < depth &&
+                                this->map->pixelColor(i+k,j+l) == QColor(0, 0, 0, 0)){
+                            this->map->setPixelColor(i+k, j+l, QColor(0,0,0,255));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (int i=0; i<this->map->width(); i++){
+        for (int j=0; j < this->map->height(); j++){
+            if (this->map->pixelColor(i, j) == QColor(0, 0, 0, 255)){
+                this->map->setPixelColor(i, j, color);
+                this->change_pixel(i, j, Qt::black);
+            }
+        }
+    }
+}
+
+void Ground::dilate2(QColor color) {
     // Best dilate by one solution
     for (int i=0; i<this->map->width(); i++){
         for (int j=0; j < this->map->height(); j++){
@@ -271,7 +349,7 @@ void Ground::dilate2() {
     for (int i=0; i<this->map->width(); i++){
         for (int j=0; j < this->map->height(); j++){
             if (this->map->pixelColor(i, j) == QColor(0, 0, 0, 255)){
-                this->map->setPixelColor(i, j, this->brown);
+                this->map->setPixelColor(i, j, color);
                 this->change_pixel(i, j, Qt::black);
             }
         }
@@ -314,8 +392,8 @@ void Ground::randomize2()
     empty.fill(Qt::white);
     this->set_map(empty);
     QImage perlinnoise_map = QImage(width, height, QImage::Format_RGB32);
-    double freqx = 100;
-    double freqy = 100;
+    double freqx = 150;
+    double freqy = 150;
     // Create a PerlinNoise object with the reference permutation vector
     PerlinNoise pn(width/freqx + 1, height/freqy + 1);
     // Visit every pixel of the image and assign a color generated with Perlin noise
@@ -380,14 +458,8 @@ void Ground::randomize2()
     }
     QImage kernel(5, 5, QImage::Format_RGB32);
     kernel.fill(Qt::black);
-    for(int i = 0; i < 10; i++){
-        this->dilate2();
-    }
-
-}
-=======
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
-
+    this->dilate4(this->brown, 20);
+    this->dilate3(this->green, 10);
 }
 
 
