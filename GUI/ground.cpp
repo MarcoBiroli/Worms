@@ -25,7 +25,6 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
     double grass_height;
-    //double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
     for (int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
@@ -34,7 +33,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
         }
         else{
             terrain_height = height+1;
-            grass_height = height + 2;// Comment this line to get ground up to the edges of the screen.
+            grass_height = height+1;// Comment this line to get ground up to the edges of the screen.
         }
         for (int j = 0; j < height ; j++){
             if (j < terrain_height){
@@ -45,18 +44,9 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
                 this->map->setPixel(i,j,this -> green);
                 this -> change_pixel(i,j, Qt::black);
             }
-            if (j > grass_height && j < height){
+            if (j > grass_height){
                 this -> map -> setPixel(i,j,this->brown);
                 this -> change_pixel(i,j, Qt::black);
-            }
-            if (j > height-10){
-                this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
-            }  //blue pixels are rigid body but can't be delete
-            if (i < 10){
-                this -> change_pixel(i,j,Qt::blue);
-            }
-            if (i > width-10){
-                this -> change_pixel(i,j,Qt::blue);
             }
         }
     }
@@ -84,11 +74,24 @@ int Ground::WaterHeight(const int height, const int counter){
 }
 
 void Ground::Water(const int width, const int height, const int water_height){
+    double period1,period2;
+    period1=rand()%int(0.16*width)+int(0.08*width);
+    period2=rand()%int(0.08*width)+int(0.04*width);
+    double phase1=rand()%int(0.2*width)+int(0.04*width);
+    double phase2=rand()%int(0.2*width)+int(0.04*width);
+    double sea_level;
+    //sea_level has cosine shape, water_height indicates how high the cosine shape should be (water increases <=> water_height increases & sea_level remains the same)
     for (int i = 0; i < width; i++){
-        for (int j = water_height; j < height ; j++){
-            this->map->setPixel(i,j,blue_sea);
+        if(0.05*width < i && i < 0.95*width){
+            sea_level = water_height + 0.083*height*qCos(10*i/period1+phase1)/10+0.067*height*qCos(10*i/period2+phase2)/10;
         }
-    }
+        else{
+            sea_level = height+1;
+        }
+        for (int j = sea_level; j < height ; j++){
+               this -> map-> setPixel(i,j, blue_sea);
+            }
+        }
 }
 
 QGraphicsPixmapItem* Ground::getPixmap() const{ //This returns the Displayable Version of the Ground.
