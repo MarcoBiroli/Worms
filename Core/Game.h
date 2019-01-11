@@ -43,8 +43,13 @@ class Game{
         {"right", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_right.png").scaled(32,32))}
       };
 
+      QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+
+
       //GRAPHICS
       QMap<QString, QVector<QPixmap>> spritesheets;
+
+      QGraphicsProxyWidget *proxymenu;
 
     public:
 
@@ -84,5 +89,9 @@ class Game{
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
 
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
+
+      void changemenupos(QPoint point);
+
+      void changemenusize(int dx,int dy);
 };
 #endif // GAME_H

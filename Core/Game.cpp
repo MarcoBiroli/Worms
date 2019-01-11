@@ -48,8 +48,8 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     scene = iscene;
     ground = new Ground(ground_size_x, ground_size_y);
 
-    int water_height = ground -> WaterHeight(ground_size_y,number_of_turns);
-    ground -> Water(ground_size_x,ground_size_y,water_height);
+    int water_height = ground -> WaterHeight(0);
+    ground -> Water(water_height);
 
     scene->addItem(ground->getPixmap());
     physics_engine->add_Collider(ground);
@@ -57,10 +57,10 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
 
     this->weapon_list();
     this->menu = new weapon_menu();
-    QGraphicsProxyWidget *item = scene->addWidget(menu);
-    item->setPos(0,0);
-    item->setZValue(100);
-    item->hide();
+    this->proxymenu = scene->addWidget(menu);
+
+    proxymenu->setZValue(100);
+    proxymenu->hide();
 
     this->nb_teams = nb_teams;
     this->max_turn_time = max_turn_time;
@@ -106,17 +106,20 @@ bool Game::gameIteration(double dt){
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
 
-        //int water_height = ground -> WaterHeight(ground_size_y,number_of_turns);
-        //ground -> Water(ground_size_x,ground_size_y,water_height);
+        int water_height = ground -> WaterHeight(number_of_turns);
+        ground -> Water(water_height);
 
         nextWorm();
         turn_timer = 0;
         has_shot = false;
-        /*Crate* newCrate = new Crate(30,  2500, 100, 0, 20,  worm_image["right"]);//positions are arbitrary and should depend on size of window
 
-        physics_engine->add_RigidBody(newCrate);
-        crates.append(newCrate);
-        scene->addItem(newCrate->sprite);*/
+        /*if(number_of_turns>4){
+            Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
+
+            physics_engine->add_RigidBody(newCrate);
+            crates.append(newCrate);
+            scene->addItem(newCrate->sprite);
+        }*/
 
 
     }
@@ -127,8 +130,7 @@ bool Game::gameIteration(double dt){
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
-            nextWorm();
-            turn_timer = 0;
+
             //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
             //explosion_image->setX(projectiles[i]->getX());
             //explosion_image->setY(projectiles[i]->getY());
@@ -140,6 +142,8 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    has_shot = false;
+
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
     else{worms_playing[team_playing] +=1;}
@@ -330,4 +334,12 @@ bool Game::isFinished(){
         }
     }
     return true;
+}
+
+void Game::changemenupos(QPoint point){
+    proxymenu->setPos(point);
+}
+
+void Game::changemenusize(int dx,int dy){
+    proxymenu->resize(0,0);
 }
