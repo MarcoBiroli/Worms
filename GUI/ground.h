@@ -9,6 +9,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include "../Physics/Collider.h"
+#include <perlinnoise.h>
 #include <qmath.h>
 #include "QDebug"
 #include <QtGui>
@@ -22,12 +23,20 @@ private:
     QRgb blue_sky = qRgb(32, 187, 255);  //bright blue for the sky
     QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
     QColor transparent = qRgba(255,255,255,0);
+<<<<<<< HEAD
+    QColor brown = qRgba(125,65,6, 255);
+    QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
+    QVector<QPair<int, int> > getNeighbors(QPair<int, int> source);
+    void dilate(QImage kernel);
+    void dilate2();
+=======
     QRgb brown = qRgb(125,65,6);
     QRgb green = qRgb(121,178,51);
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
     double height;
     double width;
 
+>>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
 public:
     //Constructors
     Ground();
@@ -39,7 +48,7 @@ public:
     void randomize2();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
-
+    void fillup(int i, int j, QImage& perlin);
     QImage* getMap() const; //This returns the ground itself.
 
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
