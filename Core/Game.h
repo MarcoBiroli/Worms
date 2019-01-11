@@ -70,8 +70,8 @@ class Game{
       QVector<Projectile*> weapons;
       QVector<Crate*> crates;
 
-      double heightmenu = 150;
-      double widthmenu = 200;
+      double heightmenu = 300;
+      double widthmenu = 400;
 
       //Constructors
       Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);

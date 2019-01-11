@@ -346,4 +346,5 @@ void Game::changemenusize(double dx,double dy){
     proxymenu->resize(heightmenu,widthmenu);
     qInfo() << heightmenu;
     qInfo() << widthmenu;
+    qInfo() << " ";
 }
