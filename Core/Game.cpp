@@ -88,6 +88,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     turn_timer=0;
 
     has_shot = false;
+    next_turn = false;
 }
 
 Game::~Game()
@@ -96,6 +97,8 @@ Game::~Game()
     delete ground;
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
+    //what about worms:
+    // qDelete(worms);
 }
 
 
@@ -103,7 +106,11 @@ bool Game::gameIteration(double dt){
     if(paused){return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
     //ground->AnimateWater(dt);
-    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
+    if(turn_timer > max_turn_time || !worms[worms_playing[team_playing]]->isAlive()){ //if shoot -> turn_timer = max_turn_time-5000
+        next_turn = true;
+    }
+
+    if(next_turn){//change turn with
         number_of_turns +=1;
 
         int water_height = ground -> WaterHeight(number_of_turns);
@@ -112,6 +119,7 @@ bool Game::gameIteration(double dt){
         nextWorm();
         turn_timer = 0;
         has_shot = false;
+        next_turn = false;
 
         /*if(number_of_turns>4){
             Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
@@ -120,8 +128,6 @@ bool Game::gameIteration(double dt){
             crates.append(newCrate);
             scene->addItem(newCrate->sprite);
         }*/
-
-
     }
 
     for (int i=0; i<projectiles.size(); i++) {

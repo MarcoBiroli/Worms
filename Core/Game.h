@@ -32,6 +32,7 @@ class Game{
       double turn_timer;
       bool paused;
       bool has_shot;
+      bool next_turn;
 
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
