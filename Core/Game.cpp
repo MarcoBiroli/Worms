@@ -65,20 +65,20 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     if (number == 1) {
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, water_blue, terrain_g, grass_green);
+        ground = new Ground(ground_size_x, ground_size_y, terrain_g, grass_green);
         worker->color = water_blue;
     }
     if (number == 2){
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, water_sun, terrain_brown, grass_green);
+        ground = new Ground(ground_size_x, ground_size_y, terrain_brown, grass_green);
         ground->randomize2();
         worker->color = water_sun;
     }
     if (number == 3){
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/volcano.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, water_fire, terrain_grey, grass_fire);
+        ground = new Ground(ground_size_x, ground_size_y, terrain_grey, grass_fire);
         ground->randomize3();
         worker->color = water_fire;
     }

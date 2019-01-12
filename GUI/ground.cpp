@@ -6,11 +6,10 @@ Ground::Ground() : Collider (){ //Creates an undefined Ground
     item = new QGraphicsPixmapItem();
 }
 
-Ground::Ground(const int width, const int height, QColor watercolor, QColor terraincolor, QColor grasscolor): Collider(){
+Ground::Ground(const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
     this->width = width;
     this->height = height;
     this->terraincolor = terraincolor;
-    this->watercolor = watercolor;
     this->grasscolor = grasscolor;
 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
