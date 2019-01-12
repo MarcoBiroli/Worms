@@ -107,7 +107,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
         }
     }
 
-    scene->addItem(new SpriteSheet(new QPixmap("://Images/Sprite_Walking.png")));
+    //scene->addItem(new SpriteSheet(new QPixmap("://Images/Sprite_Walking.png")));
     number_of_turns = 0;
     team_playing=0;
     turn_timer=0;
