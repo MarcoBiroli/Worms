@@ -12,14 +12,26 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
     this->health = health;
     this->setbounciness(bounciness);
     this->sprite->setPixmap(isprite);
-    this->label = new QGraphicsSimpleTextItem(this->sprite);
+    this->label = new QGraphicsTextItem(this->sprite);
     QString msg = personal_name;
-    msg.append(QString::number(this->team_number));
     msg.append("\n");
     msg.append("Health: ");
     msg.append(QString::number(this->health));
-    this->label->setPos(0, -25);
-    this->label->setText(msg);
+    this->label->setPos(-6*std::max(personal_name.length(), 10)/2, -48);
+    this->label->setPlainText(msg);
+    this->label->setFont(QFont("Comic Sans MS", 12, QFont::Bold, true));
+    if(team_number == 0){
+        this->label->setDefaultTextColor(Qt::red);
+    }
+    else if (team_number == 1){
+        this->label->setDefaultTextColor(Qt::blue);
+    }
+    else if (team_number == 2){
+        this->label->setDefaultTextColor(Qt::green);
+    }
+    else if (team_number == 3){
+        this->label->setDefaultTextColor(Qt::yellow);
+    }
 }
 
 Worm::~Worm() {
@@ -61,6 +73,7 @@ void Worm::pickUpWeapon(int weapon_ID, int iammo) {
 
 void Worm::weaponSelect(int weapon_ID) {
     this->current_weapon = weapon_ID;
+    this->update_weapon();
 } 
 
 void Worm::changeHealth(int dmg) {
@@ -69,12 +82,11 @@ void Worm::changeHealth(int dmg) {
         this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
         this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }
-    //QString msg = this->personal_name;
-    //msg.append(QString::number(this->team_number));
-    //msg.append("\n");
-    //msg.append("Health: ");
-    //msg.append(QString::number(this->health));
-    //this->label->setText(msg);
+    QString msg = this->personal_name;
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setPlainText(msg);
 }
 
 
@@ -101,6 +113,20 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         return current_projectile;
     }
     else{return NULL;}
+}
+
+void Worm::update_weapon(){
+    if(!this->isAlive()){
+        this->weapon_image->hide();
+        return;
+    }
+    this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
+    if(this->get_direction()){
+        this->weapon_image->setPos(this->getWidth()-8, this->getHeight()/2 - 8);
+    }
+    else{
+        this->weapon_image->setPos(-8, this->getHeight()/2 - 8);
+    }
 }
 
 bool Worm::get_direction(){
@@ -132,7 +158,7 @@ bool Worm::isWorm(){
 
 void Worm::addAmmo(int weaponID, int amountAmmo){
     if (weaponID == -1){ //careful it is not supposed to be bigger or equal to 0 coz that is for real weapons
-        this->health += amountAmmo;
+        this->changeHealth(-amountAmmo);
     }
     else {
         this->ammo[weaponID] += amountAmmo;

@@ -138,7 +138,9 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
             //newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
+            newWorm->weaponSelect(0);
             scene->addItem(newWorm->sprite);
+            scene->addItem(newWorm->weapon_image);
             newWorm->addAmmo(0,settings->amobazooka);
             newWorm->addAmmo(1,settings->ammoclusterbomb);
             newWorm->addAmmo(2, settings->amogrenade);
@@ -184,6 +186,7 @@ bool Game::gameIteration(double dt){
     }
     for(int i = 0; i < worms.length(); i++){
         //worms[i]->fall_damage();
+        worms[i]->update_weapon();
         if(worms[i]->getY() > ground->getHeight() - worker->water_height + worker->getWaveSize()/2){
             worms[i]->changeHealth(1000);
             worms[i]->sprite->hide();
@@ -197,13 +200,12 @@ bool Game::gameIteration(double dt){
         has_shot = false;
         next_turn = false;
 
-        /*if(number_of_turns>4){
-            Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
 
-            physics_engine->add_RigidBody(newCrate);
-            crates.append(newCrate);
-            scene->addItem(newCrate->sprite);
-        }*/
+        Crate* newCrate = new Crate(800,  2500, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+
+        physics_engine->add_RigidBody(newCrate);
+        crates.append(newCrate);
+        scene->addItem(newCrate->sprite);
     }
 
     for (int i=0; i<projectiles.size(); i++) {

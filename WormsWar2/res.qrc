@@ -100,5 +100,6 @@
         <file>SoundEffect/Yawn+1.wav</file>
         <file>SoundEffect/Cough2.wav</file>
         <file>Images/grounds/volcano.png</file>
+	<file>Images/Aim.png</file>
     </qresource>
 </RCC>

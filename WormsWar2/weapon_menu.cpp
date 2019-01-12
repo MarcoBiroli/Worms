@@ -17,7 +17,6 @@ weapon_menu::~weapon_menu()
 void weapon_menu::on_BazookaButton_clicked()
 {
     this->active_worm->weaponSelect(0);
-
     playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
 }
 

@@ -56,9 +56,18 @@ class Worm: public RigidBody {
 
       double weapon_angle = 0; //intially 0
 
-      QGraphicsSimpleTextItem* label;
+      QGraphicsTextItem* label;
+      QGraphicsPixmapItem * weapon_image = new QGraphicsPixmapItem(this->sprite);
+      QVector<QImage> weapons = QVector<QImage>({QImage("://Images/weapons/Bazooka_left.png").scaled(16,16),
+                                                    QImage("://Images/weapons/BlueGrenade_left.png").scaled(16,16),
+                                                    QImage("://Images/weapons/Grenade_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Dynamite_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Gun_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Holy_Grenade.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Banana_left.png").scaled(16,16)});
 
-    private:
+      void update_weapon();
+private:
       int health;
       int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
