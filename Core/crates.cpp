@@ -16,6 +16,7 @@ Crate::Crate(double m, double x, double y, int weaponID, int amountAmmo, QPixmap
     this->weaponID = weaponID;
     this->sprite->setPixmap(isprite);
     this->amountAmmo = amountAmmo;
+    this->tangent_bouncing = true;
 }
 
 bool Crate::on_collision_do(Collider &other){

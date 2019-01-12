@@ -11,17 +11,21 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
+<<<<<<< HEAD
     Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
+=======
+    Projectile * bazooka = new Projectile("Bazooka", 0, 50, 0, false, 0, 100, 100, 5, 0, 0, img);
+>>>>>>> c4dc73923ef97b2ff4169e64711cb794f54b41e3
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(20,20));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 90, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
     QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(20,20));
-    Projectile * grenade = new Projectile("Grenade", 1, 1000, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
+    Projectile * grenade = new Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
     grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(grenade);
     //Dynamite weapon id = 3
@@ -163,6 +167,8 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     turn_timer=0;
     has_shot = false;
     next_turn = false;
+
+    worms[worms_playing[team_playing]]->reticle->show();
 }
 
 Game::~Game()
@@ -241,6 +247,7 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    worms[worms_playing[team_playing]]->reticle->hide();
     has_shot = false;
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
@@ -264,6 +271,7 @@ void Game::nextWorm(){
         nextWorm(); //careful with infinite loop
     }
     menu->active_worm = worms[worms_playing[team_playing]];
+    worms[worms_playing[team_playing]]->reticle->show();
 }
 
 void Game::handleEvents(QKeyEvent *k){
@@ -384,12 +392,12 @@ void Game::handleEvents(QKeyEvent *k){
 
         //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
         if (k-> key() == Qt::Key_I){// key == I increases the angle 0- 90
-            if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
+            if (-90 <= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
                 active_worm->weapon_angle += 10;
             }
         }
         if (k-> key() == Qt::Key_K){// key == K decreases the angle }
-            if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
+            if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
                 active_worm->weapon_angle -= 10;
             }
         }

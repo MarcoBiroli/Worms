@@ -32,6 +32,8 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
     else if (team_number == 3){
         this->label->setDefaultTextColor(Qt::yellow);
     }
+    this->reticle->setPixmap(QPixmap("://Images/Aim.png").scaled(32,32));
+    this->reticle->hide();
 }
 
 Worm::~Worm() {
@@ -121,11 +123,14 @@ void Worm::update_weapon(){
         return;
     }
     this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
+    double reticle_dist = 100;
     if(this->get_direction()){
         this->weapon_image->setPos(this->getWidth()-8, this->getHeight()/2 - 8);
+        this->reticle->setPos(this->getWidth()/2 + 50*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - 50*qSin(weapon_angle*(M_PI/180)) - 16);
     }
     else{
         this->weapon_image->setPos(-8, this->getHeight()/2 - 8);
+        this->reticle->setPos(this->getWidth()/2 - 50*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - 50*qSin(weapon_angle*(M_PI/180)) - 16);
     }
 }
 
