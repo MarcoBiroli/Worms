@@ -24,21 +24,25 @@
 #include "crates.h"
 #include "settings.h"
 #include "mainwindow.h"
-
 #include "../GUI/customview.h"
+#include "../GUI/water.h"
+#include "QThread"
+#include "animationthread.h"
+#include "../GUI/spritesheet.h"
 
 class CustomView;
-
-class Game{
+class Game : public QObject{
+    Q_OBJECT
     private:
       double max_turn_time;
       int nb_teams;
-
+      //Water water;
       int number_of_turns;
 
       double turn_timer;
       bool paused;
       bool has_shot;
+      bool next_turn;
 
       int team_playing;
       QVector<int> worms_playing; //index in vector worms of each team (-1 if the team is dead)
@@ -68,6 +72,9 @@ class Game{
       QColor terrain_brown = qRgba(125,65,6, 255);
       QColor grass_fire =  qRgba(204, 0, 0,255);
       QColor terrain_grey = qRgba(25, 25, 25,255);
+      QThread* thread;
+      AnimationThread* worker;
+      QGraphicsPixmapItem* water_sprite = new QGraphicsPixmapItem();
 
     public:
 
@@ -88,10 +95,13 @@ class Game{
       QVector<Projectile*> weapons;
       QVector<Crate*> crates;
 
+      double heightmenu = 300;
+      double widthmenu = 400;
+
       //Constructors
       Game(int number,MainWindow * mainwindow, QGraphicsScene *iscene, CustomView *iview,  Settings *settings, int ground_size_x=5000, int ground_size_y=3000);
 
-      ~Game();
+      virtual ~Game();
 
       //Methods
       void weapon_list();
@@ -110,6 +120,24 @@ class Game{
 
       void changemenupos(QPoint point);
 
-      void changemenusize(int dx,int dy);
+      void changemenusize(double dx,double dy);
+
+public slots:
+      void add_water_to_scene(){
+          water_sprite->setPixmap(QPixmap::fromImage(*worker->getMap()));
+          water_sprite->setPos(0, this->ground->getHeight() - worker->water_height);
+          scene->addItem(water_sprite);
+      }
+      void refresh_display(){
+          water_sprite->setPixmap(QPixmap::fromImage(*worker->getMap()));
+          water_sprite->setPos(0, this->ground->getHeight() - worker->water_height);
+          QTimer::singleShot(10, this, SLOT(emit_refreshed()));
+      }
+      void emit_refreshed(){
+          emit refreshed();
+      }
+
+signals:
+      void refreshed();
 };
 #endif // GAME_H

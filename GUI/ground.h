@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef GROUND_H
 #define GROUND_H
 
@@ -13,6 +11,7 @@
 #include <qmath.h>
 #include "QDebug"
 #include <QtGui>
+#include "water.h"
 
 class Ground : public Collider
 {
@@ -22,21 +21,26 @@ private:
     QRgb black = qRgb(0, 0, 0);         //insted of having to write the full rgb code each time.
     QRgb blue_sky = qRgb(32, 187, 255);  //bright blue for the sky
     QRgb blue_sea = qRgb(17, 62, 228);   //dark blue for the sea
-    QColor transparent = qRgba(255,255,255,0);
+    QColor transparent = qRgba(0,0,0,0);
+    QColor brown = qRgba(125,65,6, 255);
+    QColor green = qRgba(121,178,51, 255);
 
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
     QVector<QPair<int, int> > getNeighbors(QPair<int, int> source);
     void dilate(QImage kernel);
-    void dilate2();
-    void dilate3(QColor color);
-    double height;
-    double width;
+    int height;
+    int width;
 
     QColor watercolor;
     QColor terraincolor;
     QColor grasscolor;
+    void dilate2(QColor color);
+    void dilate3(QColor color, int depth);
+    int **manhattan();
+    void dilate4(QColor color, int depth);
 
 public:
+    Water* water;
     //Constructors
     Ground();
     Ground(const int width, const int height, QColor watercolor, QColor terraincolor, QColor grasscolor);
@@ -53,6 +57,7 @@ public:
 
     virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
 
+    void AnimateWater(double dt);
 };
 
 #endif // GROUND_H

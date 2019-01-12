@@ -41,10 +41,15 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
-    perlinnoise.cpp\
     settings.cpp\
     help.cpp\
-    pause.cpp
+    pause.cpp\
+    perlinnoise.cpp \
+    handtohand.cpp \
+    ../GUI/water.cpp \
+    animationthread.cpp \
+    ../FastNoise-master/FastNoise.cpp \
+    ../GUI/spritesheet.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -63,7 +68,12 @@ HEADERS += \
     perlinnoise.h\
     settings.h\
     help.h\
-    pause.h
+    pause.h\
+    handtohand.h \
+    ../GUI/water.h \
+    animationthread.h\
+    ../FastNoise-master/FastNoise.h \
+    ../GUI/spritesheet.h
 
 FORMS += \
         mainwindow.ui \

@@ -76,6 +76,7 @@
 	<file>Images/menu/paused.png</file>
 	<file>Images/menu/quit.png</file>
 	<file>Images/menu/main.png</file>
+	<file>Images/Sprite_Walking.png</file>
         <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>

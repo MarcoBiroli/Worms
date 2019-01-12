@@ -105,6 +105,7 @@ void Ground::randomize2() {
                 this -> map -> setPixelColor(i,j,terraincolor);
                 this -> change_pixel(i,j, Qt::black);
             }
+            /*
             if (j > height-10){
                 this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
             }  //blue pixels are rigid body but can't be delete
@@ -113,14 +114,13 @@ void Ground::randomize2() {
             }
             if (i > width-10){
                 this -> change_pixel(i,j,Qt::blue);
-            }
+            }*/
         }
     }
     this->is_ground = true;
 }
 
 //Second randomize
-
 //Neccessary functions for the second randomize:
 
 void Ground::fillup(int i, int j, QImage& perlin)
@@ -138,21 +138,73 @@ void Ground::fillup(int i, int j, QImage& perlin)
     }
 }
 
-void Ground::dilate3(QColor color) {
-    // Best dilate by one solution
+// O(n^2) solution to find the Manhattan distance to "on" pixels in a two dimension array
+int** Ground::manhattan(){
+    int ** out = new int*[this->width];
+    for(int i = 0; i < this->width; i++){
+        out[i] = new int[this->height];
+    }
+    // traverse from top left to bottom right
     for (int i=0; i<this->map->width(); i++){
-        for (int j=0; j < this->map->height(); j++){
-            if (this->map->pixelColor(i, j) == terraincolor){
-                if (i>0 && this->map->pixelColor(i-1, j) != terraincolor) this->map->setPixelColor(i-1, j, QColor(0,0,0,255));
-                if (j>0 && this->map->pixelColor(i, j-1) != terraincolor) this->map->setPixelColor(i, j-1, QColor(0, 0, 0, 255));
-                if (i+1< this->map->width() && this->map->pixelColor(i+1, j) != terraincolor) this->map->setPixelColor(i+1, j, QColor(0, 0, 0, 255));
-                if (j+1< this->map->height() && this->map->pixelColor(i, j+1) != terraincolor) this->map->setPixelColor(i, j+1, QColor(0, 0, 0, 255));
+        for (int j=0; j< this->map->height(); j++){
+            if (this->map->pixelColor(i,j) == this->terraincolor){
+                // first pass and pixel was on, it gets a zero
+                out[i][j] = 0;
+            } else {
+                // pixel was off
+                // It is at most the sum of the lengths of the array
+                // away from a pixel that is on
+                out[i][j] = this->width + this->height;
+                // or one more than the pixel to the north
+                if (i>0) out[i][j] = std::min(out[i][j], out[i-1][j]+1);
+                // or one more than the pixel to the west
+                if (j>0) out[i][j] = std::min(out[i][j], out[i][j-1]+1);
+            }
+        }
+    }
+    // traverse from bottom right to top left
+    for (int i=this->width-1; i>=0; i--){
+        for (int j=this->height-1; j>=0; j--){
+            // either what we had on the first pass
+            // or one more than the pixel to the south
+            if (i+1<this->width) out[i][j] = std::min(out[i][j], out[i+1][j]+1);
+            // or one more than the pixel to the east
+            if (j+1<this->height) out[i][j] = std::min(out[i][j], out[i][j+1]+1);
+        }
+    }
+    return out;
+}
+
+void Ground::dilate4(QColor color, int depth){
+    int** distances = this->manhattan();
+    for (int i=0; i<this->width; i++){
+        for (int j=0; j<this->height; j++){
+            if(distances[i][j] <= depth && distances[i][j] != 0){
+                this->map->setPixelColor(i, j, color);
+                this->change_pixel(i, j, Qt::black);
+            }
+        }
+    }
+}
+
+void Ground::dilate3(QColor color, int depth){
+    for(int i = 0; i < this->map->width(); i++){
+        for(int j = 0; j < this->map->height(); j++){
+            if(this->map->pixelColor(i, j) == this->terraincolor){
+                for(int k = -(depth-1)/2; k <= (depth-1)/2; k++){
+                    for(int l = -(depth-1)/2; l <= (depth-1)/2; l++){
+                        if(i+k > 0 && i + k < this->map->width() && j+l > 0 && j+l < this->map->height() && abs(k)+abs(l) < depth &&
+                                this->map->pixelColor(i+k,j+l) == QColor(0, 0, 0, 127)){
+                            this->map->setPixelColor(i+k, j+l, QColor(0,0,0,127));
+                        }
+                    }
+                }
             }
         }
     }
     for (int i=0; i<this->map->width(); i++){
         for (int j=0; j < this->map->height(); j++){
-            if (this->map->pixelColor(i, j) == QColor(0, 0, 0, 255)){
+            if (this->map->pixelColor(i, j) == QColor(0, 0, 0, 127)){
                 this->map->setPixelColor(i, j, color);
                 this->change_pixel(i, j, Qt::black);
             }
@@ -167,8 +219,8 @@ void Ground::randomize3()
     empty.fill(Qt::white);
     this->set_map(empty);
     QImage perlinnoise_map = QImage(width, height, QImage::Format_RGB32);
-    double freqx = 100;
-    double freqy = 100;
+    double freqx = 150;
+    double freqy = 150;
     // Create a PerlinNoise object with the reference permutation vector
     PerlinNoise pn(width/freqx + 1, height/freqy + 1);
     // Visit every pixel of the image and assign a color generated with Perlin noise
@@ -231,12 +283,8 @@ void Ground::randomize3()
             success = false;
         }
     }
-    QImage kernel(5, 5, QImage::Format_RGB32);
-    kernel.fill(Qt::black);
-    for(int i = 0; i < 10; i++){
-        this->dilate3(terraincolor);
-    }
-    this->dilate3(watercolor);
+    this->dilate4(this->terraincolor, 20);
+    this->dilate4(this->grasscolor, 10);
 }
 
 
@@ -262,25 +310,4 @@ void Ground::circ_delete(int x, int y, double radius){ //This deletes all points
     }
     item->setPixmap(QPixmap::fromImage(*this->map));
 }
-
-
-//Water functions
-int Ground::WaterHeight(const int counter){
-    qInfo() << "counter: " << counter;
-    if (counter < 2){
-        return int(0.87*height);
-    }
-    if (counter >= 2 && counter < 2000){
-        return int(0.87*height - 5*(counter));
-    }
-}
-
-void Ground::Water(const int water_height){
-    for (int i = 0; i < width; i++){
-        for (int j = water_height; j < height ; j++){
-            this->map->setPixelColor(i,j,watercolor);
-        }
-    }
-}
-
 
