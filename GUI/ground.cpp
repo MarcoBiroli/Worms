@@ -9,7 +9,6 @@ Ground::Ground(const QImage bw_ground): Collider(){
     this -> set_map(bw_ground);
     this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
     this -> is_ground = true;
-    this->water = new Water();
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
