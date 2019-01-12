@@ -13,17 +13,18 @@ CustomView::~CustomView(){
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
+    qInfo()<<currentScale;
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
    double increasescale = 1.03;
-   if (event->delta() > 0 && currentScale < scaleMax)
+   if (event->delta() > 0 && currentScale*scaleFactor < scaleMax)
    {
        scale(scaleFactor,scaleFactor);
        currentScale *= scaleFactor;
 
        this->game->changemenusize(1/increasescale,1/increasescale);
    }
-   else if (currentScale > scaleMin) {
+   else if (currentScale/scaleFactor > scaleMin) {
        scale(1/scaleFactor,1/scaleFactor);
        currentScale /= scaleFactor;
 

@@ -52,7 +52,7 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     view = iview;
 
     physics_engine = new PhysicsEngine();
-    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
 
     thread = new QThread;
@@ -90,7 +90,6 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     //scene->addItem(water.sprite);
     scene->addItem(ground->getPixmap());
     physics_engine->add_Collider(ground);
-    view->centerOn(ground->getPixmap());
 
     QObject::connect(thread, SIGNAL(started()), worker, SLOT(process()));
     QObject::connect(worker, SIGNAL(built_water()), this, SLOT(add_water_to_scene()));
@@ -165,6 +164,8 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     next_turn = false;
 
     worms[worms_playing[team_playing]]->reticle->show();
+    view->setBackgroundBrush(QBrush(qRgb(22, 236, 254), Qt::SolidPattern));
+    view->fitInView(ground->getPixmap(), Qt::KeepAspectRatioByExpanding);
 }
 
 Game::~Game()
@@ -253,6 +254,7 @@ void Game::nextWorm(){
     }
     menu->active_worm = worms[worms_playing[team_playing]];
     worms[worms_playing[team_playing]]->reticle->show();
+    view->centerOn(worms[worms_playing[team_playing]]->sprite);
 }
 
 void Game::handleEvents(QKeyEvent *k){
