@@ -11,7 +11,7 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 50, 0, false, 0, 100, 100, 5, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
@@ -31,7 +31,7 @@ void Game::weapon_list()
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
-    Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 50, 100, 100, 5, 0, 0, img4);
+    Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 0.5, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
     //Holy grenade weapon id = 5
@@ -204,11 +204,17 @@ bool Game::gameIteration(double dt){
         next_turn = false;
 
 
-        Crate* newCrate = new Crate(800,  2500, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        /*Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
+
+        Barrel* newBarrel = new Barrel(1500,  2100, 100,  barrel_image);//positions are arbitrary and should depend on size of window
+
+        physics_engine->add_RigidBody(newBarrel);
+        barrels.append(newBarrel);
+        scene->addItem(newBarrel->sprite);*/
     }
 
     for (int i=0; i<projectiles.size(); i++) {
@@ -222,6 +228,15 @@ bool Game::gameIteration(double dt){
             //explosion_image->setX(projectiles[i]->getX());
             //explosion_image->setY(projectiles[i]->getY());
             //scene->addItem(explosion_image);
+        }
+    }
+
+    for (int i=0; i<barrels.size(); i++) {
+        if(barrels[i]->getExplode()){
+            barrels[i]->explode(*physics_engine, projectiles, weapons);
+            physics_engine->delete_rigidbody(barrels[i]->getId());
+            delete barrels[i];
+            barrels.remove(i);
         }
     }
 
