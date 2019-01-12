@@ -11,17 +11,17 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 5, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 50, 0, false, 0, 100, 100, 5, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(20,20));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 90, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
     QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(20,20));
-    Projectile * grenade = new Projectile("Grenade", 1, 1000, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
+    Projectile * grenade = new Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
     grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
     weapons.append(grenade);
     //Dynamite weapon id = 3
@@ -31,7 +31,7 @@ void Game::weapon_list()
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
-    Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 5, 0, 0, img4);
+    Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 50, 100, 100, 5, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
     //Holy grenade weapon id = 5
