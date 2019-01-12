@@ -28,9 +28,13 @@ private:
     QGraphicsPixmapItem *item; //This is a QGraphicsItem, its an item that can be given to the screen to display.
     QVector<QPair<int, int> > getNeighbors(QPair<int, int> source);
     void dilate(QImage kernel);
-    void dilate2(QColor color);
     int height;
     int width;
+
+    QColor watercolor;
+    QColor terraincolor;
+    QColor grasscolor;
+    void dilate2(QColor color);
     void dilate3(QColor color, int depth);
     int **manhattan();
     void dilate4(QColor color, int depth);
@@ -38,12 +42,11 @@ private:
 public:
     //Constructors
     Ground();
-    Ground(const int width, const int height); //const QImage background);
-    Ground(const QImage background);
-    //int WaterHeight(const int counter);
-    //void Water(const int water_height);
-    void randomize();
+    Ground(const int width, const int height, QColor watercolor, QColor terraincolor, QColor grasscolor);
+    int WaterHeight(const int counter);
+    void Water(const int water_height);
     void randomize2();
+    void randomize3();
 
     QGraphicsPixmapItem* getPixmap() const; //This returns the Displayable Version of the Ground.
     void fillup(int i, int j, QImage& perlin);

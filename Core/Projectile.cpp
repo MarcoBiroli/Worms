@@ -70,7 +70,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         double dist = this->distance(*worm);
         if (dist <= explosion_radius) {
             int dmg_dealt = damage - (damage/explosion_radius)*dist;
-            worm->changeHealth(dmg_dealt);
+            worms[i]->changeHealth(dmg_dealt);
             //run explosion animation
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
             double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;

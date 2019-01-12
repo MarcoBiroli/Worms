@@ -41,9 +41,10 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
+    settings.cpp\
+    help.cpp\
+    pause.cpp\
     perlinnoise.cpp \
-    help_menu.cpp\
-    game_settings.cpp \
     handtohand.cpp \
     ../GUI/water.cpp \
     animationthread.cpp \
@@ -65,8 +66,9 @@ HEADERS += \
     ../GUI/music.h \
     weapon_menu.h \
     perlinnoise.h\
-    help_menu.h\
-    game_settings.h \
+    settings.h\
+    help.h\
+    pause.h\
     handtohand.h \
     ../GUI/water.h \
     animationthread.h\
@@ -76,8 +78,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
     weapon_menu.ui \
-    help_menu.ui \
-    dialogwindow.ui
-
-DISTFILES += \
-    game_settings.ui
+    dialogwindow.ui \
+    settings.ui\
+    help.ui\
+    pause.ui

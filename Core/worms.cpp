@@ -69,28 +69,38 @@ void Worm::changeHealth(int dmg) {
         this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
         this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }
-    QString msg = this->personal_name;
-    msg.append(QString::number(this->team_number));
-    msg.append("\n");
-    msg.append("Health: ");
-    msg.append(QString::number(this->health));
-    this->label->setText(msg);
+    //QString msg = this->personal_name;
+    //msg.append(QString::number(this->team_number));
+    //msg.append("\n");
+    //msg.append("Health: ");
+    //msg.append(QString::number(this->health));
+    //this->label->setText(msg);
 }
 
 
 Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
     Projectile* current_projectile = weapons[current_weapon]->clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
-    current_projectile->set_inital_position(this->x, this->y-25); //might need to offset initial position to avoid worm shooting himself
-    double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
-    double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
-    if (this->get_direction()) {
-        current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+    if(ammo[current_weapon] == -1 ||  ammo[current_weapon] != 0){
+        ammo[current_weapon] -= 1;
+        if (ammo[current_weapon] == -2) {
+            ammo[current_weapon] = -1;
+        }
+        else if (ammo[current_weapon] == -1){
+            ammo[current_weapon] = 0;
+        }
+        current_projectile->set_inital_position(this->x, this->y-25); //might need to offset initial position to avoid worm shooting himself
+        double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
+        double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
+        if (this->get_direction()) {
+            current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+        }
+        else{
+            current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
+        }
+        return current_projectile;
     }
-    else{
-        current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
-    }
-    return current_projectile;
+    else{return NULL;}
 }
 
 bool Worm::get_direction(){
@@ -121,7 +131,7 @@ bool Worm::isWorm(){
 }
 
 void Worm::addAmmo(int weaponID, int amountAmmo){
-    if (weaponID == 0){
+    if (weaponID == -1){ //careful it is not supposed to be bigger or equal to 0 coz that is for real weapons
         this->health += amountAmmo;
     }
     else {

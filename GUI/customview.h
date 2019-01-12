@@ -5,12 +5,8 @@
 #include <QObject>
 #include "../Core/Game.h"
 
-#ifndef MY_GLOBALS_H
-#define MY_GLOBALS_H
+class Game;
 
-extern bool quitGame;
-
-#endif
 
 #define CUSTOMVIEW
 

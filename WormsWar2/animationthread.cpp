@@ -11,7 +11,7 @@ AnimationThread::~AnimationThread(){
 
 void AnimationThread::process(){
     if(this->water == NULL){
-        this->water = new Water(qRgb(17, 62, 228), width, water_height);
+        this->water = new Water(color, width, water_height);
         emit built_water();
     }
     this->water->rise(5*0.01);

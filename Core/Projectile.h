@@ -54,7 +54,7 @@ class Projectile : public RigidBody {
         double delay;
         double explosion_radius;
         double damage;
-        std::string weapon_name; //? Whats the weapon name for
+        std::string weapon_name;
         int weapon_id;
 };
 

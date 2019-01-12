@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "../Core/worms.h"
+#include "../GUI/music.h"
 
 namespace Ui {
 class weapon_menu;
@@ -32,15 +33,17 @@ private slots:
 
     void on_MeteorButton_clicked();
 
-    void on_MagnetButton_clicked();
-
     void on_MineButton_clicked();
-
-    void on_MissileButton_clicked();
 
     void on_BatButton_clicked();
 
     void on_MonsterbombButton_clicked();
+
+    void on_firepunchButton_clicked();
+
+    void on_holyButton_clicked();
+
+    void on_BananaButton_clicked();
 
 private:
     Ui::weapon_menu *ui;

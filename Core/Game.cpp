@@ -3,6 +3,8 @@
 #include <QSound>
 #include <QMediaPlayer>
 #include "../GUI/music.h"
+#include "settings.h"
+#include "pause.h"
 
 //Initialize all weapons
 void Game::weapon_list()
@@ -32,21 +34,54 @@ void Game::weapon_list()
     Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 5, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
+    //Holy grenade weapon id = 5
+    QPixmap img5 = QPixmap::fromImage(QImage("://Images/weapons/Holy_Grenade.png").scaled(30,30));
+    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
+    holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
+    weapons.append(holy);
+    //Banana weapon id = 5
+    QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
+    Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
+    banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
+    weapons.append(banana);
 
 }
 
-Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double max_turn_time, int nb_teams, int ground_size_x, int ground_size_y){
+Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomView* iview, Settings *settings, int ground_size_x, int ground_size_y){
     scene = iscene;
     view = iview;
 
     physics_engine = new PhysicsEngine();
-    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
-    scene -> addItem(background);
-
-    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
-
+    backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
     scene = iscene;
-    ground = new Ground(ground_size_x, ground_size_y);
+
+    thread = new QThread;
+    worker = new AnimationThread();
+    worker->moveToThread(thread);
+    worker->width = ground_size_x;
+    worker->height = ground_size_y-600;
+    worker->water_height = 500;
+
+    if (number == 1) {
+        QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
+        scene -> addItem(background);
+        ground = new Ground(ground_size_x, ground_size_y, water_blue, terrain_g, grass_green);
+        worker->color = water_blue;
+    }
+    if (number == 2){
+        QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
+        scene -> addItem(background);
+        ground = new Ground(ground_size_x, ground_size_y, water_sun, terrain_brown, grass_green);
+        ground->randomize2();
+        worker->color = water_sun;
+    }
+    if (number == 3){
+        QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/volcano.png").scaled(ground_size_x,ground_size_y)));
+        scene -> addItem(background);
+        ground = new Ground(ground_size_x, ground_size_y, water_fire, terrain_grey, grass_fire);
+        ground->randomize3();
+        worker->color = water_fire;
+    }
 
     //this->water = Water (qRgb(17, 62, 228), ground_size_x, 500);
     //water.sprite->setPos(0, ground_size_y-600);
@@ -57,13 +92,6 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     physics_engine->add_Collider(ground);
     view->centerOn(ground->getPixmap());
 
-
-    thread = new QThread;
-    worker = new AnimationThread();
-    worker->moveToThread(thread);
-    worker->width = ground_size_x;
-    worker->height = ground_size_y-600;
-    worker->water_height = 500;
     QObject::connect(thread, SIGNAL(started()), worker, SLOT(process()));
     QObject::connect(worker, SIGNAL(built_water()), this, SLOT(add_water_to_scene()));
     QObject::connect(worker, SIGNAL(animated()), this, SLOT(refresh_display()));
@@ -80,9 +108,20 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     proxymenu->setZValue(101);
     proxymenu->hide();
 
-    this->nb_teams = nb_teams;
-    this->max_turn_time = max_turn_time;
+
+    Pause *pause = new Pause();
+    pause->view = this->view;
+    pause->MainWindow = mainwindow;
+    this->proxypause = scene->addWidget(pause);
+    proxypause->setPos(((scene->width()/2)-pause->width()/2),((scene->height()/2)-pause->width()/2));
+    proxypause->setZValue(200);
+    proxypause->hide();
     paused = false;
+
+    this->nb_teams = settings->numberOfTeams;
+    this->max_turn_time = settings->timeprturn * 1000;
+    double nb_worms = settings->wormperteam;
+
 
     for(int team=0; team<nb_teams; team++){
         worms_playing.append(team*nb_worms);
@@ -100,6 +139,15 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             scene->addItem(newWorm->sprite);
+            newWorm->addAmmo(0,settings->amobazooka);
+            newWorm->addAmmo(1,settings->ammoclusterbomb);
+            newWorm->addAmmo(2, settings->amogrenade);
+            //qDebug() << settings->amogrenade;
+            newWorm->addAmmo(3,settings->ammodynamite);
+            newWorm->addAmmo(4,settings->amopistol);
+            newWorm->addAmmo(5,settings->ammoholy);
+            newWorm->addAmmo(6,settings->amobanana);
+
         }
 
         if(team != 0){
@@ -126,7 +174,9 @@ Game::~Game()
 }
 
 bool Game::gameIteration(double dt){
-    if(paused){return false;}
+    if(paused){
+        proxypause->show();
+        return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
     worker->update(dt);
     if(!worms[worms_playing[team_playing]]->isAlive()){
@@ -217,12 +267,11 @@ void Game::handleEvents(QKeyEvent *k){
     if(k->key() == Qt::Key_Escape){ // key = Escape for pausing
        if(not paused){
            this->paused = true;
-           //scene->addItem(pause_image);
+           this->proxypause->show();
        }
        else {
            this->paused = false;
-           //pause_image->hide();
-           //scene->removeItem(pause_image);
+           this->proxypause->hide();
        }
     }
 
@@ -331,13 +380,15 @@ void Game::handleEvents(QKeyEvent *k){
         if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
             int power = 200;
             Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
-            physics_engine->add_RigidBody(current_projectile);
-            projectiles.append(current_projectile);
-            scene->addItem(current_projectile->sprite);
+            if (current_projectile != NULL){
+                physics_engine->add_RigidBody(current_projectile);
+                projectiles.append(current_projectile);
+                scene->addItem(current_projectile->sprite);
 
-            this->turn_timer = this->max_turn_time - 5000;
-            has_shot = true;
-        }
+                this->turn_timer = this->max_turn_time - 5000;
+                has_shot = true;
+             }
+         }
     }
     active_worm->setstable(false);
 }

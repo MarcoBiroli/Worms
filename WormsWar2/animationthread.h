@@ -23,6 +23,7 @@ public:
     double getWaveSize(){
         return water->wave_size;
     }
+    QColor color =  qRgb(17, 62, 228);
 
 public slots:
     void process();
