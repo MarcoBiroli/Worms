@@ -44,7 +44,11 @@ SOURCES += \
     perlinnoise.cpp \
     help_menu.cpp\
     game_settings.cpp \
-    handtohand.cpp
+    handtohand.cpp \
+    ../GUI/water.cpp \
+    animationthread.cpp \
+    ../FastNoise-master/FastNoise.cpp \
+    ../GUI/spritesheet.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -63,7 +67,11 @@ HEADERS += \
     perlinnoise.h\
     help_menu.h\
     game_settings.h \
-    handtohand.h
+    handtohand.h \
+    ../GUI/water.h \
+    animationthread.h\
+    ../FastNoise-master/FastNoise.h \
+    ../GUI/spritesheet.h
 
 FORMS += \
         mainwindow.ui \

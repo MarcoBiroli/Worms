@@ -9,12 +9,12 @@ Ground::Ground(const QImage bw_ground): Collider(){
     this -> set_map(bw_ground);
     this -> item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/ground_map_(3).png").scaled(2100,730)));
     this -> is_ground = true;
+    this->water = new Water();
 }
 
 Ground::Ground(const int width, const int height) : Collider(){ //Creates a ground of a given size.
     this->width = width;
     this->height = height;
-    //this->pn = new PerlinNoise(width/500, 180/10);
     srand(time(NULL));//make random 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->set_map(*this->map);
@@ -80,7 +80,7 @@ Ground::Ground(const int width, const int height) : Collider(){ //Creates a grou
     this->randomize2();
 }
 
-
+/*
 int Ground::WaterHeight(const int counter){
     qInfo() << "counter: " << counter;
     if (counter < 2){
@@ -94,21 +94,6 @@ int Ground::WaterHeight(const int counter){
 void Ground::Water(const int water_height){
     for (int i = 0; i < width; i++){
         for (int j = water_height; j < height ; j++){
-            this->map->setPixel(i,j,blue_sea);
-        }
-    }
-}
-
-/*
-void Ground::AnimateWater(double dt){
-    double freq = 500;
-    T += dt;
-    int delta = 0;
-    int j;
-    for (int i = 0; i < width; i++){
-        delta = pn->noise(i/freq, T/10000, 0)*500;
-        //qDebug()<<delta;
-        for (j = water_height + delta; j < height ; j++){
             this->map->setPixel(i,j,blue_sea);
         }
     }

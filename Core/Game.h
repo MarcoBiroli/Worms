@@ -21,12 +21,17 @@
 #include "Barrel.h"
 #include "weapon_menu.h"
 #include "crates.h"
+#include "../GUI/water.h"
+#include "QThread"
+#include "animationthread.h"
+#include "../GUI/spritesheet.h"
 
-class Game{
+class Game : public QObject{
+    Q_OBJECT
     private:
       double max_turn_time;
       int nb_teams;
-
+      //Water water;
       int number_of_turns;
 
       double turn_timer;
@@ -50,6 +55,9 @@ class Game{
       QMap<QString, QVector<QPixmap>> spritesheets;
 
       QGraphicsProxyWidget *proxymenu;
+      QThread* thread;
+      AnimationThread* worker;
+      QGraphicsPixmapItem* water_sprite = new QGraphicsPixmapItem();
 
     public:
 
@@ -76,7 +84,7 @@ class Game{
       //Constructors
       Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
 
-      ~Game();
+      virtual ~Game();
 
       //Methods
       void weapon_list();
@@ -96,5 +104,23 @@ class Game{
       void changemenupos(QPoint point);
 
       void changemenusize(double dx,double dy);
+
+public slots:
+      void add_water_to_scene(){
+          water_sprite->setPixmap(QPixmap::fromImage(*worker->getMap()));
+          water_sprite->setPos(0, this->ground->getHeight() - worker->water_height);
+          scene->addItem(water_sprite);
+      }
+      void refresh_display(){
+          water_sprite->setPixmap(QPixmap::fromImage(*worker->getMap()));
+          water_sprite->setPos(0, this->ground->getHeight() - worker->water_height);
+          QTimer::singleShot(10, this, SLOT(emit_refreshed()));
+      }
+      void emit_refreshed(){
+          emit refreshed();
+      }
+
+signals:
+      void refreshed();
 };
 #endif // GAME_H

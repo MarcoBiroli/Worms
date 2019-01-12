@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef GROUND_H
 #define GROUND_H
 
@@ -13,6 +11,7 @@
 #include <qmath.h>
 #include "QDebug"
 #include <QtGui>
+#include "water.h"
 
 class Ground : public Collider
 {
@@ -35,17 +34,15 @@ private:
     void dilate3(QColor color, int depth);
     int **manhattan();
     void dilate4(QColor color, int depth);
-    //int water_height;
-    //double T = 0;
-    //PerlinNoise* pn;
 
 public:
+    Water* water;
     //Constructors
     Ground();
     Ground(const int width, const int height); //const QImage background);
     Ground(const QImage background);
-    int WaterHeight(const int counter);
-    void Water(const int water_height);
+    //int WaterHeight(const int counter);
+    //void Water(const int water_height);
     void randomize();
     void randomize2();
 
