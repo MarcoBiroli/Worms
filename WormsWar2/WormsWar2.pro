@@ -41,12 +41,10 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
-<<<<<<< HEAD
-    perlinnoise.cpp
-=======
-    help_menu.cpp\
-    game_settings.cpp
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
+    perlinnoise.cpp\
+    settings.cpp\
+    help.cpp\
+    pause.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -62,18 +60,15 @@ HEADERS += \
         ../Core/crates.h \
     ../GUI/music.h \
     weapon_menu.h \
-<<<<<<< HEAD
-    perlinnoise.h
-=======
-    help_menu.h\
-    game_settings.h
->>>>>>> 9267adf0081ea41112628364b583c0dd4c624f85
+    perlinnoise.h\
+    settings.h\
+    help.h\
+    pause.h
 
 FORMS += \
         mainwindow.ui \
     weapon_menu.ui \
-    help_menu.ui \
-    dialogwindow.ui
-
-DISTFILES += \
-    game_settings.ui
+    dialogwindow.ui \
+    settings.ui\
+    help.ui\
+    pause.ui

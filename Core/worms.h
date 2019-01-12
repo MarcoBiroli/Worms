@@ -10,7 +10,7 @@
 #include <QGraphicsSimpleTextItem>
 
 
-#define NUMBER_OF_WEAPONS 2 //global variable fixed for the all execution
+#define NUMBER_OF_WEAPONS 15 //global variable fixed for the all execution
 
 class Projectile;
 
@@ -63,7 +63,7 @@ class Worm: public RigidBody {
       int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0
       const int team_number; //team number
-      const QString personal_name;
+      QString personal_name = "";
       //int weapon_ID = 0;
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right

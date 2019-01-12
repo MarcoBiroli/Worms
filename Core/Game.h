@@ -1,3 +1,4 @@
+#pragma once
 #ifndef GAME_H
 #define GAME_H
 
@@ -21,6 +22,12 @@
 #include "Barrel.h"
 #include "weapon_menu.h"
 #include "crates.h"
+#include "settings.h"
+#include "mainwindow.h"
+
+#include "../GUI/customview.h"
+
+class CustomView;
 
 class Game{
     private:
@@ -50,13 +57,24 @@ class Game{
       QMap<QString, QVector<QPixmap>> spritesheets;
 
       QGraphicsProxyWidget *proxymenu;
+      QGraphicsProxyWidget *proxypause;
+
+
+      QColor water_blue = qRgba(4, 168, 210, 255);
+      QColor water_sun = qRgba(12, 116, 223,255);
+      QColor terrain_g = qRgba(6, 86, 19, 255);
+      QColor grass_green = qRgba(121,178,51,255);
+      QColor water_fire =  qRgba(204, 0, 0,255);
+      QColor terrain_brown = qRgba(125,65,6, 255);
+      QColor grass_fire =  qRgba(204, 0, 0,255);
+      QColor terrain_grey = qRgba(25, 25, 25,255);
 
     public:
 
       //Initializing "GOD"!!!!
       Ground* ground;
       QGraphicsScene *scene;
-      QGraphicsView *view;
+      CustomView *view;
       PhysicsEngine* physics_engine;
 
       //Initializing the important arrays.
@@ -71,7 +89,7 @@ class Game{
       QVector<Crate*> crates;
 
       //Constructors
-      Game(QGraphicsScene *iscene, QGraphicsView *iview,  int nb_worms, double max_turn_time=90000, int nb_teams=2, int ground_size_x=5000, int ground_size_y=3000);
+      Game(int number,MainWindow * mainwindow, QGraphicsScene *iscene, CustomView *iview,  Settings *settings, int ground_size_x=5000, int ground_size_y=3000);
 
       ~Game();
 
