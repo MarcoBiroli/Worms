@@ -11,11 +11,7 @@ void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
-<<<<<<< HEAD
     Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
-=======
-    Projectile * bazooka = new Projectile("Bazooka", 0, 50, 0, false, 0, 100, 100, 5, 0, 0, img);
->>>>>>> c4dc73923ef97b2ff4169e64711cb794f54b41e3
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
