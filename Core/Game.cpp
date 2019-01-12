@@ -112,6 +112,7 @@ Game::Game(QGraphicsScene* iscene, QGraphicsView* iview, int nb_worms, double ma
     team_playing=0;
     turn_timer=0;
     has_shot = false;
+    next_turn = false;
 }
 
 Game::~Game()
@@ -120,6 +121,8 @@ Game::~Game()
     delete ground;
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
+    //what about worms:
+    // qDelete(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -142,6 +145,7 @@ bool Game::gameIteration(double dt){
         nextWorm();
         turn_timer = 0;
         has_shot = false;
+        next_turn = false;
 
         /*if(number_of_turns>4){
             Crate* newCrate = new Crate(1000,  2500, 100, 0, 20,  crate_image);//positions are arbitrary and should depend on size of window
@@ -150,8 +154,6 @@ bool Game::gameIteration(double dt){
             crates.append(newCrate);
             scene->addItem(newCrate->sprite);
         }*/
-
-    //thread->wait();
     }
 
     for (int i=0; i<projectiles.size(); i++) {
