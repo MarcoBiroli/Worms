@@ -8,6 +8,8 @@
 #include "Projectile.h"
 #include <QtMath>
 #include <QGraphicsSimpleTextItem>
+#include "QPixmap"
+#include "QGraphicsPixmapItem"
 
 
 #define NUMBER_OF_WEAPONS 15 //global variable fixed for the all execution
@@ -55,7 +57,7 @@ class Worm: public RigidBody {
       void change_direction(bool t);
 
       double weapon_angle = 0; //intially 0
-
+      QGraphicsPixmapItem* reticle = new QGraphicsPixmapItem(this->sprite);
       QGraphicsTextItem* label;
       QGraphicsPixmapItem * weapon_image = new QGraphicsPixmapItem(this->sprite);
       QVector<QImage> weapons = QVector<QImage>({QImage("://Images/weapons/Bazooka_left.png").scaled(16,16),

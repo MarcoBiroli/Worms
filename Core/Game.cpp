@@ -163,6 +163,8 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     turn_timer=0;
     has_shot = false;
     next_turn = false;
+
+    worms[worms_playing[team_playing]]->reticle->show();
 }
 
 Game::~Game()
@@ -226,6 +228,7 @@ bool Game::gameIteration(double dt){
 }
 
 void Game::nextWorm(){
+    worms[worms_playing[team_playing]]->reticle->hide();
     has_shot = false;
     team_playing = (team_playing +1)%nb_teams;
     if(worms_playing[team_playing] == worms.length()-1){worms_playing[team_playing] = 0;}
@@ -249,6 +252,7 @@ void Game::nextWorm(){
         nextWorm(); //careful with infinite loop
     }
     menu->active_worm = worms[worms_playing[team_playing]];
+    worms[worms_playing[team_playing]]->reticle->show();
 }
 
 void Game::handleEvents(QKeyEvent *k){
@@ -369,12 +373,12 @@ void Game::handleEvents(QKeyEvent *k){
 
         //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
         if (k-> key() == Qt::Key_I){// key == I increases the angle 0- 90
-            if (0<= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
+            if (-90 <= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
                 active_worm->weapon_angle += 10;
             }
         }
         if (k-> key() == Qt::Key_K){// key == K decreases the angle }
-            if (10<= active_worm->weapon_angle && active_worm->weapon_angle<=90){
+            if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
                 active_worm->weapon_angle -= 10;
             }
         }
