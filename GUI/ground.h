@@ -30,8 +30,6 @@ private:
     void dilate(QImage kernel);
     int height;
     int width;
-
-    QColor watercolor;
     QColor terraincolor;
     QColor grasscolor;
     void dilate2(QColor color);
@@ -42,7 +40,7 @@ private:
 public:
     //Constructors
     Ground();
-    Ground(const int width, const int height, QColor watercolor, QColor terraincolor, QColor grasscolor);
+    Ground(const int width, const int height, QColor terraincolor, QColor grasscolor);
     int WaterHeight(const int counter);
     void Water(const int water_height);
     void randomize2();
