@@ -25,6 +25,7 @@ public:
     bool start_medium = false;
     bool start_hard = false;
     bool quit_button = false;
+    bool through_esc = false;
 
     Settings * settingmenu;
     Help *helpmenu;

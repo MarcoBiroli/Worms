@@ -21,5 +21,4 @@ void HandToHand::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
     }
     this->sprite->hide();
-
 }

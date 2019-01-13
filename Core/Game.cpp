@@ -179,9 +179,6 @@ bool Game::gameIteration(double dt){
         return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
     worker->update(dt);
-    if(!worms[worms_playing[team_playing]]->isAlive()){
-        turn_timer = max_turn_time + 1;
-    }
     for(int i = 0; i < worms.length(); i++){
         //worms[i]->fall_damage();
         if(worms[i]->getY() > ground->getHeight() - worker->water_height + worker->getWaveSize()/2){
@@ -189,6 +186,9 @@ bool Game::gameIteration(double dt){
             worms[i]->sprite->hide();
             physics_engine->delete_rigidbody(worms[i]->getId());
         }
+    }
+    if(!worms[worms_playing[team_playing]]->isAlive()){
+        turn_timer = max_turn_time + 1;
     }
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
@@ -429,4 +429,23 @@ void Game::changemenusize(double dx,double dy){
     //qInfo() << heightmenu;
     //qInfo() << widthmenu;
     //qInfo() << " ";
+}
+
+int Game::getwinner(){
+    for(int i=0; i < this->worms.length(); i++){
+        if(worms[i]->isAlive()){
+            return worms[i]->getTeam();
+        }
+    }
+    return -1;
+}
+
+QVector<int> Game::get_team()
+{
+    QVector<int> pos = QVector<int> ();
+    for (int i=0; i<nb_teams; i++){
+        pos.append(i);
+    }
+    pos.remove(team_playing);
+    return pos;
 }

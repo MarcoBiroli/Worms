@@ -13,7 +13,9 @@ Ground::Ground(const int width, const int height, QColor terraincolor, QColor gr
     this->grasscolor = grasscolor;
 
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
+    this->map->fill(Qt::white);
     this->set_map(*this->map);
+    this->map->fill(QColor(0, 0, 0, 0));
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
     for(int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){

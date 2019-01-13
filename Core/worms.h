@@ -57,6 +57,9 @@ class Worm: public RigidBody {
       double weapon_angle = 0; //intially 0
 
       QGraphicsSimpleTextItem* label;
+      QGraphicsPixmapItem * weapon_image;// =  new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30)));
+
+      void give_weapon_img(int weapon_id);
 
     private:
       int health;

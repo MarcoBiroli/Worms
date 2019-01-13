@@ -122,6 +122,9 @@ class Game : public QObject{
 
       void changemenusize(double dx,double dy);
 
+      int getwinner();
+      QVector<int> get_team();
+
 public slots:
       void add_water_to_scene(){
           water_sprite->setPixmap(QPixmap::fromImage(*worker->getMap()));
