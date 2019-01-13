@@ -49,7 +49,8 @@ SOURCES += \
     ../GUI/water.cpp \
     animationthread.cpp \
     ../FastNoise-master/FastNoise.cpp \
-    ../GUI/spritesheet.cpp
+    ../GUI/spritesheet.cpp \
+    finished.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -73,7 +74,8 @@ HEADERS += \
     ../GUI/water.h \
     animationthread.h\
     ../FastNoise-master/FastNoise.h \
-    ../GUI/spritesheet.h
+    ../GUI/spritesheet.h \
+    finished.h
 
 FORMS += \
         mainwindow.ui \
@@ -81,4 +83,5 @@ FORMS += \
     dialogwindow.ui \
     settings.ui\
     help.ui\
-    pause.ui
+    pause.ui \
+    finished.ui

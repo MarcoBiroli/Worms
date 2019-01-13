@@ -13,6 +13,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::add_percent()
+{
+    ui->progressBar->setValue(ui->progressBar->value()+1);
+}
+
 void MainWindow::on_Easy_clicked()
 {
     this->hide();
@@ -48,3 +53,4 @@ void MainWindow::on_quitButton_clicked()
 {
     this->quit_button = true;
 }
+

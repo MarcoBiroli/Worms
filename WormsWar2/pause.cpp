@@ -19,6 +19,7 @@ void Pause::on_mainButton_clicked()
     this->hide();
     this->view->has_quitted = true;
     playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    MainWindow->through_esc = true;
 }
 
 void Pause::on_exitButton_clicked()

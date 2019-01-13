@@ -11,6 +11,7 @@
 #include "help.h"
 #include <QSound>
 #include <QMediaPlayer>
+#include "finished.h"
 
 
 int main(int argc, char *argv[])
@@ -30,6 +31,10 @@ int main(int argc, char *argv[])
     MainMenu->helpmenu = helpmenu;
     helpmenu->mainwindow = MainMenu;
 
+    Finished *finishmenu = new Finished();
+    finishmenu->mainwindow = MainMenu;
+
+
     while(MainMenu->quit_button!=true){
         a.processEvents();
         if (MainMenu->start_easy == true){
@@ -39,12 +44,12 @@ int main(int argc, char *argv[])
 
             //Put a graphics view inside of the window
             CustomView *view = new CustomView(scene);
-            //view->setSceneRect(0, 0, 20000, 20000);
+            view->setSceneRect(0, 0, 5000, 3000);
 
             //Initialize a game Game(int number,QGraphicsScene *iscene, QGraphicsView *iview, int ground_size_x=5000, int ground_size_y=3000, Settings *settings);
 
 
-            Game *game = new Game(1, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 1, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;
@@ -63,10 +68,27 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            if(MainMenu->through_esc){
+                MainMenu->through_esc = false;
+                QString string = "";
+                if (game->get_team().length() != 1){
+                    for (int i=0; i<game->get_team().length(); i++){
+                        string.append(QString::number(i+1));
+                        string.append(",");
+                    }
+                }
+                else{
+                    string = QString::number(game->get_team()[0]+1);
+                }
+                finishmenu->update_label(string);
+            }
+            else{
+                finishmenu->update_label(QString::number(game->getwinner() + 1));
+            }
             delete view;
             delete scene;
             delete game;
-            MainMenu->show();
+            finishmenu->show();
         }
         if (MainMenu->start_medium == true){
             //Initialize the window
@@ -79,7 +101,7 @@ int main(int argc, char *argv[])
 
             //Initialize a game
 
-            Game *game = new Game(2, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 2, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;
@@ -98,10 +120,27 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            if(MainMenu->through_esc){
+                QString string;
+                if (game->get_team().length() != 1){
+                    for (int i=0; i<game->get_team().length(); i++){
+                        string.append(QString::number(i+1));
+                        string.append(",");
+                    }
+                    string.remove(",");
+                }
+                else{
+                    string = QString::number(game->get_team()[0]+1);
+                }
+                finishmenu->update_label(string);
+            }
+            else{
+                finishmenu->update_label(QString::number(game->getwinner() + 1));
+            }
             delete view;
             delete scene;
             delete game;
-            MainMenu->show();
+            finishmenu->show();
         }
         if (MainMenu->start_hard == true){
             //Initialize the window
@@ -114,7 +153,7 @@ int main(int argc, char *argv[])
 
             //Initialize a game
 
-            Game *game = new Game(3, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 3, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;
@@ -133,10 +172,27 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            if(MainMenu->through_esc){
+                QString string;
+                if (game->get_team().length() != 1){
+                    for (int i=0; i<game->get_team().length(); i++){
+                        string.append(QString::number(i+1));
+                        string.append(",");
+                    }
+                    string.remove(",");
+                }
+                else{
+                    string = QString::number(game->get_team()[0]+1);
+                }
+                finishmenu->update_label(string);
+            }
+            else{
+                finishmenu->update_label(QString::number(game->getwinner() + 1));
+            }
             delete view;
             delete scene;
             delete game;
-            MainMenu->show();
+            finishmenu->show();
         }
     }
     return 0;

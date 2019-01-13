@@ -20,8 +20,8 @@ public:
     Game* game;
     bool has_quitted = false;
     double currentScale = 1.0;  // stores the current scale value.
-    const double scaleMin = .25; // defines the min scale limit. if you want limit to increase, - scaleMin,
-    const double scaleMax = 1.45; //defines the max scale limit. if you want limit to increase, + scaleMin,
+    const double scaleMin = 1; // defines the min scale limit. if you want limit to increase, - scaleMin,
+    const double scaleMax = 3; //defines the max scale limit. if you want limit to increase, + scaleMin,
 
 protected:
      void wheelEvent(QWheelEvent *event);

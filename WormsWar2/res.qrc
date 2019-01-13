@@ -81,6 +81,9 @@
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
+	<file>Images/menu/worms4.png</file>
+	<file>Images/menu/worms2.png</file>
+	<file>Images/menu/skip.png</file>
         <file>Images/menu/computer_key_A.png</file>
 	<file>Images/menu/computer_key_Esc.png</file>
         <file>Images/menu/computer_key_Arrow_Right.png</file>
@@ -100,5 +103,6 @@
         <file>SoundEffect/Yawn+1.wav</file>
         <file>SoundEffect/Cough2.wav</file>
         <file>Images/grounds/volcano.png</file>
+	<file>Images/Aim.png</file>
     </qresource>
 </RCC>
