@@ -13,7 +13,7 @@ CustomView::~CustomView(){
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
-    qInfo()<<currentScale;
+   qInfo()<<currentScale;
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
    double increasescale = 1.03;
@@ -33,6 +33,13 @@ void CustomView::wheelEvent(QWheelEvent *event)
    QPointF pointf = mapToScene(0.0,0.0);
    QPoint point = QPoint(pointf.rx(), pointf.ry());
    this->game->changemenupos(point);
+}
+
+void CustomView::setup_menu(){
+    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    QPointF pointf = mapToScene(0.0,0.0);
+    QPoint point = QPoint(pointf.rx(), pointf.ry());
+    this->game->changemenupos(point);
 }
 
 

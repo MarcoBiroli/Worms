@@ -22,6 +22,7 @@ public:
     double currentScale = 1.0;  // stores the current scale value.
     const double scaleMin = 1; // defines the min scale limit. if you want limit to increase, - scaleMin,
     const double scaleMax = 3; //defines the max scale limit. if you want limit to increase, + scaleMin,
+    void setup_menu();
 
 protected:
      void wheelEvent(QWheelEvent *event);

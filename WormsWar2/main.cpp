@@ -45,8 +45,6 @@ int main(int argc, char *argv[])
 
 
             Game *game = new Game(1, MainMenu, scene, view, setting, 5000, 3000);
-
-            view->game = game;
             view->currentScale = 1;
 
             QTime lastUpdate= QTime::currentTime();

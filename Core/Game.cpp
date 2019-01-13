@@ -166,6 +166,8 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     worms[worms_playing[team_playing]]->reticle->show();
     view->setBackgroundBrush(QBrush(qRgb(22, 236, 254), Qt::SolidPattern));
     view->fitInView(ground->getPixmap(), Qt::KeepAspectRatioByExpanding);
+    view->game = this;
+    view->setup_menu();
 }
 
 Game::~Game()
@@ -184,9 +186,6 @@ bool Game::gameIteration(double dt){
         return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
     worker->update(dt);
-    if(!worms[worms_playing[team_playing]]->isAlive()){
-        turn_timer = max_turn_time + 1;
-    }
     for(int i = 0; i < worms.length(); i++){
         //worms[i]->fall_damage();
         worms[i]->update_weapon();
@@ -195,6 +194,9 @@ bool Game::gameIteration(double dt){
             worms[i]->sprite->hide();
             physics_engine->delete_rigidbody(worms[i]->getId());
         }
+    }
+    if(!worms[worms_playing[team_playing]]->isAlive()){
+        turn_timer = max_turn_time + 1;
     }
     if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
         number_of_turns +=1;
