@@ -30,6 +30,9 @@ public:
     Settings * settingmenu;
     Help *helpmenu;
 
+public slots:
+    void add_percent();
+
 private slots:
     void on_Easy_clicked();
 

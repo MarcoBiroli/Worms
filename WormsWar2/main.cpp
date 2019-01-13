@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
             //Initialize a game Game(int number,QGraphicsScene *iscene, QGraphicsView *iview, int ground_size_x=5000, int ground_size_y=3000, Settings *settings);
 
 
-            Game *game = new Game(1, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 1, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 
             //Initialize a game
 
-            Game *game = new Game(2, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 2, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 
             //Initialize a game
 
-            Game *game = new Game(3, MainMenu, scene, view, setting, 5000, 3000);
+            Game *game = new Game(&a, 3, MainMenu, scene, view, setting, 5000, 3000);
 
             view->game = game;
             view->currentScale = 1;

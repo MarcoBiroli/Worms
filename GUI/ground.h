@@ -12,9 +12,11 @@
 #include "QDebug"
 #include <QtGui>
 #include "water.h"
+#include "QApplication"
 
 class Ground : public Collider
 {
+    Q_OBJECT
 private:
     QImage* map; // colors colliding_map //This is the image in which we store the information about the ground
     QRgb white = qRgb(255, 255, 255);   //I define colors here so later in the code i can just us "black" or "white"
@@ -36,11 +38,12 @@ private:
     void dilate3(QColor color, int depth);
     int **manhattan();
     void dilate4(QColor color, int depth);
+    QApplication* a = NULL;
 
 public:
     //Constructors
     Ground();
-    Ground(const int width, const int height, QColor terraincolor, QColor grasscolor);
+    Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor);
     int WaterHeight(const int counter);
     void Water(const int water_height);
     void randomize2();
@@ -53,6 +56,10 @@ public:
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
 
     virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
+
+signals:
+    void new_percent();
+
 };
 
 #endif // GROUND_H

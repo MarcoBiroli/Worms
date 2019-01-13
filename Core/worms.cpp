@@ -103,7 +103,7 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         else if (ammo[current_weapon] == -1){
             ammo[current_weapon] = 0;
         }
-        current_projectile->set_inital_position(this->x, this->y-25); //might need to offset initial position to avoid worm shooting himself
+        current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
         double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
         double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
         if (this->get_direction()) {
@@ -125,12 +125,12 @@ void Worm::update_weapon(){
     this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
     double reticle_dist = 100;
     if(this->get_direction()){
-        this->weapon_image->setPos(this->getWidth()-8, this->getHeight()/2 - 8);
-        this->reticle->setPos(this->getWidth()/2 + 50*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - 50*qSin(weapon_angle*(M_PI/180)) - 16);
+        this->weapon_image->setPos(this->getWidth()+5, this->getHeight()/2 - 11);
+        this->reticle->setPos(this->getWidth()/2 + reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
     }
     else{
-        this->weapon_image->setPos(-8, this->getHeight()/2 - 8);
-        this->reticle->setPos(this->getWidth()/2 - 50*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - 50*qSin(weapon_angle*(M_PI/180)) - 16);
+        this->weapon_image->setPos(-16, this->getHeight()/2 - 11);
+        this->reticle->setPos(this->getWidth()/2 - reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
     }
 }
 

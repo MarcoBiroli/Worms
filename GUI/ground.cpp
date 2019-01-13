@@ -7,12 +7,12 @@ Ground::Ground() : Collider (){ //Creates an undefined Ground
     //this->set_map(*this->map);
 }
 
-Ground::Ground(const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
+Ground::Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
     this->width = width;
     this->height = height;
     this->terraincolor = terraincolor;
     this->grasscolor = grasscolor;
-
+    this->a = a;
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
     this->map->fill(Qt::white);
     this->set_map(*this->map);
@@ -148,6 +148,7 @@ int** Ground::manhattan(){
     }
     // traverse from top left to bottom right
     for (int i=0; i<this->map->width(); i++){
+        a->processEvents();
         for (int j=0; j< this->map->height(); j++){
             if (this->map->pixelColor(i,j) == this->terraincolor){
                 // first pass and pixel was on, it gets a zero
@@ -180,6 +181,7 @@ int** Ground::manhattan(){
 void Ground::dilate4(QColor color, int depth){
     int** distances = this->manhattan();
     for (int i=0; i<this->width; i++){
+        a->processEvents();
         for (int j=0; j<this->height; j++){
             if(distances[i][j] <= depth && distances[i][j] != 0){
                 this->map->setPixelColor(i, j, color);
@@ -238,6 +240,10 @@ void Ground::randomize3()
             else{
                 perlinnoise_map.setPixel(j,i, qRgba(0, 0, 0 , 255));
             }
+        }
+        if ((int)(i/(2*height)*100)-(int)((i-1)/(2*height)*100) >= 1){
+            emit new_percent();
+            this->a->processEvents();
         }
     }
     int line1 = height - 50;
