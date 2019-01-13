@@ -105,7 +105,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
 
     }
-    this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
+    //this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/menu/worms2.png").scaled(20,20)));
     this->sprite->hide();
 
 }

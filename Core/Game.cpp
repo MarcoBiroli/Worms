@@ -223,14 +223,18 @@ bool Game::gameIteration(double dt){
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
+            /*
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/menu/worms2.png").scaled(20,20)));
+            explosion_image->setX(projectiles[i]->getX());
+            explosion_image->setY(projectiles[i]->getY());
+            explosion_image->show();
+            scene->addItem(explosion_image);
+            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            */
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
 
-            //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
-            //explosion_image->setX(projectiles[i]->getX());
-            //explosion_image->setY(projectiles[i]->getY());
-            //scene->addItem(explosion_image);
         }
     }
 
@@ -404,7 +408,7 @@ void Game::handleEvents(QKeyEvent *k){
         }
 
         if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
-            int power = 200;
+            int power = 100;
             Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
             if (current_projectile != NULL){
                 physics_engine->add_RigidBody(current_projectile);
