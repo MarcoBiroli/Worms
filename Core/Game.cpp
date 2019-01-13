@@ -224,12 +224,12 @@ bool Game::gameIteration(double dt){
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
             /*
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/menu/worms2.png").scaled(20,20)));
-            explosion_image->setX(projectiles[i]->getX());
-            explosion_image->setY(projectiles[i]->getY());
-            explosion_image->show();
-            scene->addItem(explosion_image);
-            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            QGraphicsPixmapItem* explosion = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
+            explosion->setX(projectiles[i]->getX());
+            explosion->setY(projectiles[i]->getY());
+            explosion->show();
+            scene->addItem(explosion);
+            QTimer::singleShot(1000, explosion, &QGraphicsPixmapItem::hide);
             */
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
