@@ -9,11 +9,17 @@ class Projectile;
 
 class Barrel : public RigidBody {
     //Class for the exploding oil barrels
+    protected :
+        bool should_explode;
     public :
         Barrel();
         Barrel(double m, double x, double y, QPixmap isprite);
 
-        void explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles);
+        //getter && setter of should_explode
+        void setExplode(bool exp);
+        bool getExplode();
+
+        void explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles,  QVector<Projectile*> &weapons);
         //Call this function when the barrel is caught in an explosion
         //The function does the following:
         //Remove the barrel from the game

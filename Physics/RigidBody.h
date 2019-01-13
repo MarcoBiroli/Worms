@@ -19,6 +19,7 @@ private:
     
 public:
     bool is_colliding = false;
+    bool tangent_bouncing = false;
     QPair<bool, QPair<double, double>> is_grounded = QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));
     QGraphicsPixmapItem* sprite;
 

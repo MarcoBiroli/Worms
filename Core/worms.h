@@ -8,6 +8,8 @@
 #include "Projectile.h"
 #include <QtMath>
 #include <QGraphicsSimpleTextItem>
+#include "QPixmap"
+#include "QGraphicsPixmapItem"
 
 
 #define NUMBER_OF_WEAPONS 15 //global variable fixed for the all execution
@@ -55,13 +57,19 @@ class Worm: public RigidBody {
       void change_direction(bool t);
 
       double weapon_angle = 0; //intially 0
+      QGraphicsPixmapItem* reticle = new QGraphicsPixmapItem(this->sprite);
+      QGraphicsTextItem* label;
+      QGraphicsPixmapItem * weapon_image = new QGraphicsPixmapItem(this->sprite);
+      QVector<QImage> weapons = QVector<QImage>({QImage("://Images/weapons/Bazooka_left.png").scaled(16,16),
+                                                    QImage("://Images/weapons/BlueGrenade_left.png").scaled(16,16),
+                                                    QImage("://Images/weapons/Grenade_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Dynamite_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Gun_left.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Holy_Grenade.png").scaled(16,16),
+                                                  QImage("://Images/weapons/Banana_left.png").scaled(16,16)});
 
-      QGraphicsSimpleTextItem* label;
-      QGraphicsPixmapItem * weapon_image;// =  new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30)));
-
-      void give_weapon_img(int weapon_id);
-
-    private:
+      void update_weapon();
+private:
       int health;
       int current_weapon = 0;
       int ammo[NUMBER_OF_WEAPONS] = { 0 }; //all entries initialized to 0

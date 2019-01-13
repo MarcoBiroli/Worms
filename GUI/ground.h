@@ -38,7 +38,6 @@ private:
     void dilate4(QColor color, int depth);
 
 public:
-    Water* water;
     //Constructors
     Ground();
     Ground(const int width, const int height, QColor terraincolor, QColor grasscolor);
@@ -54,8 +53,6 @@ public:
     void delete_ground(int x, int y); //This deletes the ground at one point of coordinate (x,y).
 
     virtual void circ_delete(int x, int y, double radius); //This deletes all points in a circle of center (x,y) and radius "radius".
-
-    void AnimateWater(double dt);
 };
 
 #endif // GROUND_H

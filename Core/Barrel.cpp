@@ -16,11 +16,20 @@ Barrel::Barrel(double m, double x, double y, QPixmap isprite): RigidBody(m, x, y
     this->sprite->setPixmap(isprite);
 }
 
-void Barrel::explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles) {
-    /*Projectile* current_projectile = new Projectile("Barrel", 100, 0, false, 0, 50, 10, 2, this->x, this->y, QPixmap::fromImage("://Images/barrel.png"));
-
-    engine.delete_rigidbody(this->getId());
+void Barrel::explode(PhysicsEngine &engine, QVector<Projectile*> &projectiles,  QVector<Projectile*> &weapons) {
+    Projectile* current_projectile = weapons[0]->clone();
+    current_projectile->set_inital_position(this->x, this->y-25);
 
     engine.add_RigidBody(current_projectile); //add projectile to projectile vector to be handle by physics engine
-    projectiles.append(current_projectile);*/
+    projectiles.append(current_projectile);
+
+    this->sprite->hide();
+}
+
+void Barrel::setExplode(bool exp){
+    should_explode = exp;
+}
+
+bool Barrel::getExplode(){
+    return should_explode;
 }
