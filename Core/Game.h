@@ -129,7 +129,7 @@ class Game : public QObject{
       int getwinner();
       QVector<int> get_team();
 
-      int power = 10;
+      int power = 20;
 
 public slots:
       void add_water_to_scene(){

@@ -13,7 +13,7 @@ CustomView::~CustomView(){
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
-    qInfo()<<currentScale;
+   //qInfo()<<currentScale;
    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    double scaleFactor = 1.03;
    double increasescale = 1.03;
