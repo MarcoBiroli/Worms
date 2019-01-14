@@ -207,7 +207,7 @@ bool Game::gameIteration(double dt){
         next_turn = false;
 
 
-        Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        /*Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
@@ -217,7 +217,7 @@ bool Game::gameIteration(double dt){
 
         physics_engine->add_RigidBody(newBarrel);
         barrels.append(newBarrel);
-        scene->addItem(newBarrel->sprite);
+        scene->addItem(newBarrel->sprite);*/
     }
 
     QVector<int> deleteElements;
