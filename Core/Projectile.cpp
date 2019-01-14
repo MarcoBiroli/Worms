@@ -64,7 +64,10 @@ bool Projectile::on_collision_do(Collider &other)
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
-    playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
+    Music explosion;
+    explosion.playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
@@ -79,7 +82,9 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             //qInfo() << explosion_force;
             worm->addForce(explosion_force);
-            randomsound();
+            Music sound;
+
+            sound.randomsound();
         }
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
