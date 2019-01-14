@@ -41,8 +41,16 @@ SOURCES += \
     ../GUI/customview.cpp \
     ../GUI/music.cpp \
     weapon_menu.cpp \
-    help_menu.cpp\
-    game_settings.cpp
+    settings.cpp\
+    help.cpp\
+    pause.cpp\
+    perlinnoise.cpp \
+    handtohand.cpp \
+    ../GUI/water.cpp \
+    animationthread.cpp \
+    ../FastNoise-master/FastNoise.cpp \
+    ../GUI/spritesheet.cpp \
+    finished.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -58,14 +66,22 @@ HEADERS += \
         ../Core/crates.h \
     ../GUI/music.h \
     weapon_menu.h \
-    help_menu.h\
-    game_settings.h
+    perlinnoise.h\
+    settings.h\
+    help.h\
+    pause.h\
+    handtohand.h \
+    ../GUI/water.h \
+    animationthread.h\
+    ../FastNoise-master/FastNoise.h \
+    ../GUI/spritesheet.h \
+    finished.h
 
 FORMS += \
         mainwindow.ui \
     weapon_menu.ui \
-    help_menu.ui \
-    dialogwindow.ui
-
-DISTFILES += \
-    game_settings.ui
+    dialogwindow.ui \
+    settings.ui\
+    help.ui\
+    pause.ui \
+    finished.ui

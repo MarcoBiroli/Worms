@@ -1,24 +1,878 @@
-<ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>792</width>
+    <height>1421</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QMenuBar" name="menubar" />
-  <widget class="QWidget" name="centralwidget" />
-  <widget class="QStatusBar" name="statusbar" />
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 180, 180);
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>30</y>
+      <width>511</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>    		       GAME SETTINGS</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>110</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>American Typewriter</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>NUMBER OF TEAMS</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>170</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);
+</string>
+    </property>
+    <property name="plainText">
+     <string>WORMS PER TEAM
+</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>230</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>TIME PER TURN</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>290</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>WORMS HP
+</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_6">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>350</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>HEALTH CRATES</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_7">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>410</y>
+      <width>511</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>WEAPONS
+</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlnbteams">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>110</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startgame">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>70</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>START GAME</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlwrmprteam">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>170</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlwormhp">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>290</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrltimeprturn">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>230</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlhealthcrates">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>350</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_8">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>460</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>American Typewriter</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>BAZOOKA</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_9">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>580</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>PISTOL</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlpistol">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>580</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrairstrike">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>700</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlgrenade">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>520</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrllandmine">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>640</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlbazooka">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>460</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_11">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>700</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>AIR STRIKE</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_13">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>760</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>American Typewriter</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>BANANA BOMB</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_14">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>880</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>CLUSTER BOMB</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrclustebomb">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>880</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlmonster">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1000</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlbat">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>820</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlhoming">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>940</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlbananabomb">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>760</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_16">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1000</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>MONSTER BOMB</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_18">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1060</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>American Typewriter</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>DYNAMITE</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_19">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1180</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>JET PACK</string>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrljet">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1180</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlarma">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1300</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlfire">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1120</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrlmagnet">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1240</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QScrollBar" name="scrldynamite">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>1060</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_21">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1300</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>ARMAGEDDON</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_20">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1240</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>MAGNET</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_22">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1120</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>FIRE PUNCH</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_23">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>940</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>HOMING MISSILE</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_24">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>820</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>BAT</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_25">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>640</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>LAND MINE</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_26">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>520</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(254, 204, 102);</string>
+    </property>
+    <property name="plainText">
+     <string>GRENADE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mainmenu">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>1350</y>
+      <width>511</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MAIN MENU</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <pixmapfunction></pixmapfunction>
+ <resources/>
  <connections/>
 </ui>

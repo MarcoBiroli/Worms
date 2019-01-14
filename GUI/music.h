@@ -10,7 +10,6 @@
 #include <QMediaPlayer>
 
 
-
 void backgroundmusic(QString path);
 
 void playsound(QString path);

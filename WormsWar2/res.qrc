@@ -28,6 +28,7 @@
         <file>Images/weapons/Grenade_left.png</file>
         <file>Images/weapons/BlueGrenade_right.png</file>
         <file>Images/weapons/BlueGrenade_left.png</file>
+	<file>Images/weapons/Holy_Grenade.png</file>
         <file>Images/weapons/Gun_right.png</file>
         <file>Images/weapons/Gun_left.png</file>
         <file>Images/weapons/Gun_projectile_right.png</file>
@@ -57,7 +58,6 @@
         <file>Images/weapons/MonsterBomb_right.png</file>
         <file>Images/weapons/MonsterBomb_left.png</file>
 	<file>Images/weapons/Explosion.png</file>
-	<file>Images/weapons/Explosion2.png</file>
         <file>Images/grounds/sunset_mountains.png</file>
         <file>Images/grounds/morning_mountains.png</file>
         <file>Images/rigidbodies/Worm_collider.png</file>
@@ -72,14 +72,20 @@
         <file>Images/menu/circled_pause.png</file>
         <file>Images/menu/wood.png</file>
         <file>Images/menu/ww2.png</file>
-
-
+	<file>Images/menu/quit_button.png</file>
+	<file>Images/menu/paused.png</file>
+	<file>Images/menu/quit.png</file>
+	<file>Images/menu/main.png</file>
+	<file>Images/Sprite_Walking.png</file>
         <file>Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav</file>
-
         <file>SoundEffect/Explosion+7.mp3</file>
         <file>SoundEffect/VikingAxeRelease.wav</file>
         <file>SoundEffect/GRENADEIMPACT.WAV</file>
+	<file>Images/menu/worms4.png</file>
+	<file>Images/menu/worms2.png</file>
+	<file>Images/menu/skip.png</file>
         <file>Images/menu/computer_key_A.png</file>
+	<file>Images/menu/computer_key_Esc.png</file>
         <file>Images/menu/computer_key_Arrow_Right.png</file>
         <file>Images/menu/computer_key_D.png</file>
         <file>Images/menu/computer_key_E.png</file>
@@ -91,10 +97,12 @@
         <file>Images/menu/computer_key_I.png</file>
         <file>Images/menu/computer_key_K.png</file>
         <file>Images/menu/computer_key_Arrow_Left.png</file>
-	<file>SoundEffect/Button_Push-Mike_Koenig-1659525069.wav</file>
-	<file>SoundEffect/Pain-SoundBible.com-1883168362.wav</file>
-	<file>SoundEffect/Cry+2.wav</file>
-	<file>SoundEffect/Yawn+1.wav</file>
-	<file>SoundEffect/Cough2.wav</file>
+        <file>SoundEffect/Button_Push-Mike_Koenig-1659525069.wav</file>
+        <file>SoundEffect/Pain-SoundBible.com-1883168362.wav</file>
+        <file>SoundEffect/Cry+2.wav</file>
+        <file>SoundEffect/Yawn+1.wav</file>
+        <file>SoundEffect/Cough2.wav</file>
+        <file>Images/grounds/volcano.png</file>
+	<file>Images/Aim.png</file>
     </qresource>
 </RCC>

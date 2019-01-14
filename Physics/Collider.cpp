@@ -149,6 +149,11 @@ void Collider::change_pixel(int i, int j, QColor color) {
     this->skin_depth_pixels = this->skin_depth_percent * this->countblack;
 }
 
+QRgb Collider::get_color(int i, int j) const
+{
+    return this->colliding_map.pixel(i, j);
+}
+
 
 //Collision check method
 

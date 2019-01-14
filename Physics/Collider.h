@@ -6,10 +6,11 @@
 
 /*The collider class which takes care of the collision of two or more rigid bodies*/
 
-class Collider{
+class Collider : public QObject{
+    Q_OBJECT
     private:
         int id; //Collider ID
-        double skin_depth_percent = 0.1; //percentage of the body that is allowed to overlap with another collider
+        double skin_depth_percent = 0; //percentage of the body that is allowed to overlap with another collider
         int skin_depth_pixels = 0; //same thing as the skin_depth_percent but it is in pixels
         int countblack = 0; //counts the number of black pixels in a collider
         QImage colliding_map = QImage(32,32,QImage::Format_RGB32); //default colliding map
@@ -22,6 +23,8 @@ class Collider{
         virtual bool on_collision_do(Collider &other);
         virtual void circ_delete(int x, int y, double radius);
         bool is_ground = false;
+
+        bool grounded = false;
 
         virtual bool isWorm();
         virtual void addAmmo(int weaponID, int amountAmmo);
@@ -57,6 +60,7 @@ class Collider{
         int getHeight() const;
 
         void change_pixel(int i, int j, QColor color); //changes the pixel color of the map
+        QRgb get_color(int i, int j) const;
 
         //check_collision method returns (bool is_colliding, Normal_Force); Normal_Force = (norm_x, norm_y)
 
