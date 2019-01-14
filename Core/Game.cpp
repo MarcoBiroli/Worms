@@ -452,7 +452,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
 
-    if (k -> key() == Qt::Key_Space && k -> isAutoRepeat() == false){
+    if (k -> key() == Qt::Key_Space && !has_shot && k -> isAutoRepeat() == false){
         qInfo() << 'entered';
         Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
         if (current_projectile != NULL){
