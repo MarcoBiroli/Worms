@@ -39,11 +39,14 @@ void Game::weapon_list()
     Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
-    //Banana weapon id = 5
+    //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
+    //Barrel projectile weapon id = 13
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 0, 0, true, 1, 150, 100, 5, 0, 0, img1);
+    weapons.append(barrel);
 
 }
 
@@ -178,7 +181,7 @@ Game::~Game()
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
     //what about worms:
-    // qDelete(worms);
+    //qDeleteAll(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -220,6 +223,8 @@ bool Game::gameIteration(double dt){
         scene->addItem(newBarrel->sprite);*/
     }
 
+    QVector<int> deleteElements;
+
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
@@ -234,29 +239,49 @@ bool Game::gameIteration(double dt){
             delete projectiles[i];
             projectiles.remove(i);
             */
-            physics_engine->delete_rigidbody(projectiles[i]->getId());
+
+
             nextWorm();
             turn_timer = 0;
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
-            delete projectiles[i];
-            projectiles.remove(i);
+
             scene->addItem(explosion_image);
-            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            //QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
             //scene->removeItem(explosion_image);
             //explosion_image->hide();
+
+
+            deleteElements.append(i);
+
 
         }
     }
 
+    for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(projectiles[i]->getId());
+        delete projectiles[i];
+        projectiles.remove(i);
+    }
+
+    deleteElements.clear();
+
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
+
             barrels[i]->explode(*physics_engine, projectiles, weapons);
-            physics_engine->delete_rigidbody(barrels[i]->getId());
-            delete barrels[i];
-            barrels.remove(i);
+
+            deleteElements.append(i);
         }
+    }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(barrels[i]->getId());
+        delete barrels[i];
+        barrels.remove(i);
     }
 
     return isFinished();
@@ -413,26 +438,51 @@ void Game::handleEvents(QKeyEvent *k){
                 active_worm->weapon_angle += 10;
             }
         }
-        if (k-> key() == Qt::Key_K){// key == K decreases the angle }
+        if (k -> key() == Qt::Key_K){// key == K decreases the angle }
             if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
                 active_worm->weapon_angle -= 10;
             }
         }
 
         if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
-            int power = 100;
-            Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
-            if (current_projectile != NULL){
-                physics_engine->add_RigidBody(current_projectile);
-                projectiles.append(current_projectile);
-                scene->addItem(current_projectile->sprite);
+            if(power <= 500){
+                power += 10;
+                }
+            /*
+            if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
+                Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+                if (current_projectile != NULL){
+                    physics_engine->add_RigidBody(current_projectile);
+                    projectiles.append(current_projectile);
+                    scene->addItem(current_projectile->sprite);
 
-                this->turn_timer = this->max_turn_time - 5000;
-                has_shot = true;
-             }
+                    this->turn_timer = this->max_turn_time - 5000;
+                    has_shot = true;
+                    }
+
+            }
+            */
          }
     }
     active_worm->setstable(false);
+}
+
+void Game::handleReleaseEvent(QKeyEvent *k)
+{
+    Worm* active_worm = worms[worms_playing[team_playing]];
+
+    if (k -> key() == Qt::Key_Space){
+        Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+        if (current_projectile != NULL){
+            physics_engine->add_RigidBody(current_projectile);
+            projectiles.append(current_projectile);
+            scene->addItem(current_projectile->sprite);
+
+            this->turn_timer = this->max_turn_time - 5000;
+            has_shot = true;
+            power = 10;
+    }
+}
 }
 
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
