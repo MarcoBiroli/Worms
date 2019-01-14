@@ -39,11 +39,14 @@ void Game::weapon_list()
     Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
-    //Banana weapon id = 5
+    //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
+    //Barrel projectile weapon id = 13
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 0, 0, true, 1, 150, 100, 5, 0, 0, img1);
+    weapons.append(barrel);
 
 }
 
@@ -178,7 +181,7 @@ Game::~Game()
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
     //what about worms:
-    // qDelete(worms);
+    //qDeleteAll(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -220,39 +223,49 @@ bool Game::gameIteration(double dt){
         scene->addItem(newBarrel->sprite);*/
     }
 
+    QVector<int> deleteElements;
+
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
-            /*
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
-            explosion_image->setX(projectiles[i]->getX());
-            explosion_image->setY(projectiles[i]->getY());
-            explosion_image->show();
-            scene->addItem(explosion_image);
-            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
-            */
             physics_engine->delete_rigidbody(projectiles[i]->getId());
 
             nextWorm();
             turn_timer = 0;
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
-            delete projectiles[i];
-            projectiles.remove(i);
             scene->addItem(explosion_image);
+
+            deleteElements.append(i);
+
+            //QTimer::singleShot(1000,explosion_image,scene->removeItem(explosion_image));
+
+
 
         }
     }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+        delete projectiles[i];
+        projectiles.remove(i);
+    }
+
+    deleteElements.clear();
 
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
             barrels[i]->explode(*physics_engine, projectiles, weapons);
             physics_engine->delete_rigidbody(barrels[i]->getId());
-            delete barrels[i];
-            barrels.remove(i);
+
+            deleteElements.append(i);
 
         }
+    }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+        delete barrels[i];
+        barrels.remove(i);
     }
 
     return isFinished();
