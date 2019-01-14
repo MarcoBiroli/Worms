@@ -40,12 +40,11 @@ int main(int argc, char *argv[])
         if (MainMenu->start_easy == true){
             //Initialize the window
             MainMenu->start_easy= false;
-            //a.setOverrideCursor( QCursor( Qt::BlankCursor ) );
             QGraphicsScene *scene = new QGraphicsScene();
 
             //Put a graphics view inside of the window
             CustomView *view = new CustomView(scene);
-            view->setSceneRect(0, 0, 5000, 3000);
+            //view->setSceneRect(0, 0, 5000, 3000);
 
             //Initialize a game Game(int number,QGraphicsScene *iscene, QGraphicsView *iview, int ground_size_x=5000, int ground_size_y=3000, Settings *settings);
 

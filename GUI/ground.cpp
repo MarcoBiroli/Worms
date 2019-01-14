@@ -28,7 +28,6 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
                 else if(j > 1800){
                     this->change_pixel(i,j, Qt::black);
                     this->map->setPixelColor(i, j, terraincolor);
-
                 }
             }
         }

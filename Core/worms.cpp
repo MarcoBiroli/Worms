@@ -42,8 +42,12 @@ Worm::~Worm() {
     //delete this->sprite;
 }
 
-bool Worm::isAlive() const{
-  return this->health > 0;
+bool Worm::isAlive(){
+    if(this->health <= 0){
+        this->health = 0;
+        return false;
+    }
+    return true;
 }
 
 int Worm::getTeam() const{
@@ -103,14 +107,17 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         else if (ammo[current_weapon] == -1){
             ammo[current_weapon] = 0;
         }
-        current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
+
+        //current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
         double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
         double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
         if (this->get_direction()) {
             current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+            current_projectile->set_inital_position(this->x+32, this->y-10);
         }
         else{
             current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
+            current_projectile->set_inital_position(this->x-32, this->y-10);
         }
         return current_projectile;
     }
@@ -123,7 +130,7 @@ void Worm::update_weapon(){
         return;
     }
     this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
-    double reticle_dist = 100;
+    double reticle_dist = 150;
     if(this->get_direction()){
         this->weapon_image->setPos(this->getWidth()+5, this->getHeight()/2 - 11);
         this->reticle->setPos(this->getWidth()/2 + reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
@@ -157,8 +164,8 @@ void Worm::wormDeath() {
     //call animation
 }
 
-bool Worm::isWorm(){
-    return true;
+bool Worm::isWormAlive(){
+    return isAlive();
 }
 
 void Worm::addAmmo(int weaponID, int amountAmmo){

@@ -18,7 +18,7 @@ class Projectile;
 
 class Worm: public RigidBody {
     public:
-      virtual bool isWorm();
+      virtual bool isWormAlive();
       virtual void addAmmo(int weaponID, int amountAmmo);
 
       Worm();
@@ -26,7 +26,7 @@ class Worm: public RigidBody {
 
       virtual ~Worm(); //free the weapons array
 
-      bool isAlive() const;
+      bool isAlive();
 
       int getTeam() const;
       

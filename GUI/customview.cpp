@@ -13,7 +13,7 @@ CustomView::~CustomView(){
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
-   qInfo()<<currentScale;
+   //qInfo()<<currentScale;
    if(this->is_paused){
        setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
    }
@@ -73,5 +73,8 @@ void CustomView::mouseMoveEvent(QMouseEvent *event){
         event->ignore();
     }
     return;
+}
 
+void CustomView::keyReleaseEvent(QKeyEvent *k){
+    game->handleReleaseEvent(k);
 }

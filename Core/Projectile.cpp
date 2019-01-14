@@ -64,7 +64,10 @@ bool Projectile::on_collision_do(Collider &other)
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
-    playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
+    Music explosion;
+    explosion.playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
@@ -77,9 +80,11 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
-            qInfo() << explosion_force;
+            //qInfo() << explosion_force;
             worm->addForce(explosion_force);
-            randomsound();
+            Music sound;
+
+            sound.randomsound();
         }
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
@@ -98,6 +103,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
     }
 
     for (int j=0; j<barrels.size(); j++) {
+
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
         if (dist <= explosion_radius) {
@@ -105,6 +111,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
 
     }
+    //this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/menu/worms2.png").scaled(20,20)));
     this->sprite->hide();
 
 }

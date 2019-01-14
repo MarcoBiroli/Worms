@@ -39,11 +39,18 @@ void Game::weapon_list()
     Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
-    //Banana weapon id = 5
+    //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
+
+
+    //Barrel projectile weapon id = last, check with in Barrel
+    QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 100, 0, true, 1, 200, 100, 5, 0, 0, imgbarrel);
+    barrel->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
+    weapons.append(barrel);
 
 }
 
@@ -52,15 +59,15 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     view = iview;
 
     physics_engine = new PhysicsEngine();
-    //backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+
+    Music music;
+    music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+
     scene = iscene;
 
     thread = new QThread;
     worker = new AnimationThread();
     worker->moveToThread(thread);
-    worker->width = ground_size_x;
-    worker->height = ground_size_y-600;
-    worker->water_height = 500;
 
     if (number == 1) {
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
@@ -84,6 +91,11 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
         QObject::disconnect(ground, SIGNAL(new_percent()),mainwindow, SLOT(add_percent()));
         worker->color = water_fire;
     }
+
+    worker->width = ground->getWidth();
+    int water_height = ground->getHeight()/10;
+    worker->height = ground->getHeight()-100;
+    worker->water_height = water_height;
 
     //this->water = Water (qRgb(17, 62, 228), ground_size_x, 500);
     //water.sprite->setPos(0, ground_size_y-600);
@@ -129,7 +141,7 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
         for(int i=0; i<nb_worms; i++){
             int j = 0;
             for( ; j < ground_size_y; j++){
-                qInfo() << ground->get_color(ground_size_x/2 + 500*team, j);
+                //qInfo() << ground->get_color(ground_size_x/2 + 500*team, j);
                 if(ground->get_color(ground_size_x/2 + 500*team, j) != Qt::white){
                     break;
                 }
@@ -165,9 +177,15 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     next_turn = false;
 
     worms[worms_playing[team_playing]]->reticle->show();
+    /*
+    view->setTransformationAnchor(QGraphicsView::AnchorViewCenter);
     view->setSceneRect(0, 0, this->ground->getWidth(), this->ground->getHeight());
     view->setBackgroundBrush(QBrush(qRgb(22, 236, 254), Qt::SolidPattern));
     view->fitInView(ground->getPixmap(), Qt::KeepAspectRatioByExpanding);
+    */
+    //view->ensureVisible(worms[worms_playing[team_playing]]->sprite, 200, 200);
+    view->ensureVisible(ground->getPixmap(), std::min(ground->getWidth(), ground->getHeight())/4, std::min(ground->getWidth(), ground->getHeight())/4);
+    view->centerOn(worms[worms_playing[team_playing]]->sprite);
     view->game = this;
     view->setup_menu();
     //view->centerOn(worms[worms_playing[team_playing]]->sprite);
@@ -180,7 +198,7 @@ Game::~Game()
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
     //what about worms:
-    // qDelete(worms);
+    //qDeleteAll(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -201,7 +219,11 @@ bool Game::gameIteration(double dt){
     if(!worms[worms_playing[team_playing]]->isAlive()){
         turn_timer = max_turn_time + 1;
     }
-    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
+    if(turn_timer > max_turn_time || !worms[worms_playing[team_playing]]->isAlive()){ //if shoot -> turn_timer = max_turn_time-5000
+        next_turn = true;
+    }
+
+    if(next_turn){
         number_of_turns +=1;
         nextWorm();
         turn_timer = 0;
@@ -222,27 +244,64 @@ bool Game::gameIteration(double dt){
         scene->addItem(newBarrel->sprite);*/
     }
 
+    QVector<int> deleteElements;
+
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
+            /*
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
+            explosion_image->setX(projectiles[i]->getX());
+            explosion_image->setY(projectiles[i]->getY());
+            explosion_image->show();
+            scene->addItem(explosion_image);
+            QTimer::singleShot::std::chrono::milliseconds (1000, explosion_image, &QGraphicsPixmapItem::hide);
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
+            */
+            next_turn = true;
+            /*
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
+            explosion_image->setX(projectiles[i]->getX());
+            explosion_image->setY(projectiles[i]->getY());
 
-            //QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(32,32)));
-            //explosion_image->setX(projectiles[i]->getX());
-            //explosion_image->setY(projectiles[i]->getY());
-            //scene->addItem(explosion_image);
+            scene->addItem(explosion_image);
+            */
+            //QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            //scene->removeItem(explosion_image);
+            //explosion_image->hide();
+
+
+            deleteElements.append(i);
+
+
         }
     }
 
+    for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(projectiles[i]->getId());
+        delete projectiles[i];
+        projectiles.remove(i);
+    }
+
+    deleteElements.clear();
+
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
+
             barrels[i]->explode(*physics_engine, projectiles, weapons);
-            physics_engine->delete_rigidbody(barrels[i]->getId());
-            delete barrels[i];
-            barrels.remove(i);
+
+            deleteElements.append(i);
         }
+    }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(barrels[i]->getId());
+        delete barrels[i];
+        barrels.remove(i);
     }
 
     return isFinished();
@@ -295,6 +354,7 @@ void Game::handleEvents(QKeyEvent *k){
     if(k->key() == Qt::Key_Escape){ // key = Escape for pausing
        if(not paused){
            QCursor c = this->view->cursor();
+           c.setPos(view->mapToGlobal(QPoint(view->width() / 2, view->height() / 2)));
            c.setShape(Qt::ArrowCursor);
            this->view->setCursor(c);
            this->view->is_paused = true;
@@ -306,7 +366,7 @@ void Game::handleEvents(QKeyEvent *k){
            c.setShape(Qt::BlankCursor);
            c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
            this->view->setCursor(c);
-           this->view->is_paused = true;
+           this->view->is_paused = false;
            this->paused = false;
            this->proxypause->hide();
        }
@@ -395,9 +455,19 @@ void Game::handleEvents(QKeyEvent *k){
         if(k->key() == Qt::Key_Shift) {//Shift left to show menu
             if(menu->isHidden()){
                 menu->active_worm = active_worm;
+                QCursor c = this->view->cursor();
+                c.setPos(view->mapToGlobal(QPoint(view->width() / 2, view->height() / 2)));
+                c.setShape(Qt::ArrowCursor);
+                this->view->setCursor(c);
+                this->view->is_paused = true;
                 menu->show();
             }
             else{
+                QCursor c = this->view->cursor();
+                c.setShape(Qt::BlankCursor);
+                c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
+                this->view->setCursor(c);
+                this->view->is_paused = false;
                 menu->hide();
             }
         }
@@ -405,28 +475,52 @@ void Game::handleEvents(QKeyEvent *k){
         //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
         if (k-> key() == Qt::Key_I){// key == I increases the angle 0- 90
             if (-90 <= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
-                active_worm->weapon_angle += 10;
+                active_worm->weapon_angle += 2;
             }
         }
-        if (k-> key() == Qt::Key_K){// key == K decreases the angle }
+        if (k -> key() == Qt::Key_K){// key == K decreases the angle }
             if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
-                active_worm->weapon_angle -= 10;
+                active_worm->weapon_angle -= 2;
             }
         }
+        if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
+            power += 10;
+            /*
+            if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
+                Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+                if (current_projectile != NULL){
+                    physics_engine->add_RigidBody(current_projectile);
+                    projectiles.append(current_projectile);
+                    scene->addItem(current_projectile->sprite);
 
-        if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
-            int power = 200;
-            Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
-            if (current_projectile != NULL){
-                physics_engine->add_RigidBody(current_projectile);
-                projectiles.append(current_projectile);
-                scene->addItem(current_projectile->sprite);
-                this->turn_timer = this->max_turn_time - 5000;
-                has_shot = true;
-             }
+                    this->turn_timer = this->max_turn_time - 5000;
+                    has_shot = true;
+                    }
+
+            }
+            */
          }
     }
     active_worm->setstable(false);
+}
+
+void Game::handleReleaseEvent(QKeyEvent *k)
+{
+    Worm* active_worm = worms[worms_playing[team_playing]];
+
+    if (k -> key() == Qt::Key_Space && !has_shot && k -> isAutoRepeat() == false){
+        qInfo() << 'entered';
+        Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+        if (current_projectile != NULL){
+            physics_engine->add_RigidBody(current_projectile);
+            projectiles.append(current_projectile);
+            scene->addItem(current_projectile->sprite);
+
+            this->turn_timer = this->max_turn_time - 5000;
+            has_shot = true;
+            power = 20;
+    }
+}
 }
 
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum

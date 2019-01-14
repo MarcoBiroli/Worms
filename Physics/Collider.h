@@ -26,7 +26,7 @@ class Collider : public QObject{
 
         bool grounded = false;
 
-        virtual bool isWorm();
+        virtual bool isWormAlive();
         virtual void addAmmo(int weaponID, int amountAmmo);
         //Constructors
 
