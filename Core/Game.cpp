@@ -229,11 +229,23 @@ bool Game::gameIteration(double dt){
             explosion_image->setY(projectiles[i]->getY());
             explosion_image->show();
             scene->addItem(explosion_image);
-            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
-            */
+            QTimer::singleShot::std::chrono::milliseconds (1000, explosion_image, &QGraphicsPixmapItem::hide);
             physics_engine->delete_rigidbody(projectiles[i]->getId());
             delete projectiles[i];
             projectiles.remove(i);
+            */
+            physics_engine->delete_rigidbody(projectiles[i]->getId());
+            nextWorm();
+            turn_timer = 0;
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
+            explosion_image->setX(projectiles[i]->getX());
+            explosion_image->setY(projectiles[i]->getY());
+            delete projectiles[i];
+            projectiles.remove(i);
+            scene->addItem(explosion_image);
+            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            //scene->removeItem(explosion_image);
+            //explosion_image->hide();
 
         }
     }
