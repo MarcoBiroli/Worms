@@ -123,7 +123,7 @@ void Worm::update_weapon(){
         return;
     }
     this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
-    double reticle_dist = 100;
+    double reticle_dist = 1000;
     if(this->get_direction()){
         this->weapon_image->setPos(this->getWidth()+5, this->getHeight()/2 - 11);
         this->reticle->setPos(this->getWidth()/2 + reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);

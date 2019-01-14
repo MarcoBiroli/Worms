@@ -424,7 +424,7 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
 
-        if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
+        if (k-> key() == Qt::Key_Space && k -> isAutoRepeat() && !has_shot){//key == Space shoots the projectile
             int power = 100;
             Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
             if (current_projectile != NULL){
