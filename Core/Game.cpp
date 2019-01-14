@@ -231,13 +231,14 @@ bool Game::gameIteration(double dt){
         next_turn = false;
 
 
-        /*Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        int rand_x = qrand() % ((4720 + 1) - 250) + 250;
+        Crate* newCrate = new Crate(800,  rand_x, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
 
-        Barrel* newBarrel = new Barrel(1500,  2100, 100,  barrel_image);//positions are arbitrary and should depend on size of window
+        /*Barrel* newBarrel = new Barrel(1500,  2100, 100,  barrel_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newBarrel);
         barrels.append(newBarrel);
@@ -260,6 +261,7 @@ bool Game::gameIteration(double dt){
             delete projectiles[i];
             projectiles.remove(i);
             */
+            physics_engine->delete_rigidbody(projectiles[i]->getId());
             next_turn = true;
             /*
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
@@ -280,8 +282,6 @@ bool Game::gameIteration(double dt){
     }
 
     for (int i=0; i<deleteElements.size(); i++) {
-
-        physics_engine->delete_rigidbody(projectiles[i]->getId());
         delete projectiles[i];
         projectiles.remove(i);
     }
@@ -290,16 +290,14 @@ bool Game::gameIteration(double dt){
 
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
-
             barrels[i]->explode(*physics_engine, projectiles, weapons);
+            physics_engine->delete_rigidbody(barrels[i]->getId());
 
             deleteElements.append(i);
         }
     }
 
     for (int i=0; i<deleteElements.size(); i++) {
-
-        physics_engine->delete_rigidbody(barrels[i]->getId());
         delete barrels[i];
         barrels.remove(i);
     }
