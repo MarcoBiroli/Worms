@@ -26,7 +26,7 @@ public:
 protected:
      void wheelEvent(QWheelEvent *event);
      void keyPressEvent(QKeyEvent *k);
-     void keyReleaseEvent(QKeyEvent *event);
+     void keyReleaseEvent(QKeyEvent *k);
 };
 
 #endif

@@ -77,7 +77,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
-            qInfo() << explosion_force;
+            //qInfo() << explosion_force;
             worm->addForce(explosion_force);
             randomsound();
         }

@@ -132,7 +132,7 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
         for(int i=0; i<nb_worms; i++){
             int j = 0;
             for( ; j < ground_size_y; j++){
-                qInfo() << ground->get_color(ground_size_x/2 + 500*team, j);
+                //qInfo() << ground->get_color(ground_size_x/2 + 500*team, j);
                 if(ground->get_color(ground_size_x/2 + 500*team, j) != Qt::white){
                     break;
                 }
@@ -427,10 +427,8 @@ void Game::handleEvents(QKeyEvent *k){
             }
         }
 
-        if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
-            if(power <= 500){
-                power += 10;
-                }
+        if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
+            power += 10;
             /*
             if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
                 Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
@@ -454,7 +452,8 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
 
-    if (k -> key() == Qt::Key_Space){
+    if (k -> key() == Qt::Key_Space && k -> isAutoRepeat() == false){
+        qInfo() << 'entered';
         Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
         if (current_projectile != NULL){
             physics_engine->add_RigidBody(current_projectile);
@@ -463,7 +462,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 
             this->turn_timer = this->max_turn_time - 5000;
             has_shot = true;
-            power = 10;
+            power = 20;
     }
 }
 }

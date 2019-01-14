@@ -103,14 +103,17 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         else if (ammo[current_weapon] == -1){
             ammo[current_weapon] = 0;
         }
-        current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
+
+        //current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
         double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
         double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
         if (this->get_direction()) {
             current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+            current_projectile->set_inital_position(this->x+32, this->y);
         }
         else{
             current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
+            current_projectile->set_inital_position(this->x-32, this->y);
         }
         return current_projectile;
     }
