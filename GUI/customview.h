@@ -23,10 +23,14 @@ public:
     const double scaleMin = 1; // defines the min scale limit. if you want limit to increase, - scaleMin,
     const double scaleMax = 3; //defines the max scale limit. if you want limit to increase, + scaleMin,
     void setup_menu();
+    double prev_mouse_x = -1;
+    double prev_mouse_y = -1;
+    bool is_paused = false;
 
 protected:
      void wheelEvent(QWheelEvent *event);
      void keyPressEvent(QKeyEvent *k);
+     void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif

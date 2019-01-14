@@ -10,24 +10,24 @@
 void Game::weapon_list()
 {
     //Bazooka weapon_id = 0
-    QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(20,20));
+    QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
     Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
-    bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(20,20));
+    bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
-    QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(20,20));
+    QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(30,30));
     Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
-    bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
+    bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
-    QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(20,20));
+    QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(30,30));
     Projectile * grenade = new Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
-    grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
+    grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(grenade);
     //Dynamite weapon id = 3
-    QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(20,20));
+    QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(30,30));
     Projectile * dynamite = new Projectile("Dynamite", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img3);
-    dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(20,20));
+    dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
@@ -47,7 +47,7 @@ void Game::weapon_list()
 
 }
 
-Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomView* iview, Settings *settings, int ground_size_x, int ground_size_y){
+Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomView* iview, Settings *settings, int ground_size_x, int ground_size_y){
     scene = iscene;
     view = iview;
 
@@ -65,21 +65,23 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     if (number == 1) {
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, terrain_g, grass_green);
+        ground = new Ground(a, ground_size_x, ground_size_y, terrain_g, grass_green);
         worker->color = water_blue;
     }
     if (number == 2){
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, terrain_brown, grass_green);
+        ground = new Ground(a, ground_size_x, ground_size_y, terrain_brown, grass_green);
         ground->randomize2();
         worker->color = water_sun;
     }
     if (number == 3){
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/volcano.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
-        ground = new Ground(ground_size_x, ground_size_y, terrain_grey, grass_fire);
+        ground = new Ground(a, ground_size_x, ground_size_y, terrain_grey, grass_fire);
+        QObject::connect(ground, SIGNAL(new_percent()),mainwindow, SLOT(add_percent()));
         ground->randomize3();
+        QObject::disconnect(ground, SIGNAL(new_percent()),mainwindow, SLOT(add_percent()));
         worker->color = water_fire;
     }
 
@@ -143,7 +145,6 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
             newWorm->addAmmo(0,settings->amobazooka);
             newWorm->addAmmo(1,settings->ammoclusterbomb);
             newWorm->addAmmo(2, settings->amogrenade);
-            //qDebug() << settings->amogrenade;
             newWorm->addAmmo(3,settings->ammodynamite);
             newWorm->addAmmo(4,settings->amopistol);
             newWorm->addAmmo(5,settings->ammoholy);
@@ -164,10 +165,12 @@ Game::Game(int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomVi
     next_turn = false;
 
     worms[worms_playing[team_playing]]->reticle->show();
+    view->setSceneRect(0, 0, this->ground->getWidth(), this->ground->getHeight());
     view->setBackgroundBrush(QBrush(qRgb(22, 236, 254), Qt::SolidPattern));
     view->fitInView(ground->getPixmap(), Qt::KeepAspectRatioByExpanding);
     view->game = this;
     view->setup_menu();
+    //view->centerOn(worms[worms_playing[team_playing]]->sprite);
 }
 
 Game::~Game()
@@ -279,7 +282,7 @@ void Game::handleEvents(QKeyEvent *k){
 
     if(!active_worm->is_grounded.first){return;}
 
-    double speed = 50;
+    double speed = 25;
     double theta = qAtan2(-active_worm->is_grounded.second.first, active_worm->is_grounded.second.second);
     double M[4] = {qCos(theta), qSin(theta), -qSin(theta), qCos(theta)}; //rotational matrix of angle theta.
     double ve = (M[0]*speed); // component of the velocity parallel to the tangent line at the collision point.
@@ -291,10 +294,19 @@ void Game::handleEvents(QKeyEvent *k){
 
     if(k->key() == Qt::Key_Escape){ // key = Escape for pausing
        if(not paused){
+           QCursor c = this->view->cursor();
+           c.setShape(Qt::ArrowCursor);
+           this->view->setCursor(c);
+           this->view->is_paused = true;
            this->paused = true;
            this->proxypause->show();
        }
        else {
+           QCursor c = this->view->cursor();
+           c.setShape(Qt::BlankCursor);
+           c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
+           this->view->setCursor(c);
+           this->view->is_paused = true;
            this->paused = false;
            this->proxypause->hide();
        }
@@ -376,7 +388,7 @@ void Game::handleEvents(QKeyEvent *k){
         }
 
         if (k->isAutoRepeat() == false && k->key() == Qt::Key_W){ // key == W  jumping
-            active_worm->addForce(QPair<double, double>(0, -5000*active_worm->getm()));
+            active_worm->addForce(QPair<double, double>(0, -2500*active_worm->getm()));
             active_worm->setstable(false);
             }
 
@@ -409,7 +421,6 @@ void Game::handleEvents(QKeyEvent *k){
                 physics_engine->add_RigidBody(current_projectile);
                 projectiles.append(current_projectile);
                 scene->addItem(current_projectile->sprite);
-
                 this->turn_timer = this->max_turn_time - 5000;
                 has_shot = true;
              }
@@ -454,4 +465,23 @@ void Game::changemenusize(double dx,double dy){
     //qInfo() << heightmenu;
     //qInfo() << widthmenu;
     //qInfo() << " ";
+}
+
+int Game::getwinner(){
+    for(int i=0; i < this->worms.length(); i++){
+        if(worms[i]->isAlive()){
+            return worms[i]->getTeam();
+        }
+    }
+    return -1;
+}
+
+QVector<int> Game::get_team()
+{
+    QVector<int> pos = QVector<int> ();
+    for (int i=0; i<nb_teams; i++){
+        pos.append(i);
+    }
+    pos.remove(team_playing);
+    return pos;
 }

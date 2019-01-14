@@ -6,7 +6,8 @@
 
 /*The collider class which takes care of the collision of two or more rigid bodies*/
 
-class Collider{
+class Collider : public QObject{
+    Q_OBJECT
     private:
         int id; //Collider ID
         double skin_depth_percent = 0; //percentage of the body that is allowed to overlap with another collider

@@ -7,14 +7,16 @@ Ground::Ground() : Collider (){ //Creates an undefined Ground
     //this->set_map(*this->map);
 }
 
-Ground::Ground(const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
+Ground::Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
     this->width = width;
     this->height = height;
     this->terraincolor = terraincolor;
     this->grasscolor = grasscolor;
-
+    this->a = a;
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
+    this->map->fill(Qt::white);
     this->set_map(*this->map);
+    this->map->fill(QColor(0, 0, 0, 0));
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
     for(int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
@@ -146,6 +148,7 @@ int** Ground::manhattan(){
     }
     // traverse from top left to bottom right
     for (int i=0; i<this->map->width(); i++){
+        a->processEvents();
         for (int j=0; j< this->map->height(); j++){
             if (this->map->pixelColor(i,j) == this->terraincolor){
                 // first pass and pixel was on, it gets a zero
@@ -178,6 +181,7 @@ int** Ground::manhattan(){
 void Ground::dilate4(QColor color, int depth){
     int** distances = this->manhattan();
     for (int i=0; i<this->width; i++){
+        a->processEvents();
         for (int j=0; j<this->height; j++){
             if(distances[i][j] <= depth && distances[i][j] != 0){
                 this->map->setPixelColor(i, j, color);
@@ -221,6 +225,7 @@ void Ground::randomize3()
     QImage perlinnoise_map = QImage(width, height, QImage::Format_RGB32);
     double freqx = 150;
     double freqy = 150;
+    int percent = 0;
     // Create a PerlinNoise object with the reference permutation vector
     PerlinNoise pn(width/freqx + 1, height/freqy + 1);
     // Visit every pixel of the image and assign a color generated with Perlin noise
@@ -237,6 +242,13 @@ void Ground::randomize3()
                 perlinnoise_map.setPixel(j,i, qRgba(0, 0, 0 , 255));
             }
         }
+        /*
+        if ((int)(i/(2*height) * 100) > percent){
+            emit new_percent();
+            QCoreApplication::processEvents();
+            percent += 1;
+        }
+        */
     }
     int line1 = height - 50;
     int line2 = height - 100;

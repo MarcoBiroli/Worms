@@ -25,9 +25,13 @@ public:
     bool start_medium = false;
     bool start_hard = false;
     bool quit_button = false;
+    bool through_esc = false;
 
     Settings * settingmenu;
     Help *helpmenu;
+
+public slots:
+    void add_percent();
 
 private slots:
     void on_Easy_clicked();

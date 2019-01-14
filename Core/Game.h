@@ -29,6 +29,7 @@
 #include "QThread"
 #include "animationthread.h"
 #include "../GUI/spritesheet.h"
+#include <QtConcurrent/QtConcurrent>
 
 class CustomView;
 class Game : public QObject{
@@ -50,8 +51,8 @@ class Game : public QObject{
 
       //temporary storing of the image of worms until spritesheets work
       QMap<QString, QPixmap> worm_image = {
-        {"left", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_left.png").scaled(32,32))},
-        {"right", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_right.png").scaled(32,32))}
+        {"left", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_left.png").scaled(42,42))},
+        {"right", QPixmap::fromImage(QImage("://Images/rigidbodies/Worm_right.png").scaled(42,42))}
       };
 
       QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
@@ -100,7 +101,7 @@ class Game : public QObject{
       double widthmenu = 400;
 
       //Constructors
-      Game(int number,MainWindow * mainwindow, QGraphicsScene *iscene, CustomView *iview,  Settings *settings, int ground_size_x=5000, int ground_size_y=3000);
+      Game(QApplication* a, int number,MainWindow * mainwindow, QGraphicsScene *iscene, CustomView *iview,  Settings *settings, int ground_size_x=5000, int ground_size_y=3000);
 
       virtual ~Game();
 
@@ -122,6 +123,9 @@ class Game : public QObject{
       void changemenupos(QPoint point);
 
       void changemenusize(double dx,double dy);
+
+      int getwinner();
+      QVector<int> get_team();
 
 public slots:
       void add_water_to_scene(){

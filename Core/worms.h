@@ -60,13 +60,13 @@ class Worm: public RigidBody {
       QGraphicsPixmapItem* reticle = new QGraphicsPixmapItem(this->sprite);
       QGraphicsTextItem* label;
       QGraphicsPixmapItem * weapon_image = new QGraphicsPixmapItem(this->sprite);
-      QVector<QImage> weapons = QVector<QImage>({QImage("://Images/weapons/Bazooka_left.png").scaled(16,16),
-                                                    QImage("://Images/weapons/BlueGrenade_left.png").scaled(16,16),
-                                                    QImage("://Images/weapons/Grenade_left.png").scaled(16,16),
-                                                  QImage("://Images/weapons/Dynamite_left.png").scaled(16,16),
-                                                  QImage("://Images/weapons/Gun_left.png").scaled(16,16),
-                                                  QImage("://Images/weapons/Holy_Grenade.png").scaled(16,16),
-                                                  QImage("://Images/weapons/Banana_left.png").scaled(16,16)});
+      QVector<QImage> weapons = QVector<QImage>({QImage("://Images/weapons/Bazooka_left.png").scaled(21,21),
+                                                    QImage("://Images/weapons/BlueGrenade_left.png").scaled(21,21),
+                                                    QImage("://Images/weapons/Grenade_left.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Dynamite_left.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Gun_left.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Holy_Grenade.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Banana_left.png").scaled(21,21)});
 
       void update_weapon();
 private:
