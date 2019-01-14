@@ -39,11 +39,14 @@ void Game::weapon_list()
     Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
-    //Banana weapon id = 5
+    //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
+    //Barrel projectile weapon id = 13
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 0, 0, true, 1, 150, 100, 5, 0, 0, img1);
+    weapons.append(barrel);
 
 }
 
