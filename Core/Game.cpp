@@ -220,7 +220,7 @@ bool Game::gameIteration(double dt){
 
         physics_engine->add_RigidBody(newBarrel);
         barrels.append(newBarrel);
-        scene->addItem(newBarrel->sprite);*/
+        scene->addItem(newBarrel->sprite); */
     }
 
     QVector<int> deleteElements;
