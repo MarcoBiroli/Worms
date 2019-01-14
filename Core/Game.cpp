@@ -181,7 +181,7 @@ Game::~Game()
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
     //what about worms:
-    // qDelete(worms);
+    //qDeleteAll(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -210,7 +210,7 @@ bool Game::gameIteration(double dt){
         next_turn = false;
 
 
-        /*Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
@@ -220,8 +220,10 @@ bool Game::gameIteration(double dt){
 
         physics_engine->add_RigidBody(newBarrel);
         barrels.append(newBarrel);
-        scene->addItem(newBarrel->sprite);*/
+        scene->addItem(newBarrel->sprite);
     }
+
+    QVector<int> deleteElements;
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
@@ -235,19 +237,31 @@ bool Game::gameIteration(double dt){
             QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
             */
             physics_engine->delete_rigidbody(projectiles[i]->getId());
-            delete projectiles[i];
-            projectiles.remove(i);
+
+            deleteElements.append(i);
 
         }
     }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+        delete projectiles[i];
+        projectiles.remove(i);
+    }
+
+    deleteElements.clear();
 
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
             barrels[i]->explode(*physics_engine, projectiles, weapons);
             physics_engine->delete_rigidbody(barrels[i]->getId());
-            delete barrels[i];
-            barrels.remove(i);
+
+            deleteElements.append(i);
         }
+    }
+
+    for (int i=0; i<deleteElements.size(); i++) {
+        delete barrels[i];
+        barrels.remove(i);
     }
 
     return isFinished();
