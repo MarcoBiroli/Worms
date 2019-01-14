@@ -18,12 +18,16 @@ void Finished::on_mainmenuButton_clicked()
     this->hide();
     //this->view->has_quitted = true;
     mainwindow->show();
-    playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+
+    Music click;
+    click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
 }
 
 void Finished::on_ExitButton_clicked()
 {
-    playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    Music click;
+    click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+
     mainwindow->quit_button = true;
     //this->view->has_quitted = true;
 }
