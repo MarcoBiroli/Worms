@@ -20,7 +20,7 @@ Crate::Crate(double m, double x, double y, int weaponID, int amountAmmo, QPixmap
 }
 
 bool Crate::on_collision_do(Collider &other){
-    if(other.isWorm()){
+    if(other.isWormAlive()){
         other.addAmmo(weaponID, amountAmmo);
         return true;
     }

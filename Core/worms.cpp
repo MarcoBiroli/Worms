@@ -42,8 +42,12 @@ Worm::~Worm() {
     //delete this->sprite;
 }
 
-bool Worm::isAlive() const{
-  return this->health > 0;
+bool Worm::isAlive(){
+    if(this->health <= 0){
+        this->health = 0;
+        return false;
+    }
+    return true;
 }
 
 int Worm::getTeam() const{
@@ -160,8 +164,8 @@ void Worm::wormDeath() {
     //call animation
 }
 
-bool Worm::isWorm(){
-    return true;
+bool Worm::isWormAlive(){
+    return isAlive();
 }
 
 void Worm::addAmmo(int weaponID, int amountAmmo){

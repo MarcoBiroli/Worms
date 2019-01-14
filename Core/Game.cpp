@@ -209,7 +209,11 @@ bool Game::gameIteration(double dt){
     if(!worms[worms_playing[team_playing]]->isAlive()){
         turn_timer = max_turn_time + 1;
     }
-    if(turn_timer > max_turn_time){ //if shoot -> turn_timer = max_turn_time-5000, if take dmg ->  turn_timer = max_turn_time
+    if(turn_timer > max_turn_time || !worms[worms_playing[team_playing]]->isAlive()){ //if shoot -> turn_timer = max_turn_time-5000
+        next_turn = true;
+    }
+
+    if(next_turn){
         number_of_turns +=1;
         nextWorm();
         turn_timer = 0;
@@ -217,7 +221,7 @@ bool Game::gameIteration(double dt){
         next_turn = false;
 
 
-        /*Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        Crate* newCrate = new Crate(800,  2000, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
@@ -227,7 +231,7 @@ bool Game::gameIteration(double dt){
 
         physics_engine->add_RigidBody(newBarrel);
         barrels.append(newBarrel);
-        scene->addItem(newBarrel->sprite);*/
+        scene->addItem(newBarrel->sprite);
     }
 
     QVector<int> deleteElements;
@@ -246,10 +250,8 @@ bool Game::gameIteration(double dt){
             delete projectiles[i];
             projectiles.remove(i);
             */
+            next_turn = true;
 
-
-            nextWorm();
-            turn_timer = 0;
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
