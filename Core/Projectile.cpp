@@ -98,6 +98,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
     }
 
     for (int j=0; j<barrels.size(); j++) {
+
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
         if (dist <= explosion_radius) {
