@@ -44,3 +44,7 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     //}
     game->handleEvents(k);
 }
+
+void CustomView::keyReleaseEvent(QKeyEvent *k){
+    game->handleReleaseEvent(k);
+}
