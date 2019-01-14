@@ -425,26 +425,51 @@ void Game::handleEvents(QKeyEvent *k){
                 active_worm->weapon_angle += 10;
             }
         }
-        if (k-> key() == Qt::Key_K){// key == K decreases the angle }
+        if (k -> key() == Qt::Key_K){// key == K decreases the angle }
             if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
                 active_worm->weapon_angle -= 10;
             }
         }
 
         if (k-> key() == Qt::Key_Space && !has_shot){//key == Space shoots the projectile
-            int power = 100;
-            Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
-            if (current_projectile != NULL){
-                physics_engine->add_RigidBody(current_projectile);
-                projectiles.append(current_projectile);
-                scene->addItem(current_projectile->sprite);
+            if(power <= 500){
+                power += 10;
+                }
+            /*
+            if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
+                Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+                if (current_projectile != NULL){
+                    physics_engine->add_RigidBody(current_projectile);
+                    projectiles.append(current_projectile);
+                    scene->addItem(current_projectile->sprite);
 
-                this->turn_timer = this->max_turn_time - 5000;
-                has_shot = true;
-             }
+                    this->turn_timer = this->max_turn_time - 5000;
+                    has_shot = true;
+                    }
+
+            }
+            */
          }
     }
     active_worm->setstable(false);
+}
+
+void Game::handleReleaseEvent(QKeyEvent *k)
+{
+    Worm* active_worm = worms[worms_playing[team_playing]];
+
+    if (k -> key() == Qt::Key_Space){
+        Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
+        if (current_projectile != NULL){
+            physics_engine->add_RigidBody(current_projectile);
+            projectiles.append(current_projectile);
+            scene->addItem(current_projectile->sprite);
+
+            this->turn_timer = this->max_turn_time - 5000;
+            has_shot = true;
+            power = 10;
+    }
+}
 }
 
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
