@@ -236,7 +236,6 @@ bool Game::gameIteration(double dt){
             scene->addItem(explosion_image);
             QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
             */
-            physics_engine->delete_rigidbody(projectiles[i]->getId());
 
             deleteElements.append(i);
 
@@ -244,6 +243,8 @@ bool Game::gameIteration(double dt){
     }
 
     for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(projectiles[i]->getId());
         delete projectiles[i];
         projectiles.remove(i);
     }
@@ -252,14 +253,16 @@ bool Game::gameIteration(double dt){
 
     for (int i=0; i<barrels.size(); i++) {
         if(barrels[i]->getExplode()){
+
             barrels[i]->explode(*physics_engine, projectiles, weapons);
-            physics_engine->delete_rigidbody(barrels[i]->getId());
 
             deleteElements.append(i);
         }
     }
 
     for (int i=0; i<deleteElements.size(); i++) {
+
+        physics_engine->delete_rigidbody(barrels[i]->getId());
         delete barrels[i];
         barrels.remove(i);
     }
