@@ -439,12 +439,12 @@ void Game::handleEvents(QKeyEvent *k){
         //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
         if (k-> key() == Qt::Key_I){// key == I increases the angle 0- 90
             if (-90 <= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
-                active_worm->weapon_angle += 10;
+                active_worm->weapon_angle += 2;
             }
         }
         if (k -> key() == Qt::Key_K){// key == K decreases the angle }
             if (-80 <= active_worm->weapon_angle && active_worm->weapon_angle<=90){
-                active_worm->weapon_angle -= 10;
+                active_worm->weapon_angle -= 2;
             }
         }
 

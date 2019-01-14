@@ -109,11 +109,11 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
         if (this->get_direction()) {
             current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
-            current_projectile->set_inital_position(this->x+32, this->y);
+            current_projectile->set_inital_position(this->x+32, this->y-10);
         }
         else{
             current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
-            current_projectile->set_inital_position(this->x-32, this->y);
+            current_projectile->set_inital_position(this->x-32, this->y-10);
         }
         return current_projectile;
     }
