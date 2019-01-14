@@ -44,8 +44,12 @@ void Game::weapon_list()
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
-    //Barrel projectile weapon id = 13
-    Projectile *barrel = new Projectile("Barrel projectile", 1, 0, 0, true, 1, 150, 100, 5, 0, 0, img1);
+
+
+    //Barrel projectile weapon id = last, check with in Barrel
+    QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 100, 0, true, 1, 200, 100, 5, 0, 0, imgbarrel);
+    barrel->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(barrel);
 
 }
@@ -234,10 +238,27 @@ bool Game::gameIteration(double dt){
             explosion_image->setY(projectiles[i]->getY());
             explosion_image->show();
             scene->addItem(explosion_image);
-            QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            QTimer::singleShot::std::chrono::milliseconds (1000, explosion_image, &QGraphicsPixmapItem::hide);
+            physics_engine->delete_rigidbody(projectiles[i]->getId());
+            delete projectiles[i];
+            projectiles.remove(i);
             */
 
+
+            nextWorm();
+            turn_timer = 0;
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
+            explosion_image->setX(projectiles[i]->getX());
+            explosion_image->setY(projectiles[i]->getY());
+
+            scene->addItem(explosion_image);
+            //QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
+            //scene->removeItem(explosion_image);
+            //explosion_image->hide();
+
+
             deleteElements.append(i);
+
 
         }
     }
