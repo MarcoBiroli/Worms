@@ -14,9 +14,15 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
     this->grasscolor = grasscolor;
     this->a = a;
     this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
-    this->map->fill(Qt::white);
+    //QGraphicsPixmapItem *pretty_ground = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/ground_texture.jpg").scaled(width,height)));
+    //scene -> addItem(pretty_ground);
+
+    //this -> map = new QImage("://Images/grounds/ground_texture.jpg");
+    //this-> map -> scaled(width,height);
+
+    //this->map->fill(Qt::white);
     this->set_map(*this->map);
-    this->map->fill(QColor(0, 0, 0, 0));
+    //this->map->fill(QColor(0, 0, 0, 0));
     item = new QGraphicsPixmapItem(QPixmap::fromImage(*this->map));
     for(int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
@@ -27,8 +33,7 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
                 }
                 else if(j > 1800){
                     this->change_pixel(i,j, Qt::black);
-                    this->map->setPixelColor(i, j, terraincolor);
-
+                  //  this->map->setPixelColor(i, j, terraincolor);
                 }
             }
         }
