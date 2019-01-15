@@ -141,7 +141,10 @@ void RigidBody::simulate(double dt){
     this->y = this->y+vy*dt;
     if(this->is_grounded.first){
         double Fe = M[0]*this->currentForce.first + M[1]+this->currentForce.second;
-        if(Fe <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2)) && qSqrt(qPow(this->vx, 2) + qPow(this->vy, 2)) <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2))){
+        if(Fe <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2) + qPow(this->is_grounded.second.second, 2)) &&
+                qSqrt(qPow(this->vx, 2) + qPow(this->vy, 2)) <= this->static_coef*qSqrt(qPow(this->is_grounded.second.first, 2)
+                                                                                        + qPow(this->is_grounded.second.second, 2)) &&
+                this->is_on_top_of_rigidbody == false){
             this->vx = 0;
             this->vy = 0;
             this->stable = true;
