@@ -83,8 +83,6 @@ void PhysicsEngine::update(double dt)
                 i.value()->is_colliding = true;
                 i.value()->bounce(collision_result.second,dt);
                 if(k.value()->grounded){
-                    i.value()->is_grounded = collision_result;
-                    i.value()->grounded = true;
                     i.value()->is_on_top_of_rigidbody = true;
                 }
             }

@@ -219,7 +219,7 @@ bool Game::gameIteration(double dt){
         if(worms[i]->getY() > ground->getHeight() - worker->water_height + worker->getWaveSize()/2){
             worms[i]->changeHealth(1000);
             worms[i]->sprite->hide();
-            physics_engine->delete_rigidbody(worms[i]->getId());
+            //physics_engine->delete_rigidbody(worms[i]->getId());
         }
     }
     if(!worms[worms_playing[team_playing]]->isAlive()){
@@ -352,7 +352,7 @@ void Game::nextWorm(){
 void Game::handleEvents(QKeyEvent *k){
     Worm* active_worm = worms[worms_playing[team_playing]];
 
-    if(!active_worm->is_grounded.first){return;}
+    if(!active_worm->is_grounded.first && !active_worm->is_on_top_of_rigidbody){return;}
 
     double speed = 25;
     double theta = qAtan2(-active_worm->is_grounded.second.first, active_worm->is_grounded.second.second);
