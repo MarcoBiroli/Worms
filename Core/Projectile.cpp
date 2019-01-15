@@ -72,6 +72,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
         if (dist <= explosion_radius) {
+            worm->tangent_bouncing = false;
             int dmg_dealt = damage - (damage/explosion_radius)*dist;
             worms[i]->changeHealth(dmg_dealt);
             //run explosion animation

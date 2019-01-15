@@ -53,11 +53,13 @@ void PhysicsEngine::update(double dt)
     QPair<bool, QPair<double, double>> collision_result;
     //for all rigidbodies
     bool deletion_flag = false;
+    QVector<int> rigidbodies_to_delete = QVector<int>();
     for(i = this->rigidbodies.begin(); i != this->rigidbodies.end(); i++)
     {
         deletion_flag = false;
         //Reset collision flag
         i.value()->is_colliding = false;
+        i.value()->is_on_top_of_rigidbody = false;
         //Reset is_grounded flag
         i.value()->is_grounded.first = false;
         i.value()->grounded = false;
@@ -72,26 +74,34 @@ void PhysicsEngine::update(double dt)
             collision_result = i.value()->check_collision(*k.value());
             if(collision_result.first){
                 //Set Collision flag to true
+                //k.value()->on_collision_do(*i.value());
                 if(i.value()->on_collision_do(*k.value())){
-                    i.value()->sprite->hide();
-                    this->delete_rigidbody(i.key());
-                    deletion_flag = true;
-                    break;
+                    //deletion_flag = true;
+                    rigidbodies_to_delete.append(i.key());
+                    //break;
                 }
                 i.value()->is_colliding = true;
                 i.value()->bounce(collision_result.second,dt);
+                if(k.value()->grounded){
+                    i.value()->is_grounded = collision_result;
+                    i.value()->grounded = true;
+                    i.value()->is_on_top_of_rigidbody = true;
+                }
             }
         }
         for(j = this->colliders.begin(); j != this->colliders.end(); j++){
+            if(deletion_flag){break;}
             //check the collision of the rigidbody with the collider
             collision_result = i.value()->check_collision(*j.value());
+            j.value()->on_collision_do(*i.value());
             if(collision_result.first){
                 //Set Collision flag to true
                 if(i.value()->on_collision_do(*j.value())){
-                    i.value()->sprite->hide();
-                    this->delete_rigidbody(i.key());
-                    deletion_flag = true;
-                    break;
+                    //i.value()->sprite->hide();
+                    //this->delete_rigidbody(i.key());
+                    //deletion_flag = true;
+                    rigidbodies_to_delete.append(i.key());
+                    //break;
                 }
                 i.value()->is_colliding = true;
                 //if there is ground collision then set is_grounded to true
@@ -108,6 +118,13 @@ void PhysicsEngine::update(double dt)
             i.value()->simulate(dt);
             i.value()->sprite->setPos(i.value()->getX(), i.value()->getY());
         }
+        else{
+            //i.value()->sprite->hide();
+            //this->delete_rigidbody(i.key());
+        }
+    }
+    foreach(int id, rigidbodies_to_delete){
+        this->delete_rigidbody(id);
     }
 }
 
@@ -141,6 +158,7 @@ RigidBody *PhysicsEngine::get_rigidbody (int id) const
 
 void PhysicsEngine::delete_rigidbody(int id)
 {
+    this->rigidbodies[id]->sprite->hide();
     rigidbodies.remove(id);
 }
 

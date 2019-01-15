@@ -46,7 +46,7 @@ void Game::weapon_list()
     weapons.append(banana);
     //Bat weapon = 7
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
-    HandToHand *bat = new HandToHand("Bat", 1, 90, 100, 50, 0, 0);
+    HandToHand *bat = new HandToHand("Bat", 1, 10, 100, 50, 0, 0);
     //(std::string name, int weapon_id, double ipower, double explosion_radius, double damage, double x, double y);
     //at->set_map(QImage("://Images/weapons/Bat_collider_right.png").scaled(30,30));
     weapons.append(bat);
