@@ -44,7 +44,12 @@ void Game::weapon_list()
     Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
-
+    //Bat weapon = 7
+    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
+    HandToHand *bat = new HandToHand("Bat", 1, 90, 100, 50, 0, 0);
+    //(std::string name, int weapon_id, double ipower, double explosion_radius, double damage, double x, double y);
+    //at->set_map(QImage("://Images/weapons/Bat_collider_right.png").scaled(30,30));
+    weapons.append(bat);
 
     //Barrel projectile weapon id = last, check with in Barrel
     QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
@@ -161,6 +166,7 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
             newWorm->addAmmo(4,settings->amopistol);
             newWorm->addAmmo(5,settings->ammoholy);
             newWorm->addAmmo(6,settings->amobanana);
+            newWorm->addAmmo(7,settings->amobat);
 
         }
 
@@ -261,7 +267,6 @@ bool Game::gameIteration(double dt){
             delete projectiles[i];
             projectiles.remove(i);
             */
-            physics_engine->delete_rigidbody(projectiles[i]->getId());
             next_turn = true;
             /*
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
@@ -279,9 +284,17 @@ bool Game::gameIteration(double dt){
 
 
         }
+        else if(projectiles[i]->getX() < 0 || projectiles[i]->getX() > this->ground->getWidth()){
+            deleteElements.append(i);
+        }
+        else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
+            deleteElements.append(i);
+        }
     }
 
     for (int i=0; i<deleteElements.size(); i++) {
+        this->scene->removeItem(projectiles[i]->sprite);
+        physics_engine->delete_rigidbody(projectiles[i]->getId());
         delete projectiles[i];
         projectiles.remove(i);
     }
@@ -301,6 +314,8 @@ bool Game::gameIteration(double dt){
         delete barrels[i];
         barrels.remove(i);
     }
+
+    deleteElements.clear();
 
     return isFinished();
 }
@@ -459,12 +474,14 @@ void Game::handleEvents(QKeyEvent *k){
                 this->view->setCursor(c);
                 this->view->is_paused = true;
                 menu->show();
+                view->setup_menu();
             }
             else{
                 QCursor c = this->view->cursor();
                 c.setShape(Qt::BlankCursor);
                 c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
                 this->view->setCursor(c);
+                QCoreApplication::processEvents();
                 this->view->is_paused = false;
                 menu->hide();
             }

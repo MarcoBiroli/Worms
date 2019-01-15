@@ -39,6 +39,7 @@ public:
     int ammodynamite = 10;
     int ammofirepunch = 5;
     int ammoarma = 1;
+    int amobat = -1;
 
 
 private slots:

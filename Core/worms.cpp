@@ -99,6 +99,8 @@ void Worm::changeHealth(int dmg) {
 Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
     Projectile* current_projectile = weapons[current_weapon]->clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
+    //current_projectile->set_firing_worm(this);
+    current_projectile->firing_worm = this;
     if(ammo[current_weapon] == -1 ||  ammo[current_weapon] != 0){
         ammo[current_weapon] -= 1;
         if (ammo[current_weapon] == -2) {
@@ -109,15 +111,20 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         }
 
         //current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
-        double x_force =  power*cos(weapon_angle*(M_PI/180))/update_time;
-        double y_force = -power*sin(weapon_angle*(M_PI/180))/update_time;
+        double x_dir = cos(weapon_angle*(M_PI/180));
+        double y_dir = -sin(weapon_angle*(M_PI/180));
+        double worm_margin = std::max(this->getHeight(), this->getWidth());
+        double proj_margin = std::max(current_projectile->getHeight(), current_projectile->getWidth());
+        double margin = worm_margin/2 + proj_margin/2 + 5;
+        double x_force =  power*x_dir/update_time;
+        double y_force = power*y_dir/update_time;
         if (this->get_direction()) {
             current_projectile->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
-            current_projectile->set_inital_position(this->x+32, this->y-10);
+            current_projectile->set_inital_position(this->x+this->getWidth()/2 - current_projectile->getWidth()/2 + x_dir*margin, this->y+ + this->getHeight()/2 - current_projectile->getHeight()/2 + y_dir*margin);
         }
         else{
             current_projectile->addForce(QPair<double, double>(-x_force, y_force)); //apply force generate by shot
-            current_projectile->set_inital_position(this->x-32, this->y-10);
+            current_projectile->set_inital_position(this->x+this->getWidth()/2 - current_projectile->getWidth()/2 -x_dir*margin, this->y - current_projectile->getHeight()/2 + this->getHeight()/2 +y_dir*margin);
         }
         return current_projectile;
     }

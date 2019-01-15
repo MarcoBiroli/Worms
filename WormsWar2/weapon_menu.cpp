@@ -96,6 +96,7 @@ void weapon_menu::on_BatButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    this->active_worm->weaponSelect(7);
 }
 
 void weapon_menu::on_MonsterbombButton_clicked()

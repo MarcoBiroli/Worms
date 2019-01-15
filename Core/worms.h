@@ -66,7 +66,8 @@ class Worm: public RigidBody {
                                                   QImage("://Images/weapons/Dynamite_left.png").scaled(21,21),
                                                   QImage("://Images/weapons/Gun_left.png").scaled(21,21),
                                                   QImage("://Images/weapons/Holy_Grenade.png").scaled(21,21),
-                                                  QImage("://Images/weapons/Banana_left.png").scaled(21,21)});
+                                                  QImage("://Images/weapons/Banana_left.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Bat_left.png").scaled(21,21)});
 
       void update_weapon();
 private:

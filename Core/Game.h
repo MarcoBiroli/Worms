@@ -30,6 +30,7 @@
 #include "animationthread.h"
 #include "../GUI/spritesheet.h"
 #include <QtConcurrent/QtConcurrent>
+#include "handtohand.h"
 
 class CustomView;
 class Game : public QObject{
