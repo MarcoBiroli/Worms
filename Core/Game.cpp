@@ -160,7 +160,8 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
                 }
             }
             qDebug() << j;
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, ground_size_x/2 + 500*team, j-50, worm_image["right"]);//positions are arbitrary
+            int r_x = qrand() % ((4500 + 1) - 500) + 500;
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
             //newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
@@ -184,6 +185,17 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
             worms_playing[team] -=1;
         }
     }
+
+    /*int numberOfBarrels = 11;
+
+    for(int bar=0; bar<numberOfBarrels; bar++){
+        int b_x = qrand() % ((4500 + 1) - 500) + 500;
+        Barrel* newBarrel = new Barrel(1500,  b_x, 1000,  barrel_image);
+        physics_engine->add_RigidBody(newBarrel);
+        barrels.append(newBarrel);
+        scene->addItem(newBarrel->sprite);
+    }*/
+
 
     //scene->addItem(new SpriteSheet(new QPixmap("://Images/Sprite_Walking.png")));
     number_of_turns = 0;
@@ -253,12 +265,6 @@ bool Game::gameIteration(double dt){
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
-
-        /*Barrel* newBarrel = new Barrel(1500,  2100, 100,  barrel_image);//positions are arbitrary and should depend on size of window
-
-        physics_engine->add_RigidBody(newBarrel);
-        barrels.append(newBarrel);
-        scene->addItem(newBarrel->sprite);*/
     }
 
     QVector<int> deleteElements = QVector<int>();
