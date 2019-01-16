@@ -32,6 +32,7 @@ protected:
      void keyPressEvent(QKeyEvent *k);
      void mouseMoveEvent(QMouseEvent *event);
      void keyReleaseEvent(QKeyEvent *k);
+     void mousePressEvent(QMouseEvent *event);
 };
 
 #endif

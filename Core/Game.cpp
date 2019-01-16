@@ -47,9 +47,17 @@ void Game::weapon_list()
     //Bat weapon = 7
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
     HandToHand *bat = new HandToHand("Bat", 1, 10, 100, 50, 0, 0);
-    //(std::string name, int weapon_id, double ipower, double explosion_radius, double damage, double x, double y);
-    //at->set_map(QImage("://Images/weapons/Bat_collider_right.png").scaled(30,30));
     weapons.append(bat);
+    //Firepunch weapon = 8
+    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
+    HandToHand *punchfire = new HandToHand("Firepunch", 1, 10, 100, 50, 0, 0);
+    weapons.append(punchfire);
+    //Airstrike weapon = 9
+    QPixmap img9 = QPixmap::fromImage(QImage("://Images/weapons/Airstrike_right.png").scaled(30,30));
+    Projectile *air = new Projectile("Airstrike", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img9);
+    air->is_airweapon = true;
+    air->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
+    weapons.append(air);
 
     //Barrel projectile weapon id = last, check with in Barrel
     QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
@@ -167,6 +175,8 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
             newWorm->addAmmo(5,settings->ammoholy);
             newWorm->addAmmo(6,settings->amobanana);
             newWorm->addAmmo(7,settings->amobat);
+            newWorm->addAmmo(8,settings->ammofirepunch);
+            newWorm->addAmmo(9,settings->amoairstrike);
 
         }
 
@@ -251,7 +261,7 @@ bool Game::gameIteration(double dt){
         scene->addItem(newBarrel->sprite);*/
     }
 
-    QVector<int> deleteElements;
+    QVector<int> deleteElements = QVector<int>();
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
@@ -292,12 +302,18 @@ bool Game::gameIteration(double dt){
         }
     }
 
+    QVector<Projectile*> tmp = QVector<Projectile*>();
     for (int i=0; i<deleteElements.size(); i++) {
-        this->scene->removeItem(projectiles[i]->sprite);
-        physics_engine->delete_rigidbody(projectiles[i]->getId());
-        delete projectiles[i];
-        projectiles.remove(i);
+        this->scene->removeItem(projectiles[deleteElements[i]]->sprite);
+        physics_engine->delete_rigidbody(projectiles[deleteElements[i]]->getId());
+        delete projectiles[deleteElements[i]];
     }
+    for(int i = 0 ; i < projectiles.size(); i++){
+        if(!deleteElements.contains(i)){
+            tmp.append(projectiles[i]);
+        }
+    }
+    projectiles = tmp;
 
     deleteElements.clear();
 
@@ -310,10 +326,14 @@ bool Game::gameIteration(double dt){
         }
     }
 
+    QVector<Barrel*> tmp2 = QVector<Barrel*>();
     for (int i=0; i<deleteElements.size(); i++) {
         delete barrels[i];
-        barrels.remove(i);
     }
+    for(int i = 0; i < barrels.size(); i++){
+        tmp2.append(barrels[i]);
+    }
+    barrels = tmp2;
 
     deleteElements.clear();
 
@@ -524,7 +544,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
     Worm* active_worm = worms[worms_playing[team_playing]];
 
     if (k -> key() == Qt::Key_Space && !has_shot && k -> isAutoRepeat() == false){
-        qInfo() << 'entered';
+        //qInfo() << 'entered';
         Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
         if (current_projectile != NULL){
             physics_engine->add_RigidBody(current_projectile);
@@ -535,8 +555,32 @@ void Game::handleReleaseEvent(QKeyEvent *k)
             has_shot = true;
             power = 20;
     }
+    }
 }
+
+void Game::handleMouseClickEvent(QMouseEvent *event)
+{
+    Worm* active_worm = worms[worms_playing[team_playing]];
+    if(event->button() == Qt::LeftButton){
+        if(this->weapons[active_worm->get_weapon()]->is_airweapon){
+            QPointF point = this->view->mapToScene(event->pos());
+            active_worm->target = QPair<int,int> (point.rx(), point.ry());
+            QVector<Projectile*> air_projectiles = active_worm->fireAirWeapon(power, weapons);
+            for(int i = 0; i < air_projectiles.length(); i++){
+                Projectile* current_projectile = air_projectiles[i];
+                if (current_projectile != NULL){
+                    physics_engine->add_RigidBody(current_projectile);
+                    projectiles.append(current_projectile);
+                    scene->addItem(current_projectile->sprite);
+                }
+            }
+            this->turn_timer = this->max_turn_time - 5000;
+            has_shot = true;
+            power = 20;
+        }
+    }
 }
+
 
 //http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 

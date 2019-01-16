@@ -48,6 +48,7 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
     this->weapon_id = other.weapon_id;
     this->setbounciness(other.getbounciness());
     this->sprite->setPixmap(other.sprite->pixmap());
+    this->is_airweapon = other.is_airweapon;
 }
 
 Projectile* Projectile::clone() {

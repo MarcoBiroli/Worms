@@ -12,6 +12,7 @@
 #include "QGraphicsPixmapItem"
 
 
+
 #define NUMBER_OF_WEAPONS 15 //global variable fixed for the all execution
 
 class Projectile;
@@ -45,8 +46,11 @@ class Worm: public RigidBody {
       //modifes weapon angle attribute of worms by angle_change (clockwise is positive, counter-clockwise is negative)
       
       Projectile* fireWeapon(double power, QVector<Projectile*> &weapons);
+
+      QVector<Projectile*> fireAirWeapon(double power, QVector<Projectile*> &weapons);
       //with the power from the user input and the angle stored in the Worms class, create
       //projectile(s) specific to current_weapon and add them to the list of projectiles of the game loop
+      int amount_airweapon = 5;
 
       void wormDeath(); // call destructor and run death animation
     
@@ -67,9 +71,14 @@ class Worm: public RigidBody {
                                                   QImage("://Images/weapons/Gun_left.png").scaled(21,21),
                                                   QImage("://Images/weapons/Holy_Grenade.png").scaled(21,21),
                                                   QImage("://Images/weapons/Banana_left.png").scaled(21,21),
-                                                  QImage("://Images/weapons/Bat_left.png").scaled(21,21)});
+                                                  QImage("://Images/weapons/Bat_left.png").scaled(21,21),
+                                                  QImage("://Images/weapons/Firepunch_left.png").scaled(21,21),
+                                                QImage()});
 
       void update_weapon();
+      QPair<int,int> target = QPair<int,int>();
+
+      int get_weapon();
 private:
       int health;
       int current_weapon = 0;
@@ -80,4 +89,5 @@ private:
       bool damagetaken=false;
       bool wormdirection=true; //true is to the right
       QGraphicsPixmapItem pixmap;
+
 };

@@ -15,6 +15,7 @@ class Projectile : public RigidBody {
         Projectile();
         virtual ~Projectile();
         bool is_hand_to_hand = false;
+        bool is_airweapon = false;
         void print();
         //prints the Projectile's specs
 

@@ -76,12 +76,18 @@ void weapon_menu::on_AirstrikeButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    QCursor c = cursor();
+    c.setPos(mapToGlobal(QPoint(width() / 2, height() / 2)));
+    c.setShape(Qt::ArrowCursor);
+    setCursor(c);
+    this->active_worm->weaponSelect(9);
 }
 
 void weapon_menu::on_MeteorButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+
 }
 
 
@@ -109,6 +115,7 @@ void weapon_menu::on_firepunchButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    this->active_worm->weaponSelect(8);
 }
 
 

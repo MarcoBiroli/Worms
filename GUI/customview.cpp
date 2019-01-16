@@ -80,3 +80,11 @@ void CustomView::mouseMoveEvent(QMouseEvent *event){
 void CustomView::keyReleaseEvent(QKeyEvent *k){
     game->handleReleaseEvent(k);
 }
+
+void CustomView::mousePressEvent(QMouseEvent *event){
+    game->handleMouseClickEvent(event);
+}
+
+
+
+

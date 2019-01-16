@@ -31,6 +31,8 @@
 #include "../GUI/spritesheet.h"
 #include <QtConcurrent/QtConcurrent>
 #include "handtohand.h"
+#include <QMouseEvent>
+
 
 class CustomView;
 class Game : public QObject{
@@ -119,6 +121,7 @@ class Game : public QObject{
 
       void handleEvents(QKeyEvent *k); //event handler
       void handleReleaseEvent(QKeyEvent* k);
+      void handleMouseClickEvent(QMouseEvent *event);
 
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
 

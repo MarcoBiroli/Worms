@@ -110,6 +110,10 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
             ammo[current_weapon] = 0;
         }
 
+    if(current_projectile->is_airweapon){
+        return NULL;
+
+    }
         //current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
         double x_dir = cos(weapon_angle*(M_PI/180));
         double y_dir = -sin(weapon_angle*(M_PI/180));
@@ -131,6 +135,24 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
     else{return NULL;}
 }
 
+QVector<Projectile*> Worm::fireAirWeapon(double power, QVector<Projectile *> &weapons)
+{
+    //double x_dir = cos(weapon_angle*(M_PI/180));
+    //double y_dir = -sin(weapon_angle*(M_PI/180));
+    //double x_force =  power*x_dir/update_time;
+    //double y_force = power*y_dir/update_time;
+    //weapon->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
+    QVector<Projectile*> airweapon;
+    for (int i=0; i< this->amount_airweapon; i++)
+    {
+        Projectile* weapon = weapons[current_weapon]->clone();
+        weapon->set_inital_position(this->target.first-100*i - weapon->getWidth()/2, 0);
+        weapon->setvx(100*this->amount_airweapon/(qSqrt(2*this->target.second/9.81)));
+        airweapon.append(weapon);
+    }
+    return airweapon;
+}
+
 void Worm::update_weapon(){
     if(!this->isAlive()){
         this->weapon_image->hide();
@@ -146,6 +168,11 @@ void Worm::update_weapon(){
         this->weapon_image->setPos(-16, this->getHeight()/2 - 11);
         this->reticle->setPos(this->getWidth()/2 - reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
     }
+}
+
+int Worm::get_weapon()
+{
+    return this->current_weapon;
 }
 
 bool Worm::get_direction(){
