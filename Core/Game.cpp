@@ -258,10 +258,24 @@ bool Game::gameIteration(double dt){
         has_shot = false;
         next_turn = false;
 
+        int r_2; //r_2 is a random variable that will define the type of crate 50% chance to be a health pack, 50% chance to be an ammo pack with randomized content
+        int amount; //fixed to be 50 for health packs, randomized between 1 and 3
+        int rand_x = qrand() % ((4720 + 1) - 250) + 250; //random position for the creation of crates
 
-        int rand_x = qrand() % ((4720 + 1) - 250) + 250;
-        Crate* newCrate = new Crate(800,  rand_x, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        int r_1 = qrand() % 2; //intermediate variable defined to randomize r_2
+        if (r_1 == 1){
+            r_2 = -1;
+            amount = 50;
+        }
+        else{
+            r_2 = qrand() % ((9 + 1) - 2) + 2;
+                if(r_2 ==2){
+                r_2 = 1;
+                }
+            amount = qrand() % ((1 + 1) - 3) + 3;
+        }
 
+        Crate* newCrate = new Crate(800,  rand_x, 100, r_2, amount,  crate_image);
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
