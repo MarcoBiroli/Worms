@@ -48,3 +48,12 @@ void Music::randomsound(){
 void Music::stopmus(){
     music->stop();
 }
+
+
+void Music::pausemusic(){
+    music->pause();
+}
+
+void Music::playmusic(){
+    music->play();
+}

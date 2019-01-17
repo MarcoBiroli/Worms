@@ -34,6 +34,8 @@ int main(int argc, char *argv[])
     Finished *finishmenu = new Finished();
     finishmenu->mainwindow = MainMenu;
 
+    Music music;
+    music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     while(MainMenu->quit_button!=true){
         a.processEvents();

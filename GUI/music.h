@@ -21,5 +21,9 @@ void playsound(QString path);
 void randomsound();
 
 void stopmus();
+
+void playmusic();
+
+void pausemusic();
 };
 #endif
