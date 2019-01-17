@@ -74,7 +74,7 @@ private slots:
 
     void on_scrldynamite_valueChanged(int value);
 
-    void on_scrlfire_valueChanged(int value);
+    void on_scrlfirepunch_valueChanged(int value);
 
     void on_scrlarma_valueChanged(int value);
 
@@ -83,6 +83,8 @@ private slots:
     void on_infinitebazooka_stateChanged(int arg1);
 
     void on_infinitegrenade_stateChanged(int arg1);
+
+
 
 private:
     Ui::Settings *ui;

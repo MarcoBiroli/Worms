@@ -45,6 +45,7 @@ private:
 public:
     //Constructors
     Ground();
+
     Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor);
 
     //Randomize methods

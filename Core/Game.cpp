@@ -2,53 +2,54 @@
 
 //Initialize all weapons
 void Game::weapon_list()
-{
+{//Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
+
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 2500, 0, false, 0, 80, 80, 2, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(30,30));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 10000, 0.3, true, 3000, 120, 0, 4, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
     QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(30,30));
-    Projectile * grenade = new Projectile("Grenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img2);
+    Projectile * grenade = new Projectile("Grenade", 1, 3500, 0.3, true, 3000, 100, 80, 4, 0, 0, img2);
     grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(grenade);
     //Dynamite weapon id = 3
     QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(30,30));
-    Projectile * dynamite = new Projectile("Dynamite", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img3);
+    Projectile * dynamite = new Projectile("Dynamite", 1, 5000, 0.1, true, 3000, 120, 100, 200, 0, 0, img3);
     dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
-    Projectile *gun = new Projectile("Gun", 1, 50, 0, false, 0, 100, 100, 0.5, 0, 0, img4);
+    Projectile *gun = new Projectile("Gun", 1, 500, 0, false, 0, 30, 120, 1, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
     //Holy grenade weapon id = 5
     QPixmap img5 = QPixmap::fromImage(QImage("://Images/weapons/Holy_Grenade.png").scaled(30,30));
-    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
+    Projectile *holy = new Projectile("Holy", 1, 7000, 0.3, true, 3000, 200, 150, 4, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
     //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
-    Projectile *banana = new Projectile("Banana", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img6);
+    Projectile *banana = new Projectile("Banana", 1, 3500, 0.6, true, 3000, 100, 90, 4, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
     //Bat weapon = 7
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
-    HandToHand *bat = new HandToHand("Bat", 1, 10, 100, 50, 0, 0);
+    HandToHand *bat = new HandToHand("Bat", 1, 25, 40, 40, 0, 0);
     weapons.append(bat);
     //Firepunch weapon = 8
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
-    HandToHand *punchfire = new HandToHand("Firepunch", 1, 10, 100, 50, 0, 0);
+    HandToHand *punchfire = new HandToHand("Firepunch", 1, 7, 70, 50, 0, 0);
     weapons.append(punchfire);
     //Airstrike weapon = 9
     QPixmap img9 = QPixmap::fromImage(QImage("://Images/weapons/Airstrike_right.png").scaled(30,30));
-    Projectile *air = new Projectile("Airstrike", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img9);
+    Projectile *air = new Projectile("Airstrike", 1, 1500, 0, false, 0, 80, 50, 5, 0, 0, img9);
     air->is_airweapon = true;
     air->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(air);
@@ -66,7 +67,7 @@ void Game::weapon_list()
     weapons.append(arma);
     //Barrel projectile weapon id = last, check with in Barrel
     QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile *barrel = new Projectile("Barrel projectile", 1, 100, 0, true, 1, 200, 100, 5, 0, 0, imgbarrel);
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 4500, 0, true, 1, 100, 70, 5, 0, 0, imgbarrel);
     barrel->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(barrel);
 
@@ -270,9 +271,27 @@ bool Game::gameIteration(double dt){
         has_shot = false;
         next_turn = false;
 
-        int rand_x = qrand() % ((4720 + 1) - 250) + 250;
-        Crate* newCrate = new Crate(800,  rand_x, 100, -1, healthcrates,  crate_image);//positions are arbitrary and should depend on size of window
 
+        int r_2; //r_2 is a random variable that will define the type of crate 50% chance to be a health pack, 50% chance to be an ammo pack with randomized content
+        int amount; //fixed to be 50 for health packs, randomized between 1 and 3
+        int rand_x = qrand() % ((4720 + 1) - 250) + 250; //random position for the creation of crates
+        QPixmap image;
+
+        int r_1 = qrand() % 2; //intermediate variable defined to randomize r_2
+        if (r_1 == 1){
+            image = crate_image_health;
+            r_2 = -1;
+            amount = healthcrates;
+        }
+        else{
+            r_2 = qrand() % ((9 + 1) - 2) + 2;
+                if(r_2 ==2){
+                r_2 = 1;
+                }
+            image = crate_image_weapon;
+            amount = qrand() % ((1 + 1) - 3) + 3;
+        }
+        Crate* newCrate = new Crate(800,  rand_x, 100, r_2, amount, image);
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
@@ -284,32 +303,15 @@ bool Game::gameIteration(double dt){
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->sprite->show();
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
-            /*
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
-            explosion_image->setX(projectiles[i]->getX());
-            explosion_image->setY(projectiles[i]->getY());
-            explosion_image->show();
-            scene->addItem(explosion_image);
-            QTimer::singleShot::std::chrono::milliseconds (1000, explosion_image, &QGraphicsPixmapItem::hide);
-            physics_engine->delete_rigidbody(projectiles[i]->getId());
-            delete projectiles[i];
-            projectiles.remove(i);
-            */
-            next_turn = true;
-            /*
+
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
 
-            scene->addItem(explosion_image);
-            */
-            //QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
-            //scene->removeItem(explosion_image);
-            //explosion_image->hide();
-
-
             deleteElements.append(i);
 
+            scene->addItem(explosion_image);
+            scene->removeItem(explosion_image);
 
         }
         else if(projectiles[i]->getX() < 0 || projectiles[i]->getX() > this->ground->getWidth()){
@@ -322,8 +324,11 @@ bool Game::gameIteration(double dt){
         }
         else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
             deleteElements.append(i);
+
         }
+
     }
+
 
     QVector<Projectile*> tmp = QVector<Projectile*>();
     for (int i=0; i<deleteElements.size(); i++) {
@@ -346,6 +351,7 @@ bool Game::gameIteration(double dt){
             physics_engine->delete_rigidbody(barrels[i]->getId());
 
             deleteElements.append(i);
+
         }
     }
 
@@ -545,7 +551,9 @@ void Game::handleEvents(QKeyEvent *k){
         }
         if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
             power += 10;
-        }
+            this->worms[worms_playing[team_playing]]->power = QString::number(power);
+            this->worms[worms_playing[team_playing]]->refresh_label(); 
+         }
     }
     active_worm->setstable(false);
 }
@@ -565,7 +573,9 @@ void Game::handleReleaseEvent(QKeyEvent *k)
             this->turn_timer = this->max_turn_time - 5000;
             has_shot = true;
             power = 20;
-        }
+            this->worms[worms_playing[team_playing]]->power = QString("");
+            this->worms[worms_playing[team_playing]]->refresh_label();
+         }
     }
 }
 
@@ -573,7 +583,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 void Game::handleMouseDoubleClickEvent(QMouseEvent *event)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
-    if(event->button() == Qt::LeftButton){
+    if(event->button() == Qt::LeftButton && !has_shot){
         if(this->weapons[active_worm->get_weapon()]->is_airweapon){
             QPointF point = this->view->mapToScene(event->pos());
             active_worm->target = QPair<int,int> (point.rx(), point.ry());

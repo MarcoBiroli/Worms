@@ -39,6 +39,13 @@
 #include "pause.h"
 #include "mainwindow.h"
 
+#include "../GUI/customview.h"
+#include "../GUI/water.h"
+#include "QThread"
+#include "animationthread.h"
+#include "../GUI/spritesheet.h"
+#include "handtohand.h"
+
 
 
 
@@ -75,6 +82,8 @@ class Game : public QObject{
       };
 
       QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+      QPixmap crate_image_health = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+      QPixmap crate_image_weapon = QPixmap::fromImage(QImage("://Images/rigidbodies/wep.png").scaled(32,32));
       QPixmap barrel_image = QPixmap::fromImage(QImage("://Images/rigidbodies/barrel.png").scaled(40,40));
 
 
@@ -97,7 +106,6 @@ class Game : public QObject{
       QGraphicsPixmapItem* water_sprite = new QGraphicsPixmapItem();
 
     public:
-
       //Initializing "GOD"!!!!
       Ground* ground;
       QGraphicsScene *scene;

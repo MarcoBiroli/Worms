@@ -34,8 +34,12 @@ int main(int argc, char *argv[])
     helpmenu->mainwindow = MainMenu;
     Finished *finishmenu = new Finished();
     finishmenu->mainwindow = MainMenu;
+    //Sound effects
+    Music musicplaylist;
+    QList<QString> ListSongs = {"//qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
+    musicplaylist.infinitemusic(ListSongs);
 
-    //Game loop
+    //game loop
     while(MainMenu->quit_button!=true){
         a.processEvents();
 

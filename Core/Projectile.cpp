@@ -85,15 +85,15 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         Worm* worm = worms[i];
         //position of explosion to distance explosion_radius of the center of explosion.
         double dist = this->distance(*worm);
-        if (dist <= explosion_radius) {
+        if (dist <= 1.2*explosion_radius) {
             worm->tangent_bouncing = false;
             //calculates and gives damage to the worms inside the explosion radius
-            int dmg_dealt = damage - (damage/explosion_radius)*dist;
+            int dmg_dealt = damage - (damage/(1.2*explosion_radius))*dist;
             worms[i]->changeHealth(dmg_dealt);
             //Repulsion force
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
-            double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
-            double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
+            double Fx = this->repulsion_power*(vect_dist.first/dist)/update_time;
+            double Fy = this->repulsion_power*(vect_dist.second/dist)/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             worm->addForce(explosion_force);
@@ -101,7 +101,10 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             Music sound;
             sound.randomsound();
         }
+
         //?????? WHAT DOES IT DO????
+
+        /*
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
             double dist = this->distance(*projectile);
@@ -114,7 +117,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
                 QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
                 projectile->addForce(explosion_force);
             }
-        }
+        }*/
     }
 
     //??????WHAT DOES IT DO???????

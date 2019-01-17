@@ -17,6 +17,11 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
     msg.append("\n");
     msg.append("Health: ");
     msg.append(QString::number(this->health));
+    if(this->power != QString("")){
+        msg.append("\n");
+        msg.append("Power: ");
+        msg.append(this->power);
+    }
     this->label->setPos(-6*std::max(personal_name.length(), 10)/2, -48);
     this->label->setPlainText(msg);
     this->label->setFont(QFont("Comic Sans MS", 12, QFont::Bold, true));
@@ -35,6 +40,46 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
     this->reticle->setPixmap(QPixmap("://Images/Aim.png").scaled(32,32));
     this->reticle->hide();
 }
+
+
+/*
+Worm::Worm(int team_number, QString personal_name, double bounciness, int health, double mass, double x, double y, QPixmap isprite): RigidBody(mass, x, y), team_number(team_number), personal_name(personal_name) {
+    this->health = health;
+    this->setbounciness(bounciness);
+    this->sprite->setPixmap(isprite);
+    this->label = new QGraphicsTextItem(this->sprite);
+    QString msg = personal_name;
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    this->label->setPos(-6*std::max(personal_name.length(), 10)/2, -48);
+    this->label->setPlainText(msg);
+    this->label->setFont(QFont("Comic Sans MS", 12, QFont::Bold, true));
+    if(team_number == 0){
+        this->label->setDefaultTextColor(Qt::red);
+    }
+    else if (team_number == 1){
+        this->label->setDefaultTextColor(Qt::blue);
+    }
+    else if (team_number == 2){
+        this->label->setDefaultTextColor(Qt::green);
+    }
+    else if (team_number == 3){
+        this->label->setDefaultTextColor(Qt::yellow);
+    }
+    this->reticle->setPixmap(QPixmap("://Images/Aim.png").scaled(32,32));
+    this->reticle->hide();
+
+    ------ DISPLAY POWER NUMBER  ----------
+
+    Qtstring power = this->power;
+    msg.append("\n");
+    msg.append("Power: ");
+    msg.append(QtString::number(this->power));
+    this->label->setPlainText(msg);
+
+}
+*/
 
 //Destructors
 Worm::~Worm() {
@@ -161,6 +206,20 @@ void Worm::update_weapon(){
 
 void Worm::pickUpWeapon(int weapon_ID, int iammo) {//<- TO BE DELETED?? SAME THING AS ADD AMMO
     this->ammo[weapon_ID] += iammo;
+    this->refresh_label();
+}
+
+void Worm::refresh_label(){
+    QString msg = this->personal_name;
+    msg.append("\n");
+    msg.append("Health: ");
+    msg.append(QString::number(this->health));
+    if(this->power != QString("")){
+        msg.append("\n");
+        msg.append("Power: ");
+        msg.append(this->power);
+    }
+    this->label->setPlainText(msg);
 }
 
 

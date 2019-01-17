@@ -77,6 +77,11 @@ class Worm: public RigidBody {
                                                 QImage("://Images/weapons/detonator.png").scaled(21,21),
                                                 QImage("://Images/weapons/help.png").scaled(21,21),
                                                 });
+
+      //Graphics Methods
+      QString power = QString("");
+      void refresh_label();
+
 private:
       int health;
       int current_weapon = 0;

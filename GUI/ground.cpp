@@ -77,7 +77,6 @@ void Ground::randomize2() {
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;
     double grass_height;
-    //double sea_level = 0.87*height;
     //color in black every pixel under the superposition of the two functions
     for (int i = 0; i < width; i++){
         if(0.05*width < i && i < 0.95*width){
@@ -86,7 +85,7 @@ void Ground::randomize2() {
         }
         else{
             terrain_height = height+1;
-            grass_height = height + 2;// Comment this line to get ground up to the edges of the screen.
+            grass_height = height+1;// Comment this line to get ground up to the edges of the screen.
         }
         for (int j = 0; j < height ; j++){
             if (j < terrain_height){
@@ -98,6 +97,7 @@ void Ground::randomize2() {
                 this->map->setPixelColor(i,j,grasscolor);
                 this -> change_pixel(i,j, Qt::black);
             }
+
             if (j > grass_height && j < height){
                 this -> map -> setPixelColor(i,j,terraincolor);
                 this -> change_pixel(i,j, Qt::black);

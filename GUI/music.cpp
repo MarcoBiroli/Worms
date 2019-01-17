@@ -41,3 +41,26 @@ void Music::randomsound(){
 void Music::stopmus(){
     music->stop();
 }
+
+
+void Music::pausemusic(){
+    music->pause();
+}
+
+void Music::playmusic(){
+    music->play();
+}
+
+void Music::infinitemusic(QList<QString> list){
+    playlist = new QMediaPlaylist();
+
+    for (int i = 0; i < list.size(); ++i) {
+        QUrl url = QUrl(list.at(i));
+        playlist->addMedia(url);
+    }
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    musicinf = new QMediaPlayer();
+    musicinf->setPlaylist(playlist);
+    musicinf->play();
+}
