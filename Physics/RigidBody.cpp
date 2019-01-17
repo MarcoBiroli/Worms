@@ -223,3 +223,8 @@ double RigidBody::getay() const{
     return ay;
 }
 
+QPair<double, double> RigidBody::getforce() const
+{
+    return currentForce;
+}
+

@@ -73,7 +73,7 @@ void Ground::randomize2() {
     //a good mountain-like terrain
     double period1,period2;
     period1=rand()%int(0.16*width)+int(0.08*width);
-    period2=rand()%int(0.08*width)+int(0.04*width);
+    period2=rand()%int(0.04*width)+int(0.02*width);
     double phase1=rand()%int(0.2*width)+int(0.04*width);
     double phase2=rand()%int(0.2*width)+int(0.04*width);
     double terrain_height;

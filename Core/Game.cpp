@@ -426,12 +426,23 @@ void Game::handleEvents(QKeyEvent *k){
         if (k->isAutoRepeat() == false && k->key() == Qt::Key_Q){// key == Q jump to the left
             //get_direction == True means you are facing right
                   if (active_worm->get_direction()){ //backflips have greater forces of jumping
-
-                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*active_worm->getm()));
+                      /*if (active_worm->getforce().first>10000){
+                          active_worm->setforce(QPair<double,double>(10000,active_worm->getforce().second));
+                      }
+                      if (active_worm->getforce().second>10000){
+                          active_worm->setforce(QPair<double,double>(active_worm->getforce().first,10000));
+                      }*/
+                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*2*active_worm->getm()));
                       active_worm->setstable(false);
                   }
                   else{ //normal jumping to the left
-                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*active_worm->getm()));
+                      /*if (active_worm->getforce().first>10000){
+                          active_worm->setforce(QPair<double,double>(10000,active_worm->getforce().second));
+                      }
+                      if (active_worm->getforce().second>10000){
+                          active_worm->setforce(QPair<double,double>(active_worm->getforce().first,10000));
+                      }*/
+                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*2*active_worm->getm()));
                       active_worm->setstable(false);
                   }
                   active_worm->sprite->setPixmap(worm_image["left"]);
@@ -440,13 +451,25 @@ void Game::handleEvents(QKeyEvent *k){
 
         if (k->isAutoRepeat() == false && k->key()== Qt::Key_E){ // key == E jump to the right
                  if (active_worm->get_direction()){ //normal jumping to the right
-                     active_worm->setforce(QPair<double,double>(0,0));
-                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-2500*active_worm->getm()));
+                     /*active_worm->setforce(QPair<double,double>(0,0));
+                     if (active_worm->getforce().first>10000){
+                         active_worm->setforce(QPair<double,double>(10000,active_worm->getforce().second));
+                     }
+                     if (active_worm->getforce().second>10000){
+                         active_worm->setforce(QPair<double,double>(active_worm->getforce().first,10000));
+                     }*/
+                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-2500*2*active_worm->getm()));
                      active_worm->setstable(false);
                  }
                  else{ //backflips have greater forces of jumping
-                     active_worm->setforce(QPair<double,double>(0,0));
-                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
+                     /*active_worm->setforce(QPair<double,double>(0,0));
+                     if (active_worm->getforce().first>10000){
+                         active_worm->setforce(QPair<double,double>(10000,active_worm->getforce().second));
+                     }
+                     if (active_worm->getforce().second>10000){
+                         active_worm->setforce(QPair<double,double>(active_worm->getforce().first,10000));
+                     }*/
+                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*2*active_worm->getm()));
                      active_worm->setstable(false);
                  }
                  active_worm->sprite->setPixmap(worm_image["right"]);
@@ -483,7 +506,7 @@ void Game::handleEvents(QKeyEvent *k){
         }
 
         if (k->isAutoRepeat() == false && k->key() == Qt::Key_W){ // key == W  jumping
-            active_worm->addForce(QPair<double, double>(0, -2500*active_worm->getm()));
+            active_worm->addForce(QPair<double, double>(0, -2500*2*active_worm->getm()));
             active_worm->setstable(false);
             }
 
