@@ -525,6 +525,8 @@ void Game::handleEvents(QKeyEvent *k){
         }
         if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
             power += 10;
+            this->worms[worms_playing[team_playing]]->power = QString::number(power);
+            this->worms[worms_playing[team_playing]]->refresh_label();
             /*
             if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
                 Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
@@ -559,7 +561,9 @@ void Game::handleReleaseEvent(QKeyEvent *k)
             this->turn_timer = this->max_turn_time - 5000;
             has_shot = true;
             power = 20;
-    }
+            this->worms[worms_playing[team_playing]]->power = QString("");
+            this->worms[worms_playing[team_playing]]->refresh_label();
+         }
     }
 }
 

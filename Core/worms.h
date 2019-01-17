@@ -77,8 +77,9 @@ class Worm: public RigidBody {
 
       void update_weapon();
       QPair<int,int> target = QPair<int,int>();
-
+      QString power = QString("");
       int get_weapon();
+      void refresh_label();
 private:
       int health;
       int current_weapon = 0;
