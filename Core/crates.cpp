@@ -1,9 +1,6 @@
-#include <iostream>
-#include <string>
-using namespace std;
-
 #include "crates.h"
 
+//Constructors
 Crate::Crate() : RigidBody()
 {
 
@@ -19,6 +16,7 @@ Crate::Crate(double m, double x, double y, int weaponID, int amountAmmo, QPixmap
     this->tangent_bouncing = true;
 }
 
+//Methods
 bool Crate::on_collision_do(Collider &other){
     if(other.isWormAlive()){
         other.addAmmo(weaponID, amountAmmo);

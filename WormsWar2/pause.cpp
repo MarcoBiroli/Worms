@@ -13,7 +13,7 @@ Pause::~Pause()
     delete ui;
 }
 
-
+//Methods
 void Pause::on_mainButton_clicked()
 {
     this->hide();
@@ -21,7 +21,7 @@ void Pause::on_mainButton_clicked()
 
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
-
+    //Parameter will be used in the main.cpp to say that u have exited the game loop through ESCAPE
     MainWindow->through_esc = true;
 }
 

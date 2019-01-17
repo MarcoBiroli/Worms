@@ -1,10 +1,4 @@
 #include "Game.h"
-#include <QPixmap>
-#include <QSound>
-#include <QMediaPlayer>
-#include "../GUI/music.h"
-#include "settings.h"
-#include "pause.h"
 
 //Initialize all weapons
 void Game::weapon_list()
@@ -58,7 +52,18 @@ void Game::weapon_list()
     air->is_airweapon = true;
     air->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(air);
-
+    //Monster Bomb weapon = 10
+    QPixmap img10 = QPixmap::fromImage(QImage("://Images/weapons/MonsterBomb_right.png").scaled(30,30));
+    Projectile *monsterbomb = new Projectile("MonsterBomb", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img10);
+    monsterbomb->is_airweapon = true;
+    monsterbomb->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
+    weapons.append(monsterbomb);
+    //Armagedon weapon = 11
+    QPixmap img11 = QPixmap::fromImage(QImage("://Images/weapons/Meteor_right.png").scaled(30,30));
+    Projectile *arma = new Projectile("Armagedon", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img10);
+    arma->is_airweapon = true;
+    arma->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
+    weapons.append(arma);
     //Barrel projectile weapon id = last, check with in Barrel
     QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
     Projectile *barrel = new Projectile("Barrel projectile", 1, 100, 0, true, 1, 200, 100, 5, 0, 0, imgbarrel);
@@ -67,35 +72,35 @@ void Game::weapon_list()
 
 }
 
+//Constructors
 Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene* iscene, CustomView* iview, Settings *settings, int ground_size_x, int ground_size_y){
+    //Initialize
     scene = iscene;
     view = iview;
-
     physics_engine = new PhysicsEngine();
 
     Music music;
     music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
-    scene = iscene;
-
     thread = new QThread;
     worker = new AnimationThread();
     worker->moveToThread(thread);
 
-    if (number == 1) {
+    //Levels
+    if (number == 1) { //Easy
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
         ground = new Ground(a, ground_size_x, ground_size_y, terrain_g, grass_green);
         worker->color = water_blue;
     }
-    if (number == 2){
+    if (number == 2){ //Medium
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
         ground = new Ground(a, ground_size_x, ground_size_y, terrain_brown, grass_green);
         ground->randomize2();
         worker->color = water_sun;
     }
-    if (number == 3){
+    if (number == 3){//Hard
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/volcano.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
         ground = new Ground(a, ground_size_x, ground_size_y, terrain_grey, grass_fire);
@@ -105,36 +110,28 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
         worker->color = water_fire;
     }
 
+    //Water Threads
     worker->width = ground->getWidth();
     int water_height = ground->getHeight()/10;
     worker->height = ground->getHeight()-100;
     worker->water_height = water_height;
 
-    //this->water = Water (qRgb(17, 62, 228), ground_size_x, 500);
-    //water.sprite->setPos(0, ground_size_y-600);
-
-    //ground->water = &this->water;
-    //scene->addItem(water.sprite);
     scene->addItem(ground->getPixmap());
     physics_engine->add_Collider(ground);
 
+    //Manage Thread Communication
     QObject::connect(thread, SIGNAL(started()), worker, SLOT(process()));
     QObject::connect(worker, SIGNAL(built_water()), this, SLOT(add_water_to_scene()));
     QObject::connect(worker, SIGNAL(animated()), this, SLOT(refresh_display()));
     QObject::connect(this, SIGNAL(refreshed()), worker, SLOT(process()));
-    //QObject::connect(worker, SIGNAL(finished()), thread, SLOT(terminate()));
-    //QObject::connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
-    //QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     thread->start();
 
+    //Manage menus
     this->weapon_list();
-    this->menu = new weapon_menu();
-    this->proxymenu = scene->addWidget(menu);
-
+    this->weaponmenu = new weapon_menu();
+    this->proxymenu = scene->addWidget(weaponmenu);
     proxymenu->setZValue(101);
     proxymenu->hide();
-
-
     Pause *pause = new Pause();
     pause->view = this->view;
     pause->MainWindow = mainwindow;
@@ -144,9 +141,11 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     proxypause->hide();
     paused = false;
 
+    //Initialize
     this->nb_teams = settings->numberOfTeams;
     this->max_turn_time = settings->timeprturn * 1000;
     double nb_worms = settings->wormperteam;
+    this->healthcrates = settings->healthcrates;
 
 
     for(int team=0; team<nb_teams; team++){
@@ -154,15 +153,12 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
         for(int i=0; i<nb_worms; i++){
             int j = 0;
             for( ; j < ground_size_y; j++){
-                //qInfo() << ground->get_color(ground_size_x/2 + 500*team, j);
                 if(ground->get_color(ground_size_x/2 + 500*team, j) != Qt::white){
                     break;
                 }
             }
-            qDebug() << j;
             int r_x = qrand() % ((4500 + 1) - 500) + 500;
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
-            //newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
+            Worm* newWorm = new Worm(team, "Roger", 0, settings->wormsLife, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             newWorm->weaponSelect(0);
@@ -178,7 +174,8 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
             newWorm->addAmmo(7,settings->amobat);
             newWorm->addAmmo(8,settings->ammofirepunch);
             newWorm->addAmmo(9,settings->amoairstrike);
-
+            newWorm->addAmmo(10,settings->amomonster);
+            newWorm->addAmmo(11,settings->ammoarma);
         }
 
         if(team != 0){
@@ -219,14 +216,12 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     //view->centerOn(worms[worms_playing[team_playing]]->sprite);
 }
 
+//Destructors
 Game::~Game()
 {
-    //qDeleteAll(pixmap_items);
     delete ground;
     qDeleteAll(projectiles);
     qDeleteAll(barrels);
-    //what about worms:
-    //qDeleteAll(worms);
 }
 
 bool Game::gameIteration(double dt){
@@ -235,6 +230,19 @@ bool Game::gameIteration(double dt){
         return false;}
     physics_update(dt); //updates the turn timer as well as the physics engine
     worker->update(dt);
+    if(weapons[worms[worms_playing[team_playing]]->get_weapon()]->is_airweapon){
+        this->view->is_paused = true;
+        QPixmap cursorshoot = QPixmap("://Images/Aim.png");
+        QCursor cursor = QCursor(cursorshoot,this->view->cursor().pos().rx(), this->view->cursor().pos().ry());
+        this->view->setCursor(cursor);
+        this->view->setCursor(Qt::ArrowCursor);
+    }
+    else if (this->weaponmenu->isHidden() == false || paused == true){
+        this->view->setCursor(Qt::ArrowCursor);
+    }
+    else{
+        this->view->setCursor(Qt::BlankCursor);
+    }
     for(int i = 0; i < worms.length(); i++){
         //worms[i]->fall_damage();
         worms[i]->update_weapon();
@@ -242,6 +250,10 @@ bool Game::gameIteration(double dt){
             worms[i]->changeHealth(1000);
             worms[i]->sprite->hide();
             //physics_engine->delete_rigidbody(worms[i]->getId());
+        }
+        if(worms[i]->getX() < 0 || worms[i]->getX() > this->ground->getWidth()){
+            worms[i]->changeHealth(1000);
+            worms[i]->sprite->hide();
         }
     }
     if(!worms[worms_playing[team_playing]]->isAlive()){
@@ -258,9 +270,8 @@ bool Game::gameIteration(double dt){
         has_shot = false;
         next_turn = false;
 
-
         int rand_x = qrand() % ((4720 + 1) - 250) + 250;
-        Crate* newCrate = new Crate(800,  rand_x, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        Crate* newCrate = new Crate(800,  rand_x, 100, -1, healthcrates,  crate_image);//positions are arbitrary and should depend on size of window
 
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
@@ -271,6 +282,7 @@ bool Game::gameIteration(double dt){
 
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
+            projectiles[i]->sprite->show();
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
             /*
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
@@ -301,7 +313,12 @@ bool Game::gameIteration(double dt){
 
         }
         else if(projectiles[i]->getX() < 0 || projectiles[i]->getX() > this->ground->getWidth()){
-            deleteElements.append(i);
+            if(projectiles[i]->is_airweapon){
+                projectiles[i]->sprite->hide();
+            }
+            else{
+                deleteElements.append(i);
+            }
         }
         else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
             deleteElements.append(i);
@@ -346,6 +363,7 @@ bool Game::gameIteration(double dt){
     return isFinished();
 }
 
+// <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3
 void Game::nextWorm(){
     worms[worms_playing[team_playing]]->reticle->hide();
     has_shot = false;
@@ -370,11 +388,13 @@ void Game::nextWorm(){
         }
         nextWorm(); //careful with infinite loop
     }
-    menu->active_worm = worms[worms_playing[team_playing]];
+    weaponmenu->active_worm = worms[worms_playing[team_playing]];
     worms[worms_playing[team_playing]]->reticle->show();
     view->centerOn(worms[worms_playing[team_playing]]->sprite);
 }
 
+
+//Keyboard user input events
 void Game::handleEvents(QKeyEvent *k){
     Worm* active_worm = worms[worms_playing[team_playing]];
 
@@ -388,27 +408,26 @@ void Game::handleEvents(QKeyEvent *k){
     double M2[4] = {qCos(theta), -qSin(theta), qSin(theta), qCos(theta)};
     double vx, vy;
 
-    //QGraphicsPixmapItem* pause_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/menu/circled_pause.png").scaled(500,500)));
-
     if(k->key() == Qt::Key_Escape){ // key = Escape for pausing
-       if(not paused){
-           QCursor c = this->view->cursor();
-           c.setPos(view->mapToGlobal(QPoint(view->width() / 2, view->height() / 2)));
-           c.setShape(Qt::ArrowCursor);
-           this->view->setCursor(c);
-           this->view->is_paused = true;
-           this->paused = true;
-           this->proxypause->show();
-       }
-       else {
-           QCursor c = this->view->cursor();
-           c.setShape(Qt::BlankCursor);
-           c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
-           this->view->setCursor(c);
-           this->view->is_paused = false;
-           this->paused = false;
-           this->proxypause->hide();
-       }
+        if(not paused){
+            QCursor c = this->view->cursor();
+            c.setPos(view->mapToGlobal(QPoint(view->width() / 2, view->height() / 2)));
+            c.setShape(Qt::ArrowCursor);
+            this->view->setCursor(c);
+            this->view->is_paused = true;
+            this->paused = true;
+            this->proxypause->show();
+        }
+        else {
+            QCursor c = this->view->cursor();
+            c.setShape(Qt::BlankCursor);
+            c.setPos(this->view->mapToGlobal(QPoint(this->view->width() / 2, this->view->height() / 2)));
+            this->view->setCursor(c);
+            this->view->is_paused = false;
+            this->paused = false;
+            this->proxypause->hide();
+            this->weaponmenu->cursor().setShape(Qt::BlankCursor);
+        }
     }
 
     if(not paused){
@@ -429,45 +448,45 @@ void Game::handleEvents(QKeyEvent *k){
 
         if (k->isAutoRepeat() == false && k->key() == Qt::Key_Q){// key == Q jump to the left
             //get_direction == True means you are facing right
-                  if (active_worm->get_direction()){ //backflips have greater forces of jumping
+            if (active_worm->get_direction()){ //backflips have greater forces of jumping
 
-                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*active_worm->getm()));
-                      active_worm->setstable(false);
-                  }
-                  else{ //normal jumping to the left
-                      active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*active_worm->getm()));
-                      active_worm->setstable(false);
-                  }
-                  active_worm->sprite->setPixmap(worm_image["left"]);
-                  active_worm->change_direction(false);
+                active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-5000*active_worm->getm()));
+                active_worm->setstable(false);
+            }
+            else{ //normal jumping to the left
+                active_worm->addForce(QPair<double, double> (-1000*active_worm->getm(),-2500*active_worm->getm()));
+                active_worm->setstable(false);
+            }
+            active_worm->sprite->setPixmap(worm_image["left"]);
+            active_worm->change_direction(false);
         }
 
         if (k->isAutoRepeat() == false && k->key()== Qt::Key_E){ // key == E jump to the right
-                 if (active_worm->get_direction()){ //normal jumping to the right
-                     active_worm->setforce(QPair<double,double>(0,0));
-                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-2500*active_worm->getm()));
-                     active_worm->setstable(false);
-                 }
-                 else{ //backflips have greater forces of jumping
-                     active_worm->setforce(QPair<double,double>(0,0));
-                     active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
-                     active_worm->setstable(false);
-                 }
-                 active_worm->sprite->setPixmap(worm_image["right"]);
-                 active_worm->change_direction(true);
+            if (active_worm->get_direction()){ //normal jumping to the right
+                active_worm->setforce(QPair<double,double>(0,0));
+                active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-2500*active_worm->getm()));
+                active_worm->setstable(false);
+            }
+            else{ //backflips have greater forces of jumping
+                active_worm->setforce(QPair<double,double>(0,0));
+                active_worm->addForce(QPair<double, double> (1000*active_worm->getm(),-5000*active_worm->getm()));
+                active_worm->setstable(false);
+            }
+            active_worm->sprite->setPixmap(worm_image["right"]);
+            active_worm->change_direction(true);
         }
 
         if (k->key()== 0x01000012){ //left arrow == change facing to left
             if(active_worm->getstable()){
-            active_worm->change_direction(false);
-            active_worm->sprite->setPixmap(worm_image["left"]);
+                active_worm->change_direction(false);
+                active_worm->sprite->setPixmap(worm_image["left"]);
             }
         }
 
         if (k->key()== 0x01000014){ //right arrow === change facing to right
             if(active_worm->getstable()){
-            active_worm->change_direction(true);
-            active_worm->sprite->setPixmap(worm_image["right"]);
+                active_worm->change_direction(true);
+                active_worm->sprite->setPixmap(worm_image["right"]);
             }
         }
 
@@ -489,17 +508,17 @@ void Game::handleEvents(QKeyEvent *k){
         if (k->isAutoRepeat() == false && k->key() == Qt::Key_W){ // key == W  jumping
             active_worm->addForce(QPair<double, double>(0, -2500*active_worm->getm()));
             active_worm->setstable(false);
-            }
+        }
 
         if(k->key() == Qt::Key_Shift) {//Shift left to show menu
-            if(menu->isHidden()){
-                menu->active_worm = active_worm;
+            if(weaponmenu->isHidden()){
+                weaponmenu->active_worm = active_worm;
                 QCursor c = this->view->cursor();
                 c.setPos(view->mapToGlobal(QPoint(view->width() / 2, view->height() / 2)));
                 c.setShape(Qt::ArrowCursor);
                 this->view->setCursor(c);
                 this->view->is_paused = true;
-                menu->show();
+                weaponmenu->show();
                 view->setup_menu();
             }
             else{
@@ -509,11 +528,11 @@ void Game::handleEvents(QKeyEvent *k){
                 this->view->setCursor(c);
                 QCoreApplication::processEvents();
                 this->view->is_paused = false;
-                menu->hide();
+                weaponmenu->hide();
+                this->weaponmenu->cursor().setShape(Qt::BlankCursor);
             }
         }
 
-        //if(menu->isSelected()){// if you have clicked on a weapon then u can increase decrease angle
         if (k-> key() == Qt::Key_I){// key == I increases the angle 0- 90
             if (-90 <= active_worm->weapon_angle && active_worm->weapon_angle<= 80){
                 active_worm->weapon_angle += 2;
@@ -526,31 +545,17 @@ void Game::handleEvents(QKeyEvent *k){
         }
         if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
             power += 10;
-            /*
-            if (k-> key() == Qt::Key_Space && k -> QEvent::KeyRelease){
-                Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
-                if (current_projectile != NULL){
-                    physics_engine->add_RigidBody(current_projectile);
-                    projectiles.append(current_projectile);
-                    scene->addItem(current_projectile->sprite);
-
-                    this->turn_timer = this->max_turn_time - 5000;
-                    has_shot = true;
-                    }
-
-            }
-            */
-         }
+        }
     }
     active_worm->setstable(false);
 }
 
+//Keyboard release events
 void Game::handleReleaseEvent(QKeyEvent *k)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
 
     if (k -> key() == Qt::Key_Space && !has_shot && k -> isAutoRepeat() == false){
-        //qInfo() << 'entered';
         Projectile* current_projectile(active_worm->fireWeapon(power, weapons));
         if (current_projectile != NULL){
             physics_engine->add_RigidBody(current_projectile);
@@ -560,11 +565,12 @@ void Game::handleReleaseEvent(QKeyEvent *k)
             this->turn_timer = this->max_turn_time - 5000;
             has_shot = true;
             power = 20;
-    }
+        }
     }
 }
 
-void Game::handleMouseClickEvent(QMouseEvent *event)
+//Double click to shoot Airweapons
+void Game::handleMouseDoubleClickEvent(QMouseEvent *event)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
     if(event->button() == Qt::LeftButton){
@@ -586,9 +592,6 @@ void Game::handleMouseClickEvent(QMouseEvent *event)
         }
     }
 }
-
-
-//http://doc.qt.io/archives/qt-4.8/qt.html#Key-enum
 
 
 void Game::physics_update(double dt){
@@ -621,9 +624,6 @@ void Game::changemenusize(double dx,double dy){
     heightmenu *= dx;
     widthmenu *= dy;
     proxymenu->resize(heightmenu,widthmenu);
-    //qInfo() << heightmenu;
-    //qInfo() << widthmenu;
-    //qInfo() << " ";
 }
 
 int Game::getwinner(){

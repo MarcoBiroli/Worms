@@ -1,13 +1,14 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-// MUSIC_H
-
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
 #include <QSound>
 #include <QMediaPlayer>
+#include <QUrl>
+
+/*Music Class is responsible for music*/
 
 class Music{
 public:
@@ -22,4 +23,6 @@ void randomsound();
 
 void stopmus();
 };
-#endif
+
+#endif // MUSIC_H
+

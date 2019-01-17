@@ -14,14 +14,14 @@ Settings::~Settings()
     delete ui;
 }
 
-
+//shows the mainwindow and hides the setting menu
 void Settings::on_mainmenu_clicked()
 {
     this->hide();
     mainwindow->show();
 }
 
-
+//Methods for changing the scroller value, displaying it and storing it as amo
 void Settings::on_scrlnbteams_valueChanged(int value)
 {
     ui->showNumber->display(value);
@@ -71,11 +71,6 @@ void Settings::on_scrlpistol_valueChanged(int value)
     amopistol = value;
 }
 
-void Settings::on_scrllandmine_valueChanged(int value)
-{
-    ui->lcdNumber_7->display(value);
-    amolandmine = value;
-}
 
 void Settings::on_scrairstrike_valueChanged(int value)
 {
@@ -130,6 +125,13 @@ void Settings::on_scrlarma_valueChanged(int value)
     ammoarma = value;
 }
 
+void Settings::on_scrlbat_valueChanged(int value)
+{
+    ui->lcdNumber_7->display(value);
+    amobat = value;
+}
+
+
 void Settings::on_infinitegrenade_stateChanged(int arg1)
 {
     if (ui->infinitegrenade->isChecked()){
@@ -157,4 +159,3 @@ void Settings::on_infinitebazooka_stateChanged(int arg1)
     }
 
 }
-

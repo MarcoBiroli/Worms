@@ -1,11 +1,4 @@
-#include <QMainWindow>
-#include <QObject>
-#include <QWidget>
-#include <QSound>
-#include <QMediaPlayer>
-#include <QUrl>
 #include "music.h"
-
 
 
 void Music::backgroundmusic(QString path){

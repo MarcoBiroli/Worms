@@ -1,11 +1,8 @@
-#include <iostream>
-#include <string>
-using namespace std;
-#include "../GUI/music.h"
 #include "Projectile.h"
 
-#define update_time 0.01
+#define update_time 0.01 //????? WHAT IS THIS ?????
 
+//Constructors
 Projectile::Projectile() : RigidBody ()
 {
 
@@ -16,13 +13,6 @@ Projectile::~Projectile()
     //delete this->sprite;
 }
 
-void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
-    cout << "   delay: " << delay << endl;
-    cout << "   explosion_radius: " << explosion_radius << endl;
-    cout << "   damage: " << damage << endl;
-    cout << "   mass: " << mass << endl << endl;
-}
 
 Projectile::Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite): RigidBody (mass, x, y){
 
@@ -32,7 +22,7 @@ Projectile::Projectile(std::string name, int weapon_id, double ipower, double bo
     this->delay = delay;
     this->explosion_radius = explosion_r;
     this->damage = damage;
-    this->weapon_id = weapon_id;
+    this->weapon_id = weapon_id; //<- TO BE DELETED
     this->setbounciness(bounciness);
     this->sprite->setPixmap(isprite);
 }
@@ -45,7 +35,7 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
     this->delay = other.delay;
     this->explosion_radius = other.explosion_radius;
     this->damage = other.damage;
-    this->weapon_id = other.weapon_id;
+    this->weapon_id = other.weapon_id; //<- TO BE DELETED
     this->setbounciness(other.getbounciness());
     this->sprite->setPixmap(other.sprite->pixmap());
     this->is_airweapon = other.is_airweapon;
@@ -55,6 +45,17 @@ Projectile* Projectile::clone() {
     return new Projectile(*this);
 }
 
+//PRINTING FUNCTION ??? TO DELETE??
+void Projectile::print() {
+    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
+    cout << "   delay: " << delay << endl;
+    cout << "   explosion_radius: " << explosion_radius << endl;
+    cout << "   damage: " << damage << endl;
+    cout << "   mass: " << mass << endl << endl;
+}
+
+
+//WHAT DOES IT DO???
 bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
@@ -62,38 +63,50 @@ bool Projectile::on_collision_do(Collider &other)
     };
     return false;
 }
+// if explosion condition is met (collosion or delay timeout), call this function.
+// the function does the following:
+// generates damage in explosion_radius, with linear decrease of damage from
+//
+// destroys all terrain in radius explosion_radius of center of explosion
+// trigger explosion of barrels in the explosion radius
+// destroy the projectile
+
+
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
-    ground.circ_delete(this->x, this->y, explosion_radius);
-
+    //sets sound effects
     Music explosion;
     explosion.playsound("qrc:/SoundEffect/Explosion+7.mp3");
 
+    //Deletes a circle as big as the explosion radius of the ground
+    ground.circ_delete(this->x, this->y, explosion_radius);
+
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
+        //position of explosion to distance explosion_radius of the center of explosion.
         double dist = this->distance(*worm);
         if (dist <= explosion_radius) {
             worm->tangent_bouncing = false;
+            //calculates and gives damage to the worms inside the explosion radius
             int dmg_dealt = damage - (damage/explosion_radius)*dist;
             worms[i]->changeHealth(dmg_dealt);
-            //run explosion animation
+            //Repulsion force
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
             double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
             double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
-            //qInfo() << explosion_force;
             worm->addForce(explosion_force);
+            //set sound effects of Hurted worms
             Music sound;
-
             sound.randomsound();
         }
+        //?????? WHAT DOES IT DO????
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
             double dist = this->distance(*projectile);
             if (dist <= explosion_radius) {
                 int dmg_dealt = damage - (damage/explosion_radius)*dist;
-                //run explosion animation
                 QPair<double, double> vect_dist =  QPair<double, double> (projectile->getX() - this->x, projectile->getY() - this->y);
                 double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
                 double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
@@ -104,6 +117,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
     }
 
+    //??????WHAT DOES IT DO???????
     for (int j=0; j<barrels.size(); j++) {
 
         Barrel* barrel = barrels[j];
@@ -113,10 +127,13 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }
 
     }
+    //Hides the sprite of the projectile as it has "exploded"
     //this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/menu/worms2.png").scaled(20,20)));
     this->sprite->hide();
 
 }
+
+//Get/ Set methods
 
 int Projectile::get_weapon_id() const
 {
@@ -128,6 +145,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
+//????WHAT DOES IT DO???
 bool Projectile::change_delay(double dt){
     if(explosion_by_delay){
         delay -= dt;

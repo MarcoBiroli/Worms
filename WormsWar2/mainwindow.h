@@ -7,6 +7,8 @@
 #include "settings.h"
 #include "help.h"
 
+/*The MainWindow class is the MAIN MENU of the game. Here the user can choose its level, settings, quit, get help.*/
+
 class Settings;
 class Help;
 
@@ -21,6 +23,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    //Parameters for level initialization
     bool start_easy = false;
     bool start_medium = false;
     bool start_hard = false;
@@ -31,9 +34,10 @@ public:
     Help *helpmenu;
 
 public slots:
-    void add_percent();
+    void add_percent(); //CHANGE---> LOADING BUTTON
 
 private slots:
+    //Method to change the parameters
     void on_Easy_clicked();
 
     void on_Medium_clicked();
@@ -43,7 +47,6 @@ private slots:
     void on_Help_clicked();
 
     void on_Settings_clicked();
-
 
     void on_quitButton_clicked();
 

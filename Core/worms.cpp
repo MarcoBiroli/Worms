@@ -1,8 +1,8 @@
 #include "worms.h"
-#include "../GUI/music.h"
 
-#define update_time 0.01
+#define update_time 0.01 //<- WHAT DOES THIS DO??
 
+//Constructors
 Worm::Worm(): RigidBody (), team_number(0), personal_name("")
 {
 
@@ -36,11 +36,28 @@ Worm::Worm(int team_number, QString personal_name, double bounciness, int health
     this->reticle->hide();
 }
 
+//Destructors
 Worm::~Worm() {
-    //delete []ammo; // why do we need to delete?
     delete label;
-    //delete this->sprite;
 }
+
+//Virtual Methods
+
+bool Worm::isWormAlive(){
+    return isAlive();
+}
+
+void Worm::addAmmo(int weaponID, int amountAmmo){
+    if (weaponID == -1){ //Health crates
+        this->changeHealth(-amountAmmo);
+    }
+    else {
+        this->ammo[weaponID] += amountAmmo;
+    }
+}
+
+
+//Methods around the Worm being alive
 
 bool Worm::isAlive(){
     if(this->health <= 0){
@@ -49,38 +66,6 @@ bool Worm::isAlive(){
     }
     return true;
 }
-
-int Worm::getTeam() const{
-    return this->team_number;
-}
-
-bool Worm::damage_taken(){
-    if (this->damagetaken){
-        damagetaken=false;
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-void Worm::fall_damage(){
-    double bckp_V_magnitude= std::sqrt(this->bckp_vx*this->bckp_vx+this->bckp_vy*this->bckp_vy);
-    if (this->is_grounded.first){
-        this->changeHealth(bckp_V_magnitude/10);
-        this->damagetaken=true;
-    }
-}
-
-
-void Worm::pickUpWeapon(int weapon_ID, int iammo) {
-    this->ammo[weapon_ID] += iammo;
-}
-
-void Worm::weaponSelect(int weapon_ID) {
-    this->current_weapon = weapon_ID;
-    this->update_weapon();
-} 
 
 void Worm::changeHealth(int dmg) {
     this->health -= dmg;
@@ -95,11 +80,94 @@ void Worm::changeHealth(int dmg) {
     this->label->setPlainText(msg);
 }
 
+void Worm::wormDeath() { //<- TO BE DELETED???
+    //call animation
+}
 
+bool Worm::damage_taken(){
+    if (this->damagetaken){
+        damagetaken=false;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Worm::fall_damage(){ //<- TO BE DELETED???
+    double bckp_V_magnitude= std::sqrt(this->bckp_vx*this->bckp_vx+this->bckp_vy*this->bckp_vy);
+    if (this->is_grounded.first){
+        this->changeHealth(bckp_V_magnitude/10);
+        this->damagetaken=true;
+    }
+}
+
+
+//Direction Methods
+bool Worm::get_direction(){
+    return wormdirection;
+}
+
+void Worm::set_direction(){
+        if (this->vx>0){
+            wormdirection=true;
+        }
+        else{
+            if (this->vx<0){
+            wormdirection=false;
+        }
+    }
+}
+
+void Worm::change_direction(bool t){
+    wormdirection=t;
+}
+
+
+
+      void update_weapon();
+      void weaponSelect(int weapon_ID);
+
+//Weapon methods and firing
+int Worm::getTeam() const{
+    return this->team_number;
+}
+
+int Worm::get_weapon(){
+    return this->current_weapon;
+}
+
+void Worm::weaponSelect(int weapon_ID) {
+    this->current_weapon = weapon_ID;
+    this->update_weapon();
+} 
+
+void Worm::update_weapon(){
+    if(!this->isAlive()){
+        this->weapon_image->hide();
+        return;
+    }
+    this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
+    double reticle_dist = 150;
+    if(this->get_direction()){
+        this->weapon_image->setPos(this->getWidth() - this->weapons[this->current_weapon].width()/4, this->getHeight()/2 - this->weapons[this->current_weapon].height()/2);
+        this->reticle->setPos(this->getWidth()/2 + reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
+    }
+    else{
+        this->weapon_image->setPos(-2*this->weapons[this->current_weapon].width()/3, this->getHeight()/2- this->weapons[this->current_weapon].height()/2);
+        this->reticle->setPos(this->getWidth()/2 - reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
+    }
+}
+
+void Worm::pickUpWeapon(int weapon_ID, int iammo) {//<- TO BE DELETED?? SAME THING AS ADD AMMO
+    this->ammo[weapon_ID] += iammo;
+}
+
+
+//Fire normal weapon
 Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
     Projectile* current_projectile = weapons[current_weapon]->clone(); //currently shot projectile is just a clone of a previously initialized one.
     // We sets its initial parameters:
-    //current_projectile->set_firing_worm(this);
     current_projectile->firing_worm = this;
     if(ammo[current_weapon] == -1 ||  ammo[current_weapon] != 0){
         ammo[current_weapon] -= 1;
@@ -114,7 +182,6 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
         return NULL;
 
     }
-        //current_projectile->set_inital_position(this->x, this->y-32); //might need to offset initial position to avoid worm shooting himself
         double x_dir = cos(weapon_angle*(M_PI/180));
         double y_dir = -sin(weapon_angle*(M_PI/180));
         double worm_margin = std::max(this->getHeight(), this->getWidth());
@@ -135,13 +202,9 @@ Projectile* Worm::fireWeapon(double power, QVector<Projectile*> &weapons) {
     else{return NULL;}
 }
 
+//Fire Air weapons
 QVector<Projectile*> Worm::fireAirWeapon(double power, QVector<Projectile *> &weapons)
 {
-    //double x_dir = cos(weapon_angle*(M_PI/180));
-    //double y_dir = -sin(weapon_angle*(M_PI/180));
-    //double x_force =  power*x_dir/update_time;
-    //double y_force = power*y_dir/update_time;
-    //weapon->addForce(QPair<double, double>(x_force, y_force)); //apply force generate by shot
     QVector<Projectile*> airweapon;
     for (int i=0; i< this->amount_airweapon; i++)
     {
@@ -153,62 +216,14 @@ QVector<Projectile*> Worm::fireAirWeapon(double power, QVector<Projectile *> &we
     return airweapon;
 }
 
-void Worm::update_weapon(){
-    if(!this->isAlive()){
-        this->weapon_image->hide();
-        return;
-    }
-    this->weapon_image->setPixmap(QPixmap::fromImage(this->weapons[this->current_weapon].mirrored(this->get_direction(), false)));
-    double reticle_dist = 150;
-    if(this->get_direction()){
-        this->weapon_image->setPos(this->getWidth()+5, this->getHeight()/2 - 11);
-        this->reticle->setPos(this->getWidth()/2 + reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
-    }
-    else{
-        this->weapon_image->setPos(-16, this->getHeight()/2 - 11);
-        this->reticle->setPos(this->getWidth()/2 - reticle_dist*qCos(weapon_angle*(M_PI/180)) - 16, this->getHeight()/2 - reticle_dist*qSin(weapon_angle*(M_PI/180)) - 16);
-    }
-}
 
-int Worm::get_weapon()
-{
-    return this->current_weapon;
-}
 
-bool Worm::get_direction(){
-    return wormdirection;
-}
 
-void Worm::set_direction(){
-        if (this->vx>0){
-            wormdirection=true;
-        }
-        else{
-            if (this->vx<0){
-            wormdirection=false;
-        }
-    }
-}
 
-void Worm::change_direction(bool t){
-    wormdirection=t;
-    }
 
-void Worm::wormDeath() {
-    //call animation
-}
 
-bool Worm::isWormAlive(){
-    return isAlive();
-}
 
-void Worm::addAmmo(int weaponID, int amountAmmo){
-    if (weaponID == -1){ //careful it is not supposed to be bigger or equal to 0 coz that is for real weapons
-        this->changeHealth(-amountAmmo);
-    }
-    else {
-        this->ammo[weaponID] += amountAmmo;
-    }
-}
+
+
 
   

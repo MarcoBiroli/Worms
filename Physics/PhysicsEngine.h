@@ -5,6 +5,8 @@
 #include "RigidBody.h"
 #include "Collider.h"
 
+/*PhysicsEngine class combines Collider, Rigidbodie Classes in a concise manner to be used by other classes*/
+
 class PhysicsEngine{
     private:
 
@@ -23,7 +25,7 @@ class PhysicsEngine{
         void add_Collider(Collider* other);
         void update(double dt); //updates the physics simulation by dt (milliseconds)
 
-        //Creating rigidbodies/ colliders and adding them to the engine with an id and returning them
+        //Creating/Deleting rigidbodies/ colliders and adding them to the engine with an id and returning them
         RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
         RigidBody* create_rigidbody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap sprite);
         RigidBody* create_rigidbody(double imass, double ix, double iy);

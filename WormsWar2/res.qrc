@@ -58,6 +58,8 @@
         <file>Images/weapons/MonsterBomb_right.png</file>
         <file>Images/weapons/MonsterBomb_left.png</file>
         <file>Images/weapons/Explosion.png</file>
+	<file>Images/weapons/detonator.png</file>
+	<file>Images/weapons/help.png</file>
         <file>Images/grounds/sunset_mountains.png</file>
         <file>Images/grounds/morning_mountains.png</file>
         <file>Images/grounds/ground_texture.jpg</file>
@@ -71,6 +73,7 @@
         <file>Images/rigidbodies/aid_collider.png</file>
         <file>Images/rigidbodies/aid.png</file>
         <file>Images/menu/circled_pause.png</file>
+	<file>Images/menu/mouse.png</file>
         <file>Images/menu/wood.png</file>
         <file>Images/menu/ww2.png</file>
 	<file>Images/menu/quit_button.png</file>

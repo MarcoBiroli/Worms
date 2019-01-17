@@ -18,6 +18,7 @@ void MainWindow::add_percent()
     ui->progressBar->setValue(ui->progressBar->value()+1);
 }
 
+//Methods
 void MainWindow::on_Easy_clicked()
 {
     this->hide();
@@ -32,7 +33,7 @@ void MainWindow::on_Medium_clicked()
 
 void MainWindow::on_Hard_clicked()
 {
-    //this->hide();
+    this->hide();
     this->start_hard = true;
 }
 

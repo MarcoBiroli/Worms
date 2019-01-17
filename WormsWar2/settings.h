@@ -3,10 +3,11 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-
 #include <QMainWindow>
 #include "mainwindow.h"
 #include "../GUI/music.h"
+
+/*Settings class allows the user to customize some of the parameters of the game*/
 
 class MainWindow;
 
@@ -22,6 +23,7 @@ public:
     explicit Settings(QWidget *parent = 0);
     ~Settings();
     MainWindow* mainwindow;
+    //different setting for worm game
     int numberOfTeams = 2;
     int wormsLife = 100;
     int wormperteam = 3;
@@ -30,7 +32,6 @@ public:
     int amobazooka = -1;
     int amogrenade = -1;
     int amopistol = 10;
-    int amolandmine = 3;
     int amoairstrike = 1;
     int amobanana = 5;
     int amomonster = 2;
@@ -39,12 +40,14 @@ public:
     int ammodynamite = 10;
     int ammofirepunch = 5;
     int ammoarma = 1;
-    int amobat = -1;
+    int amobat = 5;
 
 
 private slots:
     void on_mainmenu_clicked();
+    //Methods for changing the value of scrollers and lcd number displayes
     void on_scrlnbteams_valueChanged(int value);
+
     void on_scrlwormhp_valueChanged(int value);
 
     void on_scrlwrmprteam_valueChanged(int value);
@@ -58,8 +61,6 @@ private slots:
     void on_scrlgrenade_valueChanged(int value);
 
     void on_scrlpistol_valueChanged(int value);
-
-    void on_scrllandmine_valueChanged(int value);
 
     void on_scrairstrike_valueChanged(int value);
 
@@ -76,6 +77,8 @@ private slots:
     void on_scrlfire_valueChanged(int value);
 
     void on_scrlarma_valueChanged(int value);
+
+    void on_scrlbat_valueChanged(int value);
 
     void on_infinitebazooka_stateChanged(int arg1);
 
