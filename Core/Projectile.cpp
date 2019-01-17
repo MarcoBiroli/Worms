@@ -88,6 +88,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
             sound.randomsound();
         }
+        /*
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
             double dist = this->distance(*projectile);
@@ -101,7 +102,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
                 QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
                 projectile->addForce(explosion_force);
             }
-        }
+        }*/
     }
 
     for (int j=0; j<barrels.size(); j++) {
