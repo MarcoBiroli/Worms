@@ -158,3 +158,5 @@ void Settings::on_infinitebazooka_stateChanged(int arg1)
 
 }
 
+
+
