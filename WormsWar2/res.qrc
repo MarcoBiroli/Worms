@@ -57,7 +57,7 @@
         <file>Images/weapons/MonsterBomb_collider_left.png</file>
         <file>Images/weapons/MonsterBomb_right.png</file>
         <file>Images/weapons/MonsterBomb_left.png</file>
-        <file>Images/weapons/Explosion.png</file>
+	<file>Images/weapons/Explosion.png</file>
         <file>Images/grounds/sunset_mountains.png</file>
         <file>Images/grounds/morning_mountains.png</file>
         <file>Images/grounds/ground_texture.jpg</file>

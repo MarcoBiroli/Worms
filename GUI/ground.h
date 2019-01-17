@@ -43,6 +43,7 @@ private:
 public:
     //Constructors
     Ground();
+
     Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor);
     int WaterHeight(const int counter);
     void Water(const int water_height);
