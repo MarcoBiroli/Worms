@@ -79,6 +79,8 @@ class Game : public QObject{
 
     public:
 
+
+
       //Initializing "GOD"!!!!
       Ground* ground;
       QGraphicsScene *scene;
@@ -114,6 +116,7 @@ class Game : public QObject{
       void graphics_update(); //update pixmap positions and their respective images (left or right)
 
       void handleEvents(QKeyEvent *k); //event handler
+      void handleReleaseEvent(QKeyEvent* k);
 
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
 
@@ -125,6 +128,8 @@ class Game : public QObject{
 
       int getwinner();
       QVector<int> get_team();
+
+      int power = 10;
 
 public slots:
       void add_water_to_scene(){
@@ -140,6 +145,8 @@ public slots:
       void emit_refreshed(){
           emit refreshed();
       }
+
+
 
 signals:
       void refreshed();
