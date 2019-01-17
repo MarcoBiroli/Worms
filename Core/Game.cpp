@@ -286,18 +286,12 @@ bool Game::gameIteration(double dt){
     for (int i=0; i<projectiles.size(); i++) {
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
-            /*
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(20,20)));
+
+            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
-            explosion_image->show();
             scene->addItem(explosion_image);
-            QTimer::singleShot::std::chrono::milliseconds (1000, explosion_image, &QGraphicsPixmapItem::hide);
-            physics_engine->delete_rigidbody(projectiles[i]->getId());
-            delete projectiles[i];
-            projectiles.remove(i);
-            */
-            next_turn = true;
+
             /*
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
@@ -310,8 +304,8 @@ bool Game::gameIteration(double dt){
             //explosion_image->hide();
 
 
-            deleteElements.append(i);
 
+            deleteElements.append(i);
 
         }
         else if(projectiles[i]->getX() < 0 || projectiles[i]->getX() > this->ground->getWidth()){
@@ -319,6 +313,7 @@ bool Game::gameIteration(double dt){
         }
         else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
             deleteElements.append(i);
+
         }
     }
 
@@ -343,6 +338,7 @@ bool Game::gameIteration(double dt){
             physics_engine->delete_rigidbody(barrels[i]->getId());
 
             deleteElements.append(i);
+
         }
     }
 
@@ -581,7 +577,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 void Game::handleMouseClickEvent(QMouseEvent *event)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
-    if(event->button() == Qt::LeftButton){
+    if(event->button() == Qt::LeftButton && !has_shot){
         if(this->weapons[active_worm->get_weapon()]->is_airweapon){
             QPointF point = this->view->mapToScene(event->pos());
             active_worm->target = QPair<int,int> (point.rx(), point.ry());
