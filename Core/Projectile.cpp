@@ -78,8 +78,8 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             worms[i]->changeHealth(dmg_dealt);
             //run explosion animation
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
-            double Fx = this->repulsion_power*(vect_dist.first/dist)*dmg_dealt/update_time;
-            double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
+            double Fx = this->repulsion_power*(vect_dist.first/dist)/update_time;
+            double Fy = this->repulsion_power*(vect_dist.second/dist)/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
             //qInfo() << explosion_force;
