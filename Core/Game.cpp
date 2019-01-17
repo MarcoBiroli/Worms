@@ -563,7 +563,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 void Game::handleMouseClickEvent(QMouseEvent *event)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
-    if(event->button() == Qt::LeftButton){
+    if(event->button() == Qt::LeftButton && !has_shot){
         if(this->weapons[active_worm->get_weapon()]->is_airweapon){
             QPointF point = this->view->mapToScene(event->pos());
             active_worm->target = QPair<int,int> (point.rx(), point.ry());
