@@ -8,15 +8,16 @@
 
 //Initialize all weapons
 void Game::weapon_list()
-{
+{//Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
+
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 70, 0, false, 0, 80, 40, 2, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(30,30));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 300, 0.3, true, 3000, 100, 100, 5, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
@@ -36,7 +37,7 @@ void Game::weapon_list()
     weapons.append(gun);
     //Holy grenade weapon id = 5
     QPixmap img5 = QPixmap::fromImage(QImage("://Images/weapons/Holy_Grenade.png").scaled(30,30));
-    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
+    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 300, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
     //Banana weapon id = 6
