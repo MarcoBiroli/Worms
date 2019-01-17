@@ -72,9 +72,9 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
-        if (dist <= explosion_radius) {
+        if (dist <= 1.2*explosion_radius) {
             worm->tangent_bouncing = false;
-            int dmg_dealt = damage - (damage/explosion_radius)*dist;
+            int dmg_dealt = damage - (damage/(1.2*explosion_radius))*dist;
             worms[i]->changeHealth(dmg_dealt);
             //run explosion animation
             QPair<double, double> vect_dist =  QPair<double, double> (worm->getX() - this->x, worm->getY() - this->y);
@@ -88,6 +88,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
 
             sound.randomsound();
         }
+        /*
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];
             double dist = this->distance(*projectile);
@@ -101,7 +102,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
                 QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
                 projectile->addForce(explosion_force);
             }
-        }
+        }*/
     }
 
     for (int j=0; j<barrels.size(); j++) {

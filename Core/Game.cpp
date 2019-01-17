@@ -9,15 +9,16 @@
 
 //Initialize all weapons
 void Game::weapon_list()
-{
+{//Projectile(std::string name, int weapon_id, double ipower, double bounciness, bool explosion_by_delay, double delay, double explosion_r, double damage, double mass, double x, double y, QPixmap isprite);
+
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 100, 0, false, 0, 100, 100, 2, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 70, 0, false, 0, 80, 40, 2, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(30,30));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 50, 0.6, true, 3000, 100, 100, 5, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 300, 0.3, true, 3000, 100, 100, 5, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
@@ -37,7 +38,7 @@ void Game::weapon_list()
     weapons.append(gun);
     //Holy grenade weapon id = 5
     QPixmap img5 = QPixmap::fromImage(QImage("://Images/weapons/Holy_Grenade.png").scaled(30,30));
-    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 100, 100, 5, 0, 0, img5);
+    Projectile *holy = new Projectile("Holy", 1, 90, 0.6, true, 2000, 300, 100, 5, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
     //Banana weapon id = 6
@@ -259,10 +260,24 @@ bool Game::gameIteration(double dt){
         has_shot = false;
         next_turn = false;
 
+        int r_2; //r_2 is a random variable that will define the type of crate 50% chance to be a health pack, 50% chance to be an ammo pack with randomized content
+        int amount; //fixed to be 50 for health packs, randomized between 1 and 3
+        int rand_x = qrand() % ((4720 + 1) - 250) + 250; //random position for the creation of crates
 
-        int rand_x = qrand() % ((4720 + 1) - 250) + 250;
-        Crate* newCrate = new Crate(800,  rand_x, 100, -1, 50,  crate_image);//positions are arbitrary and should depend on size of window
+        int r_1 = qrand() % 2; //intermediate variable defined to randomize r_2
+        if (r_1 == 1){
+            r_2 = -1;
+            amount = 50;
+        }
+        else{
+            r_2 = qrand() % ((9 + 1) - 2) + 2;
+                if(r_2 ==2){
+                r_2 = 1;
+                }
+            amount = qrand() % ((1 + 1) - 3) + 3;
+        }
 
+        Crate* newCrate = new Crate(800,  rand_x, 100, r_2, amount,  crate_image);
         physics_engine->add_RigidBody(newCrate);
         crates.append(newCrate);
         scene->addItem(newCrate->sprite);
@@ -556,7 +571,7 @@ void Game::handleReleaseEvent(QKeyEvent *k)
 void Game::handleMouseClickEvent(QMouseEvent *event)
 {
     Worm* active_worm = worms[worms_playing[team_playing]];
-    if(event->button() == Qt::LeftButton){
+    if(event->button() == Qt::LeftButton && !has_shot){
         if(this->weapons[active_worm->get_weapon()]->is_airweapon){
             QPointF point = this->view->mapToScene(event->pos());
             active_worm->target = QPair<int,int> (point.rx(), point.ry());
