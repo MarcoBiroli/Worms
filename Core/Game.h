@@ -29,9 +29,7 @@
 #include "QThread"
 #include "animationthread.h"
 #include "../GUI/spritesheet.h"
-#include <QtConcurrent/QtConcurrent>
 #include "handtohand.h"
-#include <QMouseEvent>
 
 
 class CustomView;
@@ -84,9 +82,6 @@ class Game : public QObject{
       QGraphicsPixmapItem* water_sprite = new QGraphicsPixmapItem();
 
     public:
-
-
-
       //Initializing "GOD"!!!!
       Ground* ground;
       QGraphicsScene *scene;

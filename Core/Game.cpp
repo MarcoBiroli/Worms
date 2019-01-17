@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <QPixmap>
 #include <QSound>
-#include <QtTest/QtTest>
+//#include <QtTest/QtTest>
 #include <QMediaPlayer>
 #include "../GUI/music.h"
 #include "settings.h"
@@ -299,7 +299,7 @@ bool Game::gameIteration(double dt){
             deleteElements.append(i);
 
             scene->addItem(explosion_image);
-            QTest::qWait(50);
+            //QTest::qWait(50);
             scene->removeItem(explosion_image);
 
         }
