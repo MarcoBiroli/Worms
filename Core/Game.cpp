@@ -283,7 +283,6 @@ bool Game::gameIteration(double dt){
             delete projectiles[i];
             projectiles.remove(i);
             */
-            next_turn = true;
             /*
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
