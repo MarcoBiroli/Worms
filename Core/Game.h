@@ -59,6 +59,8 @@ class Game : public QObject{
       };
 
       QPixmap crate_image = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+      QPixmap crate_image_health = QPixmap::fromImage(QImage("://Images/rigidbodies/aid.png").scaled(32,32));
+      QPixmap crate_image_weapon = QPixmap::fromImage(QImage("://Images/rigidbodies/wep.png").scaled(32,32));
       QPixmap barrel_image = QPixmap::fromImage(QImage("://Images/rigidbodies/barrel.png").scaled(40,40));
 
 
