@@ -13,57 +13,57 @@ void Game::weapon_list()
 
     //Bazooka weapon_id = 0
     QPixmap img = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile * bazooka = new Projectile("Bazooka", 0, 50, 0, false, 0, 80, 40, 2, 0, 0, img);
+    Projectile * bazooka = new Projectile("Bazooka", 0, 2500, 0, false, 0, 80, 80, 2, 0, 0, img);
     bazooka->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(bazooka);
     //BlueGrenade weapon id = 1
     QPixmap img1 = QPixmap::fromImage(QImage("://Images/weapons/BlueGrenade_left.png").scaled(30,30));
-    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 250, 0.3, true, 3000, 120, 0, 4, 0, 0, img1);
+    Projectile * bluegrenade = new Projectile("BlueGrenade", 1, 10000, 0.3, true, 3000, 120, 0, 4, 0, 0, img1);
     bluegrenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(bluegrenade);
     //green Grenade weapon id = 2
     QPixmap img2 = QPixmap::fromImage(QImage("://Images/weapons/Grenade_left.png").scaled(30,30));
-    Projectile * grenade = new Projectile("Grenade", 1, 70, 0.3, true, 3000, 100, 60, 4, 0, 0, img2);
+    Projectile * grenade = new Projectile("Grenade", 1, 3500, 0.3, true, 3000, 100, 80, 4, 0, 0, img2);
     grenade->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(grenade);
     //Dynamite weapon id = 3
     QPixmap img3 = QPixmap::fromImage(QImage("://Images/weapons/Dynamite_left.png").scaled(30,30));
-    Projectile * dynamite = new Projectile("Dynamite", 1, 100, 0.1, true, 3000, 120, 90, 200, 0, 0, img3);
+    Projectile * dynamite = new Projectile("Dynamite", 1, 5000, 0.1, true, 3000, 120, 100, 200, 0, 0, img3);
     dynamite->set_map(QImage("://Images/weapons/Grenades_collider_left.png").scaled(30,30));
     weapons.append(dynamite);
     //Gun weapon id = 4
     QPixmap img4 = QPixmap::fromImage(QImage("://Images/weapons/Gun_projectile_left.png").scaled(30,30));
-    Projectile *gun = new Projectile("Gun", 1, 10, 0, false, 0, 1, 60, 0.1, 0, 0, img4);
+    Projectile *gun = new Projectile("Gun", 1, 500, 0, false, 0, 30, 120, 1, 0, 0, img4);
     gun->set_map(QImage("://Images/weapons/Gun_projectile_collider_left.png").scaled(30,30));
     weapons.append(gun);
     //Holy grenade weapon id = 5
     QPixmap img5 = QPixmap::fromImage(QImage("://Images/weapons/Holy_Grenade.png").scaled(30,30));
-    Projectile *holy = new Projectile("Holy", 1, 150, 0.3, true, 3000, 200, 120, 4, 0, 0, img5);
+    Projectile *holy = new Projectile("Holy", 1, 7000, 0.3, true, 3000, 200, 150, 4, 0, 0, img5);
     holy->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(holy);
     //Banana weapon id = 6
     QPixmap img6 = QPixmap::fromImage(QImage("://Images/weapons/Banana_right.png").scaled(30,30));
-    Projectile *banana = new Projectile("Banana", 1, 70, 0.6, true, 3000, 100, 70, 4, 0, 0, img6);
+    Projectile *banana = new Projectile("Banana", 1, 3500, 0.6, true, 3000, 100, 90, 4, 0, 0, img6);
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
     //Bat weapon = 7
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
-    HandToHand *bat = new HandToHand("Bat", 1, 80, 1, 50, 0, 0);
+    HandToHand *bat = new HandToHand("Bat", 1, 25, 40, 40, 0, 0);
     weapons.append(bat);
     //Firepunch weapon = 8
     //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
-    HandToHand *punchfire = new HandToHand("Firepunch", 1, 80, 5, 60, 0, 0);
+    HandToHand *punchfire = new HandToHand("Firepunch", 1, 7, 70, 50, 0, 0);
     weapons.append(punchfire);
     //Airstrike weapon = 9
     QPixmap img9 = QPixmap::fromImage(QImage("://Images/weapons/Airstrike_right.png").scaled(30,30));
-    Projectile *air = new Projectile("Airstrike", 1, 40, 0, false, 0, 60, 50, 5, 0, 0, img9);
+    Projectile *air = new Projectile("Airstrike", 1, 1500, 0, false, 0, 80, 50, 5, 0, 0, img9);
     air->is_airweapon = true;
     air->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(air);
 
     //Barrel projectile weapon id = last, check with in Barrel
     QPixmap imgbarrel = QPixmap::fromImage(QImage("://Images/weapons/Bazooka_projectile_left.png").scaled(30,30));
-    Projectile *barrel = new Projectile("Barrel projectile", 1, 100, 0, true, 1, 100, 50, 5, 0, 0, imgbarrel);
+    Projectile *barrel = new Projectile("Barrel projectile", 1, 4500, 0, true, 1, 100, 70, 5, 0, 0, imgbarrel);
     barrel->set_map(QImage("://Images/weapons/Bazooka_projectile_collider_left.png").scaled(30,30));
     weapons.append(barrel);
 
