@@ -9,9 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
-    <height>569</height>
+    <width>252</width>
+    <height>366</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="maximumSize">
    <size>
@@ -23,8 +29,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/Images/menu/wood.png)0 0 0 0 stretch stretch;
-border-image: url(:/Images/menu/wood.png) 0 0 0 0 stretch stretch;</string>
+   <string notr="true">background-color: rgb(60, 0, 0);
+border-image: url(:/Images/menu/wood.png)</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="6" column="5">
@@ -168,6 +174,12 @@ p, li { white-space: pre-wrap; }
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">border-image: url(:/Images/weapons/Bazooka_right.png) 0 0 0 0 stretch stretch</string>

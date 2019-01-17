@@ -32,7 +32,7 @@ void MainWindow::on_Medium_clicked()
 
 void MainWindow::on_Hard_clicked()
 {
-    this->hide();
+    //this->hide();
     this->start_hard = true;
 }
 

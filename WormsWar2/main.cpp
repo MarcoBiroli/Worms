@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
             //Put a graphics view inside of the window
             CustomView *view = new CustomView(scene);
-            view->setSceneRect(0, 0, 5000, 3000);
+            //view->setSceneRect(0, 0, 5000, 3000);
 
             //Initialize a game Game(int number,QGraphicsScene *iscene, QGraphicsView *iview, int ground_size_x=5000, int ground_size_y=3000, Settings *settings);
 
@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
             //Initialize a game
 
             Game *game = new Game(&a, 3, MainMenu, scene, view, setting, 5000, 3000);
-
+            MainMenu->hide();
             view->game = game;
             view->currentScale = 1;
 

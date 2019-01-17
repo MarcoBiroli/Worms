@@ -60,6 +60,7 @@
 	<file>Images/weapons/Explosion.png</file>
         <file>Images/grounds/sunset_mountains.png</file>
         <file>Images/grounds/morning_mountains.png</file>
+        <file>Images/grounds/ground_texture.jpg</file>
         <file>Images/rigidbodies/Worm_collider.png</file>
         <file>Images/rigidbodies/Worm_right.png</file>
         <file>Images/rigidbodies/Worm_left.png</file>

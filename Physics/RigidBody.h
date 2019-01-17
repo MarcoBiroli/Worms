@@ -18,6 +18,7 @@ private:
     double static_coef = 0.5;
     
 public:
+    bool is_on_top_of_rigidbody = false;
     bool is_colliding = false;
     bool tangent_bouncing = false;
     QPair<bool, QPair<double, double>> is_grounded = QPair<bool, QPair<double, double>>(false, QPair<double, double>(0, 0));

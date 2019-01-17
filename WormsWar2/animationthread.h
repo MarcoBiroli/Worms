@@ -20,7 +20,7 @@ public:
         T += dt;
     }
     void rise(int amount);
-    double getWaveSize(){
+    double  getWaveSize(){
         return water->wave_size;
     }
     QColor color =  qRgb(17, 62, 228);

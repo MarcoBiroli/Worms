@@ -116,7 +116,7 @@
       <item row="2" column="1" colspan="4">
        <widget class="QProgressBar" name="progressBar">
         <property name="value">
-         <number>24</number>
+         <number>0</number>
         </property>
        </widget>
       </item>

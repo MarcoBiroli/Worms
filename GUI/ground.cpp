@@ -28,7 +28,6 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
                 else if(j > 1800){
                     this->change_pixel(i,j, Qt::black);
                     this->map->setPixelColor(i, j, terraincolor);
-
                 }
             }
         }
@@ -225,6 +224,7 @@ void Ground::randomize3()
     QImage perlinnoise_map = QImage(width, height, QImage::Format_RGB32);
     double freqx = 150;
     double freqy = 150;
+    int percent = 0;
     // Create a PerlinNoise object with the reference permutation vector
     PerlinNoise pn(width/freqx + 1, height/freqy + 1);
     // Visit every pixel of the image and assign a color generated with Perlin noise
@@ -241,10 +241,13 @@ void Ground::randomize3()
                 perlinnoise_map.setPixel(j,i, qRgba(0, 0, 0 , 255));
             }
         }
-        if ((int)(i/(2*height)*100)-(int)((i-1)/(2*height)*100) >= 1){
+        /*
+        if ((int)(i/(2*height) * 100) > percent){
             emit new_percent();
-            this->a->processEvents();
+            QCoreApplication::processEvents();
+            percent += 1;
         }
+        */
     }
     int line1 = height - 50;
     int line2 = height - 100;

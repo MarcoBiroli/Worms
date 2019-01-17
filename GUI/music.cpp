@@ -4,10 +4,11 @@
 #include <QSound>
 #include <QMediaPlayer>
 #include <QUrl>
+#include "music.h"
 
 
 
-void backgroundmusic(QString path){
+void Music::backgroundmusic(QString path){
     QUrl url = QUrl(path);
     QMediaPlayer * music = new QMediaPlayer();
     music->setMedia(url);
@@ -25,7 +26,7 @@ void backgroundmusic(QString path){
     */
 }
 
-void playsound(QString path){
+void Music::playsound(QString path){
     QUrl url = QUrl(path);
     QMediaPlayer * music = new QMediaPlayer();
     music->setMedia(url);
@@ -33,7 +34,7 @@ void playsound(QString path){
     music->play();
 }
 
-void randomsound(){
+void Music::randomsound(){
     int val;
 
     val = rand() % 4 + 1;
@@ -42,4 +43,8 @@ void randomsound(){
     if (val == 2){playsound("qrc:/SoundEffect/Cry+2.wav");}
     if (val == 3){playsound("qrc:/SoundEffect/Yawn+1.wav");}
     if (val == 4){playsound("qrc:/SoundEffect/Cough2.wav");}
+}
+
+void Music::stopmus(){
+    music->stop();
 }

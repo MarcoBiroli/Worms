@@ -48,6 +48,7 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
     this->weapon_id = other.weapon_id;
     this->setbounciness(other.getbounciness());
     this->sprite->setPixmap(other.sprite->pixmap());
+    this->is_airweapon = other.is_airweapon;
 }
 
 Projectile* Projectile::clone() {
@@ -64,11 +65,15 @@ bool Projectile::on_collision_do(Collider &other)
 
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     ground.circ_delete(this->x, this->y, explosion_radius);
-    playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
+    Music explosion;
+    explosion.playsound("qrc:/SoundEffect/Explosion+7.mp3");
+
     for (int i=0; i<worms.size(); i++) {
         Worm* worm = worms[i];
         double dist = this->distance(*worm);
         if (dist <= explosion_radius) {
+            worm->tangent_bouncing = false;
             int dmg_dealt = damage - (damage/explosion_radius)*dist;
             worms[i]->changeHealth(dmg_dealt);
             //run explosion animation
@@ -77,9 +82,11 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             double Fy = this->repulsion_power*(vect_dist.second/dist)*dmg_dealt/update_time;
             //Force applied depends on the damage dealt and the distance to the explosion
             QPair<double, double> explosion_force = QPair<double, double> (Fx, Fy);
-            qInfo() << explosion_force;
+            //qInfo() << explosion_force;
             worm->addForce(explosion_force);
-            randomsound();
+            Music sound;
+
+            sound.randomsound();
         }
         for (int i=0; i<projectiles.size(); i++) {
             Projectile* projectile = projectiles[i];

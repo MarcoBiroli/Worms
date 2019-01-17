@@ -13,8 +13,16 @@ CustomView::~CustomView(){
 
 void CustomView::wheelEvent(QWheelEvent *event)
 {
-    qInfo()<<currentScale;
-   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+   //qInfo()<<currentScale;
+    /*
+   if(this->is_paused){
+       setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+   }
+   else{
+       setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+   }
+   */
+   setTransformationAnchor(QGraphicsView::AnchorViewCenter);
    double scaleFactor = 1.03;
    double increasescale = 1.03;
    if (event->delta() > 0 && currentScale*scaleFactor < scaleMax)
@@ -30,9 +38,15 @@ void CustomView::wheelEvent(QWheelEvent *event)
 
        this->game->changemenusize(increasescale,increasescale);
    }
-   QPointF pointf = mapToScene(0.0,0.0);
+   QPointF pointf = this->mapToScene(QPoint(this->viewport()->pos()));
    QPoint point = QPoint(pointf.rx(), pointf.ry());
    this->game->changemenupos(point);
+}
+
+void CustomView::setup_menu(){
+    QPointF pointf = this->mapToScene(QPoint(this->viewport()->pos()));
+    QPoint point = QPoint(pointf.rx(), pointf.ry());
+    this->game->changemenupos(point);
 }
 
 
@@ -45,6 +59,32 @@ void CustomView::keyPressEvent(QKeyEvent *k)
     game->handleEvents(k);
 }
 
+void CustomView::mouseMoveEvent(QMouseEvent *event){
+    if(!this->is_paused){
+        horizontalScrollBar()->setValue(horizontalScrollBar()->value() + (event->x() - this->width()/2));
+        verticalScrollBar()->setValue(verticalScrollBar()->value() + (event->y() - this->height()/2));
+        event->accept();
+        this->prev_mouse_x = event->x();
+        this->prev_mouse_y = event->y();
+        QCursor c = cursor();
+        c.setPos(mapToGlobal(QPoint(width() / 2, height() / 2)));
+        c.setShape(Qt::BlankCursor);
+        setCursor(c);
+    }
+    else{
+        event->ignore();
+    }
+    return;
+}
+
 void CustomView::keyReleaseEvent(QKeyEvent *k){
     game->handleReleaseEvent(k);
 }
+
+void CustomView::mousePressEvent(QMouseEvent *event){
+    game->handleMouseClickEvent(event);
+}
+
+
+
+

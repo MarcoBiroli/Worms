@@ -14,7 +14,8 @@ class Projectile : public RigidBody {
     public:
         Projectile();
         virtual ~Projectile();
-
+        bool is_hand_to_hand = false;
+        bool is_airweapon = false;
         void print();
         //prints the Projectile's specs
 
@@ -22,7 +23,7 @@ class Projectile : public RigidBody {
 
         Projectile(const Projectile &other);
 
-        Projectile* clone();
+        virtual Projectile* clone();
         //Allows cloning of a projectile.
 
         virtual bool on_collision_do(Collider &other);
@@ -44,8 +45,14 @@ class Projectile : public RigidBody {
         bool change_delay(double dt);
         // changes delay
         bool should_explode = false;
-
-
+        Worm* firing_worm;
+        /*
+        void set_firing_worm(Worm* iworm){
+            this->firing_worm = iworm;
+            this->white_list.append(iworm);
+            iworm->white_list.append(this);
+        }
+        */
 
     protected:
         double repulsion_power;
