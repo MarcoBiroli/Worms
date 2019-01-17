@@ -8,7 +8,12 @@
 #include "../GUI/music.h"
 #include "../GUI/customview.h"
 
+/*Pause class creates the pause menu. It appears/disappears when user presses ESCAPE.
+  It stops game loop but does not quit it unless user presses the button QUIT
+*/
+
 class MainWindow;
+class CustomView;
 
 namespace Ui {
 class Pause;
@@ -22,13 +27,16 @@ public:
     explicit Pause(QWidget *parent = nullptr);
     ~Pause();
     MainWindow *MainWindow;
+    CustomView *view;
+
+    //Parameters
     bool mainmenu = false;
     bool quitgame = false;
-    CustomView *view;
+
 
 
 private slots:
-
+    //Methods
     void on_mainButton_clicked();
 
     void on_exitButton_clicked();

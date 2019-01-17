@@ -1,5 +1,6 @@
 #include "water.h"
 
+//Constructors
 Water::Water()
 {
     image = new QImage();
@@ -21,6 +22,7 @@ Water::Water(QColor color, int width, int base_level){
     }
 }
 
+//Methods
 void Water::rise(double amount){
     if((int)(base_level + amount) - (int)base_level >= 1){
         this->base_level += amount;

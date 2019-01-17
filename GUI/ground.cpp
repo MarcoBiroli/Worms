@@ -4,7 +4,6 @@
 Ground::Ground() : Collider (){ //Creates an undefined Ground
     this->map = new QImage();
     item = new QGraphicsPixmapItem();
-    //this->set_map(*this->map);
 }
 
 Ground::Ground(QApplication* a, const int width, const int height, QColor terraincolor, QColor grasscolor): Collider(){
@@ -35,7 +34,7 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
     this->is_ground = true;
 }
 
-//get functions
+//Get functions
 
 //This gets the Displayable Version of the Ground.
 QGraphicsPixmapItem* Ground::getPixmap() const{
@@ -93,9 +92,6 @@ void Ground::randomize2() {
                 this->map->setPixel(i,j,qRgba(0,0,0,0)); //set the part above the ground to transparent
                 this->change_pixel(i, j, Qt::white);
             }
-            /*if (j >= terrain_height && j < sea_level){
-                this->map->setPixelColor(i, j, terraincolor);  //ground in brown
-                this->change_pixel(i, j, Qt::black);*/
 
             if (j >= terrain_height && j <= grass_height){
                 this->map->setPixelColor(i,j,grasscolor);
@@ -106,16 +102,6 @@ void Ground::randomize2() {
                 this -> map -> setPixelColor(i,j,terraincolor);
                 this -> change_pixel(i,j, Qt::black);
             }
-            /*
-            if (j > height-10){
-                this -> change_pixel(i,j, Qt::blue); //temporary solution to avoid the objects (worms, weapons) to fall for ever
-            }  //blue pixels are rigid body but can't be delete
-            if (i < 10){
-                this -> change_pixel(i,j,Qt::blue);
-            }
-            if (i > width-10){
-                this -> change_pixel(i,j,Qt::blue);
-            }*/
         }
     }
     this->is_ground = true;

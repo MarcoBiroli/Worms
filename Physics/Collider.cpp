@@ -1,7 +1,7 @@
 #include "Collider.h"
 #include "qdebug.h"
 
-//Constructors
+//Virtual Methods
 bool Collider::on_collision_do(Collider &other)
 {
     return false; // not deleted by default
@@ -12,6 +12,15 @@ void Collider::circ_delete(int x, int y, double radius)
 
 }
 
+bool Collider::isWormAlive(){
+    return false;
+}
+
+void Collider::addAmmo(int weaponID, int amountAmmo){
+    return; //set by default, used only for Worms and Crates
+}
+
+//Constructors
 Collider::Collider()
 {
 }
@@ -201,12 +210,4 @@ QPair<bool, QPair<double, double> > Collider::check_collision(Collider &other)
     }
     //return bool colliding, and the x,y - coordinates of the normal.
     return QPair<bool, QPair<double, double>> (colliding, QPair<double, double> (cmx-cm_otherx,cmy-cm_othery));
-}
-
-bool Collider::isWormAlive(){
-    return false;
-}
-
-void Collider::addAmmo(int weaponID, int amountAmmo){
-    return; //set by default, used only for Worms and Crates
 }

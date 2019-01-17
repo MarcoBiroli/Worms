@@ -3,7 +3,7 @@
 #include "Collider.h"
 #include <QDebug>
 
-
+/*Rigidbody class which inherits from Collider, All object are rigidbodies(subject to physics) apart from ground*/
 
 class RigidBody: public Collider{
 
@@ -29,6 +29,7 @@ public:
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map, QPixmap isprite);
     RigidBody(double imass, double ix, double iy, double vx0, double vy0, double ax0, double ay0, QImage map);
     RigidBody(double imass, double ix, double iy);
+    //Destructor
     virtual ~RigidBody();
     
     //Physics methods.

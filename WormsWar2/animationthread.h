@@ -6,6 +6,8 @@
 #include "QGraphicsPixmapItem"
 #include "QTimer"
 
+/*This class is the thread that will contain the water animation*/
+
 class AnimationThread : public QObject
 {
     Q_OBJECT

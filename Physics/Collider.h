@@ -13,7 +13,7 @@ class Collider : public QObject{
         double skin_depth_percent = 0; //percentage of the body that is allowed to overlap with another collider
         int skin_depth_pixels = 0; //same thing as the skin_depth_percent but it is in pixels
         int countblack = 0; //counts the number of black pixels in a collider
-        QImage colliding_map = QImage(32,32,QImage::Format_RGB32); //default colliding map
+        QImage colliding_map = QImage(42,42,QImage::Format_RGB32); //default colliding map
 
     protected:
         double x = 0, y = 0; //default position of x and y

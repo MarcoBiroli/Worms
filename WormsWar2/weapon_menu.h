@@ -5,6 +5,11 @@
 #include "../Core/worms.h"
 #include "../GUI/music.h"
 
+/*Weapons menu contains the weapons of the game. There are 12 weapons which are of type:
+   1. Hand-to-Hand (firepunch or bat)
+   2. Airweapons (Airstrikes or MonsterBomb)
+   3. Normal Projectiles (Bombs or Bullets) */
+
 namespace Ui {
 class weapon_menu;
 }
@@ -32,8 +37,6 @@ private slots:
     void on_AirstrikeButton_clicked();
 
     void on_MeteorButton_clicked();
-
-    void on_MineButton_clicked();
 
     void on_BatButton_clicked();
 

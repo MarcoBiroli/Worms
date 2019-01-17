@@ -2,15 +2,17 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QSound>
+#include <QMediaPlayer>
+
 #include "../Core/Game.h"
 #include "../GUI/ground.h"
 #include "../GUI/customview.h"
 #include "../Physics/PhysicsEngine.h"
 #include "../Core/worms.h"
+
 #include "settings.h"
 #include "help.h"
-#include <QSound>
-#include <QMediaPlayer>
 #include "finished.h"
 
 
@@ -21,7 +23,7 @@ int main(int argc, char *argv[])
 
     Q_INIT_RESOURCE(res);
 
-
+    //Initializing MainMenu, Settings, Help, GameOver(finished) menu
     MainWindow * MainMenu = new MainWindow();
     MainMenu->show();
     Settings * setting = new Settings();
@@ -30,27 +32,28 @@ int main(int argc, char *argv[])
     Help * helpmenu = new Help();
     MainMenu->helpmenu = helpmenu;
     helpmenu->mainwindow = MainMenu;
-
     Finished *finishmenu = new Finished();
     finishmenu->mainwindow = MainMenu;
+    //Sound effects
+    Music musicplaylist;
+    QList<QString> ListSongs = {"qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
+    musicplaylist.infinitemusic(ListSongs);
 
-
+    //game loop
     while(MainMenu->quit_button!=true){
         a.processEvents();
+
+        //LEVEL = EASY
         if (MainMenu->start_easy == true){
             //Initialize the window
             MainMenu->start_easy= false;
             QGraphicsScene *scene = new QGraphicsScene();
-
             //Put a graphics view inside of the window
             CustomView *view = new CustomView(scene);
             //view->setSceneRect(0, 0, 5000, 3000);
-
-            //Initialize a game Game(int number,QGraphicsScene *iscene, QGraphicsView *iview, int ground_size_x=5000, int ground_size_y=3000, Settings *settings);
-
-
+            //Initialize Game
             Game *game = new Game(&a, 1, MainMenu, scene, view, setting, 5000, 3000);
-
+            MainMenu->hide();
             view->game = game;
             view->currentScale = 1;
 
@@ -68,6 +71,7 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            //Game over. The below code is determine and display who is the winning team/ tie.
             if(MainMenu->through_esc){
                 MainMenu->through_esc = false;
                 QString string = "";
@@ -85,11 +89,14 @@ int main(int argc, char *argv[])
             else{
                 finishmenu->update_label(QString::number(game->getwinner() + 1));
             }
+            //Delete game
             delete view;
             delete scene;
             delete game;
             finishmenu->show();
         }
+
+        //LEVEL = MEDIUM
         if (MainMenu->start_medium == true){
             //Initialize the window
             MainMenu->start_medium = false;
@@ -100,9 +107,8 @@ int main(int argc, char *argv[])
             //view->setSceneRect(0, 0, 20000, 20000);
 
             //Initialize a game
-
             Game *game = new Game(&a, 2, MainMenu, scene, view, setting, 5000, 3000);
-
+            MainMenu->hide();
             view->game = game;
             view->currentScale = 1;
 
@@ -120,6 +126,7 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            //Game over. The below code is determine and display who is the winning team/ tie.
             if(MainMenu->through_esc){
                 QString string;
                 if (game->get_team().length() != 1){
@@ -137,6 +144,7 @@ int main(int argc, char *argv[])
             else{
                 finishmenu->update_label(QString::number(game->getwinner() + 1));
             }
+            //Delete game
             delete view;
             delete scene;
             delete game;
@@ -152,7 +160,6 @@ int main(int argc, char *argv[])
             //view->setSceneRect(0, 0, 20000, 20000);
 
             //Initialize a game
-
             Game *game = new Game(&a, 3, MainMenu, scene, view, setting, 5000, 3000);
             MainMenu->hide();
             view->game = game;
@@ -172,6 +179,7 @@ int main(int argc, char *argv[])
                 }
                 view->showFullScreen();
             }
+            //Game over. The below code is determine and display who is the winning team/ tie.
             if(MainMenu->through_esc){
                 QString string;
                 if (game->get_team().length() != 1){
@@ -189,6 +197,7 @@ int main(int argc, char *argv[])
             else{
                 finishmenu->update_label(QString::number(game->getwinner() + 1));
             }
+            //Delete game
             delete view;
             delete scene;
             delete game;

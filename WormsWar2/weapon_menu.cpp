@@ -81,20 +81,16 @@ void weapon_menu::on_AirstrikeButton_clicked()
     c.setShape(Qt::ArrowCursor);
     setCursor(c);
     this->active_worm->weaponSelect(9);
+    this->active_worm->amount_airweapon = 4;
 }
 
 void weapon_menu::on_MeteorButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    this->active_worm->weaponSelect(11);
+    this->active_worm->amount_airweapon = 50;
 
-}
-
-
-void weapon_menu::on_MineButton_clicked()
-{
-    Music click;
-    click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
 }
 
 
@@ -109,6 +105,8 @@ void weapon_menu::on_MonsterbombButton_clicked()
 {
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
+    this->active_worm->weaponSelect(10);
+    this->active_worm->amount_airweapon = 1;
 }
 
 void weapon_menu::on_firepunchButton_clicked()
