@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <QPixmap>
 #include <QSound>
-#include <QtTest/QtTest>
+//#include <QtTest/QtTest>
 #include <QMediaPlayer>
 #include "../GUI/music.h"
 #include "settings.h"
@@ -74,9 +74,6 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     view = iview;
 
     physics_engine = new PhysicsEngine();
-
-    Music music;
-    music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
 
     scene = iscene;
 
@@ -299,7 +296,7 @@ bool Game::gameIteration(double dt){
             deleteElements.append(i);
 
             scene->addItem(explosion_image);
-            QTest::qWait(50);
+            //QTest::qWait(50);
             scene->removeItem(explosion_image);
 
         }
