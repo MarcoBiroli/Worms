@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <QPixmap>
 #include <QSound>
+#include <QtTest/QtTest>
 #include <QMediaPlayer>
 #include "../GUI/music.h"
 #include "settings.h"
@@ -276,22 +277,12 @@ bool Game::gameIteration(double dt){
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
             explosion_image->setX(projectiles[i]->getX());
             explosion_image->setY(projectiles[i]->getY());
-            scene->addItem(explosion_image);
-
-            /*
-            QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
-            explosion_image->setX(projectiles[i]->getX());
-            explosion_image->setY(projectiles[i]->getY());
-
-            scene->addItem(explosion_image);
-            */
-            //QTimer::singleShot(1000, explosion_image, &QGraphicsPixmapItem::hide);
-            //scene->removeItem(explosion_image);
-            //explosion_image->hide();
-
-
 
             deleteElements.append(i);
+
+            scene->addItem(explosion_image);
+            QTest::qWait(50);
+            scene->removeItem(explosion_image);
 
         }
         else if(projectiles[i]->getX() < 0 || projectiles[i]->getX() > this->ground->getWidth()){
@@ -301,7 +292,9 @@ bool Game::gameIteration(double dt){
             deleteElements.append(i);
 
         }
+
     }
+
 
     QVector<Projectile*> tmp = QVector<Projectile*>();
     for (int i=0; i<deleteElements.size(); i++) {
