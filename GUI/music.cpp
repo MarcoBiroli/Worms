@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QSound>
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 #include <QUrl>
 #include "music.h"
 
@@ -56,4 +57,16 @@ void Music::pausemusic(){
 
 void Music::playmusic(){
     music->play();
+}
+
+void Music::infinitemusic(QString path){
+    QUrl url = QUrl(path);
+
+    playlist = new QMediaPlaylist();
+    playlist->addMedia(url);
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    musicinf = new QMediaPlayer();
+    musicinf->setPlaylist(playlist);
+    musicinf->play();
 }

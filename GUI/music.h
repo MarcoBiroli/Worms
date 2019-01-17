@@ -13,6 +13,8 @@ class Music{
 public:
     QUrl url;
     QMediaPlayer * music;
+    QMediaPlaylist *playlist;
+    QMediaPlayer *musicinf;
 
 void backgroundmusic(QString path);
 
@@ -25,5 +27,7 @@ void stopmus();
 void playmusic();
 
 void pausemusic();
+
+void infinitemusic(QString path);
 };
 #endif
