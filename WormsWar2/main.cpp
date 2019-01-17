@@ -35,7 +35,9 @@ int main(int argc, char *argv[])
     finishmenu->mainwindow = MainMenu;
 
     Music musicplaylist;
-    musicplaylist.infinitemusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
+    QList<QString> ListSongs = {"//qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
+
+    musicplaylist.infinitemusic(ListSongs);
 
     while(MainMenu->quit_button!=true){
         a.processEvents();

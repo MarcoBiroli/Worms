@@ -6,6 +6,7 @@
 #include <QMediaPlaylist>
 #include <QUrl>
 #include "music.h"
+#include <QList>
 
 
 
@@ -59,11 +60,13 @@ void Music::playmusic(){
     music->play();
 }
 
-void Music::infinitemusic(QString path){
-    QUrl url = QUrl(path);
-
+void Music::infinitemusic(QList<QString> list){
     playlist = new QMediaPlaylist();
-    playlist->addMedia(url);
+
+    for (int i = 0; i < list.size(); ++i) {
+        QUrl url = QUrl(list.at(i));
+        playlist->addMedia(url);
+    }
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
     musicinf = new QMediaPlayer();

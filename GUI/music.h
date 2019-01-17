@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QSound>
 #include <QMediaPlayer>
+#include <QList>
 
 class Music{
 public:
@@ -28,6 +29,6 @@ void playmusic();
 
 void pausemusic();
 
-void infinitemusic(QString path);
+void infinitemusic(QList<QString> list);
 };
 #endif
