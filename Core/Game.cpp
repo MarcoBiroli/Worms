@@ -285,7 +285,7 @@ bool Game::gameIteration(double dt){
             amount = healthcrates;
         }
         else{
-            r_2 = qrand() % ((9 + 1) - 2) + 2;
+            r_2 = qrand() % ((10 + 1) - 2) + 2;
                 if(r_2 ==2){
                 r_2 = 1;
                 }

@@ -15,6 +15,7 @@
 #include "help.h"
 #include "finished.h"
 
+/*Main class executes the Game*/
 
 int main(int argc, char *argv[])
 {
