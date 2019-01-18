@@ -160,7 +160,7 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
             }
             qDebug() << j;
             int r_x = qrand() % ((4500 + 1) - 500) + 500;
-            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
+            Worm* newWorm = new Worm(team, "Roger", 0, 100, 50, r_x, 1000, worm_image["right"]);
             //newWorm->set_map(QImage("://Images/rigidbodies/Worm_collider.png").scaled(32,32));
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
