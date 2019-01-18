@@ -5,6 +5,8 @@
 #include "../Physics/RigidBody.h"
 #include "Projectile.h"
 
+/*WHAT DOES IT DO??*/
+
 class Projectile;
 
 class Barrel : public RigidBody {

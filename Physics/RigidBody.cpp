@@ -107,7 +107,7 @@ double RigidBody::distance(RigidBody &other){
 }
 
 
-//this method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
+//This method uses simple kinematic laws to compute the new position, velocity, acceleration of the RigidBody after an interval dt.
 
 void RigidBody::simulate(double dt){
     if (this->stable && this->is_grounded.first){
@@ -221,5 +221,10 @@ double RigidBody::getax() const{
 
 double RigidBody::getay() const{
     return ay;
+}
+
+QPair<double, double> RigidBody::getforce() const
+{
+    return currentForce;
 }
 

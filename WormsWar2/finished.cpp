@@ -13,10 +13,10 @@ Finished::~Finished()
     delete ui;
 }
 
+//Methods
 void Finished::on_mainmenuButton_clicked()
 {
     this->hide();
-    //this->view->has_quitted = true;
     mainwindow->show();
 
     Music click;
@@ -29,9 +29,9 @@ void Finished::on_ExitButton_clicked()
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
 
     mainwindow->quit_button = true;
-    //this->view->has_quitted = true;
 }
 
+//Update the label which will display the winning team of "Tie"
 void Finished::update_label(QString label){
     ui->teamlabel->setTextFormat(Qt::AutoText);
     ui->teamlabel->setText(QString("<font color='white', font size = '30'>") + label + QString("</font>"));

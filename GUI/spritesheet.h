@@ -7,6 +7,8 @@
 #include <QPixmap>
 #include <QPainter>
 
+/*WHAT DOES THIS CLASS DO?????????*/
+
 class SpriteSheet: public QObject, public QGraphicsItem
 {
     Q_OBJECT

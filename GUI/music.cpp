@@ -1,13 +1,4 @@
-#include <QMainWindow>
-#include <QObject>
-#include <QWidget>
-#include <QSound>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
-#include <QUrl>
 #include "music.h"
-#include <QList>
-
 
 
 void Music::backgroundmusic(QString path){
@@ -17,15 +8,6 @@ void Music::backgroundmusic(QString path){
     music->setVolume(25);
     music->play();
 
-    /*
-    QMediaPlaylist *playlist = new QMediaPlaylist();
-    playlist->addMedia(QUrl("qrc:/sounds/backgroundmusic.mp3"));
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-    QMediaPlayer *music = new QMediaPlayer();
-    music->setPlaylist(playlist);
-    music->play();
-    */
 }
 
 void Music::playsound(QString path){
@@ -63,6 +45,8 @@ void Music::playmusic(){
 void Music::infinitemusic(QList<QString> list){
     playlist = new QMediaPlaylist();
 
+
+
     for (int i = 0; i < list.size(); ++i) {
         QUrl url = QUrl(list.at(i));
         playlist->addMedia(url);
@@ -72,4 +56,19 @@ void Music::infinitemusic(QList<QString> list){
     musicinf = new QMediaPlayer();
     musicinf->setPlaylist(playlist);
     musicinf->play();
+}
+
+void randomshuffle(QList<QString> list){
+    int size = list.length();
+    int i;
+    int j;
+    for (int x = 0; x < size; ++x){
+        i = rand() % size + 1;
+        j = rand() % size + 1;
+        while (i == j){
+            i = rand() % size + 1;
+            j = rand() % size + 1;
+        }
+        list.swap(i,j);
+    }
 }
