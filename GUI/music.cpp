@@ -45,10 +45,10 @@ void Music::playmusic(){
 void Music::infinitemusic(QList<QString> list){
     playlist = new QMediaPlaylist();
 
+    QList<QString> newlist = randomshuffle(list);
 
-
-    for (int i = 0; i < list.size(); ++i) {
-        QUrl url = QUrl(list.at(i));
+    for (int i = 0; i < newlist.size(); ++i) {
+        QUrl url = QUrl(newlist.at(i));
         playlist->addMedia(url);
     }
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
@@ -58,17 +58,19 @@ void Music::infinitemusic(QList<QString> list){
     musicinf->play();
 }
 
-void randomshuffle(QList<QString> list){
-    int size = list.length();
-    int i;
-    int j;
-    for (int x = 0; x < size; ++x){
-        i = rand() % size + 1;
-        j = rand() % size + 1;
-        while (i == j){
-            i = rand() % size + 1;
-            j = rand() % size + 1;
+QList<QString> Music::randomshuffle(QList<QString> list){
+    QList<QString> newlist;
+    qDebug() << list;
+    QList<int> already;
+    int x;
+    for (int i = 0; i < list.size(); i++){
+        x = rand()%list.size();
+        while (already.contains(x)){
+            x = rand()%list.size();
         }
-        list.swap(i,j);
+        already.append(x);
+        newlist.append(list[i]);
     }
+
+    return newlist;
 }

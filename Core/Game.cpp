@@ -80,9 +80,6 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     view = iview;
     physics_engine = new PhysicsEngine();
 
-    Music music;
-    music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
-
     thread = new QThread;
     worker = new AnimationThread();
     worker->moveToThread(thread);
