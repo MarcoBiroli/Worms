@@ -5,7 +5,7 @@
 #include "../Physics/RigidBody.h"
 #include "Projectile.h"
 
-/*WHAT DOES IT DO??*/
+//Class for the exploding oil barrels. Barrels should explode when caught in another explosion
 
 class Projectile;
 
