@@ -158,8 +158,9 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
                     break;
                 }
             }
-            int r_x = qrand() % ((4500 + 1) - 500) + 500;
-            Worm* newWorm = new Worm(team, "Roger", 0, settings->wormsLife, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
+            int r_x = qrand() % ((4500 + 1) - 500) + 500; //variable to randomize the position of the worms when spawning
+            Worm* newWorm = new Worm(team, "Roger", 0, settings->wormsLife, 50, r_x, 1000, worm_image["right"]);
+
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             newWorm->weaponSelect(0);
@@ -273,7 +274,7 @@ bool Game::gameIteration(double dt){
 
 
         int r_2; //r_2 is a random variable that will define the type of crate 50% chance to be a health pack, 50% chance to be an ammo pack with randomized content
-        int amount; //fixed to be 50 for health packs, randomized between 1 and 3
+        int amount; //fixed in the settings for health packs, randomized between 1 and 3 for weapon munitions.
         int rand_x = qrand() % ((4720 + 1) - 250) + 250; //random position for the creation of crates
         QPixmap image;
 
@@ -573,7 +574,7 @@ void Game::handleEvents(QKeyEvent *k){
                 active_worm->weapon_angle -= 2;
             }
         }
-        if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
+        if (k-> key() == Qt::Key_Space && !has_shot && power <= 490){//key == Space shoots the projectile
             power += 10;
             this->worms[worms_playing[team_playing]]->power = QString::number(power);
             this->worms[worms_playing[team_playing]]->refresh_label(); 

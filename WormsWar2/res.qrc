@@ -72,6 +72,8 @@
         <file>Images/rigidbodies/barrel.png</file>
         <file>Images/rigidbodies/aid_collider.png</file>
         <file>Images/rigidbodies/aid.png</file>
+        <file>Images/rigidbodies/wep_collider.png</file>
+        <file>Images/rigidbodies/wep.png</file>
         <file>Images/menu/circled_pause.png</file>
 	<file>Images/menu/mouse.png</file>
         <file>Images/menu/wood.png</file>

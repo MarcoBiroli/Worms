@@ -120,8 +120,7 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
         }*/
     }
 
-    //??????WHAT DOES IT DO???????
-    for (int j=0; j<barrels.size(); j++) {
+    for (int j=0; j<barrels.size(); j++) { //trigger the explosions of barrels caught in an other explosion
 
         Barrel* barrel = barrels[j];
         double dist = this->distance(*barrel);
@@ -148,8 +147,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
-//????WHAT DOES IT DO???
-bool Projectile::change_delay(double dt){
+bool Projectile::change_delay(double dt){ //reduce the delay on projectiles every time the game is udpdated, when the delay reaches 0, the projectile explodes
     if(explosion_by_delay){
         delay -= dt;
     }
