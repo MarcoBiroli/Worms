@@ -110,5 +110,6 @@
         <file>SoundEffect/Cough2.wav</file>
         <file>Images/grounds/volcano.png</file>
 	<file>Images/Aim.png</file>
+	<file>SoundEffect/ES_Ballroom Night 1 - Magnus Ringblom.mp3>
     </qresource>
 </RCC>
