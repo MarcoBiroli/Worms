@@ -573,7 +573,7 @@ void Game::handleEvents(QKeyEvent *k){
                 active_worm->weapon_angle -= 2;
             }
         }
-        if (k-> key() == Qt::Key_Space && !has_shot && power <= 500){//key == Space shoots the projectile
+        if (k-> key() == Qt::Key_Space && !has_shot && power <= 490){//key == Space shoots the projectile
             power += 10;
             this->worms[worms_playing[team_playing]]->power = QString::number(power);
             this->worms[worms_playing[team_playing]]->refresh_label(); 
