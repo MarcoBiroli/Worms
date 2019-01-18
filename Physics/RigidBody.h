@@ -57,5 +57,6 @@ public:
     double getvy() const;
     double getax() const;
     double getay() const;
+    QPair<double,double> getforce() const;
     
 };
