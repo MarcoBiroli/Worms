@@ -37,7 +37,8 @@ int main(int argc, char *argv[])
     finishmenu->mainwindow = MainMenu;
     //Sound effects
     Music musicplaylist;
-    QList<QString> ListSongs = {"qrc:/Music/ES_Ballroom Night 1 - Magnus Ringblom.mp3",
+    QList<QString> ListSongs = {"qrc:/Music/ES_Musique A La Carte 04 - John ahlin.mp3",
+                                "qrc:/Music/ES_Ballroom Night 1 - Magnus Ringblom.mp3",
                                 "qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
     musicplaylist.infinitemusic(ListSongs);
 
