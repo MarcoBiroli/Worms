@@ -299,8 +299,8 @@ bool Game::gameIteration(double dt){
     QVector<int> deleteElements = QVector<int>();
 
     for (int i=0; i<projectiles.size(); i++) {
+        projectiles[i]->sprite->show();
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
-            projectiles[i]->sprite->show();
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
 
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
@@ -321,7 +321,7 @@ bool Game::gameIteration(double dt){
                 deleteElements.append(i);
             }
         }
-        else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
+        if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
             deleteElements.append(i);
 
         }

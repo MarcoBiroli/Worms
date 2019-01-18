@@ -266,7 +266,7 @@ QVector<Projectile*> Worm::fireAirWeapon(double power, QVector<Projectile *> &we
 {
     QVector<Projectile*> airweapon;
     double delta = 500;
-    for (int i=0; i< this->amount_airweapon; i++)
+    for (int i=-floor(this->amount_airweapon)/2; i< floor(this->amount_airweapon)/2; i++)
     {
         Projectile* weapon = weapons[current_weapon]->clone();
         weapon->set_inital_position(this->target.first-delta - 100*i - weapon->getWidth()/2, 0);

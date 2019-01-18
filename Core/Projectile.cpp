@@ -45,15 +45,6 @@ Projectile* Projectile::clone() {
     return new Projectile(*this);
 }
 
-//PRINTING FUNCTION ??? TO DELETE??
-void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
-    cout << "   delay: " << delay << endl;
-    cout << "   explosion_radius: " << explosion_radius << endl;
-    cout << "   damage: " << damage << endl;
-    cout << "   mass: " << mass << endl << endl;
-}
-
 
 //WHAT DOES IT DO???
 bool Projectile::on_collision_do(Collider &other)
@@ -63,6 +54,8 @@ bool Projectile::on_collision_do(Collider &other)
     };
     return false;
 }
+
+
 // if explosion condition is met (collosion or delay timeout), call this function.
 // the function does the following:
 // generates damage in explosion_radius, with linear decrease of damage from
@@ -70,9 +63,6 @@ bool Projectile::on_collision_do(Collider &other)
 // destroys all terrain in radius explosion_radius of center of explosion
 // trigger explosion of barrels in the explosion radius
 // destroy the projectile
-
-
-
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     //sets sound effects
     Music explosion;
