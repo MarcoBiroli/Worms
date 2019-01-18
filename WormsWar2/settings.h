@@ -56,10 +56,6 @@ private slots:
 
     void on_scrltimeprturn_valueChanged(int value);
 
-    void on_scrlbazooka_valueChanged(int value);
-
-    void on_scrlgrenade_valueChanged(int value);
-
     void on_scrlpistol_valueChanged(int value);
 
     void on_scrairstrike_valueChanged(int value);
@@ -79,10 +75,6 @@ private slots:
     void on_scrlarma_valueChanged(int value);
 
     void on_scrlbat_valueChanged(int value);
-
-    void on_infinitebazooka_stateChanged(int arg1);
-
-    void on_infinitegrenade_stateChanged(int arg1);
 
 
 

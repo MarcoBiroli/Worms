@@ -53,17 +53,7 @@ void Settings::on_scrltimeprturn_valueChanged(int value)
     timeprturn = value;
 }
 
-void Settings::on_scrlbazooka_valueChanged(int value)
-{
-    ui->lcdNumberbazooka->display(value);
-    amobazooka = value;
-}
 
-void Settings::on_scrlgrenade_valueChanged(int value)
-{
-    ui->lcdNumbergrenade->display(value);
-    amogrenade = value;
-}
 
 void Settings::on_scrlpistol_valueChanged(int value)
 {
@@ -130,31 +120,3 @@ void Settings::on_scrldynamite_valueChanged(int value)
     ammodynamite = value;
 }
 
-
-void Settings::on_infinitegrenade_stateChanged(int arg1)
-{
-    if (ui->infinitegrenade->isChecked()){
-        ui->scrlgrenade->hide();
-        ui->lcdNumbergrenade->display("oo");
-        amogrenade = -1;
-    }
-    else{
-        ui->lcdNumbergrenade->display(ui->scrlgrenade->value());
-        ui->scrlgrenade->show();
-    }
-}
-
-
-void Settings::on_infinitebazooka_stateChanged(int arg1)
-{
-    if (ui->infinitebazooka->isChecked()){
-        ui->scrlbazooka->hide();
-        ui->lcdNumberbazooka->display("oo");
-        amobazooka = -1;
-    }
-    else{
-        ui->lcdNumberbazooka->display(ui->scrlbazooka->value());
-        ui->scrlbazooka->show();
-    }
-
-}
