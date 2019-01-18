@@ -10,14 +10,14 @@ using namespace std;
 #include "../Physics/RigidBody.h"
 #include "Projectile.h"
 
-/*This class inherits Rigidbody. WHAT DOES IT DO??????*/
+//Class for the crates that drop from the sky every turn. They give health or ammo when picked up by a worm
 
 class Projectile;
 
 class Crate : public RigidBody {
     protected:
         int weaponID;
-        int amountAmmo; //<- WHY DO WE HAVE AMMO??
+        int amountAmmo;
     public :
         //Constructors
         Crate();

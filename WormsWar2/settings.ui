@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
+    <width>916</width>
     <height>577</height>
    </rect>
   </property>
@@ -31,124 +31,42 @@ background-color: rgb(206, 232, 248)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="10" column="8">
-     <widget class="QScrollBar" name="scrclustebomb">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
+    <item row="15" column="2">
+     <widget class="QScrollBar" name="scrlbat">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
+color: rgb(0, 0, 0);
+</string>
+      </property>
+      <property name="maximum">
+       <number>100</number>
       </property>
       <property name="value">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="1" colspan="8">
+     <widget class="QPushButton" name="mainmenu">
+      <property name="text">
+       <string>MAIN MENU</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="8">
+     <widget class="QLCDNumber" name="lcdNumberwormhp">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>100.000000000000000</double>
       </property>
      </widget>
     </item>
     <item row="12" column="8">
-     <widget class="QScrollBar" name="scrlholy">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>2</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="3">
-     <widget class="QLCDNumber" name="lcdNumberhealthc">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>25.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="9">
-     <widget class="QLCDNumber" name="lcdNumberarma">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>1.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="3">
-     <widget class="QLCDNumber" name="lcdNumberbanana">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>5.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="1">
-     <widget class="QLabel" name="label_12">
-      <property name="text">
-       <string>AIRSTRIKE</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLCDNumber" name="lcdNumberteam">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>2.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="20" column="9">
-     <widget class="QLCDNumber" name="lcdNumbermonster">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>2.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="2">
-     <widget class="QScrollBar" name="scrairstrike">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="9">
      <widget class="QLCDNumber" name="lcdNumberholy">
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -173,8 +91,78 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="20" column="3">
-     <widget class="QLCDNumber" name="lcdNumberbat">
+    <item row="4" column="3">
+     <widget class="QLCDNumber" name="lcdNumberteam">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>2.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="8">
+     <widget class="QLCDNumber" name="lcdNumberarma">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <widget class="QLCDNumber" name="lcdNumberhealthc">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>25.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="7">
+     <widget class="QScrollBar" name="scrlholy">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>2</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="7">
+     <widget class="QScrollBar" name="scrclustebomb">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>10</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="3">
+     <widget class="QLCDNumber" name="lcdNumberbanana">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(72, 129, 189)</string>
       </property>
@@ -183,15 +171,18 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="20" column="2">
-     <widget class="QScrollBar" name="scrlbat">
+    <item row="1" column="1" colspan="8">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#800002;&quot;&gt;GAME SETTINGS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="7">
+     <widget class="QScrollBar" name="scrlfirepunch">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);
-</string>
-      </property>
-      <property name="maximum">
-       <number>100</number>
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="value">
        <number>5</number>
@@ -201,58 +192,313 @@ color: rgb(0, 0, 0);
       </property>
      </widget>
     </item>
-    <item row="5" column="9">
-     <widget class="QLCDNumber" name="lcdNumberwormhp">
+    <item row="13" column="7">
+     <widget class="QScrollBar" name="scrldynamite">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>10</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="8">
+     <widget class="QLCDNumber" name="lcdNumbercluster">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(72, 129, 189)</string>
       </property>
       <property name="value" stdset="0">
-       <double>100.000000000000000</double>
+       <double>10.000000000000000</double>
       </property>
      </widget>
     </item>
-    <item row="21" column="1" colspan="9">
-     <widget class="QPushButton" name="mainmenu">
+    <item row="13" column="8">
+     <widget class="QLCDNumber" name="lcdNumberdyn">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>10.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="8">
+     <widget class="QLCDNumber" name="lcdNumberfirep">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QScrollBar" name="scrlwrmprteam">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>5</number>
+      </property>
+      <property name="value">
+       <number>3</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1" colspan="8">
+     <widget class="Line" name="line_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="5">
+     <widget class="QLabel" name="label_15">
       <property name="text">
-       <string>MAIN MENU</string>
+       <string>CLUSTER BOMB</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="3">
+    <item row="18" column="7">
+     <widget class="QScrollBar" name="scrlarma">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>HEALTH CRATES</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>TIME PER TURN</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1" colspan="8">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#800002;&quot;&gt;WEAPONS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1" colspan="8">
+     <widget class="Line" name="line_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QScrollBar" name="scrlnbteams">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="minimum">
+       <number>2</number>
+      </property>
+      <property name="maximum">
+       <number>3</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>PISTOL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>AIRSTRIKE</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="2">
+     <widget class="QScrollBar" name="scrairstrike">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="3">
      <widget class="QLCDNumber" name="lcdNumberpistol">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(72, 129, 189)</string>
       </property>
+      <property name="value" stdset="0">
+       <double>10.000000000000000</double>
+      </property>
      </widget>
     </item>
-    <item row="4" column="9">
-     <widget class="QLCDNumber" name="lcdNumbertpt">
+    <item row="10" column="2">
+     <widget class="QScrollBar" name="scrlpistol">
+      <property name="minimumSize">
+       <size>
+        <width>201</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="value">
+       <number>10</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="1">
+     <widget class="QLabel" name="label_23">
+      <property name="text">
+       <string>MONSTER BOMB</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="5">
+     <widget class="QLabel" name="label_22">
+      <property name="text">
+       <string>ARMAGADEON</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="3">
+     <widget class="QLCDNumber" name="lcdNumbermonster">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(72, 129, 189)</string>
       </property>
       <property name="value" stdset="0">
-       <double>30.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="3">
-     <widget class="QLCDNumber" name="lcdNumbergrenade">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLCDNumber" name="lcdNumberwormteam">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>3.000000000000000</double>
+       <double>2.000000000000000</double>
       </property>
      </widget>
     </item>
     <item row="18" column="2">
+     <widget class="QScrollBar" name="scrlmonster">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(101, 148, 196);
+color: rgb(0, 0, 0);
+</string>
+      </property>
+      <property name="value">
+       <number>2</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>WORMS PER TEAM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="8">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>BANANA BOMB</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="1">
+     <widget class="QLabel" name="bat">
+      <property name="text">
+       <string>BAT </string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="3">
+     <widget class="QLCDNumber" name="lcdNumberbat">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="3">
+     <widget class="QLCDNumber" name="lcdNumberairstrike">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="2">
      <widget class="QScrollBar" name="scrlbananabomb">
       <property name="minimumSize">
        <size>
@@ -273,32 +519,30 @@ color: rgb(0, 0, 0);
       </property>
      </widget>
     </item>
-    <item row="20" column="6">
-     <widget class="QLabel" name="label_23">
-      <property name="text">
-       <string>MONSTER BOMB</string>
+    <item row="4" column="8">
+     <widget class="QLCDNumber" name="lcdNumbertpt">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>30.000000000000000</double>
       </property>
      </widget>
     </item>
-    <item row="12" column="6">
+    <item row="5" column="3">
+     <widget class="QLCDNumber" name="lcdNumberwormteam">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(72, 129, 189)</string>
+      </property>
+      <property name="value" stdset="0">
+       <double>3.000000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="5">
      <widget class="QLabel" name="label_17">
       <property name="text">
        <string>HOLY GRENADE</string>
-      </property>
-     </widget>
-    </item>
-    <item row="20" column="8">
-     <widget class="QScrollBar" name="scrlmonster">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);
-</string>
-      </property>
-      <property name="value">
-       <number>2</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
@@ -309,41 +553,14 @@ color: rgb(0, 0, 0);
       </property>
      </widget>
     </item>
-    <item row="10" column="3">
-     <widget class="QLCDNumber" name="lcdNumberbazooka">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>10.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="3">
-     <widget class="QLCDNumber" name="lcdNumberairstrike">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>1.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="1">
-     <widget class="QLabel" name="label_13">
-      <property name="text">
-       <string>BANANA BOMB</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="6">
+    <item row="5" column="5">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>WORMS HP</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="8">
+    <item row="5" column="7">
      <widget class="QScrollBar" name="scrlwormhp">
       <property name="minimumSize">
        <size>
@@ -369,7 +586,7 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="8">
+    <item row="4" column="7">
      <widget class="QScrollBar" name="scrltimeprturn">
       <property name="minimumSize">
        <size>
@@ -395,7 +612,7 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="10" rowspan="2">
+    <item row="1" column="9" rowspan="2">
      <widget class="Line" name="line_8">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -409,35 +626,35 @@ color: rgb(0, 0, 0);</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="10" rowspan="3">
+    <item row="7" column="9" rowspan="3">
      <widget class="Line" name="line_7">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
      </widget>
     </item>
-    <item row="13" column="6">
+    <item row="13" column="5">
      <widget class="QLabel" name="label_18">
       <property name="text">
        <string>DYNAMITE</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" colspan="10">
+    <item row="0" column="1" colspan="9">
      <widget class="Line" name="line_10">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="2" column="1" colspan="8">
+    <item row="2" column="1" colspan="7">
      <widget class="Line" name="line">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="1" column="1" colspan="8">
+    <item row="1" column="1" colspan="7">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#800002;&quot;&gt;GAME SETTINGS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -485,323 +702,17 @@ color: rgb(0, 0, 0);
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>WORMS PER TEAM</string>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="6">
-     <widget class="QLabel" name="label_22">
-      <property name="text">
-       <string>ARMAGADEON</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1" colspan="9">
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="4">
-     <widget class="QCheckBox" name="infinitebazooka">
-      <property name="tabletTracking">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>oo</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="1">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>PISTOL</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>GRENADE</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="2">
-     <widget class="QScrollBar" name="scrlpistol">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>10</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="6">
+    <item row="15" column="5">
      <widget class="QLabel" name="label_19">
       <property name="text">
        <string>FIRE PUNCH</string>
       </property>
      </widget>
     </item>
-    <item row="10" column="2">
-     <widget class="QScrollBar" name="scrlbazooka">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);
-</string>
-      </property>
-      <property name="value">
-       <number>10</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="5" rowspan="3">
+    <item row="4" column="4" rowspan="3">
      <widget class="Line" name="line_4">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QScrollBar" name="scrlnbteams">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="minimum">
-       <number>2</number>
-      </property>
-      <property name="maximum">
-       <number>3</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="2">
-     <widget class="QScrollBar" name="scrlgrenade">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="9">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#800002;&quot;&gt;GAME SETTINGS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>BAZOOKA</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1" colspan="9">
-     <widget class="Line" name="line_5">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1" colspan="9">
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#800002;&quot;&gt;WEAPONS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="6">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>TIME PER TURN</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>HEALTH CRATES</string>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="8">
-     <widget class="QScrollBar" name="scrlarma">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="4">
-     <widget class="QCheckBox" name="infinitegrenade">
-      <property name="text">
-       <string>oo</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="6">
-     <widget class="QLabel" name="label_15">
-      <property name="text">
-       <string>CLUSTER BOMB</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1" colspan="9">
-     <widget class="Line" name="line_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="2">
-     <widget class="QScrollBar" name="scrlwrmprteam">
-      <property name="minimumSize">
-       <size>
-        <width>201</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="minimum">
-       <number>1</number>
-      </property>
-      <property name="maximum">
-       <number>5</number>
-      </property>
-      <property name="value">
-       <number>3</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="9">
-     <widget class="QLCDNumber" name="lcdNumberfirep">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>5.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="9">
-     <widget class="QLCDNumber" name="lcdNumberdyn">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>10.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="9">
-     <widget class="QLCDNumber" name="lcdNumbercluster">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(72, 129, 189)</string>
-      </property>
-      <property name="value" stdset="0">
-       <double>10.000000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="8">
-     <widget class="QScrollBar" name="scrldynamite">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>10</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="8">
-     <widget class="QScrollBar" name="scrlfirepunch">
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 148, 196);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="value">
-       <number>5</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="20" column="1">
-     <widget class="QLabel" name="bat">
-      <property name="text">
-       <string>BAT </string>
       </property>
      </widget>
     </item>
