@@ -289,6 +289,7 @@ bool Game::gameIteration(double dt){
                 r_2 = 1;
                 }
             image = crate_image_weapon;
+            qInfo() << "weapons";
             amount = qrand() % ((1 + 1) - 3) + 3;
         }
         Crate* newCrate = new Crate(800,  rand_x, 100, r_2, amount, image);

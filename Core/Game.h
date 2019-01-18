@@ -49,7 +49,7 @@
 
 
 
-/*WHAT IS THIS CLASS???????*/
+/*WHAT IS THIS CLASS???????*/ //Megi this is forward declaration.
 
 class CustomView;
 class Game : public QObject{
@@ -137,9 +137,7 @@ class Game : public QObject{
       void graphics_update(); //update pixmap positions and their respective images (left or right)
       bool isFinished(); //returns if the game is finished, i.e. if there is only worms of one team left
 
-      //----------------- DANGER ZONE -------------------//
       void nextWorm(); //get next worm alive of the team supposed to play next (-1 if it does not exist)
-      //------------------------------------------------//
 
       //Menu methods
       void changemenupos(QPoint point);
