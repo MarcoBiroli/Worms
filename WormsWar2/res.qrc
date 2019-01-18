@@ -110,7 +110,7 @@
         <file>SoundEffect/Cough2.wav</file>
         <file>Images/grounds/volcano.png</file>
 	<file>Images/Aim.png</file>
-	<file>Music/ES_Ballroom Night 1 - Magnus Ringblom.mp3</file>
-	<file>Music/ES_Musique A La Carte 04 - John ahlin.mp3</file>
+	<file>Music/ES_Ballroom Night 1 - Magnus Ringblom.wav</file>
+	<file>Music/ES_Musique A La Carte 04 - John ahlin.wav</file>
     </qresource>
 </RCC>
