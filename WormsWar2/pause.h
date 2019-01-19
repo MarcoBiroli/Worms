@@ -26,7 +26,7 @@ class Pause : public QWidget
 public:
     explicit Pause(QWidget *parent = nullptr);
     ~Pause();
-    MainWindow *MainWindow;
+    MainWindow *Mainwindow;
     CustomView *view;
 
     //Parameters

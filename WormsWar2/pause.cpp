@@ -22,7 +22,7 @@ void Pause::on_mainButton_clicked()
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
     //Parameter will be used in the main.cpp to say that u have exited the game loop through ESCAPE
-    MainWindow->through_esc = true;
+    Mainwindow->through_esc = true;
 }
 
 void Pause::on_exitButton_clicked()
@@ -30,6 +30,6 @@ void Pause::on_exitButton_clicked()
     Music click;
     click.playsound("qrc:/SoundEffect/Button_Push-Mike_Koenig-1659525069.wav");
 
-    MainWindow->quit_button = true;
+    Mainwindow->quit_button = true;
     this->view->has_quitted = true;
 }

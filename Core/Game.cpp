@@ -132,7 +132,7 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     proxymenu->hide();
     Pause *pause = new Pause();
     pause->view = this->view;
-    pause->MainWindow = mainwindow;
+    pause->Mainwindow = mainwindow;
     this->proxypause = scene->addWidget(pause);
     proxypause->setPos(((scene->width()/2)-pause->width()/2),((scene->height()/2)-pause->width()/2));
     proxypause->setZValue(200);
