@@ -40,11 +40,9 @@ void Game::weapon_list()
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
     //Bat weapon = 7
-    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
     HandToHand *bat = new HandToHand("Bat", 1, 25, 40, 40, 0, 0);
     weapons.append(bat);
     //Firepunch weapon = 8
-    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
     HandToHand *punchfire = new HandToHand("Firepunch", 1, 7, 70, 50, 0, 0);
     weapons.append(punchfire);
     //Airstrike weapon = 9
