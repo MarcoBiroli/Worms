@@ -126,10 +126,6 @@ void Worm::changeHealth(int dmg) {
     this->label->setPlainText(msg);
 }
 
-void Worm::wormDeath() { //<- TO BE DELETED???
-    //call animation
-}
-
 bool Worm::damage_taken(){
     if (this->damagetaken){
         damagetaken=false;
@@ -205,7 +201,7 @@ void Worm::update_weapon(){
     }
 }
 
-void Worm::pickUpWeapon(int weapon_ID, int iammo) {//<- TO BE DELETED?? SAME THING AS ADD AMMO
+void Worm::pickUpWeapon(int weapon_ID, int iammo) {// AddAmmo used for crates, not this method
     this->ammo[weapon_ID] += iammo;
     this->refresh_label();
 }

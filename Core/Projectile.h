@@ -45,7 +45,7 @@ class Projectile : public RigidBody {
         }
         */
 
-        //prints the Projectile's specs  <---- DO WE NEED IT????
+        //prints the Projectile's specs, used in earlier tests
         void print();
 
         //Redefinition of virtual on_collision_do of Collider
@@ -69,8 +69,8 @@ class Projectile : public RigidBody {
         double delay;
         double explosion_radius;
         double damage;
-        std::string weapon_name; // <- TO BE DELETED SAME THING AS NAME!!!
-        int weapon_id; // <- TO BE DELETED NOT IMPORTANT!!!!
+        std::string weapon_name; // <- TO BE DELETED SAME THING AS NAME
+        int weapon_id; // <- TO BE DELETED NOT IMPORTANT
 };
 #endif // PROJECTILE_H
 

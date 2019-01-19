@@ -35,7 +35,6 @@ class Worm: public RigidBody {
       //Methods around the Worm being alive
       bool isAlive();
       void changeHealth(int dmg); //negative value to increase health
-      void wormDeath(); // call destructor and run death animation <- TO BE DELETED??? DOES NOTHING
       bool damage_taken();
       void fall_damage(); //<- TO BE DELETED????
 
