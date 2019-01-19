@@ -33,10 +33,9 @@ class Projectile : public RigidBody {
         bool is_hand_to_hand = false;
         bool is_airweapon = false;
 
-        //??
+        //Parameters
         bool should_explode = false;
         Worm* firing_worm;
-        //???????
         /*
         void set_firing_worm(Worm* iworm){
             this->firing_worm = iworm;
@@ -44,9 +43,6 @@ class Projectile : public RigidBody {
             iworm->white_list.append(this);
         }
         */
-
-        //prints the Projectile's specs, used in earlier tests
-        void print();
 
         //Redefinition of virtual on_collision_do of Collider
         virtual bool on_collision_do(Collider &other);

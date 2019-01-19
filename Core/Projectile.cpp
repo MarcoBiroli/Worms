@@ -22,7 +22,7 @@ Projectile::Projectile(std::string name, int weapon_id, double ipower, double bo
     this->delay = delay;
     this->explosion_radius = explosion_r;
     this->damage = damage;
-    this->weapon_id = weapon_id; //<- TO BE DELETED
+    this->weapon_id = weapon_id; //<- NOT IMPORTANT ANYMORE
     this->setbounciness(bounciness);
     this->sprite->setPixmap(isprite);
 }
@@ -35,7 +35,7 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
     this->delay = other.delay;
     this->explosion_radius = other.explosion_radius;
     this->damage = other.damage;
-    this->weapon_id = other.weapon_id; //<- TO BE DELETED
+    this->weapon_id = other.weapon_id; //<- NOT IMPORTANT ANYMORE
     this->setbounciness(other.getbounciness());
     this->sprite->setPixmap(other.sprite->pixmap());
     this->is_airweapon = other.is_airweapon;
@@ -43,15 +43,6 @@ Projectile::Projectile(const Projectile &other):RigidBody (other.mass, other.x, 
 
 Projectile* Projectile::clone() {
     return new Projectile(*this);
-}
-
-//PRINTING FUNCTION ??? TO DELETE??
-void Projectile::print() {
-    cout << "This projectile was shot from the weapon " << weapon_id << " of specs: " << endl;
-    cout << "   delay: " << delay << endl;
-    cout << "   explosion_radius: " << explosion_radius << endl;
-    cout << "   damage: " << damage << endl;
-    cout << "   mass: " << mass << endl << endl;
 }
 
 
@@ -63,9 +54,6 @@ bool Projectile::on_collision_do(Collider &other)
     };
     return false;
 }
-
-
-
 
 // if explosion condition is met (collosion or delay timeout), call this function.
 // the function does the following:
@@ -102,8 +90,6 @@ void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projecti
             Music sound;
             sound.randomsound();
         }
-
-        //?????? WHAT DOES IT DO????
 
         /*
         for (int i=0; i<projectiles.size(); i++) {
