@@ -59,7 +59,7 @@ void Game::weapon_list()
     weapons.append(monsterbomb);
     //Armagedon weapon = 11
     QPixmap img11 = QPixmap::fromImage(QImage("://Images/weapons/Meteor_right.png").scaled(30,30));
-    Projectile *arma = new Projectile("Armagedon", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img10);
+    Projectile *arma = new Projectile("Armagedon", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img11);
     arma->is_airweapon = true;
     arma->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(arma);

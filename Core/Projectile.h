@@ -33,10 +33,9 @@ class Projectile : public RigidBody {
         bool is_hand_to_hand = false;
         bool is_airweapon = false;
 
-        //??
+        //Parameters
         bool should_explode = false;
         Worm* firing_worm;
-        //???????
         /*
         void set_firing_worm(Worm* iworm){
             this->firing_worm = iworm;
