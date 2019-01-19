@@ -21,7 +21,7 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
         if(0.05*width < i && i < 0.95*width){
             for(int j = 0; j < height; j++){
                 if(j > 1800 && j < 1800 + (2+ qSin((double)i/30))*20){
-                    this->change_pixel(i,j, Qt::black);     //create the collinding map
+                    this->change_pixel(i,j, Qt::black);     //create the colliding map
                     this->map->setPixelColor(i, j, grasscolor);     //set the color pixel(i,j) to grass color
                 }
                 else if(j > 1800){
