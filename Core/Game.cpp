@@ -40,11 +40,9 @@ void Game::weapon_list()
     banana->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(banana);
     //Bat weapon = 7
-    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
     HandToHand *bat = new HandToHand("Bat", 1, 25, 40, 40, 0, 0);
     weapons.append(bat);
     //Firepunch weapon = 8
-    //QPixmap img7 = QPixmap::fromImage(QImage("://Images/weapons/Bat_right.png").scaled(30,30));
     HandToHand *punchfire = new HandToHand("Firepunch", 1, 7, 70, 50, 0, 0);
     weapons.append(punchfire);
     //Airstrike weapon = 9
@@ -61,7 +59,7 @@ void Game::weapon_list()
     weapons.append(monsterbomb);
     //Armagedon weapon = 11
     QPixmap img11 = QPixmap::fromImage(QImage("://Images/weapons/Meteor_right.png").scaled(30,30));
-    Projectile *arma = new Projectile("Armagedon", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img10);
+    Projectile *arma = new Projectile("Armagedon", 1, 90, 0, false, 0, 100, 100, 5, 0, 0, img11);
     arma->is_airweapon = true;
     arma->set_map(QImage("://Images/weapons/Grenades_collider_right.png").scaled(30,30));
     weapons.append(arma);
@@ -299,8 +297,8 @@ bool Game::gameIteration(double dt){
     QVector<int> deleteElements = QVector<int>();
 
     for (int i=0; i<projectiles.size(); i++) {
+        projectiles[i]->sprite->show();
         if(projectiles[i]->change_delay(dt) || projectiles[i]->should_explode){
-            projectiles[i]->sprite->show();
             projectiles[i]->explode(*ground, *physics_engine, projectiles, worms, barrels);
 
             QGraphicsPixmapItem* explosion_image = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/weapons/Explosion.png").scaled(64,64)));
@@ -321,7 +319,7 @@ bool Game::gameIteration(double dt){
                 deleteElements.append(i);
             }
         }
-        else if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
+        if(projectiles[i]->getY() > this->ground->getHeight() - this->worker->water_height){
             deleteElements.append(i);
 
         }
