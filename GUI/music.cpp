@@ -45,6 +45,7 @@ void Music::playmusic(){
     music->play();
 }
 
+//This runs the background music by adding the songs in a playlist
 void Music::infinitemusic(QList<QString> list){
     playlist = new QMediaPlaylist();
 

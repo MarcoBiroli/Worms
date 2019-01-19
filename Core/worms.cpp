@@ -1,6 +1,6 @@
 #include "worms.h"
 
-#define update_time 0.01 //<- WHAT DOES THIS DO??
+#define update_time 0.01
 
 //Constructors
 Worm::Worm(): RigidBody (), team_number(0), personal_name("")
@@ -112,9 +112,10 @@ bool Worm::isAlive(){
     return true;
 }
 
+//Change worm's health, as well as text displayed.
 void Worm::changeHealth(int dmg) {
     this->health -= dmg;
-    if(!this->isAlive()){
+    if(!this->isAlive()){ // If worm dead, dispaly grave
         this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
         this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }
@@ -123,10 +124,6 @@ void Worm::changeHealth(int dmg) {
     msg.append("Health: ");
     msg.append(QString::number(this->health));
     this->label->setPlainText(msg);
-}
-
-void Worm::wormDeath() { //<- TO BE DELETED???
-    //call animation
 }
 
 bool Worm::damage_taken(){
@@ -204,7 +201,7 @@ void Worm::update_weapon(){
     }
 }
 
-void Worm::pickUpWeapon(int weapon_ID, int iammo) {//<- TO BE DELETED?? SAME THING AS ADD AMMO
+void Worm::pickUpWeapon(int weapon_ID, int iammo) {// AddAmmo used for crates, not this method
     this->ammo[weapon_ID] += iammo;
     this->refresh_label();
 }

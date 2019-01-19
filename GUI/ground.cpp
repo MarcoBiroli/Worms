@@ -12,7 +12,7 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
     this->terraincolor = terraincolor;
     this->grasscolor = grasscolor;
     this->a = a;
-    this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize the variables.
+    this->map = new QImage(width, height, QImage::Format_ARGB32); //Initialize in format ARGB to be able to set to transparent
     this->map->fill(Qt::white);
     this->set_map(*this->map);
     this->map->fill(QColor(0, 0, 0, 0));
@@ -21,8 +21,8 @@ Ground::Ground(QApplication* a, const int width, const int height, QColor terrai
         if(0.05*width < i && i < 0.95*width){
             for(int j = 0; j < height; j++){
                 if(j > 1800 && j < 1800 + (2+ qSin((double)i/30))*20){
-                    this->change_pixel(i,j, Qt::black);
-                    this->map->setPixelColor(i, j, grasscolor);
+                    this->change_pixel(i,j, Qt::black);     //create the colliding map
+                    this->map->setPixelColor(i, j, grasscolor);     //set the color pixel(i,j) to grass color
                 }
                 else if(j > 1800){
                     this->change_pixel(i,j, Qt::black);
@@ -289,8 +289,8 @@ void Ground::randomize3()
 
 void Ground::delete_ground(int x, int y){ //This deletes the ground at one point of coordinate (x,y).
     if(this->get_map().pixelColor(x,y) == Qt::black){
-        this->change_pixel(x, y, Qt::white);
-        this->map->setPixel(x, y, qRgba(255,255,255,0));
+        this->change_pixel(x, y, Qt::white);    //delete the collinding ground (i.e set the white)
+        this->map->setPixel(x, y, qRgba(255,255,255,0));    //set pixels to transparent
     }
 }
 

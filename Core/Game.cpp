@@ -84,16 +84,16 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
 
     //Levels
     if (number == 1) { //Easy
-        QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));
-        scene -> addItem(background);
-        ground = new Ground(a, ground_size_x, ground_size_y, terrain_g, grass_green);
+        QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/morning_mountains.png").scaled(ground_size_x,ground_size_y)));  //initialise the background
+        scene -> addItem(background);    //add to the scene
+        ground = new Ground(a, ground_size_x, ground_size_y, terrain_g, grass_green);    //initialize the ground
         worker->color = water_blue;
     }
     if (number == 2){ //Medium
         QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("://Images/grounds/sunset_mountains.png").scaled(ground_size_x,ground_size_y)));
         scene -> addItem(background);
         ground = new Ground(a, ground_size_x, ground_size_y, terrain_brown, grass_green);
-        ground->randomize2();
+        ground->randomize2();    //randomize the ground
         worker->color = water_sun;
     }
     if (number == 3){//Hard

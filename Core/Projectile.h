@@ -66,8 +66,8 @@ class Projectile : public RigidBody {
         double delay;
         double explosion_radius;
         double damage;
-        std::string weapon_name; // <- TO BE DELETED SAME THING AS NAME!!!
-        int weapon_id; // <- TO BE DELETED NOT IMPORTANT! !!!
+        std::string weapon_name; // <- TO BE DELETED SAME THING AS NAME
+        int weapon_id; // <- TO BE DELETED NOT IMPORTANT
 };
 #endif // PROJECTILE_H
 

@@ -46,7 +46,7 @@ Projectile* Projectile::clone() {
 }
 
 
-//WHAT DOES IT DO???
+//On collision, projectile explodes if it should explode on impact. Otherwise no
 bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
@@ -54,7 +54,6 @@ bool Projectile::on_collision_do(Collider &other)
     };
     return false;
 }
-
 
 // if explosion condition is met (collosion or delay timeout), call this function.
 // the function does the following:
@@ -136,6 +135,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->x = x;
     this->y = y;
 }
+
 
 bool Projectile::change_delay(double dt){ //reduce the delay on projectiles every time the game is udpdated, when the delay reaches 0, the projectile explodes
     if(explosion_by_delay){
