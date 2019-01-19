@@ -1,6 +1,6 @@
 #include "worms.h"
 
-#define update_time 0.01 //<- WHAT DOES THIS DO??
+#define update_time 0.01
 
 //Constructors
 Worm::Worm(): RigidBody (), team_number(0), personal_name("")
@@ -112,9 +112,10 @@ bool Worm::isAlive(){
     return true;
 }
 
+//Change worm's health, as well as text displayed.
 void Worm::changeHealth(int dmg) {
     this->health -= dmg;
-    if(!this->isAlive()){
+    if(!this->isAlive()){ // If worm dead, dispaly grave
         this->set_map(QImage("://Images/rigidbodies/grave_collider.png").scaled(25,25));
         this->sprite->setPixmap(QPixmap::fromImage(QImage("://Images/rigidbodies/grave.png").scaled(25,25)));
     }

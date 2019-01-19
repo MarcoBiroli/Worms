@@ -55,7 +55,7 @@ void Projectile::print() {
 }
 
 
-//WHAT DOES IT DO???
+//On collision, projectile explodes if it should explode on impact. Otherwise no
 bool Projectile::on_collision_do(Collider &other)
 {
     if(!this->explosion_by_delay) {
@@ -63,6 +63,10 @@ bool Projectile::on_collision_do(Collider &other)
     };
     return false;
 }
+
+
+
+
 // if explosion condition is met (collosion or delay timeout), call this function.
 // the function does the following:
 // generates damage in explosion_radius, with linear decrease of damage from
@@ -70,9 +74,6 @@ bool Projectile::on_collision_do(Collider &other)
 // destroys all terrain in radius explosion_radius of center of explosion
 // trigger explosion of barrels in the explosion radius
 // destroy the projectile
-
-
-
 void Projectile::explode(Ground &ground, PhysicsEngine &engine, QVector<Projectile*> &projectiles, QVector<Worm*> &worms, QVector<Barrel*> &barrels) {
     //sets sound effects
     Music explosion;
@@ -148,7 +149,7 @@ void Projectile::set_inital_position(double x, double y) {
     this->y = y;
 }
 
-//????WHAT DOES IT DO???
+//reduce time left before explosion of delay projectiles. If no time left, return true.
 bool Projectile::change_delay(double dt){
     if(explosion_by_delay){
         delay -= dt;
