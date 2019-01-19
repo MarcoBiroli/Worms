@@ -10,8 +10,8 @@
 class PhysicsEngine{
     private:
 
-        QMap<int, RigidBody*> rigidbodies = QMap<int, RigidBody*>(); //map of rigidbodies
-        QMap<int, Collider*> colliders = QMap<int, Collider*>(); //map of colliders that are not rigidbodies
+        QMap<int, RigidBody*> rigidbodies; //map of rigidbodies
+        QMap<int, Collider*> colliders; //map of colliders that are not rigidbodies
         QPair<double, double> general_force = QPair<double, double>(0, 0); //force (Fx, Fy)
     public:
         //Constructors
