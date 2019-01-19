@@ -1,4 +1,7 @@
 #include "music.h"
+#include <stdio.h>      /* printf, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
 
 
 void Music::backgroundmusic(QString path){
@@ -45,30 +48,33 @@ void Music::playmusic(){
 void Music::infinitemusic(QList<QString> list){
     playlist = new QMediaPlaylist();
 
+    QList<int> newlist = randomshuffle(list);
 
-
-    for (int i = 0; i < list.size(); ++i) {
-        QUrl url = QUrl(list.at(i));
+    for (int i = 0; i < newlist.size(); ++i) {
+        QUrl url = QUrl(list.at(newlist.at(i)));
         playlist->addMedia(url);
     }
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
     musicinf = new QMediaPlayer();
     musicinf->setPlaylist(playlist);
+    musicinf->setVolume(30);
     musicinf->play();
 }
 
-void randomshuffle(QList<QString> list){
-    int size = list.length();
-    int i;
-    int j;
-    for (int x = 0; x < size; ++x){
-        i = rand() % size + 1;
-        j = rand() % size + 1;
-        while (i == j){
-            i = rand() % size + 1;
-            j = rand() % size + 1;
+QList<int> Music::randomshuffle(QList<QString> list){
+    QList<int> already;
+    int x;
+    srand (time(NULL));
+    for (int i = 0; i < list.size(); i++){
+        x = rand()%list.size();
+        srand (time(NULL));
+        while (already.contains(x)){
+            x = rand()%list.size();
         }
-        list.swap(i,j);
+        already.append(x);
     }
+    qDebug() << already;
+    return already;
 }
+

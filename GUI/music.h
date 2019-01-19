@@ -33,6 +33,9 @@ void playmusic();
 void pausemusic();
 
 void infinitemusic(QList<QString> list);
+
+QList<int> randomshuffle(QList<QString> list);
+
 };
 
 #endif // MUSIC_H

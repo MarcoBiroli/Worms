@@ -15,6 +15,7 @@
 #include "help.h"
 #include "finished.h"
 
+/*Main class executes the Game*/
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +37,9 @@ int main(int argc, char *argv[])
     finishmenu->mainwindow = MainMenu;
     //Sound effects
     Music musicplaylist;
-    QList<QString> ListSongs = {"qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
+    QList<QString> ListSongs = {"qrc:/Music/ES_Musique A La Carte 04 - John ahlin.wav",
+                                "qrc:/Music/ES_Ballroom Night 1 - Magnus Ringblom.wav",
+                                "qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav"};
     musicplaylist.infinitemusic(ListSongs);
 
     //game loop

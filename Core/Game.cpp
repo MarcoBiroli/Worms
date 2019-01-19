@@ -80,9 +80,6 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
     view = iview;
     physics_engine = new PhysicsEngine();
 
-    Music music;
-    music.backgroundmusic("qrc:/Music/ES_Sophisticated Gentlemen 2 - Magnus Ringblom.wav");
-
     thread = new QThread;
     worker = new AnimationThread();
     worker->moveToThread(thread);
@@ -158,8 +155,9 @@ Game::Game(QApplication* a, int number, MainWindow * mainwindow, QGraphicsScene*
                     break;
                 }
             }
-            int r_x = qrand() % ((4500 + 1) - 500) + 500;
-            Worm* newWorm = new Worm(team, "Roger", 0, settings->wormsLife, 50, r_x, 1000, worm_image["right"]);//positions are arbitrary
+            int r_x = qrand() % ((4500 + 1) - 500) + 500; //variable to randomize the position of the worms when spawning
+            Worm* newWorm = new Worm(team, "Roger", 0, settings->wormsLife, 50, r_x, 1000, worm_image["right"]);
+
             physics_engine->add_RigidBody(newWorm);
             worms.append(newWorm);
             newWorm->weaponSelect(0);
@@ -273,7 +271,7 @@ bool Game::gameIteration(double dt){
 
 
         int r_2; //r_2 is a random variable that will define the type of crate 50% chance to be a health pack, 50% chance to be an ammo pack with randomized content
-        int amount; //fixed to be 50 for health packs, randomized between 1 and 3
+        int amount; //fixed in the settings for health packs, randomized between 1 and 3 for weapon munitions.
         int rand_x = qrand() % ((4720 + 1) - 250) + 250; //random position for the creation of crates
         QPixmap image;
 
@@ -284,7 +282,7 @@ bool Game::gameIteration(double dt){
             amount = healthcrates;
         }
         else{
-            r_2 = qrand() % ((9 + 1) - 2) + 2;
+            r_2 = qrand() % ((10 + 1) - 2) + 2;
                 if(r_2 ==2){
                 r_2 = 1;
                 }

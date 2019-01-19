@@ -49,7 +49,7 @@
 
 
 
-/*WHAT IS THIS CLASS???????*/ //Megi this is forward declaration.
+/*This is the Game class which constructs a game of worm, takes care of the user inputs and updates the physics of the worm game*/
 
 class CustomView;
 class Game : public QObject{
